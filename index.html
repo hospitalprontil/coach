@@ -197,10 +197,10 @@
         };
 
         async function testDiagnostics() {
-            // Test Render Backend API
+            // Test Render Backend API with 60s timeout for cold start
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 7000);
+                const timeoutId = setTimeout(() => controller.abort(), 60000);
                 const res = await fetch("https://prontil-api.onrender.com/api/gemini", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -210,11 +210,10 @@
                 clearTimeout(timeoutId);
                 apiStatus = 'online';
             } catch(e) {
-                // If it's a 400/500 error, server is up but rejected payload; if network error, offline/sleeping
                 if (e.name === 'AbortError') {
                     apiStatus = 'offline';
                 } else {
-                    apiStatus = 'online'; // Server responded (even if error)
+                    apiStatus = 'online'; // Respondeu (mesmo com erro de payload)
                 }
             }
             updateDiagnosticBadges();
@@ -308,7 +307,6 @@
                 </button>
             </div>
         </div>
-        <!-- Status Bar inside Header -->
         <div class="max-w-md mx-auto flex items-center justify-between mt-2 pt-2 border-t border-slate-800/60">
             <div id="diag-firebase" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 flex items-center">
                 <span class="w-2 h-2 rounded-full bg-slate-500 inline-block mr-1"></span> Firebase: Verificando...
@@ -322,7 +320,6 @@
     <main class="max-w-md mx-auto w-full flex-1 flex flex-col">
         
         <section id="auth-view" class="flex-1 flex flex-col items-center justify-center p-6 space-y-6 bg-slate-950">
-            <!-- Diagnostic Badges on Auth Screen -->
             <div class="w-full flex justify-between items-center bg-slate-900/80 border border-slate-800 p-2.5 rounded-xl">
                 <div id="diag-firebase" class="text-[10px] px-2 py-1 rounded-full bg-slate-800 text-slate-300 flex items-center">
                     <span class="w-2 h-2 rounded-full bg-slate-400 inline-block mr-1"></span> Firebase: Checando...
@@ -333,8 +330,7 @@
             </div>
 
             <script>
-                // Run diagnostic update on DOM load
-                setTimeout(updateDiagnosticBadges, 300);
+                setTimeout(updateDiagnosticBadges, 400);
             </script>
 
             <div class="text-center space-y-2">
@@ -801,7 +797,12 @@
                 }
             } catch(e) {
                 hideLoading();
-                showToast("Erro ao fazer login. Verifique os dados ou use Modo Visitante.", 'error');
+                showToast("Erro ao fazer login. Entrando em modo local por segurança...", 'error');
+                window.appState.useLocal = true;
+                const res = await window.localAuthSession.login(email, pass);
+                window.appState.user = res.user;
+                window.appState.mockEmail = email;
+                await loadUserProfile();
             }
         }
 
@@ -810,7 +811,7 @@
             const pass = document.getElementById('auth-password').value;
             if(!email || pass.length < 6) return showToast('Email válido e senha > 6 chars', 'error');
             
-            showLoading("Criando perfil seguro no Firebase...");
+            showLoading("Criando perfil seguro...");
             try {
                 if (window.appState.useLocal || !auth) {
                     const res = await window.localAuthSession.register(email, pass);
@@ -824,7 +825,11 @@
                 }
             } catch(e) {
                 hideLoading();
-                showToast("Erro ao criar conta no Firebase. Tente o Modo Visitante.", 'error');
+                window.appState.useLocal = true;
+                const res = await window.localAuthSession.register(email, pass);
+                window.appState.user = res.user;
+                window.appState.mockEmail = email;
+                await loadUserProfile();
             }
         }
 
@@ -832,20 +837,9 @@
             showLoading("Entrando no Modo Visitante...");
             window.appState.mockEmail = "visitante.teste@calistenia.ai";
             try {
-                if (!window.appState.useLocal && auth) {
-                    try {
-                        const res = await auth.signInAnonymously();
-                        window.appState.user = res.user;
-                    } catch(err) {
-                        const res = await window.localAuthSession.anonymous();
-                        window.appState.user = res.user;
-                        window.appState.useLocal = true;
-                    }
-                } else {
-                    const res = await window.localAuthSession.anonymous();
-                    window.appState.user = res.user;
-                    window.appState.useLocal = true;
-                }
+                window.appState.useLocal = true;
+                const res = await window.localAuthSession.anonymous();
+                window.appState.user = res.user;
                 showToast("Modo Visitante ativado com sucesso!");
                 await loadUserProfile();
             } catch(e) {
@@ -882,7 +876,6 @@
                     showView('onboarding-view');
                 }
             } catch(e) {
-                showToast("Erro ao carregar perfil", "error");
                 showView('onboarding-view');
             }
             hideLoading();
@@ -890,21 +883,26 @@
 
         async function callGeminiCoach(prompt, schema) {
             try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s for cold start
+                
                 const response = await fetch(BACKEND_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, schema })
+                    body: JSON.stringify({ prompt, schema }),
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
                 
                 if (response.ok) {
                     const data = await response.json();
                     return data;
                 }
             } catch (e) {
-                console.warn("Backend Render em cold start ou offline. Usando gerador inteligente offline...", e);
+                console.warn("API Render em cold start ou indisponível. Usando gerador inteligente offline...", e);
             }
             
-            // Offline fallback intelligent workout generator
+            // Fallback inteligente offline
             return {
                 workoutName: "Circuito Calistenia Adaptado (IA)",
                 focus: "Força e Condicionamento",
@@ -1185,7 +1183,7 @@
             const notes = document.getElementById('pw-notes').value;
 
             document.getElementById('post-workout-modal').classList.add('hidden');
-            showLoading("I.A. gerando o próximo treino baseado no seu feedback via API...");
+            showLoading("I.A. gerando o próximo treino...");
 
             const user = window.appState.user;
             const workoutRecord = {
@@ -1209,7 +1207,7 @@
                 window.appState.nextWorkout = nextWorkout;
                 
                 hideLoading();
-                showToast("Treino seguinte gerado com sucesso pela I.A.!");
+                showToast("Treino seguinte gerado com sucesso!");
                 renderDashboard();
                 switchTab('dashboard');
             } catch (e) {
