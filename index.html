@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica</title>
+    <title>AI Coach - Calistenia Dinâmica v7.0</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -71,10 +71,10 @@
                     <i class="fas fa-exclamation-triangle text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-black text-white mb-2">Atenção!</h3>
-                <p class="text-sm text-slate-300 mb-6 font-medium leading-relaxed">Você tem certeza que deseja deletar todo o seu progresso e reiniciar o plano? Esta ação é irreversível.</p>
+                <p class="text-sm text-slate-300 mb-6 font-medium leading-relaxed">Você tem certeza que deseja deletar todo o seu progresso, histórico de treinos e reiniciar o plano? Esta ação é irreversível.</p>
                 <div class="flex gap-3">
                     <button onclick="closeConfirm()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition-colors">Cancelar</button>
-                    <button id="btn-final-confirm" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition-colors shadow-[0_0_15px_rgba(220,38,38,0.3)]">Sim, Deletar</button>
+                    <button id="btn-final-confirm" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition-colors shadow-[0_0_15px_rgba(220,38,38,0.3)]">Sim, Deletar Tudo</button>
                 </div>
             </div>
         </div>
@@ -93,8 +93,8 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v6.0</span></h1>
-            <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v7.0</span></h1>
+            <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A. 1 a 1</p>
         </div>
 
         <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden">
@@ -191,7 +191,7 @@
                 <div>
                     <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Completo (Texto Livre)</label>
                     <textarea id="ob-goal" rows="4" required placeholder="Descreva seu momento atual e onde quer chegar. Ex: Quero emagrecer e ganhar força, mas tenho dor no joelho. Quero treinar para conseguir fazer barra fixa..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-xl px-3 py-3 text-sm text-white resize-none shadow-inner"></textarea>
-                    <p class="text-[9px] text-slate-500 mt-1">A I.A. vai ler este texto para construir a melhor estratégia e a duração (semanas) exata para você.</p>
+                    <p class="text-[9px] text-slate-500 mt-1">A I.A. vai ler este texto para criar o primeiro treino personalizado do seu ciclo.</p>
                 </div>
             </div>
 
@@ -224,7 +224,7 @@
             </div>
 
             <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg uppercase tracking-widest mt-4">
-                Gerar Plano I.A. <i class="fas fa-magic ml-2"></i>
+                Gerar 1º Treino I.A. <i class="fas fa-magic ml-2"></i>
             </button>
         </form>
     </div>
@@ -244,7 +244,7 @@
         <!-- Abas de Navegação -->
         <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
             <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo</button>
-            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Plano Completo</button>
+            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Sequência I.A.</button>
             <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
             <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
         </div>
@@ -258,22 +258,13 @@
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A.</span>
-                    <!-- Removido line-clamp-3 para permitir leitura completa -->
                     <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10">...</p>
-                    
-                    <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center relative z-10">
-                        <div>
-                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Treinos Restantes</span>
-                            <span id="dash-progress" class="text-white font-black text-sm">--</span>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Último Feedback da IA -->
                 <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-2xl relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
-                    <!-- Sem line-clamp -->
                     <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
@@ -283,7 +274,7 @@
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <span class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">A Seguir</span>
+                                <span class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">Treino Atual</span>
                                 <h3 id="dash-nw-title" class="text-xl font-black text-white mt-2 mb-1">--</h3>
                                 <p id="dash-nw-focus" class="text-sm text-brand-400 font-medium">--</p>
                             </div>
@@ -292,7 +283,6 @@
                                 <span class="text-[9px] text-slate-500 font-bold uppercase">Min</span>
                             </div>
                         </div>
-                        <!-- Sem line-clamp -->
                         <p id="dash-nw-desc" class="text-xs text-slate-400 mb-5 leading-relaxed">...</p>
                         <button onclick="startWorkout()" class="w-full bg-white text-dark-950 hover:bg-slate-200 font-black py-4 rounded-xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
                             <i class="fas fa-play"></i> INICIAR TREINO
@@ -303,19 +293,19 @@
                 <!-- Reset Plan Button -->
                 <div class="pt-6 border-t border-slate-900/50 flex justify-center">
                     <button onclick="openConfirmModal()" class="text-xs font-bold text-red-500/60 hover:text-red-400 uppercase tracking-widest flex items-center gap-2 transition-colors">
-                        <i class="fas fa-trash-alt"></i> Reiniciar Plano de Treinos
+                        <i class="fas fa-trash-alt"></i> Reiniciar Plano e Apagar Histórico
                     </button>
                 </div>
             </div>
 
-            <!-- Tab: Calendar -->
+            <!-- Tab: Calendar / Sequência -->
             <div id="tab-calendar" class="space-y-4 hidden animate-fade-in pb-10">
                 <div class="flex items-center justify-between px-1 mb-2">
-                    <h2 class="text-lg font-black text-white">Cronograma I.A.</h2>
+                    <h2 class="text-lg font-black text-white">Sequência de Treinos</h2>
                     <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold" id="cal-count">0 Treinos</span>
                 </div>
                 <div id="calendar-list" class="space-y-4">
-                    <!-- Cards de treino preenchidos via JS -->
+                    <!-- Cards preenchidos via JS -->
                 </div>
             </div>
 
@@ -337,6 +327,20 @@
                     <h3 class="font-bold text-white text-sm uppercase tracking-wider mb-4"><i class="fas fa-fire text-orange-400 mr-2"></i>Gordura Corporal (%)</h3>
                     <div class="w-full h-48 bg-dark-950 rounded-xl border border-slate-800 p-2 relative">
                         <canvas id="chart-bf"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl">
+                    <h3 class="font-bold text-white text-sm uppercase tracking-wider mb-4"><i class="fas fa-heartbeat text-red-400 mr-2"></i>Frequência Cardíaca (BPM)</h3>
+                    <div class="w-full h-48 bg-dark-950 rounded-xl border border-slate-800 p-2 relative">
+                        <canvas id="chart-hr"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl">
+                    <h3 class="font-bold text-white text-sm uppercase tracking-wider mb-4"><i class="fas fa-fire-alt text-amber-400 mr-2"></i>Gasto Calórico (kcal)</h3>
+                    <div class="w-full h-48 bg-dark-950 rounded-xl border border-slate-800 p-2 relative">
+                        <canvas id="chart-kcal"></canvas>
                     </div>
                 </div>
                 
@@ -387,14 +391,6 @@
                         <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Apoie os antebraços e as pontas dos pés no chão. Mantenha o corpo perfeitamente reto, sem deixar o quadril cair ou subir demais. Respire fundo.</p>
                         <p class="text-[10px] text-amber-400 bg-amber-900/20 p-2 rounded-lg border border-amber-500/20"><strong>Variações:</strong> Prancha Alta (braços esticados), Prancha Lateral (Foco oblíquos).</p>
                     </div>
-                    
-                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
-                        <div class="absolute left-0 top-0 w-1 h-full bg-red-500"></div>
-                        <h3 class="text-white font-bold text-base mb-2">Burpee</h3>
-                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Condicionamento Cardiorrespiratório e Corpo Todo.</p>
-                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Vá da posição em pé para uma prancha, faça uma flexão, puxe as pernas de volta e termine com um salto vertical.</p>
-                        <p class="text-[10px] text-red-400 bg-red-900/20 p-2 rounded-lg border border-red-500/20"><strong>Variações:</strong> Meio-Burpee sem flexão (Iniciante), Sprawl, Burpee com salto alto.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -422,18 +418,15 @@
         </div>
     </div>
 
-    <!-- Wrapper centralizador para telas grandes -->
+    <!-- Timer Screen Wrapper -->
     <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
-        <!-- Container mobileizado -->
         <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
             
-            <!-- Header do Cronômetro -->
             <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-md relative z-20">
                 <div>
                     <p id="timer-workout-name" class="text-xs text-brand-400 font-bold uppercase tracking-wider mb-0.5">--</p>
                     <div class="flex items-center gap-3">
                         <p id="timer-step-counter" class="text-slate-400 text-[10px] font-bold bg-slate-800 px-2 py-0.5 rounded">Passo 0/0</p>
-                        <!-- Novo contador de tempo total -->
                         <p class="text-slate-300 text-[10px] font-bold"><i class="fas fa-clock text-brand-400 mr-1"></i> <span id="timer-total-left">00:00</span> restantes</p>
                     </div>
                 </div>
@@ -442,11 +435,9 @@
                 </button>
             </div>
 
-            <!-- Área Central (Animação) -->
             <div class="flex-1 flex flex-col items-center justify-center p-6 relative overflow-hidden">
                 <div id="timer-bg-pulse" class="absolute inset-0 bg-brand-500/5 transition-colors duration-1000"></div>
 
-                <!-- SVG Ring -->
                 <div class="relative w-64 h-64 flex items-center justify-center z-10 mb-6 mt-4">
                     <svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="46" fill="none" stroke="#1e293b" stroke-width="6" />
@@ -455,36 +446,28 @@
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
                         <span id="timer-time" class="text-6xl font-black text-white tracking-tighter drop-shadow-md mb-2">00:00</span>
-                        <!-- Removido text-overflow, permite wrap se necessário -->
                         <span id="timer-ex-name" class="text-sm font-bold text-slate-300 uppercase w-full leading-tight px-2 text-wrap">PREPARAR</span>
                     </div>
                 </div>
 
-                <!-- Painéis Inferiores (Diretriz e A Seguir) -->
                 <div class="w-full flex flex-col gap-3 z-10">
-                    
-                    <!-- Painel 1: Diretriz (Séries/Reps/Cadência) - Maior Destaque -->
                     <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors">
                         <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-2"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
-                        <!-- Texto sem limites, cresce se necessário -->
                         <span id="timer-round-info" class="text-xl sm:text-2xl font-black text-white w-full text-wrap leading-tight">--/--</span>
                     </div>
 
-                    <!-- Painel 2: A Seguir - Texto completo -->
                     <div class="bg-slate-900 border border-slate-800 w-full p-4 rounded-2xl flex items-center gap-4 shadow-lg">
                         <div id="timer-next-icon" class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0 shadow-inner">
                             <i class="fas fa-forward text-lg"></i>
                         </div>
                         <div class="flex-1 min-w-0">
                             <span class="text-[10px] text-slate-500 font-black uppercase tracking-wider block mb-1">A Seguir</span>
-                            <!-- Sem line clamp, permite quebrar linha se for muito longo -->
                             <p id="timer-next-name" class="text-sm font-bold text-slate-200 leading-snug">--</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Controles Base (Com novo botão de pular) -->
             <div class="p-6 bg-dark-900 border-t border-slate-800 shrink-0 z-20 pb-10 flex gap-3">
                 <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-16 rounded-2xl bg-brand-500 text-white font-black text-lg flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
                     <i class="fas fa-pause"></i> PAUSAR
@@ -503,36 +486,36 @@
                     <i class="fas fa-check"></i>
                 </div>
                 <h2 class="text-3xl font-black text-white">Treino Concluído!</h2>
-                <p class="text-slate-400 mt-2 font-medium">Hora de calibrar a Inteligência Artificial para o seu próximo desafio.</p>
+                <p class="text-slate-400 mt-2 font-medium">Informe suas métricas para a I.A. gerar o seu próximo treino.</p>
             </div>
 
             <div class="space-y-6 max-w-md mx-auto">
-                
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Esforço (0 a 10) <span class="text-red-500">*</span></h3>
-                    <p class="text-xs text-slate-400 mb-4">Quão difícil foi essa sessão no geral?</p>
-                    
-                    <div class="flex flex-wrap gap-2 justify-center" id="pse-buttons">
-                        <!-- Gerado via JS -->
-                    </div>
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Esforço Geral (0 a 10) <span class="text-red-500">*</span></h3>
+                    <p class="text-xs text-slate-400 mb-4">Quão difícil foi essa sessão?</p>
+                    <div class="flex flex-wrap gap-2 justify-center" id="pse-buttons"></div>
                 </div>
 
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Métricas do Smartwatch (Opcional)</h3>
-                    <div class="grid grid-cols-2 gap-4">
+                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Métricas do Smartwatch</h3>
+                    <div class="grid grid-cols-3 gap-3">
                         <div>
-                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">FC Média (bpm)</label>
-                            <input type="number" id="pw-fc" placeholder="Ex: 135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-3 text-sm text-white focus:border-brand-500 outline-none text-center">
+                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">FC Média</label>
+                            <input type="number" id="pw-fc" placeholder="135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
                         </div>
                         <div>
-                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
-                            <input type="number" id="pw-kcal" placeholder="Ex: 320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-3 text-sm text-white focus:border-brand-500 outline-none text-center">
+                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">FC Máxima</label>
+                            <input type="number" id="pw-fc-max" placeholder="170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
+                        </div>
+                        <div>
+                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
+                            <input type="number" id="pw-kcal" placeholder="320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg border-l-4 border-l-brand-500">
-                    <h3 class="text-sm font-bold text-brand-400 uppercase tracking-wider mb-4"><i class="fas fa-robot mr-2"></i>Calibrar Próxima Sessão</h3>
+                    <h3 class="text-sm font-bold text-brand-400 uppercase tracking-wider mb-4"><i class="fas fa-robot mr-2"></i>Calibrar Próximo Treino</h3>
                     
                     <div class="grid grid-cols-2 gap-4 mb-4">
                         <div>
@@ -545,43 +528,41 @@
                             </select>
                         </div>
                         <div>
-                            <label class="text-[10px] text-brand-400 font-bold uppercase block mb-1">Tempo Livre? (min)</label>
-                            <!-- Ampliado para 20 a 90 minutos -->
+                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Tempo Livre? (min)</label>
                             <select id="pw-next-mins" class="w-full bg-dark-950 border border-brand-500/50 rounded-xl px-2 py-3 text-sm text-white font-bold outline-none custom-scrollbar text-center shadow-[0_0_10px_rgba(6,182,212,0.1)]">
+                                <!-- Preenchido dinamicamente (20 a 90 min) -->
                             </select>
                         </div>
                     </div>
 
                     <div>
-                        <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Preferência de Exercícios</label>
+                        <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Preferência para o Próximo</label>
                         <select id="pw-pref" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-3 text-sm text-white font-bold outline-none custom-scrollbar">
-                            <option value="Manter estrutura base, ajustando intensidade">Manter mesma estrutura</option>
-                            <option value="Variar seleção de exercícios completamente">Quero variar tudo</option>
+                            <option value="Manter progressão, aumentando levemente o estímulo">Progressão contínua</option>
+                            <option value="Variar exercícios mantendo o foco">Variar exercícios</option>
                             <option value="Focar em membros inferiores / pernas">Focar em Pernas</option>
                             <option value="Focar em membros superiores / braços">Focar em Braços</option>
                             <option value="Focar em core e abdômen">Focar em Core/Abdômen</option>
                         </select>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <div class="fixed bottom-0 left-0 w-full p-4 bg-dark-950 border-t border-slate-800 z-10 flex justify-center">
             <div class="w-full max-w-md">
                 <button id="btn-save-workout" onclick="finishWorkoutFlow()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                    Salvar e Consultar I.A.
+                    Gerar Próximo Treino com I.A.
                 </button>
             </div>
         </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Cole suas configurações AQUI!
         const firebaseConfig = {
             apiKey: "AIzaSyDLkxm9TuHD7_59V3VoA8VO1qFfJIejuEA",
             authDomain: "coach-6e340.firebaseapp.com",
@@ -596,26 +577,22 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // A URL da sua API no Render (Sua integração direta)
         const BACKEND_API_URL = "https://coach-backend-97uw.onrender.com/api/gemini";
 
-        // --- ESTADO GLOBAL ---
         let currentUser = null;
         let userData = null;
         let currentPlan = null; 
-        let chartWeight, chartBf;
+        let chartWeight, chartBf, chartHr, chartKcal;
         let isSignupMode = false;
         
-        // Timer
         let timerInterval;
         let isPaused = false;
         let currentWorkoutQueue = [];
         let currentQueueIndex = 0;
         let timeLeft = 0;
-        let totalWorkoutTimeLeft = 0; // Novo contador total
+        let totalWorkoutTimeLeft = 0;
         let selectedPseValue = null;
 
-        // Utilitários UI
         const $ = id => document.getElementById(id);
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
@@ -639,7 +616,7 @@
         window.closeConfirm = () => hide('confirm-modal');
         $('btn-final-confirm').addEventListener('click', async () => {
             closeConfirm();
-            await resetPlan();
+            await resetPlanAndHistory();
         });
 
         function showLoading(text, sub = "") {
@@ -674,7 +651,6 @@
             }
         }
 
-        // Sistema de Abas (Com nova aba Biblioteca)
         window.switchTab = (tabName) => {
             ['overview', 'calendar', 'progress', 'library'].forEach(t => {
                 hide(`tab-${t}`);
@@ -691,8 +667,7 @@
             if (tabName === 'calendar') { renderCalendar(); }
         };
 
-        // --- INTEGRAÇÃO COM BACKEND NO RENDER ---
-        async function callGemini(prompt, isRetry = false) {
+        async function callGemini(prompt) {
             updateBadge('api', 'loading');
             
             const schema = {
@@ -700,38 +675,35 @@
                 properties: {
                     macrocycleSummary: { type: "string" },
                     coachFeedback: { type: "string" },
-                    workouts: {
-                        type: "array",
-                        items: {
-                            type: "object",
-                            properties: {
-                                id: { type: "string" },
-                                name: { type: "string" },
-                                focus: { type: "string" },
-                                isCompleted: { type: "boolean" },
-                                estimatedMinutes: { type: "integer" },
-                                queue: {
-                                    type: "array",
-                                    items: {
-                                        type: "object",
-                                        properties: {
-                                            type: { type: "string", enum: ["work", "rest"] },
-                                            name: { type: "string" },
-                                            duration: { type: "integer" },
-                                            roundInfo: { type: "string" }
-                                        },
-                                        required: ["type", "name", "duration"]
-                                    }
+                    workout: {
+                        type: "object",
+                        properties: {
+                            id: { type: "string" },
+                            name: { type: "string" },
+                            focus: { type: "string" },
+                            isCompleted: { type: "boolean" },
+                            estimatedMinutes: { type: "integer" },
+                            queue: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        type: { type: "string", enum: ["work", "rest"] },
+                                        name: { type: "string" },
+                                        duration: { type: "integer" },
+                                        roundInfo: { type: "string" }
+                                    },
+                                    required: ["type", "name", "duration"]
                                 }
                             }
-                        }
+                        },
+                        required: ["name", "focus", "estimatedMinutes", "queue"]
                     }
                 },
-                required: ["macrocycleSummary", "workouts"]
+                required: ["macrocycleSummary", "workout"]
             };
 
             try {
-                // Timeout de 60s (Para o Cold Start do Render plano Gratuito)
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -751,12 +723,11 @@
                 return data;
 
             } catch (err) {
-                updateBadge('api', 'error', `Falha de conexão com a API no Render: ${err.message}. Certifique-se de que o backend está rodando.`);
+                updateBadge('api', 'error', `Falha de conexão com a API no Render: ${err.message}.`);
                 throw new Error("O servidor falhou ao processar a requisição da I.A.");
             }
         }
 
-        // --- AUTENTICAÇÃO (100% NUVEM FIREBASE) ---
         $('tab-login').addEventListener('click', () => {
             isSignupMode = false;
             $('signup-fields').classList.add('hidden');
@@ -807,7 +778,6 @@
                 case 'auth/invalid-email': return 'Formato de e-mail inválido.';
                 case 'auth/weak-password': return 'A senha deve ter pelo menos 6 caracteres.';
                 case 'auth/invalid-credential': return 'E-mail ou senha incorretos.';
-                case 'auth/operation-not-allowed': return 'Autenticação por E-mail/Senha não está ativada no seu console do Firebase.';
                 default: return 'Falha na autenticação: ' + code;
             }
         }
@@ -850,11 +820,11 @@
             } catch (err) {
                 hideLoading();
                 updateBadge('firebase', 'error', err.message);
-                window.showAlert("Erro de Conexão", "Não foi possível carregar dados do Firebase. Verifique as regras do Firestore.");
+                window.showAlert("Erro de Conexão", "Não foi possível carregar dados do Firebase.");
             }
         }
 
-        // --- GERAÇÃO DE PLANO & ONBOARDING ---
+        // Onboarding: Gera APENAS O PRIMEIRO TREINO
         $('onboarding-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -870,28 +840,33 @@
                 mins: $('ob-mins').value
             };
 
-            showLoading("I.A. Criando Estrutura...", "Analisando perfil e criando planejamento realista. (Render pode demorar até 40s para acordar).");
+            showLoading("I.A. Criando o 1º Treino...", "Analisando seu perfil para gerar a sessão de calistenia ideal.");
             
             const prompt = `Atue como Coach Sênior de Calistenia. 
             ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bf}%, BF Meta: ${profile.targetBf}%.
-            TEXTO DO OBJETIVO: "${profile.goal}".
+            OBJETIVO: "${profile.goal}".
             DISPONIBILIDADE: ${profile.days} dias/semana, ${profile.mins} min/treino.
             
             TAREFAS OBRIGATÓRIAS:
-            1. Defina a duração total do plano (ex: 4 semanas, 8 semanas) baseada no texto do objetivo. Se o aluno quiser perder muito peso ou ganhar força extrema, o plano deve ser mais longo e gerar MAIS treinos.
-            2. 'macrocycleSummary': Escreva sua análise tática detalhada e o cronograma.
-            3. 'workouts': Gere o plano completo de treinos para atender essa jornada.
-            4. REGRAS DA QUEUE: O item 0 DEVE SER Aquecimento (type: rest, duration: 120, roundInfo: 'Preparar'). O último item DEVE SER Volta à calma (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido claramente (Ex: '4x15', '30s MÁXIMO').`;
+            1. 'macrocycleSummary': Escreva sua análise tática inicial e diretriz geral para alcançar a meta.
+            2. 'workout': Crie APENAS O PRIMEIRO TREINO personalizado para iniciar a jornada.
+            3. REGRAS DA QUEUE: O item 0 DEVE SER Aquecimento (type: rest, duration: 120, roundInfo: 'Preparar'). O último item DEVE SER Volta à calma (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido claramente (Ex: '4x15', '30s MÁXIMO').`;
 
             try {
-                const generatedPlan = await callGemini(prompt);
+                const resData = await callGemini(prompt);
                 
-                if(generatedPlan.workouts) {
-                    generatedPlan.workouts.forEach((w, i) => w.id = `w_${Date.now()}_${i}`);
+                const firstWorkout = resData.workout;
+                if(firstWorkout) {
+                    firstWorkout.id = `w_${Date.now()}_0`;
+                    firstWorkout.isCompleted = false;
                 }
 
                 userData = profile;
-                currentPlan = generatedPlan;
+                currentPlan = {
+                    macrocycleSummary: resData.macrocycleSummary || "Início da jornada de calistenia personalizada.",
+                    coachFeedback: "Bem-vindo ao seu AI Coach! Este é o seu primeiro treino calibrado.",
+                    workouts: [firstWorkout]
+                };
                 
                 await saveFullState();
                 
@@ -920,18 +895,28 @@
                 }, { merge: true });
             } catch(e) {
                 console.error("Save state error", e);
-                throw new Error("Erro ao salvar no banco. Verifique permissões do Firestore.");
+                throw new Error("Erro ao salvar no banco.");
             }
         }
 
-        async function resetPlan() {
-            showLoading("Limpando Banco de Dados...");
+        async function resetPlanAndHistory() {
+            showLoading("Limpando Banco de Dados e Histórico...");
             currentPlan = null;
             try {
+                // Apaga documentos da subcoleção history
+                const historySnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                const delHistory = historySnap.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(delHistory);
+
+                const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
+                const delCheckins = checkinSnap.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(delCheckins);
+
                 await setDoc(doc(db, "users", currentUser.uid), {
                     plan: null,
                     updatedAt: new Date().toISOString()
                 }, { merge: true });
+
                 hideLoading();
                 showScreen('screen-onboarding');
             } catch (e) {
@@ -940,16 +925,12 @@
             }
         }
 
-        // --- DASHBOARD E CALENDÁRIO OTIMIZADOS ---
         function renderDashboard() {
             if (!currentPlan || !currentPlan.workouts) return;
 
-            const total = currentPlan.workouts.length;
-            const completed = currentPlan.workouts.filter(w => w.isCompleted).length;
             const nextWorkout = currentPlan.workouts.find(w => !w.isCompleted);
 
             $('dash-macro').innerText = currentPlan.macrocycleSummary || "Plano adaptativo em andamento.";
-            $('dash-progress').innerText = `${total - completed} Sessões Restantes`;
 
             if (currentPlan.coachFeedback) {
                 show('dash-feedback-container');
@@ -960,7 +941,7 @@
 
             if (nextWorkout) {
                 show('dash-next-workout');
-                $('dash-nw-title').innerText = nextWorkout.name || `Treino ${completed + 1}`;
+                $('dash-nw-title').innerText = nextWorkout.name || "Próxima Sessão";
                 $('dash-nw-focus').innerText = nextWorkout.focus || "Corpo Todo";
                 $('dash-nw-time').innerText = nextWorkout.estimatedMinutes || userData.mins;
                 
@@ -969,7 +950,6 @@
                 $('dash-nw-desc').innerText = `Inclui: ${descList}${wks.length > 4 ? '...' : ''}`;
             } else {
                 hide('dash-next-workout');
-                window.showAlert("Jornada Concluída!", "Você completou 100% deste plano. Hora de gerar uma nova estrutura com a I.A.!");
             }
             
             switchTab('overview');
@@ -981,42 +961,36 @@
             
             if (!currentPlan || !currentPlan.workouts) return;
             
-            $('cal-count').innerText = `${currentPlan.workouts.length} Treinos`;
+            $('cal-count').innerText = `${currentPlan.workouts.length} Sessões`;
 
             currentPlan.workouts.forEach((w, index) => {
                 const isDone = w.isCompleted;
-                const isNext = !isDone && (index === 0 || currentPlan.workouts[index-1].isCompleted);
+                const border = isDone ? 'border-green-500/50' : 'border-brand-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]';
+                const bg = isDone ? 'bg-green-900/10' : 'bg-dark-900';
+                const icon = isDone ? '<i class="fas fa-check-circle text-green-500 text-xl"></i>' : '<span class="text-xs bg-brand-500 text-dark-950 font-black px-2 py-1 rounded">ATUAL</span>';
                 
-                const border = isDone ? 'border-green-500/50' : (isNext ? 'border-brand-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]' : 'border-slate-800');
-                const bg = isDone ? 'bg-green-900/10' : (isNext ? 'bg-dark-900' : 'bg-dark-950 opacity-60');
-                const icon = isDone ? '<i class="fas fa-check-circle text-green-500 text-xl"></i>' : '<i class="fas fa-lock text-slate-600 text-lg"></i>';
-                
-                let detailsHtml = '';
-                // Novo layout vertical para exercícios dentro do card do calendário
-                if(isNext || isDone) {
-                    detailsHtml = `
-                        <div class="w-full mt-3 pt-3 border-t border-slate-800/50 flex flex-col gap-2 pb-1">
-                            ${w.queue.map(q => {
-                                if(q.type === 'rest') return '';
-                                return `
-                                <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                                    <span class="text-xs font-bold text-slate-200 mb-1 sm:mb-0">${q.name}</span>
-                                    <span class="text-[10px] text-brand-400 font-bold bg-brand-900/20 px-2 py-0.5 rounded border border-brand-500/20 self-start sm:self-auto">${q.roundInfo || ''}</span>
-                                </div>`;
-                            }).join('')}
-                        </div>`;
-                }
+                let detailsHtml = `
+                    <div class="w-full mt-3 pt-3 border-t border-slate-800/50 flex flex-col gap-2 pb-1">
+                        ${w.queue.map(q => {
+                            if(q.type === 'rest') return '';
+                            return `
+                            <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                <span class="text-xs font-bold text-slate-200 mb-1 sm:mb-0">${q.name}</span>
+                                <span class="text-[10px] text-brand-400 font-bold bg-brand-900/20 px-2 py-0.5 rounded border border-brand-500/20 self-start sm:self-auto">${q.roundInfo || ''}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>`;
 
                 list.innerHTML += `
                     <div class="rounded-2xl border ${border} ${bg} p-4 transition-all">
                         <div class="flex items-center justify-between">
                             <div>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-slate-500">Treino ${index + 1}</span>
-                                <h4 class="text-sm font-bold text-white mt-0.5">${w.name || 'Sessão'}</h4>
+                                <span class="text-[9px] font-black uppercase tracking-wider text-slate-500">Sessão ${index + 1}</span>
+                                <h4 class="text-sm font-bold text-white mt-0.5">${w.name || 'Treino'}</h4>
                                 <p class="text-[11px] text-brand-400 font-medium">${w.focus || 'Geral'} • ${w.estimatedMinutes || '--'} min</p>
                             </div>
                             <div class="shrink-0 ml-3">
-                                ${isNext ? '<span class="text-xs bg-brand-500 text-dark-950 font-black px-2 py-1 rounded">A SEGUIR</span>' : icon}
+                                ${icon}
                             </div>
                         </div>
                         ${detailsHtml}
@@ -1025,7 +999,6 @@
             });
         }
 
-        // --- TIMER E PROGRESSO DE TREINO ---
         window.startWorkout = () => {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
             if (!nw || !nw.queue) return;
@@ -1034,7 +1007,6 @@
             currentQueueIndex = 0;
             isPaused = false;
             
-            // Calculo Total Inicial
             totalWorkoutTimeLeft = currentWorkoutQueue.reduce((acc, val) => acc + val.duration, 0);
             
             $('timer-workout-name').innerText = nw.name || "Sessão";
@@ -1058,19 +1030,14 @@
             if (isPaused) {
                 btn.innerHTML = '<i class="fas fa-play"></i> RETOMAR';
                 btn.classList.replace('bg-brand-500', 'bg-green-500');
-                btn.classList.replace('shadow-[0_0_20px_rgba(6,182,212,0.3)]', 'shadow-[0_0_20px_rgba(34,197,94,0.3)]');
             } else {
                 btn.innerHTML = '<i class="fas fa-pause"></i> PAUSAR';
                 btn.classList.replace('bg-green-500', 'bg-brand-500');
-                btn.classList.replace('shadow-[0_0_20px_rgba(34,197,94,0.3)]', 'shadow-[0_0_20px_rgba(6,182,212,0.3)]');
             }
         };
 
-        // Função de Pular
         window.skipExercise = () => {
             if (currentQueueIndex >= currentWorkoutQueue.length) return;
-            
-            // Abate o tempo do item atual do total
             totalWorkoutTimeLeft -= timeLeft;
             if(totalWorkoutTimeLeft < 0) totalWorkoutTimeLeft = 0;
             updateTotalTimeUI();
@@ -1109,7 +1076,7 @@
                 ring.setAttribute('stroke', '#f59e0b');
                 bgPulse.className = 'absolute inset-0 bg-amber-500/5 transition-colors duration-1000';
                 roundContainer.className = 'bg-amber-900/20 border border-amber-500/30 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
-                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-2"><i class="fas fa-lungs mr-1"></i> Recuperação</span><span class="text-xl sm:text-2xl font-black text-amber-400 w-full text-wrap leading-tight">${item.roundInfo || 'Recupere o fôlego'}</span>`;
+                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-2"><i class="fas fa-lungs mr-1"></i> Descanso</span><span class="text-xl sm:text-2xl font-black text-amber-400 w-full text-wrap leading-tight">${item.roundInfo || 'Recupere o fôlego'}</span>`;
             } else {
                 ring.setAttribute('stroke', '#06b6d4');
                 bgPulse.className = 'absolute inset-0 bg-brand-500/5 transition-colors duration-1000';
@@ -1121,7 +1088,7 @@
                 $('timer-next-name').innerText = nextItem.name;
                 $('timer-next-icon').innerHTML = nextItem.type === 'rest' ? '<i class="fas fa-bed text-amber-500"></i>' : '<i class="fas fa-dumbbell text-brand-400"></i>';
             } else {
-                $('timer-next-name').innerText = "Treino Finalizado";
+                $('timer-next-name').innerText = "Fim do Treino";
                 $('timer-next-icon').innerHTML = '<i class="fas fa-flag-checkered text-green-500"></i>';
             }
 
@@ -1155,7 +1122,6 @@
             $('timer-ring').style.strokeDashoffset = offset;
         }
 
-        // --- PÓS TREINO & CALIBRAÇÃO I.A. ---
         function buildNextMinsOptions() {
             const sel = $('pw-next-mins');
             sel.innerHTML = '';
@@ -1192,6 +1158,7 @@
             }
         }
 
+        // Pós-treino: Envia métricas e gera o PRÓXIMO TREINO dinamicamente
         window.finishWorkoutFlow = async () => {
             if (selectedPseValue === null) return;
 
@@ -1199,6 +1166,7 @@
             const nextMins = $('pw-next-mins').value;
             const pref = $('pw-pref').value;
             const fc = $('pw-fc').value;
+            const fcMax = $('pw-fc-max').value;
             const kcal = $('pw-kcal').value;
 
             const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
@@ -1210,59 +1178,52 @@
                         date: new Date().toISOString(),
                         workoutName: currentPlan.workouts[nwIndex].name,
                         pse: selectedPseValue,
-                        fc: fc || null,
-                        kcal: kcal || null
+                        fc: fc ? parseFloat(fc) : null,
+                        fcMax: fcMax ? parseFloat(fcMax) : null,
+                        kcal: kcal ? parseFloat(kcal) : null
                     });
                 } catch(e) { console.error("History err", e); }
             }
 
-            const remaining = currentPlan.workouts.filter(w => !w.isCompleted);
+            showLoading("I.A. Analisando e Gerando...", "Processando métricas e calibrando o seu próximo treino personalizado.");
+            
+            const prompt = `Atue como Coach Sênior de Calistenia. 
+            O aluno acabou de concluir o treino. 
+            MÉTRICAS DO TREINO ANTERIOR: Esforço PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'} bpm, FC Máxima ${fcMax||'N/A'} bpm, Calorias ${kcal||'N/A'} kcal.
+            DISPONIBILIDADE PARA O PRÓXIMO: Em ${nextDays} dias, durará exatamente ${nextMins} minutos.
+            PREFERÊNCIA: "${pref}".
+            
+            TAREFAS OBRIGATÓRIAS:
+            1. 'coachFeedback': Avalie detalhadamente o desempenho do treino anterior e explique a estratégia do novo treino.
+            2. 'workout': Crie APENAS O PRÓXIMO TREINO da sequência, recalibrando a intensidade conforme o PSE informado.
+            3. REGRAS DA QUEUE: Item 0 = Aquecimento (120s rest). Último item = Volta à calma (120s rest). Todos os 'work' com 'roundInfo' claro.`;
 
-            if (remaining.length > 0) {
-                showLoading("I.A. Recalibrando Rota...", "Ajustando o plano completo com base no seu Feedback (PSE).");
+            try {
+                const resData = await callGemini(prompt);
                 
-                const prompt = `Treino Concluído! MÉTRICAS: PSE ${selectedPseValue}/10. FC ${fc||'N/A'}.
-                Próximo treino: em ${nextDays} dias, durará exatos ${nextMins} minutos.
-                Preferência: "${pref}".
-                
-                TAREFA DO COACH:
-                1. 'coachFeedback': Avalie o treino que acabou de acontecer (ex: "Bom trabalho mantendo o esforço em 7/10...") e explique brevemente as mudanças que fará.
-                2. Mantenha 'macrocycleSummary'.
-                3. REESCREVA a 'queue' dos treinos PENDENTES. Ajuste volumes e exercícios com base na nota PSE (Se PSE foi 10, facilite. Se foi 4, dificulte).
-                4. OBRIGATÓRIO no queue: 120s Aquecimento no início e 120s Rest no final.
-                
-                PENDENTES RESTANTES:
-                ${JSON.stringify(remaining)}`;
-
-                try {
-                    const adjustData = await callGemini(prompt);
-                    
-                    if (adjustData.workouts) {
-                        let adjIdx = 0;
-                        for(let i=0; i<currentPlan.workouts.length; i++){
-                            if(!currentPlan.workouts[i].isCompleted && adjustData.workouts[adjIdx]) {
-                                currentPlan.workouts[i].queue = adjustData.workouts[adjIdx].queue;
-                                currentPlan.workouts[i].estimatedMinutes = adjustData.workouts[adjIdx].estimatedMinutes;
-                                adjIdx++;
-                            }
-                        }
-                    }
-                    if(adjustData.coachFeedback) currentPlan.coachFeedback = adjustData.coachFeedback;
-                    
-                } catch (err) {
-                    console.error("Erro calibração IA:", err);
-                    window.showAlert("Aviso", "A I.A. não pôde recalibrar agora (Render Offline), mas o treino foi salvo. Tente novamente mais tarde.");
+                const nextWorkout = resData.workout;
+                if(nextWorkout) {
+                    nextWorkout.id = `w_${Date.now()}_${currentPlan.workouts.length}`;
+                    nextWorkout.isCompleted = false;
+                    currentPlan.workouts.push(nextWorkout);
                 }
-            }
 
-            await saveFullState();
-            hideLoading();
-            hide('modal-post-workout');
-            renderDashboard();
-            showScreen('screen-dashboard');
+                if(resData.coachFeedback) {
+                    currentPlan.coachFeedback = resData.coachFeedback;
+                }
+
+                await saveFullState();
+                hideLoading();
+                hide('modal-post-workout');
+                renderDashboard();
+                showScreen('screen-dashboard');
+                
+            } catch (err) {
+                hideLoading();
+                window.showAlert("Erro na I.A.", err.message);
+            }
         };
 
-        // --- CHECK-IN E GRÁFICOS ---
         window.saveCheckin = async () => {
             const w = $('checkin-weight').value;
             const bf = $('checkin-bf').value;
@@ -1292,15 +1253,13 @@
         async function renderCharts() {
             try {
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
-                let data = [];
-                snap.forEach(d => data.push(d.data()));
-                
-                // Ordenação Front-end
-                data.sort((a,b) => new Date(a.date) - new Date(b.date));
+                let checkinData = [];
+                snap.forEach(d => checkinData.push(d.data()));
+                checkinData.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-                const labels = data.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
-                const weights = data.map(d => d.weight);
-                const bfs = data.map(d => d.bf);
+                const labels = checkinData.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
+                const weights = checkinData.map(d => d.weight);
+                const bfs = checkinData.map(d => d.bf);
 
                 const trgW = Array(labels.length).fill(userData.targetWeight);
                 const trgBf = Array(labels.length).fill(userData.targetBf);
@@ -1334,6 +1293,42 @@
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
                 });
 
+                // Gráficos de Histórico (FC e Calorias)
+                const histSnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                let historyData = [];
+                histSnap.forEach(d => historyData.push(d.data()));
+                historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
+
+                const hLabels = historyData.map(h => new Date(h.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
+                const fcMedias = historyData.map(h => h.fc || 0);
+                const fcMaxs = historyData.map(h => h.fcMax || 0);
+                const kcals = historyData.map(h => h.kcal || 0);
+
+                if(chartHr) chartHr.destroy();
+                chartHr = new Chart($('chart-hr'), {
+                    type: 'line',
+                    data: {
+                        labels: hLabels,
+                        datasets: [
+                            { label: 'FC Média', data: fcMedias, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true, tension: 0.4 },
+                            { label: 'FC Máxima', data: fcMaxs, borderColor: '#f43f5e', borderDash: [3,3], fill: false, tension: 0.4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } }, scales: { y: { beginAtZero: false } } }
+                });
+
+                if(chartKcal) chartKcal.destroy();
+                chartKcal = new Chart($('chart-kcal'), {
+                    type: 'bar',
+                    data: {
+                        labels: hLabels,
+                        datasets: [
+                            { label: 'Calorias (kcal)', data: kcals, backgroundColor: 'rgba(245, 158, 11, 0.5)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 6 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                });
+
             } catch(e) { console.error("Chart err", e); }
         }
 
@@ -1361,8 +1356,8 @@
                                 <p class="text-[10px] text-slate-400 font-medium">${dt} • PSE: ${h.pse}/10</p>
                             </div>
                             <div class="text-right">
-                                ${h.fc ? `<span class="block text-xs font-bold text-red-400"><i class="fas fa-heartbeat"></i> ${h.fc} bpm</span>` : ''}
-                                ${h.kcal ? `<span class="block text-xs font-bold text-orange-400"><i class="fas fa-fire"></i> ${h.kcal} kcal</span>` : ''}
+                                ${h.fc ? `<span class="block text-xs font-bold text-red-400"><i class="fas fa-heartbeat"></i> ${h.fc}/${h.fcMax||'--'} bpm</span>` : ''}
+                                ${h.kcal ? `<span class="block text-xs font-bold text-amber-400"><i class="fas fa-fire"></i> ${h.kcal} kcal</span>` : ''}
                             </div>
                         </div>`;
                 });
