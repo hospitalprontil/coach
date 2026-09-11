@@ -195,11 +195,10 @@
         };
 
         async function testDiagnostics() {
-            // Test Render Backend API with 60s timeout for cold start
             try {
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 60000);
-                const res = await fetch("https://prontil-api.onrender.com/api/gemini", {
+                const res = await fetch("https://coach-backend-97uw.onrender.com/api/gemini", {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ prompt: "ping", schema: null }),
@@ -232,7 +231,7 @@
                     apiBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500 inline-block mr-1"></span> API Render: Erro';
                     apiBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center cursor-pointer';
                     apiBadge.title = `Detalhe: ${apiErrorMsg}. Verifique CORS ou rota /api/gemini no Render.`;
-                    apiBadge.onclick = () => alert(`Erro na API Render: ${apiErrorMsg}\nVerifique se ativou app.use(cors()) no backend.`);
+                    apiBadge.onclick = () => alert(`Erro na API Render: ${apiErrorMsg}\nVerifique se o backend está acordado e com GEMINI_API_KEY configurada.`);
                 }
             });
 
@@ -708,7 +707,7 @@
     <script>
         document.head.insertAdjacentHTML("beforeend", `<style>.custom-scrollbar::-webkit-scrollbar { width: 4px; } .custom-scrollbar::-webkit-scrollbar-track { background: transparent; } .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }</style>`);
 
-        const BACKEND_API_URL = "https://prontil-api.onrender.com/api/gemini";
+        const BACKEND_API_URL = "https://coach-backend-97uw.onrender.com/api/gemini";
 
         let soundEnabled = true;
         let audioCtx = null;
@@ -908,7 +907,7 @@
                 console.warn("API Render indisponível ou bloqueada por CORS. Usando gerador inteligente offline...", e);
             }
             
-            // Fallback inteligente offline
+            // Fallback inteligente offline caso a API do Render esteja dormindo
             return {
                 workoutName: "Circuito Calistenia Adaptado (IA)",
                 focus: "Força e Condicionamento",
