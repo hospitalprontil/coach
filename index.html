@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v1.1</title>
+    <title>AI Coach - Calistenia Dinâmica v1.2</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -85,26 +85,22 @@
                     <i class="fas fa-rocket text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.1</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.2</span>
                     <h3 class="text-lg font-black text-white">O Que Há de Novo</h3>
                 </div>
             </div>
             <div class="space-y-3 mb-6 text-xs text-slate-300">
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-robot text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Chat I.A. Integrado:</strong> Converse diretamente com seu Coach sobre nutrição, técnica e progressão com contexto de todo o seu histórico.</div>
+                    <i class="fas fa-video text-red-400 mt-0.5"></i>
+                    <div><strong class="text-white">Vídeos Demonstrativos:</strong> Links diretos para vídeos curtos do YouTube integrados na pré-via de cada exercício e na biblioteca.</div>
                 </div>
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-user-md text-purple-400 mt-0.5"></i>
-                    <div><strong class="text-white">Nova Aba Análise Inicial:</strong> Relatório científico do seu biotipo e estratégias biomecânicas personalizadas.</div>
-                </div>
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-video text-green-400 mt-0.5"></i>
-                    <div><strong class="text-white">Vídeos e Guias Detalhados:</strong> Biblioteca e pré-treino com links diretos para demonstrações em vídeo e explicações completas.</div>
+                    <i class="fas fa-brain text-brand-400 mt-0.5"></i>
+                    <div><strong class="text-white">Chat & Análise Avançada:</strong> Interação contínua com histórico cumulativo de treinos e biotipo científico.</div>
                 </div>
             </div>
             <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
-                Explorar Nova Versão <i class="fas fa-arrow-right ml-1"></i>
+                Explorar Versão 1.2 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -121,17 +117,24 @@
             <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v1.1 (Atual)</span>
+                        <span class="font-black text-brand-400 text-sm">v1.2 (Atual)</span>
                         <span class="text-[10px] text-slate-500">Março 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Descrições biomecânicas refinadas e completas na biblioteca e pré-treino.<br>• Links de demonstração em vídeo direto do YouTube para cada exercício.<br>• Chat I.A. interativo e abas isoladas de análise e treinamento.</p>
+                    <p class="text-slate-400 leading-relaxed">• Integração completa de vídeos do YouTube na pré-via de exercícios.<br>• Refinamento visual dos cards e segurança reforçada contra inspeção.<br>• Sincronização otimizada com o Firebase Modular v11.</p>
+                </div>
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-white text-sm">v1.1</span>
+                        <span class="text-[10px] text-slate-500">Março 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba Análise Inicial e Chat I.A. integrado.<br>• Pop-up de boas-vindas com novidades.</p>
                 </div>
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-white text-sm">v1.0</span>
                         <span class="text-[10px] text-slate-500">Fevereiro 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Lançamento oficial na nuvem com Firebase Modular v11 e Render API.<br>• Sistema de cronômetro inteligente com áudio e auto-encerramento.<br>• Gráficos de progresso e segurança avançada.</p>
+                    <p class="text-slate-400 leading-relaxed">• Lançamento oficial na nuvem com Firebase e Render API.</p>
                 </div>
             </div>
         </div>
@@ -149,7 +152,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.1</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.2</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -305,7 +308,7 @@
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.1</span></h1>
+                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.2</span></h1>
                 <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
             </div>
             <button onclick="logOut()" class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
@@ -488,7 +491,7 @@
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Mergulho nas Paralelas (Dips)</h3>
                         <p class="text-xs text-blue-400 font-semibold mb-1">Foco: Tríceps, Peitoral Inferior e Deltoide Anterior.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie-se nas barras paralelas com os braços estendidos. Projete o tronco levemente à frente para focar no peitoral. Flexione os cotovelos descendo o corpo até formar um ângulo de 90 graus nos braços. Empurre com força para cima.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie-se nas paralelas com os braços estendidos. Projete o tronco levemente à frente para focar no peitoral. Flexione os cotovelos descendo o corpo até formar um ângulo de 90 graus nos braços. Empurre com força para cima.</p>
                         <p class="text-xs text-slate-400 mb-3"><strong>Variações:</strong> Iniciante (Dips em banco) / Avançado (Dips com peso adicional).</p>
                         <a href="https://www.youtube.com/results?search_query=como+fazer+mergulho+nas+paralelas+dips" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
                             <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
@@ -848,7 +851,7 @@
             },
             "afundo": {
                 focus: "Quadríceps, Glúteos e Equilíbrio Unipodal.",
-                exec: "Dê um passo largo à frente. Flexione ambos os joelhos simultaneamente, descendo o quadril de forma vertical até o joelho de trás quase tocar o solo. Retorne à posição inicial impulsionando com firmeza a perna da frente.",
+                exec: "Dê um passo largo à frente. Flexione ambos los joelhos simultaneamente, descendo o quadril de forma vertical até o joelho de trás quase tocar o solo. Retorne à posição inicial impulsionando com firmeza a perna da frente.",
                 videoUrl: "https://www.youtube.com/results?search_query=como+fazer+afundo+exercicio"
             },
             "burpee": {
@@ -920,7 +923,7 @@
         window.openChangelog = () => show('modal-changelog');
         window.closeWhatsNew = () => {
             hide('modal-whats-new');
-            localStorage.setItem('seen_whats_new_v1.1', 'true');
+            localStorage.setItem('seen_whats_new_v1.2', 'true');
         };
 
         function showLoading(text, sub = "Coach I.A. está analisando seus dados e histórico na nuvem...") {
@@ -1151,7 +1154,7 @@
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard();
                         showScreen('screen-dashboard');
-                        if (!localStorage.getItem('seen_whats_new_v1.1')) {
+                        if (!localStorage.getItem('seen_whats_new_v1.2')) {
                             show('modal-whats-new');
                         }
                     } else {
@@ -1347,7 +1350,7 @@
                             <p class="text-slate-400 leading-relaxed"><strong class="text-slate-200">Execução:</strong> ${guide.exec}</p>
                         </div>
                         <div class="pt-1">
-                            <a href="${guide.videoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">
+                            <a href="${guide.videoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
                                 <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo Curto
                             </a>
                         </div>
