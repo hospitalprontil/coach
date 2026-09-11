@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v1.0</title>
+    <title>AI Coach - Calistenia Dinâmica v1.1</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -89,7 +89,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v1.0</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v1.1</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -237,7 +237,7 @@
             </div>
 
             <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-sm uppercase tracking-widest mt-2">
-                Avaliar meu perfil e gerar treino de IA <i class="fas fa-brain ml-2"></i>
+                Avaliar meu perfil e gerar treino de ia <i class="fas fa-brain ml-2"></i>
             </button>
         </form>
     </div>
@@ -245,7 +245,7 @@
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v1.0</span></h1>
+                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v1.1</span></h1>
                 <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
             </div>
             <button onclick="logOut()" class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
@@ -254,16 +254,18 @@
         </div>
 
         <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
-            <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo</button>
+            <button onclick="switchTab('analysis')" id="nav-analysis" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Análise Inicial</button>
+            <button onclick="switchTab('training')" id="nav-training" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Treinamento</button>
             <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
             <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
             <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
+            <button onclick="switchTab('chat')" id="nav-chat" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         </div>
 
         <div class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
             
-            <!-- Tab: Overview -->
-            <div id="tab-overview" class="space-y-4 animate-fade-in">
+            <!-- Tab 1: Análise Inicial (Profile & Strategy) -->
+            <div id="tab-analysis" class="space-y-4 animate-fade-in">
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest block mb-2"><i class="fas fa-user-md mr-1"></i> Perfil e Biotipo (Análise Científica)</span>
@@ -278,10 +280,13 @@
 
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A.</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A. (Macro)</span>
                     <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
                 </div>
+            </div>
 
+            <!-- Tab 2: Treinamento (Current Workout) -->
+            <div id="tab-training" class="space-y-4 hidden animate-fade-in">
                 <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
@@ -322,7 +327,7 @@
                 </div>
             </div>
 
-            <!-- Tab: History / Calendar -->
+            <!-- Tab 3: Histórico -->
             <div id="tab-calendar" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-base font-black text-white">Histórico de Sessões</h2>
@@ -331,7 +336,7 @@
                 <div id="calendar-list" class="space-y-3"></div>
             </div>
 
-            <!-- Tab: Progress -->
+            <!-- Tab 4: Progresso -->
             <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <div class="flex justify-between items-center mb-3">
@@ -367,7 +372,7 @@
                 </div>
             </div>
 
-            <!-- Tab: Library (Enriched & Expanded) -->
+            <!-- Tab 5: Biblioteca -->
             <div id="tab-library" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-base font-black text-white">Biblioteca de Exercícios</h2>
@@ -427,17 +432,43 @@
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Burpee Explosivo</h3>
                         <p class="text-xs text-indigo-400 font-semibold mb-1">Foco: Condicionamento Cardiorrespiratório e Potência Global.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Comece em pé, agache e apoie as mãos no chão. Salte com las pernas para trás caindo em posição de prancha. Faça uma flexão completa de braço, traga os pés de volta para perto das mãos em um salto rápido e finalize erguendo-se com um salto vertical estendendo os braços acima da cabeça.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Comece em pé, agache e apoie as mãos no chão. Salte com as pernas para trás caindo em posição de prancha. Faça uma flexão completa de braço, traga os pés de volta para perto das mãos em um salto rápido e finalize erguendo-se com um salto vertical estendendo os braços acima da cabeça.</p>
                         <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Burpee sem flexão e sem salto vertical) / Avançado (Burpee com salto sobre obstáculo).</p>
                     </div>
 
                     <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-teal-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Mountain Climbers (Escalador)</h3>
-                        <p class="text-xs text-teal-400 font-semibold mb-1">Foco: Core, Resistência Aeróbica e Flextores do Quadril.</p>
+                        <p class="text-xs text-teal-400 font-semibold mb-1">Foco: Core, Resistência Aeróbica e Flexores do Quadril.</p>
                         <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Posicione-se em prancha alta com braços estendidos. Alterne a corrida no lugar levando rapidamente o joelho em direção ao peito, mantendo o quadril firme e baixo e os ombros estáveis sobre os punhos.</p>
                         <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Movimento cadenciado e lento) / Avançado (Velocidade máxima com saltos dinâmicos).</p>
                     </div>
+                </div>
+            </div>
+
+            <!-- Tab 6: Chat I.A. -->
+            <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
+                <div class="flex items-center justify-between px-1 mb-1">
+                    <h2 class="text-base font-black text-white">Conversa com o Coach I.A.</h2>
+                    <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Online & Conectado</span>
+                </div>
+                
+                <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl">
+                    <div class="flex gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
+                            <i class="fas fa-robot text-xs"></i>
+                        </div>
+                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
+                            Olá! Sou seu Coach Sênior de Calistenia. Já analisei seu perfil birométrico, suas estratégias de treino e todo o seu histórico. Como posso te orientar hoje em relação à sua evolução, nutrição ou técnica?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <input type="text" id="chat-input" placeholder="Ex: Como posso melhorar minha flexão de braço?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none shadow-inner">
+                    <button onclick="sendChatMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -735,7 +766,7 @@
                 exec: "Agache e apoie as mãos no chão. Salte com as pernas para trás em prancha, faça uma flexão, traga os pés de volta às mãos e finalize erguendo-se com um salto vertical."
             },
             "mountain": {
-                focus: "Core, Resistência Aeróbica e Flextores do Quadril.",
+                focus: "Core, Resistência Aeróbica e Flexores do Quadril.",
                 exec: "Em posição de prancha alta, alterne a corrida no lugar levando rapidamente os joelhos em direção ao peito, mantendo o quadril firme e baixo."
             }
         };
@@ -793,7 +824,7 @@
             await resetPlanAndHistory();
         });
 
-        function showLoading(text, sub = "Coach I.A. está analisando seus dados, perguntas e histórico na nuvem...") {
+        function showLoading(text, sub = "Coach I.A. está analisando seus dados e histórico na nuvem...") {
             $('loading-text').innerText = text;
             $('loading-sub').innerText = sub;
             show('loading-overlay');
@@ -826,16 +857,22 @@
         }
 
         window.switchTab = (tabName) => {
-            ['overview', 'calendar', 'progress', 'library'].forEach(t => {
+            ['analysis', 'training', 'calendar', 'progress', 'library', 'chat'].forEach(t => {
                 hide(`tab-${t}`);
-                $(`nav-${t}`).classList.replace('bg-brand-500/20', 'bg-slate-900');
-                $(`nav-${t}`).classList.replace('text-brand-400', 'text-slate-400');
-                $(`nav-${t}`).classList.replace('border-brand-500/30', 'border-slate-800');
+                const btn = $(`nav-${t}`);
+                if(btn) {
+                    btn.classList.replace('bg-brand-500/20', 'bg-slate-900');
+                    btn.classList.replace('text-brand-400', 'text-slate-400');
+                    btn.classList.replace('border-brand-500/30', 'border-slate-800');
+                }
             });
             show(`tab-${tabName}`);
-            $(`nav-${tabName}`).classList.replace('bg-slate-900', 'bg-brand-500/20');
-            $(`nav-${tabName}`).classList.replace('text-slate-400', 'text-brand-400');
-            $(`nav-${tabName}`).classList.replace('border-slate-800', 'border-brand-500/30');
+            const activeBtn = $(`nav-${tabName}`);
+            if(activeBtn) {
+                activeBtn.classList.replace('bg-slate-900', 'bg-brand-500/20');
+                activeBtn.classList.replace('text-slate-400', 'text-brand-400');
+                activeBtn.classList.replace('border-slate-800', 'border-brand-500/30');
+            }
             
             if (tabName === 'progress') { renderCharts(); }
             if (tabName === 'calendar') { loadHistory(); }
@@ -859,10 +896,10 @@
             }
         }
 
-        async function callGemini(prompt) {
+        async function callGemini(prompt, isChat = false) {
             updateBadge('api', 'loading');
             
-            const schema = {
+            let schema = {
                 type: "object",
                 properties: {
                     userProfileAnalysis: { type: "string" },
@@ -896,8 +933,18 @@
                         required: ["name", "focus", "estimatedMinutes", "queue"]
                     }
                 },
-                required: ["userProfileAnalysis", "planExplanation", "macrocycleSummary", "workout"]
+                required: ["macrocycleSummary", "workout"]
             };
+
+            if (isChat) {
+                schema = {
+                    type: "object",
+                    properties: {
+                        reply: { type: "string" }
+                    },
+                    required: ["reply"]
+                };
+            }
 
             try {
                 const controller = new AbortController();
@@ -1037,7 +1084,7 @@
                 mins: $('ob-mins').value
             };
 
-            showLoading("Coach I.A. Analisando Perfil e Biotipo...", "Interpretando suas respostas físicas, nível de condicionamento e criando o plano biomecânico personalizado...");
+            showLoading("Coach I.A. Analisando Perfil...", "Interpretando suas respostas físicas, biotipo, nível de condicionamento e criando o plano biomecânico personalizado...");
             
             const prompt = `Atue como Coach Sênior de Calistenia e Especialista em Fisiologia do Exercício. 
             ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bf}%, BF Meta: ${profile.targetBf}%.
@@ -1506,7 +1553,7 @@
             hideLoading();
             hide('modal-post-workout');
             renderDashboard();
-            showScreen('screen-dashboard');
+            switchTab('training');
         }
 
         window.saveCheckin = async () => {
@@ -1649,6 +1696,81 @@
                 });
             } catch(e) { console.error("History err", e); }
         }
+
+        window.sendChatMessage = async () => {
+            const input = $('chat-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const chatContainer = $('chat-messages');
+            chatContainer.innerHTML += `
+                <div class="flex gap-2.5 justify-end">
+                    <div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] leading-relaxed shadow">
+                        ${text}
+                    </div>
+                </div>`;
+            input.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            const loadingId = 'typing_' + Date.now();
+            chatContainer.innerHTML += `
+                <div id="${loadingId}" class="flex gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
+                        <i class="fas fa-robot text-xs animate-spin"></i>
+                    </div>
+                    <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-400 italic">
+                        Coach I.A. pensando e consultando seu histórico...
+                    </div>
+                </div>`;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            const historyContext = await getCumulativeHistoryContext();
+            const profileStr = userData ? JSON.stringify(userData) : "Perfil não informado";
+            const strategyStr = currentPlan ? currentPlan.planExplanation : "Estratégia em andamento";
+
+            const prompt = `Atue como Coach Sênior de Calistenia. 
+            DADOS DO ALUNO: ${profileStr}
+            ESTRATÉGIA DO PLANO: ${strategyStr}
+            HISTÓRICO DE TREINOS CUMULATIVO:
+            ${historyContext}
+            
+            MENSAGEM DO ALUNO: "${text}"
+            
+            Responda de forma motivadora, técnica, direta e personalizada, utilizando estritamente os dados reais do aluno acima. Se necessário, forneça dicas práticas de biomecânica ou nutrição.`;
+
+            try {
+                const resData = await callGemini(prompt, true);
+                const reply = resData.reply || "Entendido! Como mais posso te ajudar em sua rotina de treinos?";
+
+                $(loadingId).remove();
+                chatContainer.innerHTML += `
+                    <div class="flex gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
+                            <i class="fas fa-robot text-xs"></i>
+                        </div>
+                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
+                            ${reply}
+                        </div>
+                    </div>`;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            } catch(e) {
+                $(loadingId).remove();
+                chatContainer.innerHTML += `
+                    <div class="flex gap-2.5">
+                        <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0">
+                            <i class="fas fa-exclamation text-xs"></i>
+                        </div>
+                        <div class="bg-dark-950 border border-red-500/30 p-3.5 rounded-2xl text-xs text-red-300 max-w-[80%] leading-relaxed shadow">
+                            Desculpe, ocorreu um erro ao processar sua mensagem. Verifique a conexão com o Render.
+                        </div>
+                    </div>`;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }
+        };
+
+        $('chat-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendChatMessage();
+        });
 
         showScreen('screen-auth');
 
