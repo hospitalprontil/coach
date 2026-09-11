@@ -56,20 +56,18 @@
         let firebaseApp, auth, db, useLocalStorageFallback = false;
         let apiStatus = 'checking'; // 'online', 'offline', 'checking'
         let firebaseStatus = 'checking'; // 'online', 'fallback', 'checking'
+        let apiErrorMsg = '';
+        let fbErrorMsg = '';
 
         try {
-            if (window.location.protocol === 'file:') {
-                useLocalStorageFallback = true;
-                firebaseStatus = 'fallback';
-            } else {
-                firebaseApp = firebase.initializeApp(firebaseConfig);
-                auth = firebase.auth();
-                db = firebase.firestore();
-                firebaseStatus = 'online';
-            }
+            firebaseApp = firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+            firebaseStatus = 'online';
         } catch (e) {
             useLocalStorageFallback = true;
             firebaseStatus = 'fallback';
+            fbErrorMsg = e.message;
         }
 
         window.appState = {
@@ -208,40 +206,48 @@
                     signal: controller.signal
                 });
                 clearTimeout(timeoutId);
-                apiStatus = 'online';
-            } catch(e) {
-                if (e.name === 'AbortError') {
-                    apiStatus = 'offline';
+                if (res.ok) {
+                    apiStatus = 'online';
                 } else {
-                    apiStatus = 'online'; // Respondeu (mesmo com erro de payload)
+                    apiStatus = 'offline';
+                    apiErrorMsg = `HTTP ${res.status}`;
                 }
+            } catch(e) {
+                apiStatus = 'offline';
+                apiErrorMsg = e.message || 'Timeout/CORS';
             }
             updateDiagnosticBadges();
         }
 
         function updateDiagnosticBadges() {
-            const apiBadge = document.getElementById('diag-api');
-            const fbBadge = document.getElementById('diag-firebase');
+            const apiBadges = document.querySelectorAll('#diag-api');
+            const fbBadges = document.querySelectorAll('#diag-firebase');
             
-            if(apiBadge) {
+            apiBadges.forEach(apiBadge => {
                 if(apiStatus === 'online') {
                     apiBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1"></span> API Render: Online';
-                    apiBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center';
+                    apiBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center cursor-pointer';
+                    apiBadge.title = "Conectado ao Render com sucesso";
                 } else {
-                    apiBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1"></span> API Render: Dormindo/Offline';
-                    apiBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center';
+                    apiBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500 inline-block mr-1"></span> API Render: Erro';
+                    apiBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center cursor-pointer';
+                    apiBadge.title = `Detalhe: ${apiErrorMsg}. Verifique CORS ou rota /api/gemini no Render.`;
+                    apiBadge.onclick = () => alert(`Erro na API Render: ${apiErrorMsg}\nVerifique se ativou app.use(cors()) no backend.`);
                 }
-            }
+            });
 
-            if(fbBadge) {
+            fbBadges.forEach(fbBadge => {
                 if(firebaseStatus === 'online') {
                     fbBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1"></span> Firebase: Conectado';
-                    fbBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center';
+                    fbBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center cursor-pointer';
+                    fbBadge.title = "Firebase Cloud conectado";
                 } else {
-                    fbBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-rose-500 inline-block mr-1"></span> Firebase: Modo Local (Fallback)';
-                    fbBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center';
+                    fbBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1"></span> Firebase: Modo Local (Fallback)';
+                    fbBadge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center cursor-pointer';
+                    fbBadge.title = `Domínio não autorizado no Firebase ou falha de rede. Usando armazenamento local.`;
+                    fbBadge.onclick = () => alert(`Aviso Firebase: ${fbErrorMsg}\nAdicione seu domínio nos Authorized Domains do Firebase Console.`);
                 }
-            }
+            });
         }
 
         window.onload = async () => {
@@ -330,7 +336,7 @@
             </div>
 
             <script>
-                setTimeout(updateDiagnosticBadges, 400);
+                setTimeout(updateDiagnosticBadges, 500);
             </script>
 
             <div class="text-center space-y-2">
@@ -797,7 +803,7 @@
                 }
             } catch(e) {
                 hideLoading();
-                showToast("Erro ao fazer login. Entrando em modo local por segurança...", 'error');
+                showToast("Erro Firebase. Entrando em modo local...", 'error');
                 window.appState.useLocal = true;
                 const res = await window.localAuthSession.login(email, pass);
                 window.appState.user = res.user;
@@ -884,7 +890,7 @@
         async function callGeminiCoach(prompt, schema) {
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 45000); // 45s for cold start
+                const timeoutId = setTimeout(() => controller.abort(), 45000);
                 
                 const response = await fetch(BACKEND_API_URL, {
                     method: 'POST',
@@ -899,7 +905,7 @@
                     return data;
                 }
             } catch (e) {
-                console.warn("API Render em cold start ou indisponível. Usando gerador inteligente offline...", e);
+                console.warn("API Render indisponível ou bloqueada por CORS. Usando gerador inteligente offline...", e);
             }
             
             // Fallback inteligente offline
