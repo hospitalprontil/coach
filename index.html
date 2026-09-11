@@ -39,15 +39,6 @@
 </head>
 <body class="min-h-screen font-sans flex flex-col items-center custom-scrollbar">
 
-    <div class="fixed top-2 right-2 z-50 flex gap-2">
-        <div id="badge-firebase" class="flex items-center gap-1.5 bg-dark-900/90 border border-slate-700 px-2.5 py-1 rounded-full text-[10px] font-bold text-slate-400 shadow-lg cursor-help transition-colors">
-            <div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB
-        </div>
-        <div id="badge-api" class="flex items-center gap-1.5 bg-dark-900/90 border border-slate-700 px-2.5 py-1 rounded-full text-[10px] font-bold text-slate-400 shadow-lg cursor-help transition-colors">
-            <div id="dot-api" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.
-        </div>
-    </div>
-
     <div id="alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-dark-800 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform mx-auto" id="alert-box">
             <div class="text-center">
@@ -91,12 +82,12 @@
             </div>
             <div class="space-y-3 mb-6 text-xs text-slate-300">
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-video text-red-400 mt-0.5"></i>
-                    <div><strong class="text-white">Vídeos Demonstrativos:</strong> Links diretos para vídeos curtos do YouTube integrados na pré-via de cada exercício e na biblioteca.</div>
+                    <i class="fas fa-cloud text-brand-400 mt-0.5"></i>
+                    <div><strong class="text-white">Chat Sincronizado na Nuvem:</strong> Todas as conversas com o Coach I.A. agora são salvas e persistidas no banco de dados para consulta a qualquer momento.</div>
                 </div>
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-brain text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Chat & Análise Avançada:</strong> Interação contínua com histórico cumulativo de treinos e biotipo científico.</div>
+                    <i class="fas fa-video text-red-400 mt-0.5"></i>
+                    <div><strong class="text-white">Vídeos Demonstrativos:</strong> Links diretos para vídeos do YouTube integrados na pré-via e na biblioteca.</div>
                 </div>
             </div>
             <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
@@ -120,21 +111,14 @@
                         <span class="font-black text-brand-400 text-sm">v1.2 (Atual)</span>
                         <span class="text-[10px] text-slate-500">Março 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Integração completa de vídeos do YouTube na pré-via de exercícios.<br>• Refinamento visual dos cards e segurança reforçada contra inspeção.<br>• Sincronização otimizada com o Firebase Modular v11.</p>
+                    <p class="text-slate-400 leading-relaxed">• Persistência de chat na nuvem com histórico completo na aba.<br>• Realinhamento dos indicadores de DB e I.A. diretamente nos cabeçalhos da aplicação.<br>• Integração de vídeos do YouTube e refinamentos gerais.</p>
                 </div>
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-white text-sm">v1.1</span>
                         <span class="text-[10px] text-slate-500">Março 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba Análise Inicial e Chat I.A. integrado.<br>• Pop-up de boas-vindas com novidades.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.0</span>
-                        <span class="text-[10px] text-slate-500">Fevereiro 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Lançamento oficial na nuvem com Firebase e Render API.</p>
+                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba Análise Inicial e Chat I.A. integrado.</p>
                 </div>
             </div>
         </div>
@@ -147,6 +131,18 @@
     </div>
 
     <div id="screen-auth" class="w-full max-w-md p-6 mt-10 mx-auto flex flex-col items-center">
+        <div class="w-full flex justify-end mb-2">
+            <div class="flex items-center gap-2 bg-dark-900 border border-slate-800 px-3 py-1.5 rounded-full shadow">
+                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400">
+                    <div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB
+                </div>
+                <span class="text-slate-700">|</span>
+                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400">
+                    <div id="dot-api" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.
+                </div>
+            </div>
+        </div>
+
         <div class="text-center mb-10 relative w-full">
             <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full w-32 h-32 mx-auto"></div>
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
@@ -201,9 +197,17 @@
                 <h2 class="text-2xl font-black text-white">Análise Física</h2>
                 <p class="text-brand-400 text-sm font-medium">Calibração inicial da I.A.</p>
             </div>
-            <button onclick="logOut()" class="text-slate-500 hover:text-slate-300 transition-colors">
-                <i class="fas fa-sign-out-alt text-xl"></i>
-            </button>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
+                    <div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB
+                </div>
+                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
+                    <div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.
+                </div>
+                <button onclick="logOut()" class="text-slate-400 hover:text-white transition-colors ml-1" title="Sair">
+                    <i class="fas fa-sign-out-alt text-lg"></i>
+                </button>
+            </div>
         </div>
 
         <form id="onboarding-form" class="space-y-4 pb-12 w-full">
@@ -306,23 +310,31 @@
     </div>
 
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
-        <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
+        <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.2</span></h1>
-                <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
+                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.2</span></h1>
+                <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[160px]">...</p>
             </div>
-            <button onclick="logOut()" class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
+                    <div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB
+                </div>
+                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
+                    <div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.
+                </div>
+                <button onclick="logOut()" class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors ml-0.5" title="Sair">
+                    <i class="fas fa-sign-out-alt text-xs"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
-            <button onclick="switchTab('analysis')" id="nav-analysis" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Análise Inicial</button>
-            <button onclick="switchTab('training')" id="nav-training" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Treinamento</button>
-            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
-            <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
-            <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
-            <button onclick="switchTab('chat')" id="nav-chat" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
+        <div class="flex px-4 pt-3 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
+            <button onclick="switchTab('analysis')" id="nav-analysis" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Análise Inicial</button>
+            <button onclick="switchTab('training')" id="nav-training" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Treinamento</button>
+            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
+            <button onclick="switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
+            <button onclick="switchTab('library')" id="nav-library" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
+            <button onclick="switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         </div>
 
         <div class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
@@ -533,11 +545,15 @@
                 </div>
             </div>
 
-            <!-- Tab 6: Chat I.A. -->
             <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
                 <div class="flex items-center justify-between px-1 mb-1">
-                    <h2 class="text-base font-black text-white">Conversa com o Coach I.A.</h2>
-                    <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Online & Conectado</span>
+                    <h2 class="text-base font-black text-white">Chat com o Coach I.A.</h2>
+                    <div class="flex items-center gap-2">
+                        <button onclick="clearChatHistory()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg font-bold transition-colors" title="Limpar Histórico do Chat">
+                            <i class="fas fa-trash-alt mr-1"></i> Limpar Chat
+                        </button>
+                        <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Nuvem Ativa</span>
+                    </div>
                 </div>
                 
                 <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl">
@@ -546,7 +562,7 @@
                             <i class="fas fa-robot text-xs"></i>
                         </div>
                         <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                            Olá! Sou seu Coach Sênior de Calistenia. Já analisei seu perfil birométrico, suas estratégias de treino e todo o seu histórico. Como posso te orientar hoje em relação à sua evolução, nutrição ou técnica?
+                            Olá! Carregando histórico da nuvem...
                         </div>
                     </div>
                 </div>
@@ -773,7 +789,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Security restrictions: block context menu and dev tools shortcuts
         document.addEventListener('contextmenu', e => e.preventDefault());
@@ -939,23 +955,13 @@
         }
 
         function updateBadge(system, status, errorMsg = "") {
-            const dot = $(`dot-${system}`);
-            const badge = $(`badge-${system}`);
-            dot.className = 'w-2 h-2 rounded-full';
-            badge.className = 'flex items-center gap-1.5 bg-dark-900/90 border px-2.5 py-1 rounded-full text-[10px] font-bold shadow-lg transition-colors cursor-help';
-            
-            if (status === 'ok') {
-                dot.classList.add('bg-green-500');
-                badge.classList.add('border-green-500/30', 'text-green-400');
-                badge.onclick = null;
-            } else if (status === 'error') {
-                dot.classList.add('bg-red-500');
-                badge.classList.add('border-red-500/30', 'text-red-400');
-                badge.onclick = () => window.showAlert(`Erro no ${system.toUpperCase()}`, errorMsg);
-            } else {
-                dot.classList.add('bg-slate-500', 'animate-pulse');
-                badge.classList.add('border-slate-700', 'text-slate-400');
-            }
+            const dots = document.querySelectorAll(`#dot-${system}`);
+            dots.forEach(dot => {
+                dot.className = 'w-1.5 h-1.5 rounded-full';
+                if (status === 'ok') dot.classList.add('bg-green-500');
+                else if (status === 'error') dot.classList.add('bg-red-500');
+                else dot.classList.add('bg-slate-500', 'animate-pulse');
+            });
         }
 
         window.switchTab = (tabName) => {
@@ -978,6 +984,7 @@
             
             if (tabName === 'progress') { renderCharts(); }
             if (tabName === 'calendar') { loadHistory(); }
+            if (tabName === 'chat') { loadChatHistory(); }
         };
 
         async function getCumulativeHistoryContext() {
@@ -1268,6 +1275,10 @@
                 const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
                 const delCheckins = checkinSnap.docs.map(d => deleteDoc(d.ref));
                 await Promise.all(delCheckins);
+
+                const chatSnap = await getDocs(collection(db, `users/${currentUser.uid}/messages`));
+                const delChat = chatSnap.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(delChat);
 
                 await setDoc(doc(db, "users", currentUser.uid), {
                     plan: null,
@@ -1808,6 +1819,72 @@
             } catch(e) { console.error("History err", e); }
         }
 
+        async function loadChatHistory() {
+            try {
+                const chatContainer = $('chat-messages');
+                const q = query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'));
+                const snap = await getDocs(q);
+                
+                chatContainer.innerHTML = '';
+                if (snap.empty) {
+                    chatContainer.innerHTML = `
+                        <div class="flex gap-2.5">
+                            <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
+                                <i class="fas fa-robot text-xs"></i>
+                            </div>
+                            <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
+                                Olá! Sou seu Coach Sênior de Calistenia. Já analisei seu perfil birométrico, suas estratégias de treino e todo o seu histórico. Como posso te orientar hoje em relação à sua evolução, nutrição ou técnica?
+                            </div>
+                        </div>`;
+                } else {
+                    snap.forEach(docSnap => {
+                        const msg = docSnap.data();
+                        if (msg.role === 'user') {
+                            chatContainer.innerHTML += `
+                                <div class="flex gap-2.5 justify-end">
+                                    <div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] leading-relaxed shadow">
+                                        ${escapeHtml(msg.text)}
+                                    </div>
+                                </div>`;
+                        } else {
+                            chatContainer.innerHTML += `
+                                <div class="flex gap-2.5">
+                                    <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
+                                        <i class="fas fa-robot text-xs"></i>
+                                    </div>
+                                    <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
+                                        ${escapeHtml(msg.text)}
+                                    </div>
+                                </div>`;
+                        }
+                    });
+                }
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            } catch(e) {
+                console.error("Error loading chat history", e);
+            }
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        window.clearChatHistory = async () => {
+            if(!currentUser) return;
+            showLoading("Limpando Histórico...", "Removendo mensagens do chat na nuvem...");
+            try {
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/messages`));
+                const batch = snap.docs.map(d => deleteDoc(d.ref));
+                await Promise.all(batch);
+                hideLoading();
+                loadChatHistory();
+            } catch(e) {
+                hideLoading();
+                window.showAlert("Erro", "Não foi possível limpar o histórico do chat.");
+            }
+        };
+
         window.sendChatMessage = async () => {
             const input = $('chat-input');
             const text = input.value.trim();
@@ -1817,11 +1894,19 @@
             chatContainer.innerHTML += `
                 <div class="flex gap-2.5 justify-end">
                     <div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] leading-relaxed shadow">
-                        ${text}
+                        ${escapeHtml(text)}
                     </div>
                 </div>`;
             input.value = '';
             chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                await addDoc(collection(db, `users/${currentUser.uid}/messages`), {
+                    role: 'user',
+                    text: text,
+                    timestamp: new Date().toISOString()
+                });
+            } catch(e) { console.error("Error saving user message", e); }
 
             const loadingId = 'typing_' + Date.now();
             chatContainer.innerHTML += `
@@ -1860,10 +1945,17 @@
                             <i class="fas fa-robot text-xs"></i>
                         </div>
                         <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                            ${reply}
+                            ${escapeHtml(reply)}
                         </div>
                     </div>`;
                 chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                await addDoc(collection(db, `users/${currentUser.uid}/messages`), {
+                    role: 'model',
+                    text: reply,
+                    timestamp: new Date().toISOString()
+                });
+
             } catch(e) {
                 $(loadingId).remove();
                 chatContainer.innerHTML += `
