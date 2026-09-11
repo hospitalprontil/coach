@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v8.5</title>
+    <title>AI Coach - Calistenia Dinâmica v8.7</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -39,7 +39,6 @@
 </head>
 <body class="min-h-screen font-sans flex flex-col items-center custom-scrollbar">
 
-    <!-- Status Badges -->
     <div class="fixed top-2 right-2 z-50 flex gap-2">
         <div id="badge-firebase" class="flex items-center gap-1.5 bg-dark-900/90 border border-slate-700 px-2.5 py-1 rounded-full text-[10px] font-bold text-slate-400 shadow-lg cursor-help transition-colors">
             <div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB
@@ -51,7 +50,7 @@
 
     <!-- Alert Modal -->
     <div id="alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4 opacity-0 transition-opacity">
-        <div class="bg-dark-800 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform" id="alert-box">
+        <div class="bg-dark-800 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform mx-auto" id="alert-box">
             <div class="text-center">
                 <div class="w-16 h-16 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center mx-auto mb-4 border border-brand-500/30">
                     <i class="fas fa-info-circle text-2xl"></i>
@@ -63,9 +62,9 @@
         </div>
     </div>
 
-    <!-- Confirm Modal -->
+    <!-- Confirm Modal with Sub-Confirmation -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4">
-        <div class="bg-dark-800 border border-red-900/50 rounded-3xl p-6 max-w-sm w-full shadow-2xl">
+        <div class="bg-dark-800 border border-red-900/50 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto">
             <div class="text-center">
                 <div class="w-16 h-16 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center mx-auto mb-4 border border-red-500/30">
                     <i class="fas fa-exclamation-triangle text-2xl"></i>
@@ -82,23 +81,22 @@
 
     <!-- Loading Overlay with AI Context -->
     <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex-col items-center justify-center hidden p-6 text-center">
-        <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)]"></div>
+        <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
         <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. em Ação...</h2>
-        <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed"></p>
+        <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
     </div>
 
-    <!-- Auth Screen -->
-    <div id="screen-auth" class="w-full max-w-md p-6 mt-10">
-        <div class="text-center mb-10 relative">
+    <div id="screen-auth" class="w-full max-w-md p-6 mt-10 mx-auto flex flex-col items-center">
+        <div class="text-center mb-10 relative w-full">
             <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full w-32 h-32 mx-auto"></div>
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v8.5</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v8.7</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A. 1 a 1</p>
         </div>
 
-        <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden">
+        <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden w-full">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-brand-300"></div>
             
             <div class="flex bg-dark-900 rounded-2xl p-1.5 mb-6 border border-slate-800">
@@ -137,9 +135,8 @@
         </div>
     </div>
 
-    <!-- Onboarding Screen -->
-    <div id="screen-onboarding" class="w-full max-w-md p-4 hidden">
-        <div class="mb-6 flex items-center justify-between">
+    <div id="screen-onboarding" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center">
+        <div class="mb-6 flex items-center justify-between w-full">
             <div>
                 <h2 class="text-2xl font-black text-white">Análise Física</h2>
                 <p class="text-brand-400 text-sm font-medium">Calibração inicial da I.A.</p>
@@ -149,8 +146,8 @@
             </button>
         </div>
 
-        <form id="onboarding-form" class="space-y-4 pb-12">
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden">
+        <form id="onboarding-form" class="space-y-4 pb-12 w-full">
+            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-500"></div>
                 <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-id-card text-brand-400 mr-2"></i>Métricas Atuais</h3>
                 
@@ -176,7 +173,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden">
+            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                 <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-bullseye text-purple-400 mr-2"></i>Objetivos</h3>
                 
@@ -196,7 +193,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden">
+            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-green-500"></div>
                 <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-clock text-green-400 mr-2"></i>Disponibilidade</h3>
                 
@@ -230,12 +227,10 @@
         </form>
     </div>
 
-    <!-- Dashboard Screen -->
-    <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950">
-        <!-- Header -->
+    <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v8.5</span></h1>
+                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v8.7</span></h1>
                 <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
             </div>
             <button onclick="logOut()" class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
@@ -243,7 +238,6 @@
             </button>
         </div>
 
-        <!-- Navigation Tabs -->
         <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
             <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo</button>
             <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
@@ -251,27 +245,23 @@
             <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
         </div>
 
-        <!-- Tab Contents -->
         <div class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
             
             <!-- Tab: Overview -->
             <div id="tab-overview" class="space-y-4 animate-fade-in">
-                <!-- AI Strategy Card (Auto-adjusting height) -->
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A.</span>
                     <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
                 </div>
 
-                <!-- Last Feedback Card -->
-                <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden">
+                <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
                     <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
-                <!-- Current Workout Box -->
-                <div id="dash-next-workout" class="bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/40 rounded-3xl p-5 shadow-2xl relative overflow-hidden">
+                <div id="dash-next-workout" class="bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/40 rounded-3xl p-5 shadow-2xl relative overflow-hidden w-full">
                     <div class="absolute -bottom-4 -right-4 text-8xl text-brand-500/5"><i class="fas fa-running"></i></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-3">
@@ -298,7 +288,6 @@
                     </div>
                 </div>
                 
-                <!-- Reset Plan Button -->
                 <div class="pt-4 border-t border-slate-900/60 flex justify-center pb-4">
                     <button onclick="openConfirmModal()" class="text-[11px] font-bold text-red-500/70 hover:text-red-400 uppercase tracking-widest flex items-center gap-2 transition-colors">
                         <i class="fas fa-trash-alt"></i> Reiniciar Plano e Apagar Histórico
@@ -312,14 +301,12 @@
                     <h2 class="text-base font-black text-white">Histórico de Sessões</h2>
                     <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded-lg font-bold" id="cal-count">0 Sessões</span>
                 </div>
-                <div id="calendar-list" class="space-y-3">
-                    <!-- Preenchido via JS -->
-                </div>
+                <div id="calendar-list" class="space-y-3"></div>
             </div>
 
             <!-- Tab: Progress -->
             <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
-                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl">
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-chart-line text-brand-400 mr-2"></i>Evolução de Peso</h3>
                         <button onclick="document.getElementById('modal-checkin').classList.remove('hidden')" class="bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">
@@ -331,21 +318,21 @@
                     </div>
                 </div>
 
-                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl">
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-fire text-orange-400 mr-2"></i>Gordura Corporal (%)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-bf"></canvas>
                     </div>
                 </div>
 
-                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl">
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-heartbeat text-red-400 mr-2"></i>Frequência Cardíaca (BPM)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-hr"></canvas>
                     </div>
                 </div>
 
-                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl">
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-fire-alt text-amber-400 mr-2"></i>Gasto Calórico (kcal)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-kcal"></canvas>
@@ -353,33 +340,44 @@
                 </div>
             </div>
 
-            <!-- Tab: Library -->
+            <!-- Tab: Library (Detailed & Enriched) -->
             <div id="tab-library" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-base font-black text-white">Biblioteca de Exercícios</h2>
-                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-bold">Fundamentos</span>
+                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-bold">Guia Avançado</span>
                 </div>
                 
-                <div class="space-y-3">
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden">
+                <div class="space-y-4">
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-brand-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Flexão de Braços (Push-up)</h3>
-                        <p class="text-xs text-slate-400 mb-1.5"><strong>Foco:</strong> Peitoral, Tríceps e Deltoides.</p>
-                        <p class="text-xs text-slate-400 leading-relaxed"><strong>Execução:</strong> Corpo alinhado em prancha, mãos abaixo dos ombros. Desça até o peito quase encostar no chão e empurre de volta.</p>
+                        <p class="text-xs text-brand-400 font-semibold mb-1">Foco: Peitoral, Tríceps, Deltoide Anterior e Core.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Posicione as mãos na largura dos ombros, braços estendidos. Mantenha o corpo perfeitamente alinhado em prancha (abdômen e glúteos contraídos). Flexione os cotovelos em um ângulo de 45 graus em relação ao tronco, descendo até o peito quase tocar o solo. Empurre o chão com força até estender os braços novamente.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (com os joelhos apoiados no solo) / Avançado (pés elevados em banco ou handstand push-up).</p>
                     </div>
 
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden">
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-purple-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Agachamento Livre (Squat)</h3>
-                        <p class="text-xs text-slate-400 mb-1.5"><strong>Foco:</strong> Quadríceps e Glúteos.</p>
-                        <p class="text-xs text-slate-400 leading-relaxed"><strong>Execução:</strong> Pés na largura dos ombros. Flexione joelhos e jogue o quadril para trás mantendo o tronco ereto.</p>
+                        <p class="text-xs text-purple-400 font-semibold mb-1">Foco: Quadríceps, Glúteos, Posteriores e Estabilidade.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Afaste os pés na largura dos ombros, pontas dos pés levemente para fora. Projete o quadril para trás como se fosse sentar em uma cadeira invisível, flexionando os joelhos e mantendo o tronco o mais ereto possível. Desça até que suas coxas fiquem paralelas ao chão (ou abaixo). Impulsione o corpo para cima através dos calcanhares.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Air squat curto) / Avançado (Jump squat com salto explosivo ou Pistol squat unipodal).</p>
                     </div>
 
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden">
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-green-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Barra Fixa (Pull-up)</h3>
-                        <p class="text-xs text-slate-400 mb-1.5"><strong>Foco:</strong> Costas e Bíceps.</p>
-                        <p class="text-xs text-slate-400 leading-relaxed"><strong>Execução:</strong> Pendure-se na barra, puxe o corpo até o queixo ultrapassar a altura das mãos.</p>
+                        <p class="text-xs text-green-400 font-semibold mb-1">Foco: Grande Dorsal, Bíceps, Músculos Escapulares.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Segure na barra com pegada pronada (palmas para frente), mãos um pouco mais abertas que os ombros. Inicie o movimento puxando os cotovelos para baixo e para trás, estufando o peito na direção da barra até que o queixo ultrapasse a linha das mãos. Retorne de forma controlada.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Australian pull-up com barra baixa) / Avançado (Archer pull-up ou Muscle-up).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
+                        <div class="absolute left-0 top-0 w-1.5 h-full bg-amber-500"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">Prancha Abdominal (Plank)</h3>
+                        <p class="text-xs text-amber-400 font-semibold mb-1">Foco: Transverso do Abdômen, Reto Abdominal e Estabilizadores.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie os antebraços no solo alinhados com os ombros. Mantenha as pernas estendidas com apoio nas pontas dos pés. Contraia fortemente o abdômen e os glúteos para impedir que a lombar arqueie. Mantenha a cabeça em posição neutra olhando para o chão.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Prancha com joelhos no solo) / Avançado (Prancha com extensão alternada de braço e perna).</p>
                     </div>
                 </div>
             </div>
@@ -388,7 +386,7 @@
 
     <!-- Check-in Modal -->
     <div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex-col items-center justify-end sm:justify-center p-0 sm:p-4">
-        <div class="bg-dark-900 border border-slate-800 w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl">
+        <div class="bg-dark-900 border border-slate-800 w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl mx-auto">
             <div class="flex justify-between items-center mb-5">
                 <h3 class="text-lg font-black text-white">Check-in Semanal</h3>
                 <button onclick="document.getElementById('modal-checkin').classList.add('hidden')" class="text-slate-500 hover:text-white text-xl"><i class="fas fa-times"></i></button>
@@ -411,7 +409,7 @@
 
     <!-- Workout Exercise Library Preview Modal -->
     <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
-        <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col">
+        <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
             <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
                 <div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Prévia da Sessão</span>
@@ -419,9 +417,7 @@
                 </div>
                 <button onclick="document.getElementById('modal-workout-library').classList.add('hidden')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
             </div>
-            <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-2.5 pr-1">
-                <!-- Preenchido dinamicamente com ícones/SVG -->
-            </div>
+            <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-2.5 pr-1"></div>
             <div class="pt-3 border-t border-slate-800 mt-3">
                 <button onclick="document.getElementById('modal-workout-library').classList.add('hidden'); startWorkout();" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
                     Iniciar Treino Agora <i class="fas fa-play ml-1"></i>
@@ -430,9 +426,8 @@
         </div>
     </div>
 
-    <!-- Timer Screen (Mobile Optimized) -->
     <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
-        <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
+        <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden mx-auto">
             
             <div class="px-5 pt-5 pb-3 bg-dark-900 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-md relative z-20">
                 <div>
@@ -450,7 +445,6 @@
             <div class="flex-1 flex flex-col items-center justify-center p-5 relative overflow-hidden">
                 <div id="timer-bg-pulse" class="absolute inset-0 bg-brand-500/5 transition-colors duration-1000"></div>
 
-                <!-- Circular Timer -->
                 <div class="relative w-56 h-56 flex items-center justify-center z-10 mb-5 mt-2">
                     <svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="46" fill="none" stroke="#1e293b" stroke-width="6" />
@@ -463,7 +457,6 @@
                     </div>
                 </div>
 
-                <!-- Info Cards (Unconstrained & Aligned) -->
                 <div class="w-full flex flex-col gap-2.5 z-10">
                     <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-3.5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg">
                         <span class="text-[9px] text-brand-400 font-bold uppercase tracking-widest mb-0.5"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
@@ -482,7 +475,6 @@
                 </div>
             </div>
 
-            <!-- Timer Controls -->
             <div class="p-5 bg-dark-900 border-t border-slate-800 shrink-0 z-20 pb-8 flex gap-3">
                 <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-14 rounded-2xl bg-brand-500 text-white font-black text-base flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
                     <i class="fas fa-pause"></i> PAUSAR
@@ -494,7 +486,6 @@
         </div>
     </div>
 
-    <!-- Post-Workout Two-Step Evaluation & Calibration Modal -->
     <div id="modal-post-workout" class="fixed inset-0 bg-dark-950 z-[160] hidden flex-col overflow-y-auto custom-scrollbar">
         <div class="p-5 pb-20 max-w-md mx-auto w-full">
             <div class="text-center mb-5 mt-3">
@@ -506,8 +497,8 @@
             </div>
 
             <div class="space-y-4">
-                <!-- Step 1: Metrics & Smartwatch Input -->
-                <div id="step-metrics-container" class="bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-4">
+                <!-- Step 1: Metrics Input -->
+                <div id="step-metrics-container" class="bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-4 w-full">
                     <div>
                         <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Esforço Geral (PSE 0 a 10) <span class="text-red-500">*</span></h3>
                         <div class="flex flex-wrap gap-1 justify-center" id="pse-buttons"></div>
@@ -536,17 +527,15 @@
                     </button>
                 </div>
 
-                <!-- Step 2: AI Generated Next Workout Proposal & Calibration (Hidden initially) -->
-                <div id="step-ai-proposal" class="hidden space-y-4 animate-fade-in">
-                    <!-- AI Critique Card -->
-                    <div class="bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden">
+                <!-- Step 2: AI Proposal & Calibration Sub-Panel -->
+                <div id="step-ai-proposal" class="hidden space-y-4 animate-fade-in w-full">
+                    <div class="bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
                         <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                         <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-1.5"><i class="fas fa-brain mr-2"></i>Avaliação do Coach I.A.</h3>
                         <p id="ai-suggestion-text" class="text-xs text-slate-300 italic font-medium leading-relaxed">...</p>
                     </div>
 
-                    <!-- Next Workout Preview Card -->
-                    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-4 shadow-xl relative overflow-hidden">
+                    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-4 shadow-xl relative overflow-hidden w-full">
                         <span class="text-[9px] bg-brand-500 text-dark-950 font-black uppercase px-2 py-0.5 rounded tracking-wider">Próximo Treino Sugerido</span>
                         <h3 id="prop-workout-name" class="text-base font-black text-white mt-2 mb-1">--</h3>
                         <p id="prop-workout-focus" class="text-xs text-brand-400 font-medium mb-3">--</p>
@@ -556,7 +545,6 @@
                         </div>
                         <p id="prop-workout-desc" class="text-[11px] text-slate-400 leading-relaxed mb-4">...</p>
 
-                        <!-- Action Buttons: Aceitar vs Calibrar -->
                         <div class="space-y-2">
                             <button onclick="acceptAiProposal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
                                 <i class="fas fa-check mr-1.5"></i> Aceitar Sugestão e Salvar
@@ -567,8 +555,8 @@
                         </div>
                     </div>
 
-                    <!-- Calibration Sub-Panel (Hidden by default) -->
-                    <div id="calibration-subpanel" class="hidden bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-3">
+                    <!-- Calibration Sub-Panel -->
+                    <div id="calibration-subpanel" class="hidden bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-3 w-full">
                         <h4 class="text-xs font-bold text-brand-400 uppercase tracking-wider"><i class="fas fa-cog mr-1"></i> Ajustes Manuais</h4>
                         
                         <div class="grid grid-cols-2 gap-2">
@@ -602,7 +590,7 @@
                         </div>
 
                         <button onclick="saveWithCalibration()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors text-xs uppercase tracking-wide mt-1">
-                            Salvar com Calibração Manual
+                            Salvar com Calibração Manual (Gerar Novo Treino)
                         </button>
                     </div>
                 </div>
@@ -610,7 +598,6 @@
         </div>
     </div>
 
-    <!-- Firebase & Application Logic Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -651,7 +638,6 @@
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
 
-        // Web Audio API Sound Generator
         function playBeep(freq = 440, duration = 150, type = 'sine') {
             try {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -692,7 +678,7 @@
             await resetPlanAndHistory();
         });
 
-        function showLoading(text, sub = "Coach I.A. está processando os dados na nuvem...") {
+        function showLoading(text, sub = "Coach I.A. está analisando seus dados e histórico na nuvem...") {
             $('loading-text').innerText = text;
             $('loading-sub').innerText = sub;
             show('loading-overlay');
@@ -739,6 +725,24 @@
             if (tabName === 'progress') { renderCharts(); }
             if (tabName === 'calendar') { loadHistory(); }
         };
+
+        async function getCumulativeHistoryContext() {
+            try {
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                let historyData = [];
+                snap.forEach(d => historyData.push(d.data()));
+                historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
+
+                if (historyData.length === 0) return "Nenhum histórico anterior (este é o primeiro treino).";
+
+                return historyData.map((h, index) => 
+                    `Treino #${index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Calorias: ${h.kcal||'N/A'}kcal`
+                ).join('\n');
+            } catch(e) {
+                console.error("Error fetching history", e);
+                return "Histórico indisponível.";
+            }
+        }
 
         async function callGemini(prompt) {
             updateBadge('api', 'loading');
@@ -922,7 +926,7 @@
             
             TAREFAS OBRIGATÓRIAS:
             1. 'macrocycleSummary': Escreva sua análise estratégica e tática para esta jornada.
-            2. 'workout': Crie o PRIMEIRO TREINO personalizado.
+            2. 'workout': Crie apenas o PRIMEIRO TREINO personalizado.
             3. REGRAS DA QUEUE: Item 0 = Aquecimento exato de 120 segundos (type: rest, duration: 120, roundInfo: 'Preparar'). Último item = Volta à calma exata de 120 segundos (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido (Ex: '3x12', '45s Máximo').`;
 
             try {
@@ -973,7 +977,7 @@
         }
 
         async function resetPlanAndHistory() {
-            showLoading("Limpando Banco de Dados...", "Apagando plano ativo e histórico de sessões na nuvem...");
+            showLoading("Limpando Banco de Dados...", "Apagando plano ativo e histórico completo de sessões na nuvem...");
             currentPlan = null;
             try {
                 const historySnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
@@ -1027,7 +1031,6 @@
             switchTab('overview');
         }
 
-        // Workout Library Modal Preview before starting
         window.openWorkoutLibraryModal = () => {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
             if (!nw || !nw.queue) return;
@@ -1042,7 +1045,7 @@
                 const icon = isRest ? '<i class="fas fa-lungs text-amber-500"></i>' : '<i class="fas fa-dumbbell text-brand-400"></i>';
 
                 list.innerHTML += `
-                    <div class="p-3 rounded-2xl border ${bg} flex items-start gap-3">
+                    <div class="p-3 rounded-2xl border ${bg} flex items-start gap-3 w-full">
                         <div class="w-10 h-10 rounded-xl bg-dark-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 shadow-inner">
                             ${icon}
                         </div>
@@ -1184,7 +1187,8 @@
 
             const perc = timeLeft / duration;
             const offset = 289 - (289 * perc);
-            $('timer-ring').style.strokeDashoffset = offset;
+            const ring = $('timer-ring');
+            if (ring) ring.style.strokeDashoffset = offset;
         }
 
         function openPostWorkout() {
@@ -1216,7 +1220,6 @@
             }
         }
 
-        // Step 1: User evaluates metrics with AI Coach -> Generates Next Workout instantly
         window.evaluateWorkoutWithAI = async () => {
             if (selectedPseValue === null) return;
 
@@ -1224,14 +1227,24 @@
             const fcMax = $('pw-fc-max').value;
             const kcal = $('pw-kcal').value;
 
-            showLoading("Coach I.A. Analisando Sessão...", "Avaliando esforço PSE, frequência cardíaca e caloria gasta para estipular o próximo estímulo tático.");
+            showLoading("Coach I.A. Analisando Histórico...", "Analisando todos os treinos anteriores, esforço PSE, frequência cardíaca e gasto calórico para estipular o próximo estímulo tático.");
             
+            const historyContext = await getCumulativeHistoryContext();
+
             const prompt = `Atue como Coach Sênior de Calistenia. 
-            O aluno concluiu um treino. 
-            MÉTRICAS: Esforço PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'} bpm, FC Máxima ${fcMax||'N/A'} bpm, Calorias ${kcal||'N/A'} kcal.
+            O aluno concluiu uma sessão de treino.
+            
+            HISTÓRICO CUMULATIVO DE TODOS OS TREINOS ANTERIORES:
+            ${historyContext}
+            
+            MÉTRICAS DO TREINO MAIS RECENTE:
+            - Esforço PSE: ${selectedPseValue}/10
+            - FC Média: ${fc||'N/A'} bpm
+            - FC Máxima: ${fcMax||'N/A'} bpm
+            - Calorias: ${kcal||'N/A'} kcal
             
             TAREFAS OBRIGATÓRIAS:
-            1. 'coachFeedback': Avalie criticamente o rendimento e o esforço do aluno com base nas métricas.
+            1. 'coachFeedback': Avalie criticamente a evolução do aluno comparando este treino com todo o histórico anterior.
             2. 'suggestedDays': Sugira o número ideal de dias de descanso até a próxima sessão (1, 2, 3 ou 4).
             3. 'suggestedMinutes': Sugira a duração ideal em minutos para o próximo treino com base na fadiga (ex: 30, 45, 60).
             4. 'workout': Crie o PRÓXIMO TREINO calibrado. Item 0 = Aquecimento (120s rest). Último item = Volta à calma (120s rest).`;
@@ -1265,24 +1278,51 @@
             }
         };
 
-        // Option A: Accept AI Proposal directly
         window.acceptAiProposal = async () => {
             if (!aiEvaluationResult) return;
             await finalizeAndSaveWorkout(aiEvaluationResult.suggestedDays || 2, aiEvaluationResult.suggestedMinutes || 45);
         };
 
-        // Toggle manual calibration panel
         window.toggleCalibrationPanel = () => {
             const panel = $('calibration-subpanel');
             panel.classList.toggle('hidden');
         };
 
-        // Option B: Save with manual calibration
         window.saveWithCalibration = async () => {
-            if (!aiEvaluationResult) return;
             const days = parseInt($('pw-next-days').value) || 2;
             const mins = parseInt($('pw-next-mins').value) || 45;
-            await finalizeAndSaveWorkout(days, mins);
+            const pref = $('pw-pref').value;
+
+            showLoading("Coach I.A. Recalibrando Novo Treino...", "Aplicando seus ajustes manuais de tempo e preferência junto com todo o histórico de treinos...");
+
+            const historyContext = await getCumulativeHistoryContext();
+            const fc = $('pw-fc').value;
+            const fcMax = $('pw-fc-max').value;
+            const kcal = $('pw-kcal').value;
+
+            const prompt = `Atue como Coach Sênior de Calistenia. 
+            O aluno concluiu um treino e solicitou uma CALIBRAÇÃO MANUAL para o próximo.
+            
+            HISTÓRICO CUMULATIVO:
+            ${historyContext}
+            
+            MÉTRICAS RECENTES: PSE ${selectedPseValue}/10, FC ${fc||'N/A'}bpm, Kcal ${kcal||'N/A'}.
+            AJUSTES MANUAIS SOLICITADOS: Descanso de ${days} dia(s), Duração exata de ${mins} minutos, Foco/Preferência: "${pref}".
+            
+            TAREFAS OBRIGATÓRIAS:
+            1. 'coachFeedback': Avalie a calibração com base no histórico.
+            2. 'suggestedDays': ${days}
+            3. 'suggestedMinutes': ${mins}
+            4. 'workout': Crie um NOVO TREINO exatamente adaptado aos ${mins} minutos solicitados e à preferência de foco, mantendo progressão segura.`;
+
+            try {
+                const resData = await callGemini(prompt);
+                aiEvaluationResult = resData;
+                await finalizeAndSaveWorkout(days, mins);
+            } catch(e) {
+                hideLoading();
+                window.showAlert("Erro na Calibração", e.message);
+            }
         };
 
         async function finalizeAndSaveWorkout(days, mins) {
@@ -1452,7 +1492,7 @@
                 data.forEach(h => {
                     const dt = new Date(h.date).toLocaleDateString('pt-BR');
                     list.innerHTML += `
-                        <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 flex justify-between items-center shadow-md">
+                        <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 flex justify-between items-center shadow-md w-full">
                             <div>
                                 <span class="text-[9px] font-bold text-slate-500 uppercase">${dt}</span>
                                 <h4 class="text-sm font-bold text-white mt-0.5">${h.workoutName}</h4>
