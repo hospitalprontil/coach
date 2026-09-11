@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v7.0</title>
+    <title>AI Coach - Calistenia Dinâmica v8.0</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -87,13 +87,14 @@
         <p id="loading-sub" class="text-slate-400 text-sm mt-2 font-medium text-center px-6 max-w-md"></p>
     </div>
 
+    <!-- Auth Screen -->
     <div id="screen-auth" class="w-full max-w-md p-6 mt-10">
         <div class="text-center mb-10 relative">
             <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full w-32 h-32 mx-auto"></div>
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v7.0</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v8.0</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A. 1 a 1</p>
         </div>
 
@@ -136,6 +137,7 @@
         </div>
     </div>
 
+    <!-- Onboarding Screen -->
     <div id="screen-onboarding" class="w-full max-w-md p-4 hidden">
         <div class="mb-6 flex items-center justify-between">
             <div>
@@ -155,21 +157,21 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Idade</label>
-                        <input id="ob-age" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none transition-colors">
+                        <input id="ob-age" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Estatura(cm)</label>
-                        <input id="ob-height" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none transition-colors">
+                        <input id="ob-height" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Peso Atual(kg)</label>
-                        <input id="ob-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none transition-colors">
+                        <input id="ob-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">% Gordura Est.</label>
-                        <input id="ob-bf" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none transition-colors">
+                        <input id="ob-bf" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                 </div>
             </div>
@@ -181,17 +183,17 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta % Gordura</label>
-                        <input id="ob-target-bf" type="number" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors">
+                        <input id="ob-target-bf" type="number" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none">
                     </div>
                     <div>
                         <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta de Peso(kg)</label>
-                        <input id="ob-target-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none transition-colors">
+                        <input id="ob-target-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none">
                     </div>
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Completo (Texto Livre)</label>
-                    <textarea id="ob-goal" rows="4" required placeholder="Descreva seu momento atual e onde quer chegar. Ex: Quero emagrecer e ganhar força, mas tenho dor no joelho. Quero treinar para conseguir fazer barra fixa..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-xl px-3 py-3 text-sm text-white resize-none shadow-inner"></textarea>
-                    <p class="text-[9px] text-slate-500 mt-1">A I.A. vai ler este texto para criar o primeiro treino personalizado do seu ciclo.</p>
+                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Principal (Texto Livre)</label>
+                    <textarea id="ob-goal" rows="5" required placeholder="Escreva detalhadamente seus objetivos, histórico de lesões, nível de condicionamento e o que você espera alcançar..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-xl px-3 py-3 text-sm text-white resize-none shadow-inner"></textarea>
+                    <p class="text-[9px] text-slate-500 mt-1">Nossa I.A. Sênior fará uma análise profunda deste texto para planejar sua jornada.</p>
                 </div>
             </div>
 
@@ -202,7 +204,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Dias na Semana</label>
-                        <select id="ob-days" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none custom-scrollbar">
+                        <select id="ob-days" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none">
                             <option value="2">2 Dias</option>
                             <option value="3" selected>3 Dias</option>
                             <option value="4">4 Dias</option>
@@ -211,8 +213,8 @@
                         </select>
                     </div>
                     <div>
-                        <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Tempo (Minutos)</label>
-                        <select id="ob-mins" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none custom-scrollbar">
+                        <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Tempo Disponível</label>
+                        <select id="ob-mins" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none">
                             <option value="20">20 min</option>
                             <option value="30">30 min</option>
                             <option value="45" selected>45 min</option>
@@ -223,17 +225,18 @@
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 hover:to-brand-300 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg uppercase tracking-widest mt-4">
+            <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg uppercase tracking-widest mt-4">
                 Gerar 1º Treino I.A. <i class="fas fa-magic ml-2"></i>
             </button>
         </form>
     </div>
 
+    <!-- Dashboard Screen -->
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950">
-        <!-- Header fixo -->
+        <!-- Header -->
         <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">Calistenia</span></h1>
+                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v8.0</span></h1>
                 <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
             </div>
             <button onclick="logOut()" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
@@ -241,34 +244,34 @@
             </button>
         </div>
 
-        <!-- Abas de Navegação -->
+        <!-- Navigation Tabs -->
         <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
             <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo</button>
-            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Sequência I.A.</button>
+            <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
             <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
             <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
         </div>
 
-        <!-- Conteúdo Rolável -->
+        <!-- Tab Contents -->
         <div class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-10">
             
             <!-- Tab: Overview -->
             <div id="tab-overview" class="space-y-5 animate-fade-in">
-                <!-- Status do Macro -->
+                <!-- AI Strategy Card -->
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A.</span>
                     <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10">...</p>
                 </div>
 
-                <!-- Último Feedback da IA -->
+                <!-- Last Feedback Card -->
                 <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-2xl relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
                     <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
-                <!-- Próximo Treino Box -->
+                <!-- Current Workout Box -->
                 <div id="dash-next-workout" class="bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/40 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
                     <div class="absolute -bottom-4 -right-4 text-8xl text-brand-500/5"><i class="fas fa-running"></i></div>
                     <div class="relative z-10">
@@ -284,9 +287,15 @@
                             </div>
                         </div>
                         <p id="dash-nw-desc" class="text-xs text-slate-400 mb-5 leading-relaxed">...</p>
-                        <button onclick="startWorkout()" class="w-full bg-white text-dark-950 hover:bg-slate-200 font-black py-4 rounded-xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
-                            <i class="fas fa-play"></i> INICIAR TREINO
-                        </button>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="startWorkout()" class="flex-1 bg-white text-dark-950 hover:bg-slate-200 font-black py-3.5 rounded-xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
+                                <i class="fas fa-play"></i> INICIAR TREINO
+                            </button>
+                            <button onclick="openWorkoutLibraryModal()" class="px-4 bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-xl transition-colors flex items-center justify-center font-bold text-xs">
+                                <i class="fas fa-book-open"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
@@ -298,14 +307,14 @@
                 </div>
             </div>
 
-            <!-- Tab: Calendar / Sequência -->
+            <!-- Tab: History / Calendar -->
             <div id="tab-calendar" class="space-y-4 hidden animate-fade-in pb-10">
                 <div class="flex items-center justify-between px-1 mb-2">
-                    <h2 class="text-lg font-black text-white">Sequência de Treinos</h2>
-                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold" id="cal-count">0 Treinos</span>
+                    <h2 class="text-lg font-black text-white">Histórico de Treinos</h2>
+                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold" id="cal-count">0 Sessões</span>
                 </div>
                 <div id="calendar-list" class="space-y-4">
-                    <!-- Cards preenchidos via JS -->
+                    <!-- Preenchido via JS -->
                 </div>
             </div>
 
@@ -343,16 +352,9 @@
                         <canvas id="chart-kcal"></canvas>
                     </div>
                 </div>
-                
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl">
-                    <h3 class="font-bold text-white text-sm uppercase tracking-wider mb-3"><i class="fas fa-history text-slate-400 mr-2"></i>Últimas Sessões</h3>
-                    <div id="history-list" class="space-y-2 max-h-40 overflow-y-auto custom-scrollbar pr-2">
-                        <p class="text-xs text-slate-500 text-center py-4">Nenhum treino concluído ainda.</p>
-                    </div>
-                </div>
             </div>
 
-            <!-- Tab: Biblioteca -->
+            <!-- Tab: Library -->
             <div id="tab-library" class="space-y-4 hidden animate-fade-in pb-10">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-lg font-black text-white">Biblioteca de Exercícios</h2>
@@ -363,41 +365,31 @@
                     <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
                         <div class="absolute left-0 top-0 w-1 h-full bg-brand-500"></div>
                         <h3 class="text-white font-bold text-base mb-2">Flexão de Braços (Push-up)</h3>
-                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Peitoral, Tríceps e Deltoides (Ombros).</p>
-                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Corpo alinhado em prancha, mãos um pouco mais largas que os ombros. Desça até o peito quase encostar no chão e empurre de volta.</p>
-                        <p class="text-[10px] text-brand-400 bg-brand-900/20 p-2 rounded-lg border border-brand-500/20"><strong>Variações:</strong> Com joelhos (Iniciante), Inclinada (Iniciante), Diamante (Foco Tríceps), Declinada (Avançado).</p>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Peitoral, Tríceps e Deltoides.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Corpo alinhado em prancha, mãos abaixo dos ombros. Desça até o peito quase encostar no chão e empurre de volta.</p>
                     </div>
 
                     <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
                         <div class="absolute left-0 top-0 w-1 h-full bg-purple-500"></div>
-                        <h3 class="text-white font-bold text-base mb-2">Agachamento (Squat)</h3>
-                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Quadríceps, Glúteos e Isquiotibiais.</p>
-                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pés na largura dos ombros. Flexione os joelhos e jogue o quadril para trás, como se fosse sentar numa cadeira. Mantenha as costas retas.</p>
-                        <p class="text-[10px] text-purple-400 bg-purple-900/20 p-2 rounded-lg border border-purple-500/20"><strong>Variações:</strong> Meio agachamento (Iniciante), Búlgaro (Unilateral médio), Pistol Squat (Avançado).</p>
+                        <h3 class="text-white font-bold text-base mb-2">Agachamento Livre (Squat)</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Quadríceps e Glúteos.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pés na largura dos ombros. Flexione joelhos e jogue o quadril para trás mantendo o tronco ereto.</p>
                     </div>
 
                     <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
                         <div class="absolute left-0 top-0 w-1 h-full bg-green-500"></div>
                         <h3 class="text-white font-bold text-base mb-2">Barra Fixa (Pull-up)</h3>
-                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Costas (Latíssimo do dorso) e Bíceps.</p>
-                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pendure-se na barra com as palmas para frente. Puxe o corpo até o queixo passar da barra e desça controladamente.</p>
-                        <p class="text-[10px] text-green-400 bg-green-900/20 p-2 rounded-lg border border-green-500/20"><strong>Variações:</strong> Isometria/Negativas (Iniciante), Chin-up (Pegada supinada - Foco Bíceps), Archer Pull-up (Avançado).</p>
-                    </div>
-
-                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
-                        <div class="absolute left-0 top-0 w-1 h-full bg-amber-500"></div>
-                        <h3 class="text-white font-bold text-base mb-2">Prancha (Plank)</h3>
-                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Core (Abdômen, Lombar e Estabilizadores).</p>
-                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Apoie os antebraços e as pontas dos pés no chão. Mantenha o corpo perfeitamente reto, sem deixar o quadril cair ou subir demais. Respire fundo.</p>
-                        <p class="text-[10px] text-amber-400 bg-amber-900/20 p-2 rounded-lg border border-amber-500/20"><strong>Variações:</strong> Prancha Alta (braços esticados), Prancha Lateral (Foco oblíquos).</p>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Costas e Bíceps.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pendure-se na barra, puxe o corpo até o queixo ultrapassar a altura das mãos.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Check-in Modal -->
     <div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex-col items-center justify-end sm:justify-center p-0 sm:p-4">
-        <div class="bg-dark-900 border border-slate-800 w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl transform transition-transform">
+        <div class="bg-dark-900 border border-slate-800 w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-xl font-black text-white">Check-in Semanal</h3>
                 <button onclick="document.getElementById('modal-checkin').classList.add('hidden')" class="text-slate-500 hover:text-white text-xl"><i class="fas fa-times"></i></button>
@@ -418,7 +410,28 @@
         </div>
     </div>
 
-    <!-- Timer Screen Wrapper -->
+    <!-- Workout Exercise Library Preview Modal -->
+    <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
+        <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-6 shadow-2xl flex flex-col">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
+                <div>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Prévia do Treino</span>
+                    <h3 id="mwl-title" class="text-lg font-black text-white">Exercícios da Sessão</h3>
+                </div>
+                <button onclick="document.getElementById('modal-workout-library').classList.add('hidden')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1">
+                <!-- Preenchido dinamicamente -->
+            </div>
+            <div class="pt-4 border-t border-slate-800 mt-4">
+                <button onclick="document.getElementById('modal-workout-library').classList.add('hidden'); startWorkout();" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                    Iniciar Treino Agora <i class="fas fa-play ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Screen -->
     <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
         <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
             
@@ -446,23 +459,23 @@
                     
                     <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
                         <span id="timer-time" class="text-6xl font-black text-white tracking-tighter drop-shadow-md mb-2">00:00</span>
-                        <span id="timer-ex-name" class="text-sm font-bold text-slate-300 uppercase w-full leading-tight px-2 text-wrap">PREPARAR</span>
+                        <span id="timer-ex-name" class="text-sm font-bold text-slate-300 uppercase w-full leading-tight px-2">PREPARAR</span>
                     </div>
                 </div>
 
                 <div class="w-full flex flex-col gap-3 z-10">
-                    <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-2"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
-                        <span id="timer-round-info" class="text-xl sm:text-2xl font-black text-white w-full text-wrap leading-tight">--/--</span>
+                    <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg">
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-1"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
+                        <span id="timer-round-info" class="text-lg font-black text-white w-full">--/--</span>
                     </div>
 
-                    <div class="bg-slate-900 border border-slate-800 w-full p-4 rounded-2xl flex items-center gap-4 shadow-lg">
-                        <div id="timer-next-icon" class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0 shadow-inner">
-                            <i class="fas fa-forward text-lg"></i>
+                    <div class="bg-slate-900 border border-slate-800 w-full p-3.5 rounded-2xl flex items-center gap-3 shadow-lg">
+                        <div id="timer-next-icon" class="w-10 h-10 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0">
+                            <i class="fas fa-forward"></i>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <span class="text-[10px] text-slate-500 font-black uppercase tracking-wider block mb-1">A Seguir</span>
-                            <p id="timer-next-name" class="text-sm font-bold text-slate-200 leading-snug">--</p>
+                            <span class="text-[9px] text-slate-500 font-black uppercase tracking-wider block">A Seguir</span>
+                            <p id="timer-next-name" class="text-xs font-bold text-slate-200 truncate">--</p>
                         </div>
                     </div>
                 </div>
@@ -472,92 +485,105 @@
                 <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-16 rounded-2xl bg-brand-500 text-white font-black text-lg flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
                     <i class="fas fa-pause"></i> PAUSAR
                 </button>
-                <button onclick="skipExercise()" class="w-16 h-16 rounded-2xl bg-slate-800 text-slate-400 font-black text-lg flex items-center justify-center shadow-lg transition-all active:scale-95 border border-slate-700 hover:text-white hover:bg-slate-700">
+                <button onclick="skipExercise()" class="w-16 h-16 rounded-2xl bg-slate-800 text-slate-400 font-black text-lg flex items-center justify-center shadow-lg transition-all active:scale-95 border border-slate-700 hover:text-white">
                     <i class="fas fa-step-forward"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <div id="modal-post-workout" class="fixed inset-0 bg-dark-950 z-[100] hidden flex-col overflow-y-auto custom-scrollbar">
+    <!-- Post-Workout Two-Step Evaluation Modal -->
+    <div id="modal-post-workout" class="fixed inset-0 bg-dark-950 z-[160] hidden flex-col overflow-y-auto custom-scrollbar">
         <div class="p-6 pb-24">
-            <div class="text-center mb-8 mt-4 relative">
-                <div class="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-4xl mx-auto mb-4 border border-green-500/30">
+            <div class="text-center mb-6 mt-4 relative">
+                <div class="w-16 h-16 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-3 border border-green-500/30">
                     <i class="fas fa-check"></i>
                 </div>
-                <h2 class="text-3xl font-black text-white">Treino Concluído!</h2>
-                <p class="text-slate-400 mt-2 font-medium">Informe suas métricas para a I.A. gerar o seu próximo treino.</p>
+                <h2 class="text-2xl font-black text-white">Treino Concluído!</h2>
+                <p class="text-slate-400 text-xs mt-1 font-medium">Informe suas métricas para a I.A. avaliar seu rendimento.</p>
             </div>
 
-            <div class="space-y-6 max-w-md mx-auto">
+            <div class="space-y-5 max-w-md mx-auto">
+                <!-- Step 1: Metrics & Smartwatch -->
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Esforço Geral (0 a 10) <span class="text-red-500">*</span></h3>
-                    <p class="text-xs text-slate-400 mb-4">Quão difícil foi essa sessão?</p>
-                    <div class="flex flex-wrap gap-2 justify-center" id="pse-buttons"></div>
-                </div>
+                    <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Esforço Geral (PSE 0 a 10) <span class="text-red-500">*</span></h3>
+                    <div class="flex flex-wrap gap-1.5 justify-center mb-4" id="pse-buttons"></div>
 
-                <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
-                    <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Métricas do Smartwatch</h3>
-                    <div class="grid grid-cols-3 gap-3">
+                    <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Métricas do Smartwatch</h3>
+                    <div class="grid grid-cols-3 gap-2">
                         <div>
                             <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">FC Média</label>
-                            <input type="number" id="pw-fc" placeholder="135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
+                            <input type="number" id="pw-fc" placeholder="135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white text-center outline-none">
                         </div>
                         <div>
                             <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">FC Máxima</label>
-                            <input type="number" id="pw-fc-max" placeholder="170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
+                            <input type="number" id="pw-fc-max" placeholder="170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white text-center outline-none">
                         </div>
                         <div>
-                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
-                            <input type="number" id="pw-kcal" placeholder="320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-xs text-white focus:border-brand-500 outline-none text-center">
+                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Calorias</label>
+                            <input type="number" id="pw-kcal" placeholder="320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white text-center outline-none">
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg border-l-4 border-l-brand-500">
-                    <h3 class="text-sm font-bold text-brand-400 uppercase tracking-wider mb-4"><i class="fas fa-robot mr-2"></i>Calibrar Próximo Treino</h3>
-                    
-                    <div class="grid grid-cols-2 gap-4 mb-4">
-                        <div>
-                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Daqui a quantos dias?</label>
-                            <select id="pw-next-days" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-3 text-sm text-white font-bold outline-none custom-scrollbar">
-                                <option value="1">Amanhã (1)</option>
-                                <option value="2" selected>Depois de amanhã (2)</option>
-                                <option value="3">3 dias</option>
-                                <option value="4">4 dias</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Tempo Livre? (min)</label>
-                            <select id="pw-next-mins" class="w-full bg-dark-950 border border-brand-500/50 rounded-xl px-2 py-3 text-sm text-white font-bold outline-none custom-scrollbar text-center shadow-[0_0_10px_rgba(6,182,212,0.1)]">
-                                <!-- Preenchido dinamicamente (20 a 90 min) -->
-                            </select>
-                        </div>
+                <!-- Evaluate Button -->
+                <div id="step-eval-btn-container">
+                    <button id="btn-eval-ai" onclick="evaluateWorkoutWithAI()" disabled class="w-full bg-gradient-to-r from-purple-600 to-brand-500 hover:from-purple-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] text-sm uppercase tracking-wider disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fas fa-robot mr-2"></i> Avaliar com o Coach (I.A.)
+                    </button>
+                </div>
+
+                <!-- Step 2: AI Suggestion & Calibration (Hidden initially) -->
+                <div id="step-ai-calibration" class="hidden space-y-4 animate-fade-in">
+                    <div class="bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+                        <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-brain mr-2"></i>Sugestão do Coach I.A.</h3>
+                        <p id="ai-suggestion-text" class="text-xs text-slate-300 italic font-medium leading-relaxed">...</p>
                     </div>
 
-                    <div>
-                        <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Preferência para o Próximo</label>
-                        <select id="pw-pref" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-3 text-sm text-white font-bold outline-none custom-scrollbar">
-                            <option value="Manter progressão, aumentando levemente o estímulo">Progressão contínua</option>
-                            <option value="Variar exercícios mantendo o foco">Variar exercícios</option>
-                            <option value="Focar em membros inferiores / pernas">Focar em Pernas</option>
-                            <option value="Focar em membros superiores / braços">Focar em Braços</option>
-                            <option value="Focar em core e abdômen">Focar em Core/Abdômen</option>
-                        </select>
+                    <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg border-l-4 border-l-brand-500 space-y-4">
+                        <h3 class="text-xs font-bold text-brand-400 uppercase tracking-wider"><i class="fas fa-sliders-h mr-2"></i>Calibrar Próximo Treino</h3>
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Daqui a quantos dias?</label>
+                                <select id="pw-next-days" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold outline-none">
+                                    <option value="1">Amanhã (1 dia)</option>
+                                    <option value="2" selected>Depois de amanhã (2 dias)</option>
+                                    <option value="3">Em 3 dias</option>
+                                    <option value="4">Em 4 dias</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Tempo Disponível</label>
+                                <div class="relative">
+                                    <input type="number" id="pw-next-mins" value="45" min="10" max="180" class="w-full bg-dark-950 border border-brand-500/50 rounded-xl px-3 py-2.5 text-xs text-white font-bold text-center outline-none">
+                                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500">min</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Preferência de Foco</label>
+                            <select id="pw-pref" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white font-bold outline-none">
+                                <option value="Manter progressão, aumentando levemente o estímulo">Progressão contínua</option>
+                                <option value="Variar exercícios mantendo o foco">Variar exercícios</option>
+                                <option value="Focar em membros inferiores / pernas">Focar em Pernas</option>
+                                <option value="Focar em membros superiores / braços">Focar em Braços</option>
+                                <option value="Focar em core e abdômen">Focar em Core/Abdômen</option>
+                            </select>
+                        </div>
+
+                        <button onclick="saveAndGenerateNextWorkout()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-sm uppercase tracking-wide mt-2">
+                            Salvar e Gerar Próximo Treino <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="fixed bottom-0 left-0 w-full p-4 bg-dark-950 border-t border-slate-800 z-10 flex justify-center">
-            <div class="w-full max-w-md">
-                <button id="btn-save-workout" onclick="finishWorkoutFlow()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                    Gerar Próximo Treino com I.A.
-                </button>
             </div>
         </div>
     </div>
 
+    <!-- Firebase & Logic Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -592,10 +618,30 @@
         let timeLeft = 0;
         let totalWorkoutTimeLeft = 0;
         let selectedPseValue = null;
+        let aiEvaluationResult = null;
 
         const $ = id => document.getElementById(id);
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
+
+        // Web Audio API Sound Generator (No external URLs)
+        function playBeep(freq = 440, duration = 150, type = 'sine') {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if(!AudioContext) return;
+                const ctx = new AudioContext();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration/1000);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + duration/1000);
+            } catch(e) { console.debug("Audio play error", e); }
+        }
 
         window.showAlert = (title, message) => {
             $('alert-title').innerText = title;
@@ -663,8 +709,8 @@
             $(`nav-${tabName}`).classList.replace('text-slate-400', 'text-brand-400');
             $(`nav-${tabName}`).classList.replace('border-slate-800', 'border-brand-500/30');
             
-            if (tabName === 'progress') { renderCharts(); loadHistory(); }
-            if (tabName === 'calendar') { renderCalendar(); }
+            if (tabName === 'progress') { renderCharts(); }
+            if (tabName === 'calendar') { loadHistory(); }
         };
 
         async function callGemini(prompt) {
@@ -675,6 +721,8 @@
                 properties: {
                     macrocycleSummary: { type: "string" },
                     coachFeedback: { type: "string" },
+                    suggestedDays: { type: "integer" },
+                    suggestedMinutes: { type: "integer" },
                     workout: {
                         type: "object",
                         properties: {
@@ -715,7 +763,6 @@
                 });
                 
                 clearTimeout(timeoutId);
-
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 
                 const data = await response.json();
@@ -723,7 +770,7 @@
                 return data;
 
             } catch (err) {
-                updateBadge('api', 'error', `Falha de conexão com a API no Render: ${err.message}.`);
+                updateBadge('api', 'error', `Falha de conexão com a API no Render: ${err.message}`);
                 throw new Error("O servidor falhou ao processar a requisição da I.A.");
             }
         }
@@ -824,7 +871,6 @@
             }
         }
 
-        // Onboarding: Gera APENAS O PRIMEIRO TREINO
         $('onboarding-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -840,17 +886,17 @@
                 mins: $('ob-mins').value
             };
 
-            showLoading("I.A. Criando o 1º Treino...", "Analisando seu perfil para gerar a sessão de calistenia ideal.");
+            showLoading("I.A. Analisando Perfil...", "Criando o seu primeiro treino personalizado de calistenia.");
             
             const prompt = `Atue como Coach Sênior de Calistenia. 
             ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bf}%, BF Meta: ${profile.targetBf}%.
-            OBJETIVO: "${profile.goal}".
+            OBJETIVO DETALHADO: "${profile.goal}".
             DISPONIBILIDADE: ${profile.days} dias/semana, ${profile.mins} min/treino.
             
             TAREFAS OBRIGATÓRIAS:
-            1. 'macrocycleSummary': Escreva sua análise tática inicial e diretriz geral para alcançar a meta.
-            2. 'workout': Crie APENAS O PRIMEIRO TREINO personalizado para iniciar a jornada.
-            3. REGRAS DA QUEUE: O item 0 DEVE SER Aquecimento (type: rest, duration: 120, roundInfo: 'Preparar'). O último item DEVE SER Volta à calma (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido claramente (Ex: '4x15', '30s MÁXIMO').`;
+            1. 'macrocycleSummary': Escreva sua análise tática e estratégia para alcançar o objetivo.
+            2. 'workout': Crie o PRIMEIRO TREINO personalizado.
+            3. REGRAS DA QUEUE: Item 0 = Aquecimento exato de 120 segundos (type: rest, duration: 120, roundInfo: 'Preparar'). Último item = Volta à calma exata de 120 segundos (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido (Ex: '4x15', '45s Máximo').`;
 
             try {
                 const resData = await callGemini(prompt);
@@ -863,8 +909,8 @@
 
                 userData = profile;
                 currentPlan = {
-                    macrocycleSummary: resData.macrocycleSummary || "Início da jornada de calistenia personalizada.",
-                    coachFeedback: "Bem-vindo ao seu AI Coach! Este é o seu primeiro treino calibrado.",
+                    macrocycleSummary: resData.macrocycleSummary || "Jornada iniciada com sucesso.",
+                    coachFeedback: "Bem-vindo ao AI Coach! Este é o seu primeiro treino baseado em suas métricas.",
                     workouts: [firstWorkout]
                 };
                 
@@ -903,7 +949,6 @@
             showLoading("Limpando Banco de Dados e Histórico...");
             currentPlan = null;
             try {
-                // Apaga documentos da subcoleção history
                 const historySnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
                 const delHistory = historySnap.docs.map(d => deleteDoc(d.ref));
                 await Promise.all(delHistory);
@@ -930,7 +975,7 @@
 
             const nextWorkout = currentPlan.workouts.find(w => !w.isCompleted);
 
-            $('dash-macro').innerText = currentPlan.macrocycleSummary || "Plano adaptativo em andamento.";
+            $('dash-macro').innerText = currentPlan.macrocycleSummary || "Plano ativo em andamento.";
 
             if (currentPlan.coachFeedback) {
                 show('dash-feedback-container');
@@ -941,13 +986,13 @@
 
             if (nextWorkout) {
                 show('dash-next-workout');
-                $('dash-nw-title').innerText = nextWorkout.name || "Próxima Sessão";
+                $('dash-nw-title').innerText = nextWorkout.name || "Sessão Atual";
                 $('dash-nw-focus').innerText = nextWorkout.focus || "Corpo Todo";
                 $('dash-nw-time').innerText = nextWorkout.estimatedMinutes || userData.mins;
                 
                 const wks = nextWorkout.queue.filter(q => q.type === 'work');
-                const descList = wks.slice(0, 4).map(w => w.name).join(', ');
-                $('dash-nw-desc').innerText = `Inclui: ${descList}${wks.length > 4 ? '...' : ''}`;
+                const descList = wks.map(w => w.name).join(', ');
+                $('dash-nw-desc').innerText = `Exercícios: ${descList}`;
             } else {
                 hide('dash-next-workout');
             }
@@ -955,49 +1000,35 @@
             switchTab('overview');
         }
 
-        function renderCalendar() {
-            const list = $('calendar-list');
-            list.innerHTML = '';
-            
-            if (!currentPlan || !currentPlan.workouts) return;
-            
-            $('cal-count').innerText = `${currentPlan.workouts.length} Sessões`;
+        // Workout Library Modal Preview before starting
+        window.openWorkoutLibraryModal = () => {
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if (!nw || !nw.queue) return;
 
-            currentPlan.workouts.forEach((w, index) => {
-                const isDone = w.isCompleted;
-                const border = isDone ? 'border-green-500/50' : 'border-brand-500 shadow-[0_0_15px_rgba(6,182,212,0.2)]';
-                const bg = isDone ? 'bg-green-900/10' : 'bg-dark-900';
-                const icon = isDone ? '<i class="fas fa-check-circle text-green-500 text-xl"></i>' : '<span class="text-xs bg-brand-500 text-dark-950 font-black px-2 py-1 rounded">ATUAL</span>';
-                
-                let detailsHtml = `
-                    <div class="w-full mt-3 pt-3 border-t border-slate-800/50 flex flex-col gap-2 pb-1">
-                        ${w.queue.map(q => {
-                            if(q.type === 'rest') return '';
-                            return `
-                            <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50 flex flex-col sm:flex-row sm:justify-between sm:items-center">
-                                <span class="text-xs font-bold text-slate-200 mb-1 sm:mb-0">${q.name}</span>
-                                <span class="text-[10px] text-brand-400 font-bold bg-brand-900/20 px-2 py-0.5 rounded border border-brand-500/20 self-start sm:self-auto">${q.roundInfo || ''}</span>
-                            </div>`;
-                        }).join('')}
-                    </div>`;
+            $('mwl-title').innerText = nw.name;
+            const list = $('mwl-list');
+            list.innerHTML = '';
+
+            nw.queue.forEach((q, idx) => {
+                const isRest = q.type === 'rest';
+                const bg = isRest ? 'bg-amber-950/20 border-amber-500/20' : 'bg-dark-950 border-slate-800';
+                const icon = isRest ? '<i class="fas fa-lungs text-amber-500"></i>' : '<i class="fas fa-dumbbell text-brand-400"></i>';
 
                 list.innerHTML += `
-                    <div class="rounded-2xl border ${border} ${bg} p-4 transition-all">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <span class="text-[9px] font-black uppercase tracking-wider text-slate-500">Sessão ${index + 1}</span>
-                                <h4 class="text-sm font-bold text-white mt-0.5">${w.name || 'Treino'}</h4>
-                                <p class="text-[11px] text-brand-400 font-medium">${w.focus || 'Geral'} • ${w.estimatedMinutes || '--'} min</p>
-                            </div>
-                            <div class="shrink-0 ml-3">
-                                ${icon}
-                            </div>
+                    <div class="p-3 rounded-xl border ${bg} flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-lg bg-dark-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5">
+                            ${icon}
                         </div>
-                        ${detailsHtml}
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-xs font-bold text-white">${q.name}</h4>
+                            <p class="text-[10px] text-brand-400 font-medium">${q.roundInfo || (q.duration + 's')}</p>
+                        </div>
                     </div>
                 `;
             });
-        }
+
+            show('modal-workout-library');
+        };
 
         window.startWorkout = () => {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
@@ -1057,6 +1088,7 @@
             if (index >= currentWorkoutQueue.length) {
                 clearInterval(timerInterval);
                 document.body.classList.remove('no-scroll');
+                playBeep(880, 400, 'square');
                 openPostWorkout();
                 return;
             }
@@ -1075,13 +1107,13 @@
             if (item.type === 'rest') {
                 ring.setAttribute('stroke', '#f59e0b');
                 bgPulse.className = 'absolute inset-0 bg-amber-500/5 transition-colors duration-1000';
-                roundContainer.className = 'bg-amber-900/20 border border-amber-500/30 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
-                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-2"><i class="fas fa-lungs mr-1"></i> Descanso</span><span class="text-xl sm:text-2xl font-black text-amber-400 w-full text-wrap leading-tight">${item.roundInfo || 'Recupere o fôlego'}</span>`;
+                roundContainer.className = 'bg-amber-900/20 border border-amber-500/30 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg';
+                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-1"><i class="fas fa-lungs mr-1"></i> Descanso</span><span class="text-lg font-black text-amber-400 w-full">${item.roundInfo || 'Recupere o fôlego'}</span>`;
             } else {
                 ring.setAttribute('stroke', '#06b6d4');
                 bgPulse.className = 'absolute inset-0 bg-brand-500/5 transition-colors duration-1000';
-                roundContainer.className = 'bg-brand-900/30 border border-brand-500/40 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
-                roundContainer.innerHTML = `<span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-2"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span><span class="text-xl sm:text-2xl font-black text-white w-full text-wrap leading-tight">${item.roundInfo || 'Máxima Qualidade'}</span>`;
+                roundContainer.className = 'bg-brand-900/30 border border-brand-500/40 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg';
+                roundContainer.innerHTML = `<span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-1"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span><span class="text-lg font-black text-white w-full">${item.roundInfo || 'Máxima Qualidade'}</span>`;
             }
 
             if (nextItem) {
@@ -1101,6 +1133,12 @@
             timeLeft--;
             totalWorkoutTimeLeft--;
             
+            if (timeLeft <= 3 && timeLeft > 0) {
+                playBeep(600, 100, 'sine');
+            } else if (timeLeft === 0) {
+                playBeep(800, 200, 'sine');
+            }
+
             if (timeLeft < 0) {
                 currentQueueIndex++;
                 loadQueueItem(currentQueueIndex);
@@ -1122,22 +1160,15 @@
             $('timer-ring').style.strokeDashoffset = offset;
         }
 
-        function buildNextMinsOptions() {
-            const sel = $('pw-next-mins');
-            sel.innerHTML = '';
-            for(let i=20; i<=90; i+=5) {
-                sel.innerHTML += `<option value="${i}" ${i===45?'selected':''}>${i} min</option>`;
-            }
-        }
-
         function openPostWorkout() {
-            buildNextMinsOptions();
             show('modal-post-workout');
+            $('step-ai-calibration').classList.add('hidden');
+            $('step-eval-btn-container').classList.remove('hidden');
             
             const container = $('pse-buttons');
             container.innerHTML = '';
             selectedPseValue = null;
-            $('btn-save-workout').disabled = true;
+            $('btn-eval-ai').disabled = true;
 
             for(let i=0; i<=10; i++) {
                 let colorClass = 'border-slate-700 bg-slate-800 text-slate-300';
@@ -1146,21 +1177,59 @@
                 else colorClass = 'border-red-700/50 bg-red-900/30 text-red-400';
 
                 const btn = document.createElement('button');
-                btn.className = `w-10 h-12 rounded-xl border ${colorClass} font-black text-lg transition-all active:scale-95 flex items-center justify-center m-1`;
+                btn.className = `w-9 h-11 rounded-xl border ${colorClass} font-black text-sm transition-all active:scale-95 flex items-center justify-center m-0.5`;
                 btn.innerText = i;
                 btn.onclick = () => {
                     Array.from(container.children).forEach(c => c.classList.remove('ring-2', 'ring-white', 'scale-110'));
                     btn.classList.add('ring-2', 'ring-white', 'scale-110');
                     selectedPseValue = i;
-                    $('btn-save-workout').disabled = false;
+                    $('btn-eval-ai').disabled = false;
                 };
                 container.appendChild(btn);
             }
         }
 
-        // Pós-treino: Envia métricas e gera o PRÓXIMO TREINO dinamicamente
-        window.finishWorkoutFlow = async () => {
+        // Step 1: User evaluates metrics with AI Coach
+        window.evaluateWorkoutWithAI = async () => {
             if (selectedPseValue === null) return;
+
+            const fc = $('pw-fc').value;
+            const fcMax = $('pw-fc-max').value;
+            const kcal = $('pw-kcal').value;
+
+            showLoading("Coach I.A. Analisando...", "Avaliando suas métricas cardíacas e de esforço para sugerir o próximo estímulo.");
+            
+            const prompt = `Atue como Coach Sênior de Calistenia. 
+            O aluno concluiu um treino. 
+            MÉTRICAS: Esforço PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'} bpm, FC Máxima ${fcMax||'N/A'} bpm, Calorias ${kcal||'N/A'} kcal.
+            
+            TAREFAS OBRIGATÓRIAS:
+            1. 'coachFeedback': Avalie criticamente o rendimento e o esforço do aluno com base nas métricas.
+            2. 'suggestedDays': Sugira o número ideal de dias de descanso até a próxima sessão (1, 2, 3 ou 4).
+            3. 'suggestedMinutes': Sugira a duração ideal em minutos para o próximo treino com base na fadiga (ex: 30, 45, 60).
+            4. 'workout': Crie o PRÓXIMO TREINO calibrado. Item 0 = Aquecimento (120s rest). Último item = Volta à calma (120s rest).`;
+
+            try {
+                const resData = await callGemini(prompt);
+                aiEvaluationResult = resData;
+
+                $('ai-suggestion-text').innerText = resData.coachFeedback || "Análise concluída com sucesso.";
+                if (resData.suggestedDays) $('pw-next-days').value = Math.min(Math.max(resData.suggestedDays, 1), 4);
+                if (resData.suggestedMinutes) $('pw-next-mins').value = resData.suggestedMinutes;
+
+                hideLoading();
+                $('step-eval-btn-container').classList.add('hidden');
+                $('step-ai-calibration').classList.remove('hidden');
+
+            } catch (err) {
+                hideLoading();
+                window.showAlert("Erro na I.A.", err.message);
+            }
+        };
+
+        // Step 2: User confirms calibration and saves next workout
+        window.saveAndGenerateNextWorkout = async () => {
+            if (!aiEvaluationResult) return;
 
             const nextDays = $('pw-next-days').value;
             const nextMins = $('pw-next-mins').value;
@@ -1185,43 +1254,24 @@
                 } catch(e) { console.error("History err", e); }
             }
 
-            showLoading("I.A. Analisando e Gerando...", "Processando métricas e calibrando o seu próximo treino personalizado.");
-            
-            const prompt = `Atue como Coach Sênior de Calistenia. 
-            O aluno acabou de concluir o treino. 
-            MÉTRICAS DO TREINO ANTERIOR: Esforço PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'} bpm, FC Máxima ${fcMax||'N/A'} bpm, Calorias ${kcal||'N/A'} kcal.
-            DISPONIBILIDADE PARA O PRÓXIMO: Em ${nextDays} dias, durará exatamente ${nextMins} minutos.
-            PREFERÊNCIA: "${pref}".
-            
-            TAREFAS OBRIGATÓRIAS:
-            1. 'coachFeedback': Avalie detalhadamente o desempenho do treino anterior e explique a estratégia do novo treino.
-            2. 'workout': Crie APENAS O PRÓXIMO TREINO da sequência, recalibrando a intensidade conforme o PSE informado.
-            3. REGRAS DA QUEUE: Item 0 = Aquecimento (120s rest). Último item = Volta à calma (120s rest). Todos os 'work' com 'roundInfo' claro.`;
-
-            try {
-                const resData = await callGemini(prompt);
-                
-                const nextWorkout = resData.workout;
-                if(nextWorkout) {
-                    nextWorkout.id = `w_${Date.now()}_${currentPlan.workouts.length}`;
-                    nextWorkout.isCompleted = false;
-                    currentPlan.workouts.push(nextWorkout);
-                }
-
-                if(resData.coachFeedback) {
-                    currentPlan.coachFeedback = resData.coachFeedback;
-                }
-
-                await saveFullState();
-                hideLoading();
-                hide('modal-post-workout');
-                renderDashboard();
-                showScreen('screen-dashboard');
-                
-            } catch (err) {
-                hideLoading();
-                window.showAlert("Erro na I.A.", err.message);
+            const nextWorkout = aiEvaluationResult.workout;
+            if(nextWorkout) {
+                nextWorkout.id = `w_${Date.now()}_${currentPlan.workouts.length}`;
+                nextWorkout.isCompleted = false;
+                if(nextMins) nextWorkout.estimatedMinutes = parseInt(nextMins);
+                currentPlan.workouts.push(nextWorkout);
             }
+
+            if(aiEvaluationResult.coachFeedback) {
+                currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
+            }
+
+            showLoading("Salvando Plano Atualizado...");
+            await saveFullState();
+            hideLoading();
+            hide('modal-post-workout');
+            renderDashboard();
+            showScreen('screen-dashboard');
         };
 
         window.saveCheckin = async () => {
@@ -1293,7 +1343,6 @@
                     options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
                 });
 
-                // Gráficos de Histórico (FC e Calorias)
                 const histSnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
                 let historyData = [];
                 histSnap.forEach(d => historyData.push(d.data()));
@@ -1334,26 +1383,28 @@
 
         async function loadHistory() {
             try {
-                const list = $('history-list');
+                const list = $('calendar-list');
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
                 
                 let data = [];
                 snap.forEach(d => data.push(d.data()));
                 data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
                 
+                $('cal-count').innerText = `${data.length} Sessões`;
                 list.innerHTML = '';
                 if(data.length === 0) {
-                    list.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">Nenhum treino concluído.</p>`;
+                    list.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">Nenhum treino concluído ainda.</p>`;
                     return;
                 }
 
                 data.forEach(h => {
                     const dt = new Date(h.date).toLocaleDateString('pt-BR');
                     list.innerHTML += `
-                        <div class="bg-dark-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                        <div class="bg-dark-900 p-4 rounded-2xl border border-slate-800 flex justify-between items-center shadow-md">
                             <div>
-                                <h4 class="text-sm font-bold text-white">${h.workoutName}</h4>
-                                <p class="text-[10px] text-slate-400 font-medium">${dt} • PSE: ${h.pse}/10</p>
+                                <span class="text-[9px] font-bold text-slate-500 uppercase">${dt}</span>
+                                <h4 class="text-sm font-bold text-white mt-0.5">${h.workoutName}</h4>
+                                <p class="text-xs text-brand-400 font-medium mt-1">Esforço PSE: ${h.pse}/10</p>
                             </div>
                             <div class="text-right">
                                 ${h.fc ? `<span class="block text-xs font-bold text-red-400"><i class="fas fa-heartbeat"></i> ${h.fc}/${h.fcMax||'--'} bpm</span>` : ''}
