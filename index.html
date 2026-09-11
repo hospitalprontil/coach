@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - 3</title>
+    <title>AI Coach - Calistenia Dinâmica</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -40,10 +40,10 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInAnonymously, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, addDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // SUA CONFIGURAÇÃO DO FIREBASE (Projeto: coach-6e340)
+        // CREDENCIAIS DO FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyDLkxm9TuHD7_59V3VoA8VO1qFfJIejuEA",
             authDomain: "coach-6e340.firebaseapp.com",
@@ -54,27 +54,22 @@
             measurementId: "G-KMW9160YRK"
         };
 
-        // INICIALIZAÇÃO
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const APP_ID = 'calistenia-coach';
-
-        // URL da sua API no Render que falará com o Gemini
+        
+        // BACKEND RENDER
         const BACKEND_API_URL = "https://coach-backend-97uw.onrender.com/api/gemini";
 
-        // ESTADO GLOBAL DO APLICATIVO
+        // ESTADO GLOBAL (ESTRITAMENTE ONLINE)
         window.appState = {
             user: null,
             profile: null,
-            planData: null, // Guarda o array de treinos
-            timer: { interval: null, left: 0, total: 0, state: 'idle', queue: [], queueIndex: 0 },
-            isOfflineMode: false 
+            planData: null,
+            timer: { interval: null, left: 0, total: 0, state: 'idle', queue: [], queueIndex: 0, activeWorkoutId: null }
         };
 
-        // ==========================================
-        // HELPERS GERAIS DA UI
-        // ==========================================
         function showLoading(text) {
             document.getElementById('global-loading').classList.remove('hidden');
             document.getElementById('loading-text').innerText = text;
@@ -84,7 +79,7 @@
         }
         function showToast(msg, type='success') {
             const container = document.getElementById('toast-container');
-            const color = type === 'error' ? 'bg-rose-500' : (type === 'warn' ? 'bg-amber-500' : 'bg-emerald-500');
+            const color = type === 'error' ? 'bg-rose-600' : (type === 'warn' ? 'bg-amber-500' : 'bg-emerald-500');
             const toast = document.createElement('div');
             toast.className = `${color} text-white text-xs font-bold px-4 py-3 rounded-lg shadow-xl transform transition-all duration-300 translate-y-[-20px] opacity-0 flex justify-between items-center`;
             toast.innerHTML = `<span>${msg}</span>`;
@@ -99,9 +94,6 @@
         window.showLoading = showLoading;
         window.hideLoading = hideLoading;
 
-        // ==========================================
-        // GERENCIAMENTO DE NAVEGAÇÃO / ABAS
-        // ==========================================
         window.showView = function(viewId) {
             ['auth-view', 'onboarding-view', 'dashboard-view', 'timer-view', 'progress-view', 'calendar-view'].forEach(v => {
                 document.getElementById(v).classList.add('hidden');
@@ -126,73 +118,56 @@
             const fbBadge = document.getElementById('status-firebase');
             const apiBadge = document.getElementById('status-api');
             if(fbBadge) {
-                fbBadge.innerHTML = isFirebaseOk ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1"></span> Banco: Nuvem' : '<span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1"></span> Banco: Local';
-                fbBadge.className = isFirebaseOk ? 'text-[10px] text-emerald-400' : 'text-[10px] text-amber-400';
+                fbBadge.innerHTML = isFirebaseOk ? '<i class="fa-solid fa-cloud text-emerald-400 mr-1"></i> Banco Ativo' : '<i class="fa-solid fa-cloud-xmark text-rose-500 mr-1"></i> Banco Falhou';
+                fbBadge.className = isFirebaseOk ? 'text-[10px] text-emerald-400 font-bold' : 'text-[10px] text-rose-400 font-bold';
             }
             if(apiBadge) {
-                apiBadge.innerHTML = isApiOk ? '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse inline-block mr-1"></span> Coach: Online' : '<span class="w-2 h-2 rounded-full bg-amber-500 inline-block mr-1"></span> Coach: Fallback';
-                apiBadge.className = isApiOk ? 'text-[10px] text-emerald-400' : 'text-[10px] text-amber-400';
+                apiBadge.innerHTML = isApiOk ? '<i class="fa-solid fa-robot text-emerald-400 mr-1"></i> Coach Ativo' : '<i class="fa-solid fa-triangle-exclamation text-amber-500 mr-1"></i> Aguardando API';
+                apiBadge.className = isApiOk ? 'text-[10px] text-emerald-400 font-bold' : 'text-[10px] text-amber-400 font-bold';
             }
         }
 
-        // ==========================================
-        // BANCO DE DADOS (FIRESTORE + FALLBACK LOCAL)
-        // ==========================================
         function getDbPath(collectionName) {
-            if(!window.appState.user) return null;
+            if(!window.appState.user) throw new Error("Usuário não autenticado");
             return `artifacts/${APP_ID}/users/${window.appState.user.uid}/${collectionName}`;
         }
 
         window.dbGet = async function(collectionName, docId) {
-            if (window.appState.isOfflineMode) {
-                const data = localStorage.getItem(`local_${collectionName}_${docId}`);
-                return data ? JSON.parse(data) : null;
-            }
             try {
                 const docRef = doc(db, getDbPath(collectionName), docId);
                 const docSnap = await getDoc(docRef);
                 return docSnap.exists() ? docSnap.data() : null;
             } catch (e) {
-                console.warn("Nuvem falhou, buscando local.", e);
-                const data = localStorage.getItem(`local_${collectionName}_${docId}`);
-                return data ? JSON.parse(data) : null;
+                console.error(`Erro ao buscar doc ${docId} na coleção ${collectionName}:`, e);
+                showToast(`Erro de Conexão: Não foi possível carregar os dados.`, 'error');
+                return null;
             }
         }
 
         window.dbSet = async function(collectionName, docId, data) {
-            // Sempre salva local para garantir
-            localStorage.setItem(`local_${collectionName}_${docId}`, JSON.stringify(data));
-            if (!window.appState.isOfflineMode) {
-                try {
-                    const docRef = doc(db, getDbPath(collectionName), docId);
-                    await setDoc(docRef, data, { merge: true });
-                } catch (e) {
-                    console.error("Erro gravando na nuvem", e);
-                    showToast("Salvo localmente (Problema de permissão na nuvem)", "warn");
-                }
+            try {
+                const docRef = doc(db, getDbPath(collectionName), docId);
+                await setDoc(docRef, data, { merge: true });
+            } catch (e) {
+                console.error(`Erro ao salvar doc ${docId} na coleção ${collectionName}:`, e);
+                showToast(`Erro ao Salvar na Nuvem. Verifique sua conexão.`, 'error');
+                throw e; // Interrompe o fluxo se falhar
             }
         }
 
         window.dbAdd = async function(collectionName, data) {
             data.createdAt = new Date().toISOString();
-            const list = JSON.parse(localStorage.getItem(`local_col_${collectionName}`) || "[]");
-            list.push(data);
-            localStorage.setItem(`local_col_${collectionName}`, JSON.stringify(list));
-            
-            if (!window.appState.isOfflineMode) {
-                try {
-                    const colRef = collection(db, getDbPath(collectionName));
-                    await addDoc(colRef, data);
-                } catch (e) {
-                    console.error("Erro adicionando na nuvem", e);
-                }
+            try {
+                const colRef = collection(db, getDbPath(collectionName));
+                await addDoc(colRef, data);
+            } catch (e) {
+                console.error(`Erro ao adicionar em ${collectionName}:`, e);
+                showToast(`Erro ao Registrar. Tente novamente.`, 'error');
+                throw e;
             }
         }
 
         window.dbGetAll = async function(collectionName) {
-            if (window.appState.isOfflineMode) {
-                return JSON.parse(localStorage.getItem(`local_col_${collectionName}`) || "[]");
-            }
             try {
                 const colRef = collection(db, getDbPath(collectionName));
                 const snap = await getDocs(colRef);
@@ -200,17 +175,25 @@
                 snap.forEach(d => results.push(d.data()));
                 return results;
             } catch (e) {
-                return JSON.parse(localStorage.getItem(`local_col_${collectionName}`) || "[]");
+                console.error(`Erro ao listar ${collectionName}:`, e);
+                showToast(`Erro ao buscar histórico.`, 'error');
+                return [];
+            }
+        }
+        
+        window.dbDeleteDoc = async function(collectionName, docId) {
+            try {
+                const docRef = doc(db, getDbPath(collectionName), docId);
+                await deleteDoc(docRef);
+            } catch (e) {
+                console.error("Erro ao deletar", e);
+                throw e;
             }
         }
 
-        // ==========================================
-        // AUTENTICAÇÃO
-        // ==========================================
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 window.appState.user = user;
-                window.appState.isOfflineMode = false;
                 updateConnectionStatus(true, true);
                 await loadUserProfile();
             } else {
@@ -230,48 +213,37 @@
                 await signInWithEmailAndPassword(auth, email, pass);
             } catch(e) {
                 hideLoading();
-                let msg = e.message;
-                if(e.code === 'auth/invalid-credential') msg = "E-mail ou senha incorretos.";
-                showToast("Erro: " + msg, "error");
+                showToast("Erro: E-mail ou senha incorretos", "error");
             }
         }
 
         window.handleRegister = async function() {
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-password').value;
-            if(!email || pass.length < 6) return showToast('Email válido e senha > 6 chars', 'warn');
+            const passConfirm = document.getElementById('auth-password-confirm').value;
             
-            showLoading("Criando Conta...");
+            if(!email || pass.length < 6) return showToast('Email válido e senha > 6 chars', 'warn');
+            if(pass !== passConfirm) return showToast('As senhas não coincidem!', 'error');
+            
+            showLoading("Criando Conta na Nuvem...");
             try {
                 await createUserWithEmailAndPassword(auth, email, pass);
+                showToast("Conta criada com sucesso!");
             } catch(e) {
                 hideLoading();
                 let msg = e.message;
-                if(e.code === 'auth/operation-not-allowed') msg = "Ative 'E-mail/Senha' no painel do Firebase.";
                 if(e.code === 'auth/email-already-in-use') msg = "E-mail já cadastrado. Faça login.";
+                else if(e.code === 'auth/operation-not-allowed') msg = "E-mail/Senha bloqueado no console Firebase.";
                 showToast("Erro: " + msg, "error");
             }
         }
 
-        window.handleVisitorMode = async function() {
-            showLoading("Acessando como Visitante...");
-            try {
-                await signInAnonymously(auth);
-            } catch(e) {
-                // Fallback hard offline
-                window.appState.isOfflineMode = true;
-                window.appState.user = { uid: 'visitor_offline', email: 'visitante@offline.com' };
-                updateConnectionStatus(false, true);
-                await loadUserProfile();
-            }
-        }
-
         window.handleLogout = async function() {
-            try { await signOut(auth); } catch(e) { window.appState.user = null; window.showView('auth-view'); }
+            try { await signOut(auth); } catch(e) { window.showView('auth-view'); }
         }
 
         async function loadUserProfile() {
-            document.getElementById('header-user-email').innerText = window.appState.user.email || "Visitante";
+            document.getElementById('header-user-email').innerText = window.appState.user.email;
             
             const profile = await window.dbGet('core', 'profile');
             if (profile) {
@@ -290,9 +262,6 @@
             hideLoading();
         }
 
-        // ==========================================
-        // SCHEMA DO PLANO (MACROCICLO) E CHAMADA DA API
-        // ==========================================
         const PLAN_SCHEMA = {
             type: "OBJECT",
             properties: {
@@ -333,6 +302,7 @@
 
         window.callGeminiCoach = async function(prompt) {
             try {
+                // Time limit for connection: 60s
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 60000); 
                 
@@ -344,44 +314,18 @@
                 });
                 clearTimeout(timeoutId);
                 
-                if (!response.ok) throw new Error("API HTTP " + response.status);
+                if (!response.ok) throw new Error("Erro do Servidor HTTP: " + response.status);
                 
                 const data = await response.json();
+                if(data.error) throw new Error(data.error);
+                
                 updateConnectionStatus(true, true);
                 return data;
             } catch (e) {
-                console.warn("Fallback Ativado:", e);
+                console.error("Erro ao chamar API Gemini Backend:", e);
                 updateConnectionStatus(true, false);
-                
-                // Fallback Simulado Robusto (Gera um plano com 4 treinos)
-                return {
-                    macrocycleSummary: "Plano Base de Adaptação (Simulado Offline). Foco em criar constância.",
-                    currentPhase: "Fase 1: Condicionamento",
-                    recommendedDays: "2 dias por semana",
-                    coachFeedback: "Bem-vindo ao modo de simulação! Este é um plano gerado localmente para você continuar treinando mesmo sem conexão com a API.",
-                    workouts: [
-                        {
-                            id: 1, workoutName: "Treino A - Full Body", focus: "Resistência Base", estimatedMinutes: 45, isCompleted: false,
-                            queue: [
-                                { name: "Aquecimento Geral", type: "rest", duration: 300, roundInfo: "Preparação" },
-                                { name: "Agachamento Livre", type: "work", duration: 40, roundInfo: "Série 1" },
-                                { name: "Descanso", type: "rest", duration: 30, roundInfo: "Recuperação" },
-                                { name: "Flexão de Braço", type: "work", duration: 40, roundInfo: "Série 1" },
-                                { name: "Volta à Calma", type: "rest", duration: 300, roundInfo: "Descompressão" }
-                            ]
-                        },
-                        {
-                            id: 2, workoutName: "Treino B - Core e Pernas", focus: "Força e Core", estimatedMinutes: 45, isCompleted: false,
-                            queue: [
-                                { name: "Aquecimento Geral", type: "rest", duration: 300, roundInfo: "Preparação" },
-                                { name: "Prancha Abdominal", type: "work", duration: 40, roundInfo: "Série 1" },
-                                { name: "Descanso", type: "rest", duration: 30, roundInfo: "Recuperação" },
-                                { name: "Afundo Alternado", type: "work", duration: 40, roundInfo: "Série 1" },
-                                { name: "Volta à Calma", type: "rest", duration: 300, roundInfo: "Descompressão" }
-                            ]
-                        }
-                    ]
-                };
+                showToast("Erro na API do Coach. Verifique seu servidor no Render.", "error");
+                throw e; // Não fazemos mock local, forçamos funcionamento online!
             }
         }
 
@@ -399,33 +343,65 @@
 
             const profileData = { age, height, weight, bf, targetWeight, goal, days, mins };
             
-            showLoading("I.A. Desenhando seu Plano de 4 Semanas (Aguarde até 50s)...");
+            showLoading("I.A. Criando Macro Planejamento (Pode levar até 40s)...");
             
             const prompt = `Atue como um Educador Físico Sênior Especialista.
             O aluno tem ${age} anos, peso ${weight}kg, estatura ${height}cm, % de gordura estimado: ${bf}%.
             Objetivo: ${goal}. Meta final: ${targetWeight}kg.
             Disponibilidade: ${days} dias por semana, ${mins} minutos por treino.
-            Crie um plano de calistenia para 4 semanas. Total de treinos sugeridos no array 'workouts': 8 treinos.
-            Ação 1: 'macrocycleSummary' deve resumir a estratégia dessas 4 semanas.
-            Ação 2: 'recommendedDays' sugira quais dias da semana treinar.
-            Ação 3: No array 'workouts', crie os 8 treinos sequenciais (id 1 a 8). Defina 'isCompleted': false para todos.
-            Ação 4: Para cada treino, defina um 'workoutName', 'focus' e 'estimatedMinutes'.
-            Ação 5: A 'queue' de CADA treino DEVE ter o 1º item como 'Aquecimento' (type: 'rest', duration: 300) e o último 'Volta a calma' (type: 'rest', duration: 300). Intercale 'work' e 'rest' no meio.`;
+            Crie um plano de calistenia COMPLETO para 4 semanas (Total de 8 treinos sugeridos no array).
+            Ação 1: 'macrocycleSummary' resuma a estratégia das 4 semanas de forma direta.
+            Ação 2: 'recommendedDays' sugira quais dias da semana exatos treinar.
+            Ação 3: No array 'workouts', crie 8 treinos sequenciais (id 1 a 8). Defina 'isCompleted': false para todos.
+            Ação 4: A 'queue' de CADA treino DEVE ter o 1º item como 'Aquecimento' (type: 'rest', duration: 300) e o último 'Volta a calma' (type: 'rest', duration: 300). Intercale 'work' e 'rest' no meio dependendo do volume.`;
 
-            const generatedPlan = await window.callGeminiCoach(prompt);
-            
-            await window.dbSet('core', 'profile', profileData);
-            await window.dbSet('core', 'plan', generatedPlan);
-            
-            await window.dbAdd('checkins', { date: new Date().toISOString(), weight: parseFloat(weight), bf: parseFloat(bf || 20) });
+            try {
+                const generatedPlan = await window.callGeminiCoach(prompt);
+                
+                // Grava no Firestore primeiro
+                await window.dbSet('core', 'profile', profileData);
+                await window.dbSet('core', 'plan', generatedPlan);
+                await window.dbAdd('checkins', { date: new Date().toISOString(), weight: parseFloat(weight), bf: parseFloat(bf || 20) });
 
-            window.appState.profile = profileData;
-            window.appState.planData = generatedPlan;
-            
-            hideLoading();
-            showToast("Planejamento Estratégico Concluído!");
-            window.renderDashboard();
-            window.switchTab('dashboard');
+                window.appState.profile = profileData;
+                window.appState.planData = generatedPlan;
+                
+                hideLoading();
+                showToast("Treino Salvo na Nuvem com Sucesso!");
+                window.renderDashboard();
+                window.switchTab('dashboard');
+            } catch (err) {
+                hideLoading();
+                // Erro já notificado na função callGeminiCoach
+            }
+        }
+        
+        window.startResetPlan = function() {
+            document.getElementById('reset-modal-1').classList.remove('hidden');
+        }
+        window.cancelResetPlan1 = function() {
+            document.getElementById('reset-modal-1').classList.add('hidden');
+        }
+        window.confirmResetPlan1 = function() {
+            document.getElementById('reset-modal-1').classList.add('hidden');
+            document.getElementById('reset-modal-2').classList.remove('hidden');
+        }
+        window.cancelResetPlan2 = function() {
+            document.getElementById('reset-modal-2').classList.add('hidden');
+        }
+        window.executeResetPlan = async function() {
+            showLoading("Limpando plano na nuvem...");
+            try {
+                await window.dbDeleteDoc('core', 'plan');
+                window.appState.planData = null;
+                document.getElementById('reset-modal-2').classList.add('hidden');
+                hideLoading();
+                showToast("Plano Reiniciado!", "success");
+                window.showView('onboarding-view');
+            } catch (e) {
+                hideLoading();
+                showToast("Erro ao reiniciar plano.", "error");
+            }
         }
 
     </script>
@@ -443,9 +419,6 @@
             return '<i class="fa-solid fa-bolt text-slate-400"></i>';
         }
 
-        // ==========================================
-        // RENDERIZAÇÃO DAS TELAS
-        // ==========================================
         window.renderDashboard = function() {
             const p = window.appState.planData;
             if(!p || !p.workouts) return;
@@ -462,7 +435,6 @@
                 feedbackBox.classList.add('hidden');
             }
 
-            // Acha o próximo treino pendente
             const nextWorkout = p.workouts.find(w => !w.isCompleted);
             
             if (nextWorkout) {
@@ -481,7 +453,7 @@
                             <div class="w-10 h-10 rounded-lg bg-slate-950 flex items-center justify-center border border-slate-800 shrink-0">
                                 ${getIconForExercise(exName)}
                             </div>
-                            <p class="text-xs font-bold text-slate-200 capitalize">${exName}</p>
+                            <p class="text-xs font-bold text-slate-200 capitalize whitespace-normal leading-tight">${exName}</p>
                         </div>`;
                 });
                 document.getElementById('btn-start-workout-dash').classList.remove('hidden');
@@ -505,21 +477,22 @@
 
             p.workouts.forEach((w, index) => {
                 const isDone = w.isCompleted;
-                const bgClass = isDone ? 'bg-slate-900/50 border-slate-800/50' : 'bg-slate-900 border-slate-700';
-                const icon = isDone ? '<i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>' : '<i class="fa-regular fa-circle text-slate-600 text-xl"></i>';
-                const textClass = isDone ? 'text-slate-500' : 'text-slate-200';
+                const bgClass = isDone ? 'bg-slate-900/50 border-slate-800/50 opacity-60' : 'bg-slate-900 border-slate-700';
+                const icon = isDone ? '<i class="fa-solid fa-circle-check text-emerald-500 text-xl"></i>' : '<i class="fa-regular fa-circle text-brand-400 text-xl"></i>';
                 
                 list.innerHTML += `
-                    <div class="${bgClass} border p-4 rounded-2xl flex items-center justify-between mb-3 shadow-sm">
-                        <div class="flex items-center space-x-4">
+                    <div class="${bgClass} border p-4 rounded-2xl flex items-center justify-between mb-3 shadow-sm transition-all hover:bg-slate-800 cursor-pointer" onclick="window.previewWorkout(${w.id})">
+                        <div class="flex items-center space-x-4 w-full">
                             <div class="shrink-0">${icon}</div>
-                            <div>
-                                <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest block mb-0.5">Sessão ${index + 1}</span>
-                                <h4 class="text-sm font-black ${textClass}">${w.workoutName}</h4>
-                                <p class="text-[10px] text-slate-400 mt-1"><i class="fa-regular fa-clock text-sky-400 mr-1"></i> ${w.estimatedMinutes} min • Foco: ${w.focus}</p>
+                            <div class="w-full">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <span class="text-[10px] font-bold text-brand-400 uppercase tracking-widest">Sessão ${index + 1}</span>
+                                    <span class="text-[10px] text-slate-500"><i class="fa-regular fa-clock"></i> ${w.estimatedMinutes}m</span>
+                                </div>
+                                <h4 class="text-sm font-black text-slate-200 leading-tight">${w.workoutName}</h4>
+                                <p class="text-[10px] text-slate-400 mt-1 line-clamp-1">Foco: ${w.focus}</p>
                             </div>
                         </div>
-                        ${!isDone ? `<button onclick="window.previewWorkout(${w.id})" class="p-2 bg-slate-800 rounded-lg text-slate-300 hover:text-white"><i class="fa-solid fa-chevron-right"></i></button>` : ''}
                     </div>
                 `;
             });
@@ -528,12 +501,13 @@
         window.previewWorkout = function(id) {
             const p = window.appState.planData;
             const w = p.workouts.find(x => x.id === id);
-            if(w) alert(`Sessão ${id}: ${w.workoutName}\nFoco: ${w.focus}\n(Em breve, detalhes expandidos aqui)`);
+            if(w) {
+                const exList = w.queue.filter(q => q.type === 'work').map(q => q.name);
+                const unique = [...new Set(exList)].join(", ");
+                alert(`DETALHES DA SESSÃO\n\nNome: ${w.workoutName}\nFoco: ${w.focus}\nDuração: ${w.estimatedMinutes} min\n\nExercícios Principais:\n${unique}`);
+            }
         }
 
-        // ==========================================
-        // TIMER LOGIC
-        // ==========================================
         let audioCtx = null;
         function playBeep(freq, type, duration) {
             try {
@@ -583,9 +557,8 @@
             t.total = step.duration;
             
             const statusEl = document.getElementById('timer-status');
-            const subtextEl = document.getElementById('timer-subtext'); // Texto DENTRO do círculo
+            const subtextEl = document.getElementById('timer-subtext');
             
-            // Define a legenda DENTRO do círculo com base na ação ATUAL
             subtextEl.innerText = step.name.toUpperCase();
             
             if (step.type === 'work') {
@@ -596,7 +569,6 @@
                 statusEl.className = 'text-xl font-black text-amber-500 uppercase tracking-widest';
             }
             
-            // Define o que vem DEPOIS no card inferior
             if (nextStep) {
                 document.getElementById('timer-next-name').innerText = nextStep.name;
                 document.getElementById('timer-next-icon').innerHTML = getIconForExercise(nextStep.name);
@@ -672,9 +644,6 @@
             return `${m}:${s}`;
         }
 
-        // ==========================================
-        // PÓS-TREINO E RECALIBRAÇÃO INTELIGENTE
-        // ==========================================
         let selectedPseValue = 7;
         window.finishWorkout = function() {
             document.getElementById('post-workout-modal').classList.remove('hidden');
@@ -698,13 +667,15 @@
             const fcAvg = document.getElementById('pw-fc-avg').value;
             const fcMax = document.getElementById('pw-fc-max').value;
             const kcal = document.getElementById('pw-kcal').value;
+            const recup = document.getElementById('pw-recup').value;
+            
             const nextDays = document.getElementById('pw-next-days').value;
             const nextMins = document.getElementById('pw-next-mins').value;
             const pref = document.getElementById('pw-exercises-pref').value;
+            const note = document.getElementById('pw-note').value;
             
             document.getElementById('post-workout-modal').classList.add('hidden');
             
-            // Marca o treino atual como concluído
             const currentWorkoutId = window.appState.timer.activeWorkoutId;
             const p = window.appState.planData;
             const wIndex = p.workouts.findIndex(w => w.id === currentWorkoutId);
@@ -717,67 +688,57 @@
                 fcAvg: fcAvg ? parseInt(fcAvg) : null,
                 fcMax: fcMax ? parseInt(fcMax) : null,
                 kcal: kcal ? parseInt(kcal) : null,
+                recup: recup ? parseInt(recup) : null,
+                note: note,
                 workoutName: p.workouts[wIndex]?.workoutName || "Treino"
             };
             
-            window.showLoading("I.A. Avaliando Esforço e Recalibrando próximos treinos do Calendário...");
-            await window.dbAdd('history', workoutRecord);
-
-            // Verifica se há treinos restantes para recalibrar
-            const remainingWorkouts = p.workouts.filter(w => !w.isCompleted);
+            window.showLoading("I.A. Avaliando Esforço e Recalibrando Calendário...");
             
-            if (remainingWorkouts.length > 0) {
-                // Passa o feedback para o Coach ajustar os treinos que faltam no array
-                const prompt = `Atue como Coach Sênior e Fisiologista.
-                O aluno concluiu um treino. MÉTRICAS: 
-                - Percepção de Esforço (PSE 0-10): ${selectedPseValue}
-                - FC Média: ${fcAvg || 'N/A'}.
+            try {
+                await window.dbAdd('history', workoutRecord);
                 
-                PEDIDO DO ALUNO PARA OS PRÓXIMOS TREINOS:
-                - Próximo treino ocorrerá: ${nextDays}.
-                - Duração requerida para os próximos treinos: ${nextMins} minutos.
-                - Preferência fisiológica: ${pref}.
+                const remainingWorkouts = p.workouts.filter(w => !w.isCompleted);
+                
+                if (remainingWorkouts.length > 0) {
+                    const prompt = `Atue como Coach Sênior. Aluno concluiu o Treino.
+                    MÉTRICAS: PSE ${selectedPseValue}/10, FC Média: ${fcAvg||'N/A'}. 
+                    PEDIDO DO ALUNO:
+                    - Próximo treino ocorrerá: ${nextDays}.
+                    - Duração requerida para os próximos treinos: ${nextMins} minutos.
+                    - Preferência: ${pref}.
+                    - Nota extra: ${note}
 
-                TAREFA:
-                Acesse a sua sabedoria para avaliar o PSE (esforço) atual. Gere uma mensagem curta de 'coachFeedback' (máx 3 frases) avaliando o treino atual e dizendo o que ajustou.
-                Mantenha 'macrocycleSummary' e 'currentPhase' originais: '${p.macrocycleSummary}'.
-                AJUSTE o array 'workouts' passado a seguir. Refaça o tempo total ('estimatedMinutes') para ${nextMins}min e adapte o circuito 'queue' com base no pedido.
-                Retorne apenas JSON válido de acordo com o Schema.
+                    TAREFA:
+                    1. Escreva em 'coachFeedback' uma breve análise de como ele foi e como você ajustou o restante do plano baseado nas métricas.
+                    2. Mantenha 'macrocycleSummary' e 'currentPhase' como: '${p.macrocycleSummary}'.
+                    3. AJUSTE a estrutura dos treinos pendentes abaixo, redimensionando 'estimatedMinutes' para ${nextMins}min e adaptando a 'queue' (intensidade/volume) consoante o PSE.
+                    
+                    WORKOUTS PENDENTES: 
+                    ${JSON.stringify(remainingWorkouts)}`;
 
-                WORKOUTS PENDENTES A SEREM RECALIBRADOS: 
-                ${JSON.stringify(remainingWorkouts)}`;
-
-                const updatedPlan = await window.callGeminiCoach(prompt);
-                
-                // Mescla os treinos concluídos com os recém-atualizados
-                const completedWorkouts = p.workouts.filter(w => w.isCompleted);
-                p.workouts = [...completedWorkouts, ...updatedPlan.workouts];
-                p.coachFeedback = updatedPlan.coachFeedback;
-                
-                await window.dbSet('core', 'plan', p);
-                window.appState.planData = p;
-                
-                window.showToast("Coach avaliou o treino e recalibrou o calendário!", "success");
-            } else {
-                // Fim do macrociclo
-                await window.dbSet('core', 'plan', p);
-                window.showToast("Parabéns! Você completou a fase inteira do plano!", "success");
+                    const updatedPlan = await window.callGeminiCoach(prompt);
+                    
+                    const completedWorkouts = p.workouts.filter(w => w.isCompleted);
+                    p.workouts = [...completedWorkouts, ...updatedPlan.workouts];
+                    p.coachFeedback = updatedPlan.coachFeedback;
+                    
+                    await window.dbSet('core', 'plan', p);
+                    window.appState.planData = p;
+                    window.showToast("Coach avaliou o treino e recalibrou o plano!", "success");
+                } else {
+                    await window.dbSet('core', 'plan', p);
+                    window.showToast("Você completou todo o bloco de treinos!", "success");
+                }
+            } catch (err) {
+                window.showToast("Treino salvo, mas falha ao contactar a API para recálculo.", "warn");
             }
 
             window.hideLoading();
-            
-            // Limpa form
-            document.getElementById('pw-fc-avg').value = '';
-            document.getElementById('pw-fc-max').value = '';
-            document.getElementById('pw-kcal').value = '';
-
             window.renderDashboard();
             window.switchTab('dashboard');
         }
 
-        // ==========================================
-        // GRÁFICOS E MÉTRICAS
-        // ==========================================
         let bodyChart = null, pseChart = null, fcChart = null;
         window.renderCharts = async function() {
             const profile = window.appState.profile;
@@ -785,7 +746,7 @@
             document.getElementById('stat-bf').innerText = `${profile.bf}%`;
 
             let checkins = await window.dbGetAll('checkins');
-            checkins.sort((a,b) => new Date(a.date) - new Date(b.date));
+            checkins.sort((a,b) => new Date(a.date) - new Date(b.date)); // Sort JS memory
             const lblCi = checkins.map((_, i) => `C${i+1}`);
             
             if(bodyChart) bodyChart.destroy();
@@ -805,12 +766,24 @@
                 type: 'line', data: { labels: lblHist.length?lblHist:['-'], datasets: [{ label: 'Esforço PSE', data: hist.map(h=>h.pse), borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.1)', fill: true, tension: 0.3 }] },
                 options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 10 } } }
             });
+            
+            const vFcMax = hist.map(h=>h.fcMax).filter(v=>v);
+            const vFcAvg = hist.map(h=>h.fcAvg).filter(v=>v);
+            if(vFcMax.length > 0) {
+                if(fcChart) fcChart.destroy();
+                fcChart = new Chart(document.getElementById('fcChart'), {
+                    type: 'line', data: { labels: lblHist.slice(-vFcMax.length), datasets: [
+                        { label: 'FC Máxima', data: vFcMax, borderColor: '#f43f5e', tension: 0.3 },
+                        { label: 'FC Média', data: vFcAvg, borderColor: '#8b5cf6', tension: 0.3 }
+                    ]}, options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
         }
     </script>
 
     <div id="global-loading" class="fixed inset-0 bg-slate-950/90 z-[100] flex flex-col items-center justify-center hidden">
         <div class="spinner w-12 h-12 mb-4"></div>
-        <p id="loading-text" class="text-slate-300 text-sm font-medium animate-pulse text-center px-6">Carregando...</p>
+        <p id="loading-text" class="text-slate-300 text-sm font-medium animate-pulse text-center px-6">Conectando...</p>
     </div>
 
     <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[110] w-[90%] max-w-sm flex flex-col gap-2 pointer-events-none"></div>
@@ -822,7 +795,10 @@
                     <i class="fa-solid font-bold fa-robot text-white text-lg"></i>
                 </div>
                 <div>
-                    <h1 class="font-extrabold text-base text-white leading-tight">AI Coach <span class="text-brand-500">Fit</span></h1>
+                    <h1 class="font-extrabold text-base text-white leading-tight flex items-center">
+                        AI Coach <span class="text-brand-500 ml-1">Fit</span>
+                        <span class="bg-brand-500/20 text-brand-400 text-[9px] px-1.5 py-0.5 rounded font-bold ml-2">v4.0</span>
+                    </h1>
                     <p id="header-user-email" class="text-[10px] text-slate-400 font-medium truncate w-32"></p>
                 </div>
             </div>
@@ -833,21 +809,24 @@
             </div>
         </div>
         <div class="max-w-md mx-auto flex items-center justify-between mt-2 pt-2 border-t border-slate-800/60">
-            <div id="status-firebase" class="text-[10px] text-slate-400"><i class="fa-solid fa-circle-notch fa-spin"></i> Firebase...</div>
-            <div id="status-api" class="text-[10px] text-slate-400"><i class="fa-solid fa-circle-notch fa-spin"></i> Coach API...</div>
+            <div id="status-firebase" class="text-[10px] text-slate-400 font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Banco de Dados...</div>
+            <div id="status-api" class="text-[10px] text-slate-400 font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Coach API...</div>
         </div>
     </header>
 
-    <main class="max-w-md mx-auto w-full flex-1 flex flex-col">
+    <main class="max-w-md mx-auto w-full flex-1 flex flex-col relative">
         
-        <!-- Tela de Auth -->
+        <!-- Auth Screen (Strict) -->
         <section id="auth-view" class="flex-1 flex flex-col items-center justify-center p-6 space-y-6 bg-slate-950">
             <div class="text-center space-y-2">
                 <div class="w-20 h-20 bg-brand-500/10 rounded-full flex items-center justify-center mx-auto border border-brand-500/20 shadow-lg shadow-brand-500/10">
                     <i class="fa-solid fa-robot text-4xl text-brand-500"></i>
                 </div>
-                <h1 class="text-2xl font-black text-white tracking-tight mt-2">Personal Coach I.A.</h1>
-                <p class="text-xs text-slate-400">Plataforma Inteligente de Calistenia que adapta os treinos reais ao seu corpo e tempo disponível.</p>
+                <h1 class="text-2xl font-black text-white tracking-tight mt-2 flex items-center justify-center">
+                    Personal Coach I.A. 
+                    <span class="bg-brand-500 text-white text-[9px] px-1.5 py-0.5 rounded ml-2 shadow uppercase tracking-wider">v4.0</span>
+                </h1>
+                <p class="text-xs text-slate-400">Plataforma 100% Online de Calistenia que adapta os treinos reais ao seu corpo e rotina.</p>
             </div>
             <div class="w-full space-y-4 bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl">
                 <div>
@@ -858,10 +837,13 @@
                     <label class="text-[11px] text-slate-400 font-bold uppercase block mb-1">Senha (Mín 6 chars)</label>
                     <input id="auth-password" type="password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:border-brand-500 transition outline-none">
                 </div>
+                <div>
+                    <label class="text-[11px] text-slate-400 font-bold uppercase block mb-1 text-emerald-400">Repetir Senha (Nova Conta)</label>
+                    <input id="auth-password-confirm" type="password" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:border-emerald-500 transition outline-none">
+                </div>
                 <div class="flex flex-col gap-2 pt-2">
                     <button onclick="window.handleLogin()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-xl transition text-sm">Entrar na Conta</button>
                     <button onclick="window.handleRegister()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3.5 rounded-xl transition text-sm border border-slate-700">Criar Novo Perfil</button>
-                    <button onclick="window.handleVisitorMode()" class="w-full bg-slate-950 hover:bg-slate-900 text-amber-400 font-medium py-3 rounded-xl transition text-xs border border-slate-800 mt-2"><i class="fa-solid fa-user-secret mr-1"></i> Modo Visitante (Testes Rápidos)</button>
                 </div>
             </div>
         </section>
@@ -915,36 +897,35 @@
                     </div>
                 </div>
             </div>
-            <button onclick="window.submitOnboarding()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-brand-600/30 text-sm"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Desenhar Plano I.A.</button>
+            <button onclick="window.submitOnboarding()" class="w-full bg-brand-600 hover:bg-brand-500 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-brand-600/30 text-sm"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Computar Treino Online</button>
         </section>
 
         <!-- Navbar -->
-        <nav id="main-nav" class="hidden flex border-b border-slate-800 text-sm font-medium text-slate-400 bg-slate-900/60 p-1 mx-4 mt-4 rounded-xl">
+        <nav id="main-nav" class="hidden flex border-b border-slate-800 text-sm font-medium text-slate-400 bg-slate-900/60 p-1 mx-4 mt-4 rounded-xl shrink-0">
             <button onclick="window.switchTab('dashboard')" id="tab-dashboard" class="tab-btn flex-1 py-2 text-center rounded-lg active-tab text-xs"><i class="fa-solid fa-bolt mb-1 block"></i>Hoje</button>
-            <button onclick="window.switchTab('calendar')" id="tab-calendar" class="tab-btn flex-1 py-2 text-center rounded-lg text-xs"><i class="fa-regular fa-calendar-days mb-1 block"></i>Plano Completo</button>
+            <button onclick="window.switchTab('calendar')" id="tab-calendar" class="tab-btn flex-1 py-2 text-center rounded-lg text-xs"><i class="fa-regular fa-calendar-days mb-1 block"></i>Plano Inteiro</button>
             <button onclick="window.switchTab('progress')" id="tab-progress" class="tab-btn flex-1 py-2 text-center rounded-lg text-xs"><i class="fa-solid fa-chart-line mb-1 block"></i>Métricas</button>
         </nav>
 
-        <!-- Dashboard / Treino de Hoje -->
-        <section id="dashboard-view" class="hidden flex-1 px-4 py-4 space-y-4">
+        <!-- Dashboard View -->
+        <section id="dashboard-view" class="hidden flex-1 px-4 py-4 space-y-4 overflow-y-auto custom-scrollbar">
+            
             <div id="dash-feedback-box" class="bg-indigo-900/20 p-4 rounded-2xl border border-indigo-500/30 hidden">
-                <div class="flex items-center mb-1.5"><i class="fa-solid fa-user-tie text-indigo-400 mr-2"></i><h3 class="text-xs font-black text-indigo-300 uppercase tracking-wider">Coach Sênior I.A.</h3></div>
-                <p id="dash-coach-feedback" class="text-xs text-indigo-100/80 italic leading-relaxed">--</p>
+                <div class="flex items-center mb-1.5"><i class="fa-solid fa-user-tie text-indigo-400 mr-2"></i><h3 class="text-xs font-black text-indigo-300 uppercase tracking-wider">Avaliação do Coach</h3></div>
+                <p id="dash-coach-feedback" class="text-[11px] text-indigo-100/80 italic leading-relaxed">--</p>
             </div>
 
-            <!-- Resumo Macro -->
             <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-md">
                 <div class="flex justify-between items-start mb-2">
                     <span class="text-[10px] font-black text-brand-400 uppercase tracking-widest bg-brand-900/20 px-2 py-0.5 rounded">Estratégia Geral</span>
                     <span id="dash-macro-phase" class="text-[10px] text-slate-500 font-bold uppercase">--</span>
                 </div>
-                <p id="dash-macro-summary" class="text-sm font-medium text-slate-200 leading-snug">--</p>
+                <p id="dash-macro-summary" class="text-[13px] font-medium text-slate-200 leading-snug">--</p>
                 <div class="mt-3 text-[10px] text-slate-400 flex items-center"><i class="fa-regular fa-calendar mr-1.5 text-sky-400"></i> Sugerido: <span id="dash-macro-days" class="ml-1 text-white font-semibold">--</span></div>
             </div>
 
-            <!-- Bloco do Treino do Dia -->
             <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-5 rounded-2xl border border-slate-700 shadow-xl relative overflow-hidden">
-                <span class="text-[10px] font-black text-white uppercase tracking-widest bg-slate-800 px-2 py-1 rounded">Próximo Treino na Fila</span>
+                <span class="text-[10px] font-black text-white uppercase tracking-widest bg-slate-800 px-2 py-1 rounded">Próximo Treino</span>
                 <h2 id="dash-workout-name" class="text-xl font-black text-white mt-2 leading-tight">--</h2>
                 
                 <div class="flex items-center space-x-3 text-xs mt-3 mb-5">
@@ -953,19 +934,23 @@
                 </div>
 
                 <button id="btn-start-workout-dash" onclick="window.startWorkout()" class="w-full relative z-10 bg-brand-600 hover:bg-brand-500 text-white font-bold py-3.5 rounded-xl transition shadow-[0_0_20px_rgba(16,185,129,0.3)]"><i class="fa-solid fa-play mr-2"></i> Iniciar Sessão</button>
-                <p id="msg-all-completed" class="hidden text-center text-xs text-emerald-400 font-bold py-2"><i class="fa-solid fa-check-double mr-1"></i> Você completou todos os treinos desta fase!</p>
+                <p id="msg-all-completed" class="hidden text-center text-xs text-emerald-400 font-bold py-2"><i class="fa-solid fa-check-double mr-1"></i> Bloco Concluído!</p>
             </div>
 
             <div class="space-y-2">
                 <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider ml-1">Circuito Detalhado</h3>
-                <div id="dash-exercise-list" class="space-y-2 pb-4"></div>
+                <div id="dash-exercise-list" class="space-y-2"></div>
+            </div>
+            
+            <div class="pt-6 pb-4 flex justify-center">
+                <button onclick="window.startResetPlan()" class="text-[10px] text-slate-500 hover:text-rose-400 transition flex items-center px-4 py-2 border border-slate-800 rounded-full bg-slate-900 shadow-sm"><i class="fa-solid fa-rotate-right mr-1.5"></i> Reiniciar Plano de Treinos</button>
             </div>
         </section>
 
-        <!-- Calendário Completo (NOVA ABA) -->
+        <!-- Calendar View -->
         <section id="calendar-view" class="hidden flex-1 px-4 py-4 space-y-4 overflow-y-auto custom-scrollbar">
-            <h3 class="font-bold text-sm text-slate-300 flex items-center"><i class="fa-solid fa-list-check text-brand-500 mr-2"></i> Grade Curricular (4 Semanas)</h3>
-            <p class="text-[10px] text-slate-400 leading-relaxed mb-4">A I.A. ajusta automaticamente os treinos futuros baseado no seu feedback ao fim de cada sessão concluída.</p>
+            <h3 class="font-bold text-sm text-slate-300 flex items-center"><i class="fa-solid fa-list-check text-brand-500 mr-2"></i> Planejamento Macro (Clique para ver)</h3>
+            <p class="text-[10px] text-slate-400 leading-relaxed mb-4">A I.A. ajusta os volumes e cargas de cada treino baseado na sua recuperação.</p>
             <div id="calendar-list" class="pb-10"></div>
         </section>
 
@@ -981,15 +966,15 @@
                 </svg>
                 <div class="text-center z-10 flex flex-col items-center px-4 w-full">
                     <span id="timer-display" class="text-6xl font-black text-white tabular-nums tracking-tighter">00:00</span>
-                    <span id="timer-subtext" class="block text-[11px] font-bold text-slate-300 mt-2 uppercase tracking-wider bg-slate-900/90 px-3 py-1 rounded-full border border-slate-800 truncate max-w-[210px]">--</span>
+                    <span id="timer-subtext" class="block text-[11px] font-bold text-slate-300 mt-2 uppercase tracking-wider bg-slate-900/90 px-3 py-1.5 rounded-xl border border-slate-800 break-words text-center w-[85%] mx-auto leading-tight">--</span>
                 </div>
             </div>
             <div class="bg-slate-900 border border-slate-800 w-full p-4 rounded-2xl flex items-center justify-between shadow-lg">
                 <div class="flex items-center space-x-3 w-[70%]">
                     <div id="timer-next-icon" class="w-10 h-10 bg-slate-950 rounded-xl flex items-center justify-center text-brand-500 border border-slate-800 shrink-0"></div>
-                    <div class="truncate">
+                    <div class="overflow-hidden w-full">
                         <span class="text-[9px] text-slate-500 font-black uppercase tracking-wider block mb-0.5">A Seguir</span>
-                        <p id="timer-next-name" class="text-xs font-bold text-slate-200 truncate">--</p>
+                        <p id="timer-next-name" class="text-xs font-bold text-slate-200 whitespace-normal break-words leading-tight w-full pr-2">--</p>
                     </div>
                 </div>
                 <div class="text-right shrink-0">
@@ -1005,7 +990,7 @@
             <button id="btn-finish-workout" onclick="window.finishWorkout()" class="hidden mt-4 w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-lg"><i class="fa-solid fa-flag-checkered mr-2"></i> Finalizar & Avaliar Treino</button>
         </section>
 
-        <!-- Progresso -->
+        <!-- Progress View -->
         <section id="progress-view" class="hidden flex-1 px-4 py-4 space-y-5 overflow-y-auto custom-scrollbar">
             <div class="grid grid-cols-2 gap-3">
                 <div class="bg-slate-900 p-3 rounded-2xl border border-slate-800 flex flex-col justify-between">
@@ -1021,53 +1006,61 @@
                 <h3 class="font-bold text-white text-xs"><i class="fa-solid fa-chart-area text-brand-500 mr-2"></i> Evolução Corporal</h3>
                 <div class="w-full h-40 bg-slate-950 p-2 rounded-xl"><canvas id="bodyChart"></canvas></div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3 pb-8">
-                <h3 class="font-bold text-white text-xs"><i class="fa-solid fa-gauge-high text-brand-500 mr-2"></i> Percepção de Esforço (PSE)</h3>
+            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3">
+                <h3 class="font-bold text-white text-xs"><i class="fa-solid fa-gauge-high text-brand-500 mr-2"></i> Esforço (PSE)</h3>
                 <div class="w-full h-32 bg-slate-950 p-2 rounded-xl"><canvas id="pseChart"></canvas></div>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-3 pb-8">
+                <h3 class="font-bold text-white text-xs"><i class="fa-solid fa-heart-pulse text-rose-500 mr-2"></i> Frequência Cardíaca</h3>
+                <div class="w-full h-32 bg-slate-950 p-2 rounded-xl"><canvas id="fcChart"></canvas></div>
             </div>
         </section>
 
     </main>
 
-    <!-- Modal Pós-Treino / Recalibração -->
+    <!-- Post Workout Modal -->
     <div id="post-workout-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden overflow-y-auto">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-sm rounded-3xl p-5 space-y-4 text-center shadow-2xl my-auto max-h-[95vh] overflow-y-auto custom-scrollbar">
             <h3 class="font-black text-xl text-white">Relatório da Sessão</h3>
-            <p class="text-[10px] text-slate-400">O Coach vai ler suas métricas e adaptar os próximos treinos no seu Calendário.</p>
+            <p class="text-[10px] text-slate-400">O Coach vai ler suas métricas e adaptar os treinos do Calendário.</p>
 
+            <!-- Esforço -->
             <div class="text-left bg-slate-950/50 p-3 rounded-2xl border border-slate-800/50 space-y-2">
                 <label class="text-[11px] text-slate-300 font-bold uppercase tracking-wide">Esforço (PSE)</label>
                 <div class="grid grid-cols-4 gap-2">
-                    <button onclick="window.selectPse(2)" id="pse-btn-2" class="h-16 rounded-xl bg-slate-900 text-emerald-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">1-3</span><span class="text-[8px] uppercase">Leve</span></button>
-                    <button onclick="window.selectPse(5)" id="pse-btn-5" class="h-16 rounded-xl bg-slate-900 text-sky-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">4-6</span><span class="text-[8px] uppercase">Médio</span></button>
-                    <button onclick="window.selectPse(7)" id="pse-btn-7" class="h-16 rounded-xl bg-slate-800 ring-2 ring-brand-500 text-brand-400 font-bold flex flex-col items-center justify-center transition"><span class="text-sm">7-8</span><span class="text-[8px] uppercase">Ideal</span></button>
-                    <button onclick="window.selectPse(10)" id="pse-btn-10" class="h-16 rounded-xl bg-slate-900 text-rose-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">9-10</span><span class="text-[8px] uppercase">Forte</span></button>
+                    <button onclick="window.selectPse(2)" id="pse-btn-2" class="h-auto py-3 rounded-xl bg-slate-900 text-emerald-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">1-3</span><span class="text-[8px] uppercase">Leve</span></button>
+                    <button onclick="window.selectPse(5)" id="pse-btn-5" class="h-auto py-3 rounded-xl bg-slate-900 text-sky-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">4-6</span><span class="text-[8px] uppercase">Médio</span></button>
+                    <button onclick="window.selectPse(7)" id="pse-btn-7" class="h-auto py-3 rounded-xl bg-slate-800 ring-2 ring-brand-500 text-brand-400 font-bold flex flex-col items-center justify-center transition"><span class="text-sm">7-8</span><span class="text-[8px] uppercase">Ideal</span></button>
+                    <button onclick="window.selectPse(10)" id="pse-btn-10" class="h-auto py-3 rounded-xl bg-slate-900 text-rose-400 font-bold flex flex-col items-center justify-center border border-slate-700 transition"><span class="text-sm">9-10</span><span class="text-[8px] uppercase">Forte</span></button>
                 </div>
             </div>
 
+            <!-- Métricas Relógio -->
             <div class="text-left bg-slate-950/50 p-3 rounded-2xl border border-slate-800/50 space-y-2">
-                <label class="text-[11px] text-slate-300 font-bold uppercase tracking-wide">Métricas do Relógio (Opcional)</label>
+                <label class="text-[11px] text-slate-300 font-bold uppercase tracking-wide">Métricas do Relógio (Op)</label>
                 <div class="grid grid-cols-2 gap-2">
                     <input id="pw-fc-avg" type="number" placeholder="FC Média" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                     <input id="pw-fc-max" type="number" placeholder="FC Máxima" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                    <input id="pw-kcal" type="number" placeholder="Calorias" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white col-span-2">
+                    <input id="pw-kcal" type="number" placeholder="Calorias" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
+                    <input id="pw-recup" type="number" placeholder="Queda FC 1min" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                 </div>
             </div>
 
+            <!-- Calibração Próximo -->
             <div class="text-left bg-brand-900/10 p-3 rounded-2xl border border-brand-500/20 space-y-2">
-                <label class="text-[11px] text-brand-400 font-bold uppercase tracking-wide"><i class="fa-solid fa-robot mr-1"></i> Calibração do Próximo Treino</label>
+                <label class="text-[11px] text-brand-400 font-bold uppercase tracking-wide"><i class="fa-solid fa-robot mr-1"></i> Calibrar Próximo Treino</label>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="text-[9px] text-slate-400 font-semibold uppercase">Próximo Treino?</label>
-                        <select id="pw-next-days" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-2 text-[11px] text-white">
+                        <label class="text-[9px] text-slate-400 font-semibold uppercase block mb-1">Próximo Treino?</label>
+                        <select id="pw-next-days" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-1.5 py-2 text-[10px] sm:text-[11px] text-white">
                             <option value="Amanhã">Amanhã</option>
-                            <option value="Daqui a 2 dias" selected>Daqui a 2 dias</option>
-                            <option value="Daqui a 3 dias">Daqui a 3 dias</option>
+                            <option value="Daqui a 2 dias" selected>Daqui 2 dias</option>
+                            <option value="Daqui a 3 dias">Daqui 3 dias</option>
                         </select>
                     </div>
                     <div>
-                        <label class="text-[9px] text-brand-400 font-bold uppercase">Tempo Livre? (min)</label>
-                        <select id="pw-next-mins" class="w-full bg-slate-950 border border-brand-500/50 rounded-lg px-2 py-2 text-[11px] text-white font-bold">
+                        <label class="text-[9px] text-brand-400 font-bold uppercase block mb-1">Tempo Livre? (min)</label>
+                        <select id="pw-next-mins" class="w-full bg-slate-950 border border-brand-500/50 rounded-lg px-1.5 py-2 text-[10px] sm:text-[11px] text-white font-bold">
                             <option value="30">30 min</option>
                             <option value="45" selected>45 min</option>
                             <option value="60">60 min</option>
@@ -1075,12 +1068,15 @@
                     </div>
                 </div>
                 <div>
-                    <label class="text-[9px] text-slate-400 font-semibold uppercase">Ajuste de Carga</label>
-                    <select id="pw-exercises-pref" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
-                        <option value="Seguir progressão normal (Recomendado)">Progressão normal</option>
-                        <option value="Reduzir carga nas pernas (Fadiga)">Poupar pernas</option>
-                        <option value="Reduzir carga nos braços (Fadiga)">Poupar braços</option>
+                    <label class="text-[9px] text-slate-400 font-semibold uppercase block mt-1 mb-1">Ajuste de Carga</label>
+                    <select id="pw-exercises-pref" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-2 py-2 text-[11px] text-white">
+                        <option value="Progredir normal (Recomendado)">Progressão normal</option>
+                        <option value="Reduzir carga nas pernas">Poupar pernas</option>
+                        <option value="Reduzir carga nos braços">Poupar braços</option>
                     </select>
+                </div>
+                <div>
+                    <input id="pw-note" type="text" placeholder="Anotação curta (Ex: dor no joelho)" class="w-full mt-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white">
                 </div>
             </div>
 
@@ -1090,7 +1086,7 @@
         </div>
     </div>
 
-    <!-- Confirm Stop Modal -->
+    <!-- Modais de Confirmação e Reset -->
     <div id="stop-confirm-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="bg-slate-900 border border-slate-800 w-full max-w-xs rounded-2xl p-5 space-y-4 text-center shadow-2xl relative">
             <i class="fa-solid fa-triangle-exclamation text-3xl text-amber-400 mb-1"></i>
@@ -1099,6 +1095,30 @@
             <div class="grid grid-cols-2 gap-2 pt-2">
                 <button onclick="window.closeStopModal()" class="w-full bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs">Retornar</button>
                 <button onclick="window.confirmStopWorkout()" class="w-full bg-rose-600 text-white font-bold py-2.5 rounded-xl text-xs">Sim, Parar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-modal-1" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border border-slate-800 w-full max-w-xs rounded-2xl p-5 space-y-4 text-center shadow-2xl relative">
+            <i class="fa-solid fa-rotate-right text-3xl text-sky-400 mb-1"></i>
+            <h3 class="font-black text-base text-white">Reiniciar Plano?</h3>
+            <p class="text-xs text-slate-400">Tem certeza que deseja encerrar o planejamento atual?</p>
+            <div class="grid grid-cols-2 gap-2 pt-2">
+                <button onclick="window.cancelResetPlan1()" class="w-full bg-slate-800 text-slate-300 font-bold py-2.5 rounded-xl text-xs">Cancelar</button>
+                <button onclick="window.confirmResetPlan1()" class="w-full bg-amber-500 text-white font-bold py-2.5 rounded-xl text-xs">Sim, apagar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="reset-modal-2" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-rose-950/30 border border-rose-900/50 w-full max-w-xs rounded-2xl p-5 space-y-4 text-center shadow-2xl relative">
+            <i class="fa-solid fa-skull-crossbones text-3xl text-rose-500 mb-1"></i>
+            <h3 class="font-black text-base text-white">Ação Irreversível</h3>
+            <p class="text-xs text-slate-300">Deseja mesmo recomeçar do zero? Todo o plano de treinos atual será deletado da nuvem.</p>
+            <div class="flex flex-col gap-2 pt-2">
+                <button onclick="window.executeResetPlan()" class="w-full bg-rose-600 text-white font-bold py-3 rounded-xl text-xs shadow-lg shadow-rose-600/20">APAGAR TUDO</button>
+                <button onclick="window.cancelResetPlan2()" class="w-full bg-transparent border border-slate-700 text-slate-300 font-bold py-2.5 rounded-xl text-xs">Me tire daqui</button>
             </div>
         </div>
     </div>
