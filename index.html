@@ -109,14 +109,14 @@
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-brand-400 text-sm">v1.2 (Atual)</span>
-                        <span class="text-[10px] text-slate-500">Março 2026</span>
+                        <span class="text-[10px] text-slate-500">Setembro 2026</span>
                     </div>
                     <p class="text-slate-400 leading-relaxed">• Persistência de chat na nuvem com histórico completo na aba.<br>• Realinhamento dos indicadores de DB e I.A. diretamente nos cabeçalhos da aplicação.<br>• Integração de vídeos do YouTube e refinamentos gerais.</p>
                 </div>
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-white text-sm">v1.1</span>
-                        <span class="text-[10px] text-slate-500">Março 2026</span>
+                        <span class="text-[10px] text-slate-500">Agosto 2026</span>
                     </div>
                     <p class="text-slate-400 leading-relaxed">• Lançamento da aba Análise Inicial e Chat I.A. integrado.</p>
                 </div>
@@ -337,7 +337,7 @@
             <button onclick="switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         </div>
 
-        <div class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
+        <div id="tab-content-container" class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
             
             <!-- Tab 1: Análise Inicial (Profile & Strategy) -->
             <div id="tab-analysis" class="space-y-4 animate-fade-in">
@@ -835,6 +835,9 @@
         let selectedPseValue = null;
         let aiEvaluationResult = null;
 
+        const tabList = ['analysis', 'training', 'calendar', 'progress', 'library', 'chat'];
+        let currentTabIndex = 0;
+
         const $ = id => document.getElementById(id);
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
@@ -965,6 +968,7 @@
         }
 
         window.switchTab = (tabName) => {
+            currentTabIndex = tabList.indexOf(tabName);
             ['analysis', 'training', 'calendar', 'progress', 'library', 'chat'].forEach(t => {
                 hide(`tab-${t}`);
                 const btn = $(`nav-${t}`);
@@ -987,6 +991,43 @@
             if (tabName === 'chat') { loadChatHistory(); }
         };
 
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        const tabContainer = document.getElementById('tab-content-container');
+        if (tabContainer) {
+            tabContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, {passive: true});
+
+            tabContainer.addEventListener('touchend', e => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const touchEndY = e.changedTouches[0].screenY;
+                const diffX = touchStartX - touchEndX;
+                const diffY = Math.abs(touchStartY - touchEndY);
+                
+                // Limiar de swipe: mínimo de 60px de movimento horizontal. 
+                // E o movimento vertical deve ser menor que 100px para não conflitar com a rolagem vertical.
+                if (Math.abs(diffX) > 60 && diffY < 100) {
+                    if (diffX > 0 && currentTabIndex < tabList.length - 1) {
+                        // Swipe para a esquerda (próxima aba)
+                        switchTab(tabList[currentTabIndex + 1]);
+                        scrollToTabBtn(tabList[currentTabIndex + 1]);
+                    } else if (diffX < 0 && currentTabIndex > 0) {
+                        // Swipe para a direita (aba anterior)
+                        switchTab(tabList[currentTabIndex - 1]);
+                        scrollToTabBtn(tabList[currentTabIndex - 1]);
+                    }
+                }
+            }, {passive: true});
+        }
+
+        function scrollToTabBtn(tabName) {
+            const btn = document.getElementById(`nav-${tabName}`);
+            if (btn) btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+
         async function getCumulativeHistoryContext() {
             try {
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
@@ -996,8 +1037,12 @@
 
                 if (historyData.length === 0) return "Nenhum histórico anterior (este é o primeiro treino).";
 
-                return historyData.map((h, index) => 
-                    `Treino #${index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Calorias: ${h.kcal||'N/A'}kcal`
+                // LIMITADOR DE SEGURANÇA: Limita o envio aos últimos 15 treinos 
+                // para evitar que o limite de tokens da API do Gemini seja estourado após semanas de uso.
+                const recentHistory = historyData.slice(-15);
+
+                return recentHistory.map((h, index) => 
+                    `Treino #${historyData.length - recentHistory.length + index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Calorias: ${h.kcal||'N/A'}kcal`
                 ).join('\n');
             } catch(e) {
                 console.error("Error fetching history", e);
