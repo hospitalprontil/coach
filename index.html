@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v8.7</title>
+    <title>AI Coach - Calistenia Dinâmica v8.8</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -92,7 +92,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v8.7</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v8.8</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -230,7 +230,7 @@
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v8.7</span></h1>
+                <h1 class="text-xl font-black tracking-tight text-white">AI Coach <span class="text-brand-400">v8.8</span></h1>
                 <p id="dash-user-email" class="text-xs text-slate-400 font-medium truncate max-w-[200px]">...</p>
             </div>
             <button onclick="logOut()" class="w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors">
@@ -340,7 +340,7 @@
                 </div>
             </div>
 
-            <!-- Tab: Library (Detailed & Enriched) -->
+            <!-- Tab: Library (Enriched & Expanded) -->
             <div id="tab-library" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-base font-black text-white">Biblioteca de Exercícios</h2>
@@ -379,6 +379,38 @@
                         <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie os antebraços no solo alinhados com os ombros. Mantenha as pernas estendidas com apoio nas pontas dos pés. Contraia fortemente o abdômen e os glúteos para impedir que a lombar arqueie. Mantenha a cabeça em posição neutra olhando para o chão.</p>
                         <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Prancha com joelhos no solo) / Avançado (Prancha com extensão alternada de braço e perna).</p>
                     </div>
+
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
+                        <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">Mergulho nas Paralelas (Dips)</h3>
+                        <p class="text-xs text-blue-400 font-semibold mb-1">Foco: Tríceps, Peitoral Inferior e Deltoide Anterior.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie-se nas barras paralelas com os braços estendidos. Projete o tronco levemente à frente para focar no peitoral (ou mantenha totalmente reto para focar nos tríceps). Flexione os cotovelos descendo o corpo até formar um ângulo de 90 graus nos braços. Empurre com força para cima.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Dips em banco com pés no chão) / Avançado (Dips com peso adicional preso à cintura).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
+                        <div class="absolute left-0 top-0 w-1.5 h-full bg-rose-500"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">Afundo / Avanço (Lunges)</h3>
+                        <p class="text-xs text-rose-400 font-semibold mb-1">Foco: Quadríceps, Glúteos e Equilíbrio Unipodal.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Em pé, dê um passo largo à frente. Flexione ambos os joelhos simultaneamente, descendo o quadril em direção ao solo de forma vertical. O joelho de trás deve quase tocar o chão, enquanto o joelho da frente forma um ângulo de 90 graus. Retorne à posição inicial impulsionando com a perna da frente.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Afundo estático parado) / Avançado (Walking lunge dinâmico ou Jump lunge alternado).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
+                        <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">Burpee Explosivo</h3>
+                        <p class="text-xs text-indigo-400 font-semibold mb-1">Foco: Condicionamento Cardiorrespiratório e Potência Global.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Comece em pé, agache e apoie as mãos no chão. Salte com as pernas para trás caindo em posição de prancha. Faça uma flexão completa de braço, traga os pés de volta para perto das mãos em um salto rápido e finalize erguendo-se com um salto vertical estendendo os braços acima da cabeça.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Burpee sem flexão e sem salto vertical) / Avançado (Burpee com salto sobre obstáculo).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
+                        <div class="absolute left-0 top-0 w-1.5 h-full bg-teal-500"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">Mountain Climbers (Escalador)</h3>
+                        <p class="text-xs text-teal-400 font-semibold mb-1">Foco: Core, Resistência Aeróbica e Flextores do Quadril.</p>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Posicione-se em prancha alta com braços estendidos. Alterne a corrida no lugar levando rapidamente o joelho em direção ao peito, mantendo o quadril firme e baixo e os ombros estáveis sobre os punhos.</p>
+                        <p class="text-xs text-slate-400"><strong>Variações:</strong> Iniciante (Movimento cadenciado e lento) / Avançado (Velocidade máxima com saltos dinâmicos).</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -407,17 +439,17 @@
         </div>
     </div>
 
-    <!-- Workout Exercise Library Preview Modal -->
+    <!-- Workout Exercise Library Preview Modal with Detailed Execution Guide -->
     <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
             <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Prévia da Sessão</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Prévia da Sessão & Guia de Execução</span>
                     <h3 id="mwl-title" class="text-base font-black text-white">Exercícios do Treino</h3>
                 </div>
                 <button onclick="document.getElementById('modal-workout-library').classList.add('hidden')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
             </div>
-            <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-2.5 pr-1"></div>
+            <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1"></div>
             <div class="pt-3 border-t border-slate-800 mt-3">
                 <button onclick="document.getElementById('modal-workout-library').classList.add('hidden'); startWorkout();" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
                     Iniciar Treino Agora <i class="fas fa-play ml-1"></i>
@@ -637,6 +669,55 @@
         const $ = id => document.getElementById(id);
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
+
+        // Detailed biomechanical descriptions for workout preview and library lookup
+        const EXERCISE_GUIDE_MAP = {
+            "flexão": {
+                focus: "Peitoral, Tríceps, Deltoide Anterior e Core.",
+                exec: "Posicione as mãos na largura dos ombros, braços estendidos. Mantenha o corpo perfeitamente alinhado em prancha (abdômen e glúteos contraídos). Flexione os cotovelos em ângulo de 45 graus, descendo até o peito quase tocar o solo. Empurre com força para cima."
+            },
+            "agachamento": {
+                focus: "Quadríceps, Glúteos, Posteriores e Estabilidade.",
+                exec: "Afaste os pés na largura dos ombros. Projete o quadril para trás como se fosse sentar em uma cadeira, flexionando os joelhos e mantendo o tronco ereto. Desça até as coxas ficarem paralelas ao chão. Suba empurrando pelos calcanhares."
+            },
+            "barra": {
+                focus: "Grande Dorsal, Bíceps e Músculos Escapulares.",
+                exec: "Segure a barra com pegada pronada (palmas para frente), mãos mais abertas que os ombros. Puxe os cotovelos para baixo e para trás, estufando o peito em direção à barra até que o queixo ultrapasse a linha das mãos."
+            },
+            "prancha": {
+                focus: "Transverso do Abdômen, Reto Abdominal e Estabilizadores.",
+                exec: "Apoie os antebraços no solo alinhados com os ombros. Mantenha as pernas estendidas. Contraia fortemente o abdômen e glúteos para impedir que a lombar arqueie. Mantenha a cabeça neutra."
+            },
+            "mergulho": {
+                focus: "Tríceps, Peitoral Inferior e Deltoide Anterior.",
+                exec: "Apoie-se nas paralelas ou em um banco firme. Flexione os cotovelos descendo o corpo até formar 90 graus nos braços, mantendo o tronco inclinado levemente à frente. Empurre para cima."
+            },
+            "afundo": {
+                focus: "Quadríceps, Glúteos e Equilíbrio Unipodal.",
+                exec: "Dê um passo largo à frente. Flexione ambos os joelhos simultaneamente, descendo o quadril de forma vertical até o joelho de trás quase tocar o solo. Retorne à posição inicial."
+            },
+            "burpee": {
+                focus: "Condicionamento Cardiorrespiratório e Potência Global.",
+                exec: "Agache e apoie as mãos no chão. Salte com as pernas para trás em prancha, faça uma flexão, traga os pés de volta às mãos e finalize erguendo-se com um salto vertical."
+            },
+            "mountain": {
+                focus: "Core, Resistência Aeróbica e Flextores do Quadril.",
+                exec: "Em posição de prancha alta, alterne a corrida no lugar levando rapidamente os joelhos em direção ao peito, mantendo o quadril firme e baixo."
+            }
+        };
+
+        function getDetailedGuide(exerciseName) {
+            const nameLower = exerciseName.toLowerCase();
+            for (let key in EXERCISE_GUIDE_MAP) {
+                if (nameLower.includes(key)) {
+                    return EXERCISE_GUIDE_MAP[key];
+                }
+            }
+            return {
+                focus: "Condicionamento Físico e Musculatura Estabilizadora.",
+                exec: "Execute o movimento com máxima amplitude controlada, mantendo respiração constante, contração abdominal ativa e atenção estrita à postura correta."
+            };
+        }
 
         function playBeep(freq = 440, duration = 150, type = 'sine') {
             try {
@@ -1031,6 +1112,7 @@
             switchTab('overview');
         }
 
+        // Updated Pre-Workout Preview Modal with Detailed Execution Guide
         window.openWorkoutLibraryModal = () => {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
             if (!nw || !nw.queue) return;
@@ -1041,18 +1123,28 @@
 
             nw.queue.forEach((q) => {
                 const isRest = q.type === 'rest';
-                const bg = isRest ? 'bg-amber-950/20 border-amber-500/20' : 'bg-dark-950 border-slate-800';
+                const bg = isRest ? 'bg-amber-950/25 border-amber-500/30' : 'bg-dark-950 border-slate-800';
                 const icon = isRest ? '<i class="fas fa-lungs text-amber-500"></i>' : '<i class="fas fa-dumbbell text-brand-400"></i>';
+                
+                const guide = getDetailedGuide(q.name);
 
                 list.innerHTML += `
-                    <div class="p-3 rounded-2xl border ${bg} flex items-start gap-3 w-full">
-                        <div class="w-10 h-10 rounded-xl bg-dark-900 border border-slate-800 flex items-center justify-center shrink-0 mt-0.5 shadow-inner">
-                            ${icon}
+                    <div class="p-3.5 rounded-2xl border ${bg} flex flex-col gap-2 w-full shadow-md">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-dark-900 border border-slate-800 flex items-center justify-center shrink-0 shadow-inner">
+                                ${icon}
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="text-xs font-bold text-white">${q.name}</h4>
+                                <p class="text-[10px] text-brand-400 font-medium">${q.roundInfo || (q.duration + 's')}</p>
+                            </div>
                         </div>
-                        <div class="flex-1 min-w-0">
-                            <h4 class="text-xs font-bold text-white">${q.name}</h4>
-                            <p class="text-[10px] text-brand-400 font-medium">${q.roundInfo || (q.duration + 's')}</p>
-                        </div>
+                        ${!isRest ? `
+                            <div class="bg-dark-900/80 p-2.5 rounded-xl border border-slate-800 text-[11px] space-y-1">
+                                <p class="text-slate-300"><strong class="text-brand-300">Foco:</strong> ${guide.focus}</p>
+                                <p class="text-slate-400 leading-relaxed"><strong class="text-slate-200">Execução:</strong> ${guide.exec}</p>
+                            </div>
+                        ` : ''}
                     </div>
                 `;
             });
@@ -1227,7 +1319,7 @@
             const fcMax = $('pw-fc-max').value;
             const kcal = $('pw-kcal').value;
 
-            showLoading("Coach I.A. Analisando Histórico...", "Analisando todos os treinos anteriores, esforço PSE, frequência cardíaca e gasto calórico para estipular o próximo estímulo tático.");
+            showLoading("Coach I.A. Analisando Histórico Completo...", "Analisando todos os treinos anteriores, esforço PSE, frequência cardíaca média/máxima e gasto calórico acumulado para estipular o próximo estímulo tático.");
             
             const historyContext = await getCumulativeHistoryContext();
 
@@ -1293,7 +1385,7 @@
             const mins = parseInt($('pw-next-mins').value) || 45;
             const pref = $('pw-pref').value;
 
-            showLoading("Coach I.A. Recalibrando Novo Treino...", "Aplicando seus ajustes manuais de tempo e preferência junto com todo o histórico de treinos...");
+            showLoading("Coach I.A. Recalibrando Novo Treino...", "Aplicando seus ajustes manuais de tempo e preferência junto com todo o histórico cumulativo de treinos...");
 
             const historyContext = await getCumulativeHistoryContext();
             const fc = $('pw-fc').value;
@@ -1303,14 +1395,14 @@
             const prompt = `Atue como Coach Sênior de Calistenia. 
             O aluno concluiu um treino e solicitou uma CALIBRAÇÃO MANUAL para o próximo.
             
-            HISTÓRICO CUMULATIVO:
+            HISTÓRICO CUMULATIVO COMPLETO:
             ${historyContext}
             
-            MÉTRICAS RECENTES: PSE ${selectedPseValue}/10, FC ${fc||'N/A'}bpm, Kcal ${kcal||'N/A'}.
+            MÉTRICAS RECENTES: PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'}bpm, FC Máx ${fcMax||'N/A'}bpm, Kcal ${kcal||'N/A'}.
             AJUSTES MANUAIS SOLICITADOS: Descanso de ${days} dia(s), Duração exata de ${mins} minutos, Foco/Preferência: "${pref}".
             
             TAREFAS OBRIGATÓRIAS:
-            1. 'coachFeedback': Avalie a calibração com base no histórico.
+            1. 'coachFeedback': Avalie a calibração com base no histórico completo.
             2. 'suggestedDays': ${days}
             3. 'suggestedMinutes': ${mins}
             4. 'workout': Crie um NOVO TREINO exatamente adaptado aos ${mins} minutos solicitados e à preferência de foco, mantendo progressão segura.`;
