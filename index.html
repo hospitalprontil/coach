@@ -34,7 +34,6 @@
             transform: rotate(-90deg);
             transform-origin: 50% 50%;
         }
-        /* Bloqueio de scroll no timer */
         .no-scroll { overflow: hidden; }
     </style>
 </head>
@@ -50,7 +49,7 @@
         </div>
     </div>
 
-    <!-- Alert Modal (Substitui o window.alert nativo) -->
+    <!-- Alert Modal -->
     <div id="alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-dark-800 border border-slate-700 rounded-2xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform" id="alert-box">
             <div class="text-center">
@@ -64,7 +63,7 @@
         </div>
     </div>
 
-    <!-- Confirm Modal (Dupla Confirmação) -->
+    <!-- Confirm Modal -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4">
         <div class="bg-dark-800 border border-red-900/50 rounded-2xl p-6 max-w-sm w-full shadow-2xl">
             <div class="text-center">
@@ -94,7 +93,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-2xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v5.0</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span class="text-[12px] text-brand-400 font-bold align-top">v6.0</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -190,9 +189,9 @@
                     </div>
                 </div>
                 <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Detalhado (Texto Livre)</label>
-                    <textarea id="ob-goal" rows="3" required placeholder="Ex: Quero ganhar força para conseguir fazer barras e melhorar o condicionamento..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-xl px-3 py-3 text-sm text-white resize-none shadow-inner"></textarea>
-                    <p class="text-[9px] text-slate-500 mt-1">A I.A. vai ler isso para criar o seu plano perfeito e a duração ideal.</p>
+                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Completo (Texto Livre)</label>
+                    <textarea id="ob-goal" rows="4" required placeholder="Descreva seu momento atual e onde quer chegar. Ex: Quero emagrecer e ganhar força, mas tenho dor no joelho. Quero treinar para conseguir fazer barra fixa..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-xl px-3 py-3 text-sm text-white resize-none shadow-inner"></textarea>
+                    <p class="text-[9px] text-slate-500 mt-1">A I.A. vai ler este texto para construir a melhor estratégia e a duração (semanas) exata para você.</p>
                 </div>
             </div>
 
@@ -244,9 +243,10 @@
 
         <!-- Abas de Navegação -->
         <div class="flex px-4 pt-4 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
-            <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo Diário</button>
+            <button onclick="switchTab('overview')" id="nav-overview" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Resumo</button>
             <button onclick="switchTab('calendar')" id="nav-calendar" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Plano Completo</button>
-            <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso Corporal</button>
+            <button onclick="switchTab('progress')" id="nav-progress" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
+            <button onclick="switchTab('library')" id="nav-library" class="px-4 py-2 rounded-xl text-sm font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
         </div>
 
         <!-- Conteúdo Rolável -->
@@ -257,17 +257,14 @@
                 <!-- Status do Macro -->
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-1">Estratégia I.A.</span>
-                    <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 line-clamp-3">...</p>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A.</span>
+                    <!-- Removido line-clamp-3 para permitir leitura completa -->
+                    <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10">...</p>
                     
                     <div class="mt-4 pt-4 border-t border-slate-800 flex justify-between items-center relative z-10">
                         <div>
-                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Fase Atual</span>
-                            <span id="dash-phase" class="text-white font-black text-sm">...</span>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Progresso</span>
-                            <span id="dash-progress" class="text-brand-400 font-black text-sm">0 / 0 Treinos</span>
+                            <span class="text-[10px] text-slate-500 font-bold uppercase block">Treinos Restantes</span>
+                            <span id="dash-progress" class="text-white font-black text-sm">--</span>
                         </div>
                     </div>
                 </div>
@@ -276,6 +273,7 @@
                 <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-2xl relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
+                    <!-- Sem line-clamp -->
                     <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
@@ -294,14 +292,15 @@
                                 <span class="text-[9px] text-slate-500 font-bold uppercase">Min</span>
                             </div>
                         </div>
-                        <p id="dash-nw-desc" class="text-xs text-slate-400 mb-5 line-clamp-2">...</p>
+                        <!-- Sem line-clamp -->
+                        <p id="dash-nw-desc" class="text-xs text-slate-400 mb-5 leading-relaxed">...</p>
                         <button onclick="startWorkout()" class="w-full bg-white text-dark-950 hover:bg-slate-200 font-black py-4 rounded-xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
                             <i class="fas fa-play"></i> INICIAR TREINO
                         </button>
                     </div>
                 </div>
                 
-                <!-- Reset Plan Button (End of Overview) -->
+                <!-- Reset Plan Button -->
                 <div class="pt-6 border-t border-slate-900/50 flex justify-center">
                     <button onclick="openConfirmModal()" class="text-xs font-bold text-red-500/60 hover:text-red-400 uppercase tracking-widest flex items-center gap-2 transition-colors">
                         <i class="fas fa-trash-alt"></i> Reiniciar Plano de Treinos
@@ -315,7 +314,7 @@
                     <h2 class="text-lg font-black text-white">Cronograma I.A.</h2>
                     <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold" id="cal-count">0 Treinos</span>
                 </div>
-                <div id="calendar-list" class="space-y-3">
+                <div id="calendar-list" class="space-y-4">
                     <!-- Cards de treino preenchidos via JS -->
                 </div>
             </div>
@@ -341,12 +340,60 @@
                     </div>
                 </div>
                 
-                <!-- Histórico de Treinos Resumo -->
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl">
                     <h3 class="font-bold text-white text-sm uppercase tracking-wider mb-3"><i class="fas fa-history text-slate-400 mr-2"></i>Últimas Sessões</h3>
                     <div id="history-list" class="space-y-2 max-h-40 overflow-y-auto custom-scrollbar pr-2">
-                        <!-- Lista gerada via JS -->
                         <p class="text-xs text-slate-500 text-center py-4">Nenhum treino concluído ainda.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Biblioteca -->
+            <div id="tab-library" class="space-y-4 hidden animate-fade-in pb-10">
+                <div class="flex items-center justify-between px-1 mb-2">
+                    <h2 class="text-lg font-black text-white">Biblioteca de Exercícios</h2>
+                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-1 rounded font-bold">Fundamentos</span>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-brand-500"></div>
+                        <h3 class="text-white font-bold text-base mb-2">Flexão de Braços (Push-up)</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Peitoral, Tríceps e Deltoides (Ombros).</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Corpo alinhado em prancha, mãos um pouco mais largas que os ombros. Desça até o peito quase encostar no chão e empurre de volta.</p>
+                        <p class="text-[10px] text-brand-400 bg-brand-900/20 p-2 rounded-lg border border-brand-500/20"><strong>Variações:</strong> Com joelhos (Iniciante), Inclinada (Iniciante), Diamante (Foco Tríceps), Declinada (Avançado).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-purple-500"></div>
+                        <h3 class="text-white font-bold text-base mb-2">Agachamento (Squat)</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Quadríceps, Glúteos e Isquiotibiais.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pés na largura dos ombros. Flexione os joelhos e jogue o quadril para trás, como se fosse sentar numa cadeira. Mantenha as costas retas.</p>
+                        <p class="text-[10px] text-purple-400 bg-purple-900/20 p-2 rounded-lg border border-purple-500/20"><strong>Variações:</strong> Meio agachamento (Iniciante), Búlgaro (Unilateral médio), Pistol Squat (Avançado).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-green-500"></div>
+                        <h3 class="text-white font-bold text-base mb-2">Barra Fixa (Pull-up)</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Costas (Latíssimo do dorso) e Bíceps.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Pendure-se na barra com as palmas para frente. Puxe o corpo até o queixo passar da barra e desça controladamente.</p>
+                        <p class="text-[10px] text-green-400 bg-green-900/20 p-2 rounded-lg border border-green-500/20"><strong>Variações:</strong> Isometria/Negativas (Iniciante), Chin-up (Pegada supinada - Foco Bíceps), Archer Pull-up (Avançado).</p>
+                    </div>
+
+                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-amber-500"></div>
+                        <h3 class="text-white font-bold text-base mb-2">Prancha (Plank)</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Core (Abdômen, Lombar e Estabilizadores).</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Apoie os antebraços e as pontas dos pés no chão. Mantenha o corpo perfeitamente reto, sem deixar o quadril cair ou subir demais. Respire fundo.</p>
+                        <p class="text-[10px] text-amber-400 bg-amber-900/20 p-2 rounded-lg border border-amber-500/20"><strong>Variações:</strong> Prancha Alta (braços esticados), Prancha Lateral (Foco oblíquos).</p>
+                    </div>
+                    
+                    <div class="bg-dark-900 p-5 rounded-2xl border border-slate-800 shadow-lg relative overflow-hidden">
+                        <div class="absolute left-0 top-0 w-1 h-full bg-red-500"></div>
+                        <h3 class="text-white font-bold text-base mb-2">Burpee</h3>
+                        <p class="text-xs text-slate-400 mb-2"><strong>Foco:</strong> Condicionamento Cardiorrespiratório e Corpo Todo.</p>
+                        <p class="text-xs text-slate-400 mb-2 leading-relaxed"><strong>Execução:</strong> Vá da posição em pé para uma prancha, faça uma flexão, puxe as pernas de volta e termine com um salto vertical.</p>
+                        <p class="text-[10px] text-red-400 bg-red-900/20 p-2 rounded-lg border border-red-500/20"><strong>Variações:</strong> Meio-Burpee sem flexão (Iniciante), Sprawl, Burpee com salto alto.</p>
                     </div>
                 </div>
             </div>
@@ -375,63 +422,77 @@
         </div>
     </div>
 
-    <div id="screen-timer" class="w-full h-screen bg-dark-950 hidden flex-col absolute inset-0 z-50 overflow-hidden">
-        <!-- Header -->
-        <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-md">
-            <div>
-                <p id="timer-workout-name" class="text-xs text-brand-400 font-bold uppercase tracking-wider mb-0.5">--</p>
-                <p id="timer-step-counter" class="text-slate-400 text-[10px] font-bold">Passo 0/0</p>
-            </div>
-            <button onclick="abortWorkout()" class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/20">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-
-        <!-- Área Central (Timer) -->
-        <div class="flex-1 flex flex-col items-center justify-center p-6 relative overflow-hidden">
-            <!-- Background Pulse -->
-            <div id="timer-bg-pulse" class="absolute inset-0 bg-brand-500/5 transition-colors duration-1000"></div>
-
-            <!-- SVG Ring -->
-            <div class="relative w-64 h-64 sm:w-72 sm:h-72 flex items-center justify-center z-10 mb-8">
-                <svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" r="46" fill="none" stroke="#1e293b" stroke-width="6" />
-                    <circle id="timer-ring" class="timer-circle" cx="50" cy="50" r="46" fill="none" stroke="#06b6d4" stroke-width="6" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="0" />
-                </svg>
-                
-                <!-- Textos no centro -->
-                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                    <span id="timer-time" class="text-6xl sm:text-7xl font-black text-white tracking-tighter drop-shadow-md mb-2">00:00</span>
-                    <span id="timer-ex-name" class="text-sm sm:text-base font-bold text-slate-300 uppercase w-full break-words leading-tight px-2">PREPARAR</span>
-                </div>
-            </div>
-
-            <!-- Informações Inferiores (Novo Layout Expandido) -->
-            <div class="w-full max-w-sm flex flex-col gap-3 z-10">
-                <!-- Diretriz (Séries/Reps/Cadência) -->
-                <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors">
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-1"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
-                    <span id="timer-round-info" class="text-base sm:text-lg font-black text-white w-full break-words">--/--</span>
-                </div>
-
-                <!-- A Seguir -->
-                <div class="bg-slate-900 border border-slate-800 w-full p-4 rounded-2xl flex items-center gap-4 shadow-lg">
-                    <div id="timer-next-icon" class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0 shadow-inner">
-                        <i class="fas fa-forward text-lg"></i>
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <span class="text-[10px] text-slate-500 font-black uppercase tracking-wider block mb-0.5">A Seguir</span>
-                        <p id="timer-next-name" class="text-sm font-bold text-slate-200 line-clamp-2 leading-tight">--</p>
+    <!-- Wrapper centralizador para telas grandes -->
+    <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
+        <!-- Container mobileizado -->
+        <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden">
+            
+            <!-- Header do Cronômetro -->
+            <div class="px-5 pt-6 pb-4 bg-dark-900 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-md relative z-20">
+                <div>
+                    <p id="timer-workout-name" class="text-xs text-brand-400 font-bold uppercase tracking-wider mb-0.5">--</p>
+                    <div class="flex items-center gap-3">
+                        <p id="timer-step-counter" class="text-slate-400 text-[10px] font-bold bg-slate-800 px-2 py-0.5 rounded">Passo 0/0</p>
+                        <!-- Novo contador de tempo total -->
+                        <p class="text-slate-300 text-[10px] font-bold"><i class="fas fa-clock text-brand-400 mr-1"></i> <span id="timer-total-left">00:00</span> restantes</p>
                     </div>
                 </div>
+                <button onclick="abortWorkout()" class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/20">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </div>
 
-        <!-- Controles Base -->
-        <div class="p-6 bg-dark-900 border-t border-slate-800 shrink-0 z-10 pb-10">
-            <button id="btn-pause-resume" onclick="toggleTimer()" class="w-full h-16 rounded-2xl bg-brand-500 text-white font-black text-lg flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
-                <i class="fas fa-pause"></i> PAUSAR TREINO
-            </button>
+            <!-- Área Central (Animação) -->
+            <div class="flex-1 flex flex-col items-center justify-center p-6 relative overflow-hidden">
+                <div id="timer-bg-pulse" class="absolute inset-0 bg-brand-500/5 transition-colors duration-1000"></div>
+
+                <!-- SVG Ring -->
+                <div class="relative w-64 h-64 flex items-center justify-center z-10 mb-6 mt-4">
+                    <svg class="absolute inset-0 w-full h-full drop-shadow-xl" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="46" fill="none" stroke="#1e293b" stroke-width="6" />
+                        <circle id="timer-ring" class="timer-circle" cx="50" cy="50" r="46" fill="none" stroke="#06b6d4" stroke-width="6" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="0" />
+                    </svg>
+                    
+                    <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                        <span id="timer-time" class="text-6xl font-black text-white tracking-tighter drop-shadow-md mb-2">00:00</span>
+                        <!-- Removido text-overflow, permite wrap se necessário -->
+                        <span id="timer-ex-name" class="text-sm font-bold text-slate-300 uppercase w-full leading-tight px-2 text-wrap">PREPARAR</span>
+                    </div>
+                </div>
+
+                <!-- Painéis Inferiores (Diretriz e A Seguir) -->
+                <div class="w-full flex flex-col gap-3 z-10">
+                    
+                    <!-- Painel 1: Diretriz (Séries/Reps/Cadência) - Maior Destaque -->
+                    <div id="timer-round-container" class="bg-brand-900/30 border border-brand-500/40 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors">
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-2"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span>
+                        <!-- Texto sem limites, cresce se necessário -->
+                        <span id="timer-round-info" class="text-xl sm:text-2xl font-black text-white w-full text-wrap leading-tight">--/--</span>
+                    </div>
+
+                    <!-- Painel 2: A Seguir - Texto completo -->
+                    <div class="bg-slate-900 border border-slate-800 w-full p-4 rounded-2xl flex items-center gap-4 shadow-lg">
+                        <div id="timer-next-icon" class="w-12 h-12 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0 shadow-inner">
+                            <i class="fas fa-forward text-lg"></i>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <span class="text-[10px] text-slate-500 font-black uppercase tracking-wider block mb-1">A Seguir</span>
+                            <!-- Sem line clamp, permite quebrar linha se for muito longo -->
+                            <p id="timer-next-name" class="text-sm font-bold text-slate-200 leading-snug">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles Base (Com novo botão de pular) -->
+            <div class="p-6 bg-dark-900 border-t border-slate-800 shrink-0 z-20 pb-10 flex gap-3">
+                <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-16 rounded-2xl bg-brand-500 text-white font-black text-lg flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
+                    <i class="fas fa-pause"></i> PAUSAR
+                </button>
+                <button onclick="skipExercise()" class="w-16 h-16 rounded-2xl bg-slate-800 text-slate-400 font-black text-lg flex items-center justify-center shadow-lg transition-all active:scale-95 border border-slate-700 hover:text-white hover:bg-slate-700">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -447,17 +508,15 @@
 
             <div class="space-y-6 max-w-md mx-auto">
                 
-                <!-- PSE (Percepção Subjetiva de Esforço) -->
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-2">Esforço (0 a 10) <span class="text-red-500">*</span></h3>
                     <p class="text-xs text-slate-400 mb-4">Quão difícil foi essa sessão no geral?</p>
                     
                     <div class="flex flex-wrap gap-2 justify-center" id="pse-buttons">
-                        <!-- Gerado via JS: Botoes de 0 a 10 -->
+                        <!-- Gerado via JS -->
                     </div>
                 </div>
 
-                <!-- Métricas Físicas Opcionais -->
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
                     <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Métricas do Smartwatch (Opcional)</h3>
                     <div class="grid grid-cols-2 gap-4">
@@ -472,7 +531,6 @@
                     </div>
                 </div>
 
-                <!-- Setup do Próximo Treino -->
                 <div class="bg-dark-900 border border-slate-800 rounded-3xl p-5 shadow-lg border-l-4 border-l-brand-500">
                     <h3 class="text-sm font-bold text-brand-400 uppercase tracking-wider mb-4"><i class="fas fa-robot mr-2"></i>Calibrar Próxima Sessão</h3>
                     
@@ -488,8 +546,8 @@
                         </div>
                         <div>
                             <label class="text-[10px] text-brand-400 font-bold uppercase block mb-1">Tempo Livre? (min)</label>
+                            <!-- Ampliado para 20 a 90 minutos -->
                             <select id="pw-next-mins" class="w-full bg-dark-950 border border-brand-500/50 rounded-xl px-2 py-3 text-sm text-white font-bold outline-none custom-scrollbar text-center shadow-[0_0_10px_rgba(6,182,212,0.1)]">
-                                <!-- Gerado via JS: 20 a 90 min -->
                             </select>
                         </div>
                     </div>
@@ -497,11 +555,11 @@
                     <div>
                         <label class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Preferência de Exercícios</label>
                         <select id="pw-pref" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-3 py-3 text-sm text-white font-bold outline-none custom-scrollbar">
-                            <option value="Manter estrutura base">Manter mesma estrutura</option>
-                            <option value="Variar exercícios completamente">Quero variar tudo</option>
-                            <option value="Focar mais em pernas/inferiores">Focar em Pernas</option>
-                            <option value="Focar mais em braços/superiores">Focar em Braços</option>
-                            <option value="Focar mais em Core/Abdômen">Focar em Abdômen</option>
+                            <option value="Manter estrutura base, ajustando intensidade">Manter mesma estrutura</option>
+                            <option value="Variar seleção de exercícios completamente">Quero variar tudo</option>
+                            <option value="Focar em membros inferiores / pernas">Focar em Pernas</option>
+                            <option value="Focar em membros superiores / braços">Focar em Braços</option>
+                            <option value="Focar em core e abdômen">Focar em Core/Abdômen</option>
                         </select>
                     </div>
                 </div>
@@ -509,7 +567,6 @@
             </div>
         </div>
 
-        <!-- Botão Fixado na base -->
         <div class="fixed bottom-0 left-0 w-full p-4 bg-dark-950 border-t border-slate-800 z-10 flex justify-center">
             <div class="w-full max-w-md">
                 <button id="btn-save-workout" onclick="finishWorkoutFlow()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-lg disabled:opacity-50 disabled:cursor-not-allowed">
@@ -519,30 +576,12 @@
         </div>
     </div>
 
-
     <script type="module">
-        // --- 1. CONFIGURAÇÃO FIREBASE MODULAR (V11/V9) ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { 
-            getAuth, 
-            onAuthStateChanged, 
-            signInWithEmailAndPassword, 
-            createUserWithEmailAndPassword, 
-            signOut 
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { 
-            getFirestore, 
-            doc, 
-            setDoc, 
-            getDoc, 
-            updateDoc, 
-            collection,
-            addDoc,
-            query,
-            orderBy,
-            getDocs
-        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
+        // Cole suas configurações AQUI!
         const firebaseConfig = {
             apiKey: "AIzaSyDLkxm9TuHD7_59V3VoA8VO1qFfJIejuEA",
             authDomain: "coach-6e340.firebaseapp.com",
@@ -557,31 +596,30 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // --- 2. CONFIGURAÇÃO DA API (RENDER) ---
+        // A URL da sua API no Render (Sua integração direta)
         const BACKEND_API_URL = "https://coach-backend-97uw.onrender.com/api/gemini";
 
-        // --- 3. ESTADO GLOBAL ---
+        // --- ESTADO GLOBAL ---
         let currentUser = null;
         let userData = null;
-        let currentPlan = null; // Object: { phase, macrocycleSummary, coachFeedback, workouts: [] }
-        
+        let currentPlan = null; 
         let chartWeight, chartBf;
         let isSignupMode = false;
         
-        // Timer Globais
+        // Timer
         let timerInterval;
         let isPaused = false;
         let currentWorkoutQueue = [];
         let currentQueueIndex = 0;
         let timeLeft = 0;
+        let totalWorkoutTimeLeft = 0; // Novo contador total
         let selectedPseValue = null;
-        
-        // --- 4. FUNÇÕES DE UTILIDADE E UI ---
+
+        // Utilitários UI
         const $ = id => document.getElementById(id);
         const hide = id => $(id).classList.add('hidden');
         const show = id => $(id).classList.remove('hidden');
 
-        // Alertas Customizados
         window.showAlert = (title, message) => {
             $('alert-title').innerText = title;
             $('alert-message').innerText = message;
@@ -597,10 +635,8 @@
             setTimeout(() => hide('alert-modal'), 300);
         };
 
-        // Confirmação (Reset)
         window.openConfirmModal = () => show('confirm-modal');
         window.closeConfirm = () => hide('confirm-modal');
-        
         $('btn-final-confirm').addEventListener('click', async () => {
             closeConfirm();
             await resetPlan();
@@ -613,14 +649,34 @@
         }
         function hideLoading() { hide('loading-overlay'); }
 
-        // Navegação de Telas
         function showScreen(screenId) {
             ['screen-auth', 'screen-onboarding', 'screen-dashboard', 'screen-timer'].forEach(hide);
             show(screenId);
         }
 
+        function updateBadge(system, status, errorMsg = "") {
+            const dot = $(`dot-${system}`);
+            const badge = $(`badge-${system}`);
+            dot.className = 'w-2 h-2 rounded-full';
+            badge.className = 'flex items-center gap-1.5 bg-dark-900/80 border px-2 py-1 rounded-full text-[10px] font-bold shadow-lg transition-colors cursor-help';
+            
+            if (status === 'ok') {
+                dot.classList.add('bg-green-500');
+                badge.classList.add('border-green-500/30', 'text-green-400');
+                badge.onclick = null;
+            } else if (status === 'error') {
+                dot.classList.add('bg-red-500');
+                badge.classList.add('border-red-500/30', 'text-red-400');
+                badge.onclick = () => window.showAlert(`Erro no ${system.toUpperCase()}`, errorMsg);
+            } else {
+                dot.classList.add('bg-slate-500', 'animate-pulse');
+                badge.classList.add('border-slate-700', 'text-slate-400');
+            }
+        }
+
+        // Sistema de Abas (Com nova aba Biblioteca)
         window.switchTab = (tabName) => {
-            ['overview', 'calendar', 'progress'].forEach(t => {
+            ['overview', 'calendar', 'progress', 'library'].forEach(t => {
                 hide(`tab-${t}`);
                 $(`nav-${t}`).classList.replace('bg-brand-500/20', 'bg-slate-900');
                 $(`nav-${t}`).classList.replace('text-brand-400', 'text-slate-400');
@@ -635,26 +691,8 @@
             if (tabName === 'calendar') { renderCalendar(); }
         };
 
-        // Atualizar Status Badges
-        function updateBadge(system, status) {
-            const dot = $(`dot-${system}`);
-            const badge = $(`badge-${system}`);
-            dot.classList.remove('animate-pulse', 'bg-slate-500', 'bg-green-500', 'bg-red-500');
-            
-            if (status === 'ok') {
-                dot.classList.add('bg-green-500');
-                badge.classList.add('border-green-500/30', 'text-green-400');
-            } else if (status === 'error') {
-                dot.classList.add('bg-red-500');
-                badge.classList.add('border-red-500/30', 'text-red-400');
-                badge.onclick = () => window.showAlert('Erro de Conexão', `Falha ao conectar com: ${system.toUpperCase()}`);
-            } else {
-                dot.classList.add('bg-slate-500', 'animate-pulse');
-            }
-        }
-
-        // --- 5. COMUNICAÇÃO COM A I.A. (RENDER) ---
-        async function callGemini(prompt, schemaName, isRetry = false) {
+        // --- INTEGRAÇÃO COM BACKEND NO RENDER ---
+        async function callGemini(prompt, isRetry = false) {
             updateBadge('api', 'loading');
             
             const schema = {
@@ -662,7 +700,6 @@
                 properties: {
                     macrocycleSummary: { type: "string" },
                     coachFeedback: { type: "string" },
-                    recommendedDays: { type: "string" },
                     workouts: {
                         type: "array",
                         items: {
@@ -694,7 +731,7 @@
             };
 
             try {
-                // Timeout controller (60s limit for Render cold start)
+                // Timeout de 60s (Para o Cold Start do Render plano Gratuito)
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 60000);
 
@@ -707,22 +744,19 @@
                 
                 clearTimeout(timeoutId);
 
-                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 
                 const data = await response.json();
                 updateBadge('api', 'ok');
                 return data;
 
             } catch (err) {
-                console.error("API Fetch Error:", err);
-                updateBadge('api', 'error');
-                throw new Error("O servidor (Render) falhou ao processar a requisição ou está offline.");
+                updateBadge('api', 'error', `Falha de conexão com a API no Render: ${err.message}. Certifique-se de que o backend está rodando.`);
+                throw new Error("O servidor falhou ao processar a requisição da I.A.");
             }
         }
 
-        // --- 6. AUTENTICAÇÃO E INICIALIZAÇÃO ---
-        
-        // Toggle Login/Signup UI
+        // --- AUTENTICAÇÃO (100% NUVEM FIREBASE) ---
         $('tab-login').addEventListener('click', () => {
             isSignupMode = false;
             $('signup-fields').classList.add('hidden');
@@ -730,15 +764,15 @@
             $('tab-signup').className = 'flex-1 py-2 text-sm font-bold text-slate-400 hover:text-white transition-all';
             $('auth-submit-btn').innerText = 'Entrar na Conta';
         });
+
         $('tab-signup').addEventListener('click', () => {
             isSignupMode = true;
             $('signup-fields').classList.remove('hidden');
             $('tab-signup').className = 'flex-1 py-2 text-sm font-bold text-white bg-slate-800 rounded-lg shadow transition-all';
             $('tab-login').className = 'flex-1 py-2 text-sm font-bold text-slate-400 hover:text-white transition-all';
-            $('auth-submit-btn').innerText = 'Criar Nova Conta';
+            $('auth-submit-btn').innerText = 'Criar Conta';
         });
 
-        // Auth Submit
         $('auth-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = $('auth-email').value;
@@ -752,23 +786,32 @@
                 }
             }
 
-            showLoading("Conectando ao Firebase...");
+            showLoading("Autenticando na Nuvem...");
             try {
                 if (isSignupMode) {
                     await createUserWithEmailAndPassword(auth, email, password);
                 } else {
                     await signInWithEmailAndPassword(auth, email, password);
                 }
-                // onAuthStateChanged handle UI
             } catch (err) {
                 hideLoading();
-                window.showAlert("Erro de Login", err.message);
+                window.showAlert("Erro de Login/Cadastro", getFirebaseAuthErrorMessage(err.code));
             }
         });
 
         window.logOut = () => signOut(auth);
 
-        // Auth Listener
+        function getFirebaseAuthErrorMessage(code) {
+            switch(code) {
+                case 'auth/email-already-in-use': return 'Este e-mail já está cadastrado.';
+                case 'auth/invalid-email': return 'Formato de e-mail inválido.';
+                case 'auth/weak-password': return 'A senha deve ter pelo menos 6 caracteres.';
+                case 'auth/invalid-credential': return 'E-mail ou senha incorretos.';
+                case 'auth/operation-not-allowed': return 'Autenticação por E-mail/Senha não está ativada no seu console do Firebase.';
+                default: return 'Falha na autenticação: ' + code;
+            }
+        }
+
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
@@ -784,7 +827,6 @@
             }
         });
 
-        // Load Data from Firestore
         async function loadUserData() {
             showLoading("Sincronizando dados...");
             try {
@@ -799,22 +841,20 @@
                         renderDashboard();
                         showScreen('screen-dashboard');
                     } else {
-                        // Data exists, but no active plan -> To onboarding (reset state)
                         showScreen('screen-onboarding');
                     }
                 } else {
-                    // New user completely
                     showScreen('screen-onboarding');
                 }
                 hideLoading();
             } catch (err) {
                 hideLoading();
-                updateBadge('firebase', 'error');
-                window.showAlert("Erro no Banco", "Não foi possível carregar seus dados: " + err.message);
+                updateBadge('firebase', 'error', err.message);
+                window.showAlert("Erro de Conexão", "Não foi possível carregar dados do Firebase. Verifique as regras do Firestore.");
             }
         }
 
-        // --- 7. ONBOARDING E GERAÇÃO DE PLANO ---
+        // --- GERAÇÃO DE PLANO & ONBOARDING ---
         $('onboarding-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -830,27 +870,22 @@
                 mins: $('ob-mins').value
             };
 
-            showLoading("I.A. Avaliando Perfil...", "Calculando estratégia adaptativa e duração ideal. Pode levar até 40s (Acordando Servidor).");
+            showLoading("I.A. Criando Estrutura...", "Analisando perfil e criando planejamento realista. (Render pode demorar até 40s para acordar).");
             
-            const prompt = `Atue como Coach Sênior (Educador Físico). 
-            ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, Gordura: ${profile.bf}%.
-            META: ${profile.targetWeight}kg, Gordura Meta: ${profile.targetBf}%.
+            const prompt = `Atue como Coach Sênior de Calistenia. 
+            ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bf}%, BF Meta: ${profile.targetBf}%.
             TEXTO DO OBJETIVO: "${profile.goal}".
             DISPONIBILIDADE: ${profile.days} dias/semana, ${profile.mins} min/treino.
             
-            REGRAS I.A.:
-            1. Analise o objetivo e crie a quantidade REALISTA de treinos (Ex: para 6 semanas x 3 dias = 18 treinos. Pode ser 4, 8 ou 12 semanas. Você decide o melhor pro perfil).
-            2. 'macrocycleSummary': Escreva detalhadamente a estratégia e a duração do plano escolhida.
-            3. Para cada treino na queue:
-               - O primeiro item DEVE SER 'Aquecimento' (type: rest, duration: 120, roundInfo: 'Preparar').
-               - O último item DEVE SER 'Volta a calma' (type: rest, duration: 120, roundInfo: 'Recuperar').
-               - Intercale work e rest.
-               - OBRIGATÓRIO preencher 'roundInfo' nos itens de 'work' com Séries/Reps/Cadência (Ex: '4x15', '30s MÁXIMO').`;
+            TAREFAS OBRIGATÓRIAS:
+            1. Defina a duração total do plano (ex: 4 semanas, 8 semanas) baseada no texto do objetivo. Se o aluno quiser perder muito peso ou ganhar força extrema, o plano deve ser mais longo e gerar MAIS treinos.
+            2. 'macrocycleSummary': Escreva sua análise tática detalhada e o cronograma.
+            3. 'workouts': Gere o plano completo de treinos para atender essa jornada.
+            4. REGRAS DA QUEUE: O item 0 DEVE SER Aquecimento (type: rest, duration: 120, roundInfo: 'Preparar'). O último item DEVE SER Volta à calma (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido claramente (Ex: '4x15', '30s MÁXIMO').`;
 
             try {
                 const generatedPlan = await callGemini(prompt);
                 
-                // Add unique IDs
                 if(generatedPlan.workouts) {
                     generatedPlan.workouts.forEach((w, i) => w.id = `w_${Date.now()}_${i}`);
                 }
@@ -860,8 +895,7 @@
                 
                 await saveFullState();
                 
-                // Save first check-in automatically
-                await setDoc(doc(collection(db, `users/${currentUser.uid}/checkins`)), {
+                await addDoc(collection(db, `users/${currentUser.uid}/checkins`), {
                     date: new Date().toISOString(),
                     weight: parseFloat(profile.weight),
                     bf: parseFloat(profile.bf)
@@ -873,7 +907,7 @@
                 
             } catch (err) {
                 hideLoading();
-                window.showAlert("Erro I.A.", err.message);
+                window.showAlert("Falha na Geração", err.message);
             }
         });
 
@@ -886,7 +920,7 @@
                 }, { merge: true });
             } catch(e) {
                 console.error("Save state error", e);
-                throw e;
+                throw new Error("Erro ao salvar no banco. Verifique permissões do Firestore.");
             }
         }
 
@@ -906,7 +940,7 @@
             }
         }
 
-        // --- 8. RENDERIZAÇÃO DO DASHBOARD E CALENDÁRIO ---
+        // --- DASHBOARD E CALENDÁRIO OTIMIZADOS ---
         function renderDashboard() {
             if (!currentPlan || !currentPlan.workouts) return;
 
@@ -915,8 +949,7 @@
             const nextWorkout = currentPlan.workouts.find(w => !w.isCompleted);
 
             $('dash-macro').innerText = currentPlan.macrocycleSummary || "Plano adaptativo em andamento.";
-            $('dash-phase').innerText = currentPlan.currentPhase || `Foco Semanal`;
-            $('dash-progress').innerText = `${completed} / ${total} Treinos`;
+            $('dash-progress').innerText = `${total - completed} Sessões Restantes`;
 
             if (currentPlan.coachFeedback) {
                 show('dash-feedback-container');
@@ -932,11 +965,11 @@
                 $('dash-nw-time').innerText = nextWorkout.estimatedMinutes || userData.mins;
                 
                 const wks = nextWorkout.queue.filter(q => q.type === 'work');
-                const prev = wks.slice(0,3).map(w => w.name).join(', ');
-                $('dash-nw-desc').innerText = `Inclui: ${prev}${wks.length > 3 ? '...' : ''}`;
+                const descList = wks.slice(0, 4).map(w => w.name).join(', ');
+                $('dash-nw-desc').innerText = `Inclui: ${descList}${wks.length > 4 ? '...' : ''}`;
             } else {
                 hide('dash-next-workout');
-                window.showAlert("Parabéns!", "Você concluiu 100% deste plano! Reinicie o plano para um novo desafio.");
+                window.showAlert("Jornada Concluída!", "Você completou 100% deste plano. Hora de gerar uma nova estrutura com a I.A.!");
             }
             
             switchTab('overview');
@@ -959,11 +992,18 @@
                 const icon = isDone ? '<i class="fas fa-check-circle text-green-500 text-xl"></i>' : '<i class="fas fa-lock text-slate-600 text-lg"></i>';
                 
                 let detailsHtml = '';
+                // Novo layout vertical para exercícios dentro do card do calendário
                 if(isNext || isDone) {
-                    const totalMins = Math.round(w.queue.reduce((a,b)=>a+b.duration, 0) / 60);
                     detailsHtml = `
-                        <div class="w-full mt-3 pt-3 border-t border-slate-800/50 flex gap-2 overflow-x-auto custom-scrollbar pb-1">
-                            ${w.queue.filter(q=>q.type==='work').map(q => `<span class="whitespace-nowrap text-[9px] bg-slate-800 text-slate-300 px-2 py-1 rounded-md font-bold">${q.name}</span>`).join('')}
+                        <div class="w-full mt-3 pt-3 border-t border-slate-800/50 flex flex-col gap-2 pb-1">
+                            ${w.queue.map(q => {
+                                if(q.type === 'rest') return '';
+                                return `
+                                <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50 flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                    <span class="text-xs font-bold text-slate-200 mb-1 sm:mb-0">${q.name}</span>
+                                    <span class="text-[10px] text-brand-400 font-bold bg-brand-900/20 px-2 py-0.5 rounded border border-brand-500/20 self-start sm:self-auto">${q.roundInfo || ''}</span>
+                                </div>`;
+                            }).join('')}
                         </div>`;
                 }
 
@@ -985,7 +1025,7 @@
             });
         }
 
-        // --- 9. MOTOR DO TIMER ---
+        // --- TIMER E PROGRESSO DE TREINO ---
         window.startWorkout = () => {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
             if (!nw || !nw.queue) return;
@@ -993,6 +1033,9 @@
             currentWorkoutQueue = nw.queue;
             currentQueueIndex = 0;
             isPaused = false;
+            
+            // Calculo Total Inicial
+            totalWorkoutTimeLeft = currentWorkoutQueue.reduce((acc, val) => acc + val.duration, 0);
             
             $('timer-workout-name').innerText = nw.name || "Sessão";
             document.body.classList.add('no-scroll');
@@ -1013,19 +1056,38 @@
             isPaused = !isPaused;
             const btn = $('btn-pause-resume');
             if (isPaused) {
-                btn.innerHTML = '<i class="fas fa-play"></i> RETOMAR TREINO';
+                btn.innerHTML = '<i class="fas fa-play"></i> RETOMAR';
                 btn.classList.replace('bg-brand-500', 'bg-green-500');
                 btn.classList.replace('shadow-[0_0_20px_rgba(6,182,212,0.3)]', 'shadow-[0_0_20px_rgba(34,197,94,0.3)]');
             } else {
-                btn.innerHTML = '<i class="fas fa-pause"></i> PAUSAR TREINO';
+                btn.innerHTML = '<i class="fas fa-pause"></i> PAUSAR';
                 btn.classList.replace('bg-green-500', 'bg-brand-500');
                 btn.classList.replace('shadow-[0_0_20px_rgba(34,197,94,0.3)]', 'shadow-[0_0_20px_rgba(6,182,212,0.3)]');
             }
         };
 
+        // Função de Pular
+        window.skipExercise = () => {
+            if (currentQueueIndex >= currentWorkoutQueue.length) return;
+            
+            // Abate o tempo do item atual do total
+            totalWorkoutTimeLeft -= timeLeft;
+            if(totalWorkoutTimeLeft < 0) totalWorkoutTimeLeft = 0;
+            updateTotalTimeUI();
+
+            currentQueueIndex++;
+            loadQueueItem(currentQueueIndex);
+        };
+
+        function updateTotalTimeUI() {
+            if(totalWorkoutTimeLeft < 0) totalWorkoutTimeLeft = 0;
+            const m = Math.floor(totalWorkoutTimeLeft / 60).toString().padStart(2, '0');
+            const s = (totalWorkoutTimeLeft % 60).toString().padStart(2, '0');
+            $('timer-total-left').innerText = `${m}:${s}`;
+        }
+
         function loadQueueItem(index) {
             if (index >= currentWorkoutQueue.length) {
-                // Treino finalizado!
                 clearInterval(timerInterval);
                 document.body.classList.remove('no-scroll');
                 openPostWorkout();
@@ -1039,44 +1101,45 @@
             $('timer-step-counter').innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
             $('timer-ex-name').innerText = item.name;
             
-            // UI Cores: Work = Cyan/Brand, Rest = Orange/Yellow
-            const isRest = item.type === 'rest';
             const ring = $('timer-ring');
             const bgPulse = $('timer-bg-pulse');
             const roundContainer = $('timer-round-container');
 
-            if (isRest) {
-                ring.setAttribute('stroke', '#f59e0b'); // amber-500
+            if (item.type === 'rest') {
+                ring.setAttribute('stroke', '#f59e0b');
                 bgPulse.className = 'absolute inset-0 bg-amber-500/5 transition-colors duration-1000';
-                roundContainer.className = 'bg-amber-900/20 border border-amber-500/30 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
-                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-1"><i class="fas fa-lungs mr-1"></i> Diretriz</span><span class="text-base sm:text-lg font-black text-amber-400 w-full break-words">${item.roundInfo || 'Recuperar fôlego'}</span>`;
+                roundContainer.className = 'bg-amber-900/20 border border-amber-500/30 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
+                roundContainer.innerHTML = `<span class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mb-2"><i class="fas fa-lungs mr-1"></i> Recuperação</span><span class="text-xl sm:text-2xl font-black text-amber-400 w-full text-wrap leading-tight">${item.roundInfo || 'Recupere o fôlego'}</span>`;
             } else {
-                ring.setAttribute('stroke', '#06b6d4'); // brand-500
+                ring.setAttribute('stroke', '#06b6d4');
                 bgPulse.className = 'absolute inset-0 bg-brand-500/5 transition-colors duration-1000';
-                roundContainer.className = 'bg-brand-900/30 border border-brand-500/40 w-full p-4 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
-                roundContainer.innerHTML = `<span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-1"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span><span class="text-base sm:text-lg font-black text-white w-full break-words">${item.roundInfo || 'Máxima Qualidade'}</span>`;
+                roundContainer.className = 'bg-brand-900/30 border border-brand-500/40 w-full p-5 rounded-2xl flex flex-col items-center justify-center text-center shadow-lg transition-colors';
+                roundContainer.innerHTML = `<span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest mb-2"><i class="fas fa-bullseye mr-1"></i> Diretriz de Execução</span><span class="text-xl sm:text-2xl font-black text-white w-full text-wrap leading-tight">${item.roundInfo || 'Máxima Qualidade'}</span>`;
             }
 
-            // A Seguir box
             if (nextItem) {
                 $('timer-next-name').innerText = nextItem.name;
                 $('timer-next-icon').innerHTML = nextItem.type === 'rest' ? '<i class="fas fa-bed text-amber-500"></i>' : '<i class="fas fa-dumbbell text-brand-400"></i>';
             } else {
-                $('timer-next-name').innerText = "Fim do Treino";
+                $('timer-next-name').innerText = "Treino Finalizado";
                 $('timer-next-icon').innerHTML = '<i class="fas fa-flag-checkered text-green-500"></i>';
             }
 
             updateTimerUI();
+            updateTotalTimeUI();
         }
 
         function timerTick() {
             if (isPaused) return;
             timeLeft--;
+            totalWorkoutTimeLeft--;
+            
             if (timeLeft < 0) {
                 currentQueueIndex++;
                 loadQueueItem(currentQueueIndex);
             } else {
                 updateTimerUI();
+                updateTotalTimeUI();
             }
         }
 
@@ -1092,7 +1155,7 @@
             $('timer-ring').style.strokeDashoffset = offset;
         }
 
-        // --- 10. FLUXO PÓS-TREINO E CALIBRAÇÃO I.A. ---
+        // --- PÓS TREINO & CALIBRAÇÃO I.A. ---
         function buildNextMinsOptions() {
             const sel = $('pw-next-mins');
             sel.innerHTML = '';
@@ -1105,7 +1168,6 @@
             buildNextMinsOptions();
             show('modal-post-workout');
             
-            // Build PSE Buttons
             const container = $('pse-buttons');
             container.innerHTML = '';
             selectedPseValue = null;
@@ -1118,7 +1180,7 @@
                 else colorClass = 'border-red-700/50 bg-red-900/30 text-red-400';
 
                 const btn = document.createElement('button');
-                btn.className = `w-10 h-12 sm:w-12 sm:h-14 rounded-xl border ${colorClass} font-black text-lg transition-all active:scale-95 flex items-center justify-center`;
+                btn.className = `w-10 h-12 rounded-xl border ${colorClass} font-black text-lg transition-all active:scale-95 flex items-center justify-center m-1`;
                 btn.innerText = i;
                 btn.onclick = () => {
                     Array.from(container.children).forEach(c => c.classList.remove('ring-2', 'ring-white', 'scale-110'));
@@ -1139,12 +1201,10 @@
             const fc = $('pw-fc').value;
             const kcal = $('pw-kcal').value;
 
-            // Mark current as done
             const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
             if (nwIndex !== -1) {
                 currentPlan.workouts[nwIndex].isCompleted = true;
                 
-                // Save history item locally
                 try {
                     await addDoc(collection(db, `users/${currentUser.uid}/history`), {
                         date: new Date().toISOString(),
@@ -1153,33 +1213,31 @@
                         fc: fc || null,
                         kcal: kcal || null
                     });
-                } catch(e) { console.error("History save error", e); }
+                } catch(e) { console.error("History err", e); }
             }
 
             const remaining = currentPlan.workouts.filter(w => !w.isCompleted);
 
             if (remaining.length > 0) {
-                showLoading("I.A. Calibrando Futuro...", "Ajustando o plano com base no seu nível de esforço e disponibilidade.");
+                showLoading("I.A. Recalibrando Rota...", "Ajustando o plano completo com base no seu Feedback (PSE).");
                 
-                const prompt = `Coach Sênior. Aluno fez o Treino.
-                MÉTRICAS: PSE ${selectedPseValue}/10. FC ${fc||'N/A'}.
-                O aluno terá ${nextMins} minutos no próximo treino (em ${nextDays} dias). 
+                const prompt = `Treino Concluído! MÉTRICAS: PSE ${selectedPseValue}/10. FC ${fc||'N/A'}.
+                Próximo treino: em ${nextDays} dias, durará exatos ${nextMins} minutos.
                 Preferência: "${pref}".
                 
-                TAREFA:
-                1. 'coachFeedback': Escreva uma análise fisiológica baseada no esforço (PSE) e explique os ajustes que fez na queue para caber nos exatos ${nextMins}min.
+                TAREFA DO COACH:
+                1. 'coachFeedback': Avalie o treino que acabou de acontecer (ex: "Bom trabalho mantendo o esforço em 7/10...") e explique brevemente as mudanças que fará.
                 2. Mantenha 'macrocycleSummary'.
-                3. REESCREVA a 'queue' dos treinos pendentes abaixo, focando 100% no pedido de tempo e preferência.
-                4. REGRAS DA QUEUE: Primeiro item 'rest' 120s, último item 'rest' 120s. 'roundInfo' preenchido obrigatoriamente.
+                3. REESCREVA a 'queue' dos treinos PENDENTES. Ajuste volumes e exercícios com base na nota PSE (Se PSE foi 10, facilite. Se foi 4, dificulte).
+                4. OBRIGATÓRIO no queue: 120s Aquecimento no início e 120s Rest no final.
                 
-                PENDENTES:
+                PENDENTES RESTANTES:
                 ${JSON.stringify(remaining)}`;
 
                 try {
                     const adjustData = await callGemini(prompt);
                     
                     if (adjustData.workouts) {
-                        // Merge adjust
                         let adjIdx = 0;
                         for(let i=0; i<currentPlan.workouts.length; i++){
                             if(!currentPlan.workouts[i].isCompleted && adjustData.workouts[adjIdx]) {
@@ -1193,7 +1251,7 @@
                     
                 } catch (err) {
                     console.error("Erro calibração IA:", err);
-                    window.showAlert("Aviso", "Não foi possível calibrar com a IA agora, mas seu treino foi salvo.");
+                    window.showAlert("Aviso", "A I.A. não pôde recalibrar agora (Render Offline), mas o treino foi salvo. Tente novamente mais tarde.");
                 }
             }
 
@@ -1204,7 +1262,7 @@
             showScreen('screen-dashboard');
         };
 
-        // --- 11. CHECK-IN CORPORAL E GRÁFICOS ---
+        // --- CHECK-IN E GRÁFICOS ---
         window.saveCheckin = async () => {
             const w = $('checkin-weight').value;
             const bf = $('checkin-bf').value;
@@ -1212,12 +1270,10 @@
             
             showLoading("Salvando...");
             try {
-                // Update profile
                 userData.weight = w;
                 userData.bf = bf;
                 await saveFullState();
                 
-                // Add to subcollection
                 await addDoc(collection(db, `users/${currentUser.uid}/checkins`), {
                     date: new Date().toISOString(),
                     weight: parseFloat(w),
@@ -1226,7 +1282,7 @@
                 
                 hideLoading();
                 hide('modal-checkin');
-                renderCharts(); // Re-render
+                renderCharts(); 
             } catch(e) {
                 hideLoading();
                 window.showAlert("Erro", e.message);
@@ -1235,19 +1291,17 @@
 
         async function renderCharts() {
             try {
-                const q = query(collection(db, `users/${currentUser.uid}/checkins`));
-                const snap = await getDocs(q);
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
                 let data = [];
                 snap.forEach(d => data.push(d.data()));
                 
-                // Ordenar por data via JavaScript puro
+                // Ordenação Front-end
                 data.sort((a,b) => new Date(a.date) - new Date(b.date));
 
                 const labels = data.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
                 const weights = data.map(d => d.weight);
                 const bfs = data.map(d => d.bf);
 
-                // Add Targets
                 const trgW = Array(labels.length).fill(userData.targetWeight);
                 const trgBf = Array(labels.length).fill(userData.targetBf);
 
@@ -1286,12 +1340,11 @@
         async function loadHistory() {
             try {
                 const list = $('history-list');
-                const q = query(collection(db, `users/${currentUser.uid}/history`));
-                const snap = await getDocs(q);
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
                 
                 let data = [];
                 snap.forEach(d => data.push(d.data()));
-                data.sort((a,b) => new Date(b.date) - new Date(a.date)); // descending
+                data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
                 
                 list.innerHTML = '';
                 if(data.length === 0) {
@@ -1316,7 +1369,6 @@
             } catch(e) { console.error("History err", e); }
         }
 
-        // Init
         showScreen('screen-auth');
 
     </script>
