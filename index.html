@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v1.2</title>
+    <title>AI Coach - Calistenia Dinâmica v1.3</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -76,8 +76,53 @@
                     <i class="fas fa-rocket text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.2</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.3</span>
                     <h3 class="text-lg font-black text-white">O Que Há de Novo</h3>
+                </div>
+            </div>
+            <div class="space-y-3 mb-6 text-xs text-slate-300">
+                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
+                    <i class="fas fa-chart-pie text-brand-400 mt-0.5"></i>
+                    <div><strong class="text-white">Análise Preditiva de Progresso:</strong> A I.A. agora gera um relatório avaliando seu desempenho histórico, com previsões de tempo para bater sua meta.</div>
+                </div>
+                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
+                    <i class="fas fa-comment-dots text-purple-400 mt-0.5"></i>
+                    <div><strong class="text-white">Memória de Avaliações:</strong> Todas as avaliações feitas pela I.A. após cada treino agora ficam gravadas na aba Progresso para leitura posterior.</div>
+                </div>
+                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
+                    <i class="fas fa-hand-pointer text-amber-400 mt-0.5"></i>
+                    <div><strong class="text-white">Navegação via Swipe:</strong> Deslize a tela horizontalmente para alternar entre as abas facilmente.</div>
+                </div>
+            </div>
+            <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
+                Explorar Versão 1.3 <i class="fas fa-arrow-right ml-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
+        <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
+                <div>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico de Versões</span>
+                    <h3 class="text-base font-black text-white">Changelog do AI Coach</h3>
+                </div>
+                <button onclick="document.getElementById('modal-changelog').classList.add('hidden')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-brand-400 text-sm">v1.3 (Atual)</span>
+                        <span class="text-[10px] text-slate-500">11 de Setembro de 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Nova seção de Evolução na aba Progresso.<br>• Relatórios preditivos gerados por I.A.<br>• Armazenamento persistente de feedbacks dos treinos.<br>• Navegação com Swipe tátil otimizada.</p>
+                </div>
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-white text-sm">v1.2</span>
+                        <span class="text-[10px] text-slate-500">Setembro 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Chat persistido na nuvem e links para vídeos do YouTube.</p>
                 </div>
             </div>
             <div class="space-y-3 mb-6 text-xs text-slate-300">
@@ -148,7 +193,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.2</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.3</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -312,7 +357,7 @@
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.2</span></h1>
+                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.3</span></h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[160px]">...</p>
             </div>
             <div class="flex items-center gap-2">
@@ -413,6 +458,27 @@
 
             <!-- Tab 4: Progresso -->
             <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
+                
+                <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-brain text-purple-400 mr-2"></i>Análise de Evolução (I.A.)</h3>
+                        <button onclick="generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">
+                            Gerar Relatório
+                        </button>
+                    </div>
+                    <div id="progress-report-content" class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                        <p class="text-xs text-slate-400 italic text-center py-2">Clique em "Gerar Relatório" para a I.A. analisar todo o seu histórico e check-ins.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-comment-dots text-brand-400 mr-2"></i>Avaliações de Treinos (I.A.)</h3>
+                    <div id="progress-evaluations-list" class="space-y-3 max-h-56 overflow-y-auto custom-scrollbar pr-1">
+                        <p class="text-xs text-slate-500 text-center py-2">Nenhuma avaliação registrada ainda.</p>
+                    </div>
+                </div>
+
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-chart-line text-brand-400 mr-2"></i>Evolução de Peso</h3>
@@ -942,7 +1008,7 @@
         window.openChangelog = () => show('modal-changelog');
         window.closeWhatsNew = () => {
             hide('modal-whats-new');
-            localStorage.setItem('seen_whats_new_v1.2', 'true');
+            localStorage.setItem('seen_whats_new_v1.3', 'true');
         };
 
         function showLoading(text, sub = "Coach I.A. está analisando seus dados e histórico na nuvem...") {
@@ -986,7 +1052,15 @@
                 activeBtn.classList.replace('border-slate-800', 'border-brand-500/30');
             }
             
-            if (tabName === 'progress') { renderCharts(); }
+            if (tabName === 'progress') { 
+                renderCharts(); 
+                renderProgressEvaluations();
+                getDoc(doc(db, "users", currentUser.uid)).then(docSnap => {
+                    if(docSnap.exists() && docSnap.data().lastProgressReport) {
+                        renderReportUI(docSnap.data().lastProgressReport);
+                    }
+                });
+            }
             if (tabName === 'calendar') { loadHistory(); }
             if (tabName === 'chat') { loadChatHistory(); }
         };
@@ -1042,7 +1116,7 @@
                 const recentHistory = historyData.slice(-15);
 
                 return recentHistory.map((h, index) => 
-                    `Treino #${historyData.length - recentHistory.length + index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Calorias: ${h.kcal||'N/A'}kcal`
+                    `Treino #${historyData.length - recentHistory.length + index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Avaliação Curta da IA: ${h.aiFeedback ? h.aiFeedback.substring(0, 40) + '...' : 'N/A'}`
                 ).join('\n');
             } catch(e) {
                 console.error("Error fetching history", e);
@@ -1050,53 +1124,63 @@
             }
         }
 
-        async function callGemini(prompt, isChat = false) {
+        async function callGemini(prompt, schemaMode = 'workout') {
             updateBadge('api', 'loading');
             
-            let schema = {
-                type: "object",
-                properties: {
-                    userProfileAnalysis: { type: "string" },
-                    planExplanation: { type: "string" },
-                    macrocycleSummary: { type: "string" },
-                    coachFeedback: { type: "string" },
-                    suggestedDays: { type: "integer" },
-                    suggestedMinutes: { type: "integer" },
-                    workout: {
-                        type: "object",
-                        properties: {
-                            id: { type: "string" },
-                            name: { type: "string" },
-                            focus: { type: "string" },
-                            isCompleted: { type: "boolean" },
-                            estimatedMinutes: { type: "integer" },
-                            queue: {
-                                type: "array",
-                                items: {
-                                    type: "object",
-                                    properties: {
-                                        type: { type: "string", enum: ["work", "rest"] },
-                                        name: { type: "string" },
-                                        duration: { type: "integer" },
-                                        roundInfo: { type: "string" }
-                                    },
-                                    required: ["type", "name", "duration"]
-                                }
-                            }
-                        },
-                        required: ["name", "focus", "estimatedMinutes", "queue"]
-                    }
-                },
-                required: ["macrocycleSummary", "workout"]
-            };
+            let schema = {};
 
-            if (isChat) {
+            if (schemaMode === 'chat') {
+                schema = {
+                    type: "object",
+                    properties: { reply: { type: "string" } },
+                    required: ["reply"]
+                };
+            } else if (schemaMode === 'report') {
                 schema = {
                     type: "object",
                     properties: {
-                        reply: { type: "string" }
+                        analysis: { type: "string" },
+                        estimatedTime: { type: "string" },
+                        nextSteps: { type: "string" }
                     },
-                    required: ["reply"]
+                    required: ["analysis", "estimatedTime", "nextSteps"]
+                };
+            } else {
+                schema = {
+                    type: "object",
+                    properties: {
+                        userProfileAnalysis: { type: "string" },
+                        planExplanation: { type: "string" },
+                        macrocycleSummary: { type: "string" },
+                        coachFeedback: { type: "string" },
+                        suggestedDays: { type: "integer" },
+                        suggestedMinutes: { type: "integer" },
+                        workout: {
+                            type: "object",
+                            properties: {
+                                id: { type: "string" },
+                                name: { type: "string" },
+                                focus: { type: "string" },
+                                isCompleted: { type: "boolean" },
+                                estimatedMinutes: { type: "integer" },
+                                queue: {
+                                    type: "array",
+                                    items: {
+                                        type: "object",
+                                        properties: {
+                                            type: { type: "string", enum: ["work", "rest"] },
+                                            name: { type: "string" },
+                                            duration: { type: "integer" },
+                                            roundInfo: { type: "string" }
+                                        },
+                                        required: ["type", "name", "duration"]
+                                    }
+                                }
+                            },
+                            required: ["name", "focus", "estimatedMinutes", "queue"]
+                        }
+                    },
+                    required: ["macrocycleSummary", "workout"]
                 };
             }
 
@@ -1206,7 +1290,7 @@
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard();
                         showScreen('screen-dashboard');
-                        if (!localStorage.getItem('seen_whats_new_v1.2')) {
+                        if (!localStorage.getItem('seen_whats_new_v1.3')) {
                             show('modal-whats-new');
                         }
                     } else {
@@ -1698,7 +1782,8 @@
                         pse: selectedPseValue,
                         fc: fc ? parseFloat(fc) : null,
                         fcMax: fcMax ? parseFloat(fcMax) : null,
-                        kcal: kcal ? parseFloat(kcal) : null
+                        kcal: kcal ? parseFloat(kcal) : null,
+                        aiFeedback: aiEvaluationResult?.coachFeedback || currentPlan.coachFeedback || "Treino concluído sem avaliação detalhada."
                     });
                 } catch(e) { console.error("History err", e); }
             }
@@ -1828,6 +1913,105 @@
                 });
 
             } catch(e) { console.error("Chart err", e); }
+        }
+
+        async function renderProgressEvaluations() {
+            try {
+                const list = $('progress-evaluations-list');
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                
+                let data = [];
+                snap.forEach(d => data.push(d.data()));
+                
+                // Filtra apenas treinos que possuem feedback e ordena pelo mais recente
+                data = data.filter(d => d.aiFeedback).sort((a,b) => new Date(b.date) - new Date(a.date));
+                
+                list.innerHTML = '';
+                if(data.length === 0) {
+                    list.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Nenhuma avaliação registrada ainda.</p>`;
+                    return;
+                }
+
+                data.forEach(h => {
+                    const dt = new Date(h.date).toLocaleDateString('pt-BR');
+                    list.innerHTML += `
+                        <div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 shadow-sm mb-2">
+                            <div class="flex justify-between items-center mb-1.5 border-b border-slate-800/80 pb-1">
+                                <span class="text-[10px] font-bold text-slate-400">${h.workoutName}</span>
+                                <span class="text-[9px] font-bold text-slate-500">${dt}</span>
+                            </div>
+                            <p class="text-xs text-slate-300 italic leading-relaxed">"${h.aiFeedback}"</p>
+                        </div>`;
+                });
+            } catch(e) { console.error("Evaluation list err", e); }
+        }
+
+        window.generateProgressReport = async () => {
+            showLoading("I.A. Gerando Relatório...", "Analisando seu biotipo, metas, check-ins e avaliações de todos os treinos para criar o relatório preditivo...");
+            
+            try {
+                const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
+                let checkins = [];
+                checkinSnap.forEach(d => checkins.push(d.data()));
+                checkins.sort((a,b) => new Date(a.date) - new Date(b.date));
+                let checkinContext = checkins.map(c => `${new Date(c.date).toLocaleDateString()}: Peso ${c.weight}kg, BF ${c.bf}%`).join('\n');
+
+                const historyContext = await getCumulativeHistoryContext();
+
+                const prompt = `Atue como Coach Sênior de Calistenia e Fisiologia.
+                ALUNO: ${userData.age} anos, Meta de Peso: ${userData.targetWeight}kg, Meta BF: ${userData.targetBf}%. Objetivo: ${userData.goal}
+                
+                EVOLUÇÃO (CHECK-INS):
+                ${checkinContext || 'Nenhum check-in registrado ainda.'}
+                
+                HISTÓRICO DE TREINOS RECENTES E AVALIAÇÕES:
+                ${historyContext}
+                
+                Gere um relatório estruturado e direto.
+                1. 'analysis': Avaliação geral. Estamos no caminho certo ou abaixo do esperado? O que precisa melhorar?
+                2. 'estimatedTime': Com base nos check-ins e metas, qual a estimativa de tempo realista para atingir o objetivo final?
+                3. 'nextSteps': O que será feito ou focado estrategicamente nos próximos treinos para manter ou corrigir a rota.`;
+
+                const resData = await callGemini(prompt, 'report');
+
+                const reportData = {
+                    date: new Date().toISOString(),
+                    analysis: resData.analysis,
+                    estimatedTime: resData.estimatedTime,
+                    nextSteps: resData.nextSteps
+                };
+                
+                await setDoc(doc(db, "users", currentUser.uid), {
+                    lastProgressReport: reportData
+                }, { merge: true });
+                
+                renderReportUI(reportData);
+                hideLoading();
+
+            } catch (err) {
+                hideLoading();
+                window.showAlert("Erro na I.A.", err.message);
+            }
+        };
+
+        function renderReportUI(report) {
+            const container = $('progress-report-content');
+            if (!report) return;
+            
+            container.innerHTML = `
+                <div class="space-y-3">
+                    <div class="border-b border-slate-800 pb-2">
+                        <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Última Análise: ${new Date(report.date).toLocaleDateString('pt-BR')}</span>
+                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-white">Diagnóstico:</strong> ${report.analysis}</p>
+                    </div>
+                    <div class="border-b border-slate-800 pb-2">
+                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-brand-400"><i class="fas fa-clock w-4"></i> Previsão:</strong> ${report.estimatedTime}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-purple-400"><i class="fas fa-road w-4"></i> Próximos Passos:</strong> ${report.nextSteps}</p>
+                    </div>
+                </div>
+            `;
         }
 
         async function loadHistory() {
