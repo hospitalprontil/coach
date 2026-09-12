@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v1.3</title>
+    <title>AI Coach - Calistenia Dinâmica v1.5</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -39,6 +39,7 @@
 </head>
 <body class="min-h-screen font-sans flex flex-col items-center custom-scrollbar">
 
+    <!-- Alert Modal -->
     <div id="alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4 opacity-0 transition-opacity">
         <div class="bg-dark-800 border border-slate-700 rounded-3xl p-6 max-w-sm w-full shadow-2xl transform scale-95 transition-transform mx-auto" id="alert-box">
             <div class="text-center">
@@ -52,54 +53,77 @@
         </div>
     </div>
 
+    <!-- Confirm Deletion Modal -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999] hidden items-center justify-center p-4">
         <div class="bg-dark-800 border border-red-900/50 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto">
-            <div class="text-center">
+            <div class="text-center mb-4">
                 <div class="w-16 h-16 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center mx-auto mb-4 border border-red-500/30">
                     <i class="fas fa-exclamation-triangle text-2xl"></i>
                 </div>
-                <h3 class="text-lg font-black text-white mb-2">Atenção Crítica!</h3>
-                <p class="text-sm text-slate-300 mb-6 font-medium leading-relaxed">Você tem certeza que deseja deletar todo o seu progresso, histórico de treinos e reiniciar o plano? Esta ação apagará definitivamente seus dados da nuvem.</p>
-                <div class="flex gap-3">
-                    <button onclick="closeConfirm()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-2xl transition-colors">Cancelar</button>
-                    <button id="btn-final-confirm" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(220,38,38,0.3)]">Sim, Deletar</button>
-                </div>
+                <h3 class="text-lg font-black text-white mb-2">Exclusão de Dados</h3>
+                <p class="text-xs text-slate-300 font-medium leading-relaxed">Selecione exatamente o que você deseja excluir do seu banco de dados na nuvem.</p>
+            </div>
+            
+            <div class="space-y-3 mb-6 text-sm text-slate-300 font-medium">
+                <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-700 cursor-pointer hover:border-red-500/50 transition-colors">
+                    <input type="checkbox" id="del-history" class="w-4 h-4 accent-red-500" checked>
+                    <span>Histórico de Treinos e Avaliações</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-700 cursor-pointer hover:border-red-500/50 transition-colors">
+                    <input type="checkbox" id="del-checkins" class="w-4 h-4 accent-red-500">
+                    <span>Check-ins de Peso e Medidas</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-700 cursor-pointer hover:border-red-500/50 transition-colors">
+                    <input type="checkbox" id="del-chat" class="w-4 h-4 accent-red-500">
+                    <span>Conversas do Chat I.A.</span>
+                </label>
+                <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-red-900/30 cursor-pointer hover:border-red-500/50 transition-colors">
+                    <input type="checkbox" id="del-plan" class="w-4 h-4 accent-red-500">
+                    <span class="text-red-400 font-bold">Plano Atual e Perfil (Reset Total)</span>
+                </label>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeConfirm()" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-2xl transition-colors">Cancelar</button>
+                <button id="btn-final-confirm" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(220,38,38,0.3)]">Excluir Seleção</button>
             </div>
         </div>
     </div>
 
+    <!-- What's New v1.5 -->
     <div id="modal-whats-new" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[300] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-purple-500"></div>
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-green-500"></div>
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center border border-brand-500/30 shrink-0">
-                    <i class="fas fa-rocket text-xl"></i>
+                    <i class="fas fa-bolt text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.3</span>
-                    <h3 class="text-lg font-black text-white">O Que Há de Novo</h3>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.5</span>
+                    <h3 class="text-lg font-black text-white">Prontidão e Adaptação</h3>
                 </div>
             </div>
             <div class="space-y-3 mb-6 text-xs text-slate-300">
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-chart-pie text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Análise Preditiva de Progresso:</strong> A I.A. agora gera um relatório avaliando seu desempenho histórico, com previsões de tempo para bater sua meta.</div>
+                    <i class="fas fa-battery-half text-green-400 mt-0.5"></i>
+                    <div><strong class="text-white">Readiness Score (Escala de Prontidão):</strong> Antes de treinar, informe sua energia, sono e dor muscular. A I.A. ajusta o treino instantaneamente para proteger seu corpo se você estiver fadigado.</div>
                 </div>
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-comment-dots text-purple-400 mt-0.5"></i>
-                    <div><strong class="text-white">Memória de Avaliações:</strong> Todas as avaliações feitas pela I.A. após cada treino agora ficam gravadas na aba Progresso para leitura posterior.</div>
+                    <i class="fas fa-random text-brand-400 mt-0.5"></i>
+                    <div><strong class="text-white">Ajustes de Última Hora:</strong> Tem apenas 20 minutos hoje? Quer mudar o foco para pernas? Agora você pode recalibrar o treino segundos antes de começar.</div>
                 </div>
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-hand-pointer text-amber-400 mt-0.5"></i>
-                    <div><strong class="text-white">Navegação via Swipe:</strong> Deslize a tela horizontalmente para alternar entre as abas facilmente.</div>
+                    <i class="fas fa-running text-orange-400 mt-0.5"></i>
+                    <div><strong class="text-white">Aquecimento Dinâmico Inteligente:</strong> A I.A. agora foi orientada a sempre iniciar as sessões com movimentos de mobilidade específicos para o foco do seu treino.</div>
                 </div>
             </div>
             <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
-                Explorar Versão 1.3 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar Versão 1.5 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
 
+    <!-- Combined Changelog -->
     <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[80vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
@@ -112,69 +136,117 @@
             <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v1.3 (Atual)</span>
+                        <span class="font-black text-brand-400 text-sm">v1.5 (Atual)</span>
+                        <span class="text-[10px] text-slate-500">12 de Setembro de 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Readiness Score: Avaliação pré-treino de energia e dor.<br>• Recalibração de treino em tempo real pela I.A.<br>• Obrigação algorítmica de aquecimento dinâmico.</p>
+                </div>
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-white text-sm">v1.4</span>
                         <span class="text-[10px] text-slate-500">11 de Setembro de 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Nova seção de Evolução na aba Progresso.<br>• Relatórios preditivos gerados por I.A.<br>• Armazenamento persistente de feedbacks dos treinos.<br>• Navegação com Swipe tátil otimizada.</p>
+                    <p class="text-slate-400 leading-relaxed">• Nova métrica: Recuperação Cardíaca (HRR - FC após 3 min) e gráficos.<br>• Painel seletivo de exclusão de dados.<br>• Proteção contra overflow de tokens na I.A. (Limite de 15 treinos na memória).</p>
+                </div>
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-white text-sm">v1.3</span>
+                        <span class="text-[10px] text-slate-500">10 de Setembro de 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Aba de Progresso reformulada com relatórios preditivos.<br>• Navegação via swipe lateral responsivo no celular.</p>
                 </div>
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-white text-sm">v1.2</span>
-                        <span class="text-[10px] text-slate-500">Setembro 2026</span>
+                        <span class="text-[10px] text-slate-500">09 de Setembro 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Chat persistido na nuvem e links para vídeos do YouTube.</p>
+                    <p class="text-slate-400 leading-relaxed">• Chat persistido na nuvem e links para vídeos do YouTube na biblioteca.</p>
                 </div>
             </div>
-            <div class="space-y-3 mb-6 text-xs text-slate-300">
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-cloud text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Chat Sincronizado na Nuvem:</strong> Todas as conversas com o Coach I.A. agora são salvas e persistidas no banco de dados para consulta a qualquer momento.</div>
-                </div>
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-video text-red-400 mt-0.5"></i>
-                    <div><strong class="text-white">Vídeos Demonstrativos:</strong> Links diretos para vídeos do YouTube integrados na pré-via e na biblioteca.</div>
-                </div>
-            </div>
-            <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
-                Explorar Versão 1.2 <i class="fas fa-arrow-right ml-1"></i>
-            </button>
         </div>
     </div>
 
-    <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
-        <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[80vh] flex flex-col">
-            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
+    <!-- Readiness Modal (v1.5) -->
+    <div id="modal-readiness" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[120] hidden flex-col items-center justify-center p-4">
+        <div class="bg-dark-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative overflow-hidden mx-auto">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-brand-500"></div>
+            
+            <div class="text-center mb-5">
+                <div class="w-14 h-14 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-2 border border-green-500/30">
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+                <h3 class="text-lg font-black text-white">Como você está hoje?</h3>
+                <p class="text-xs text-slate-400 font-medium">A I.A. ajustará o treino baseada na sua recuperação.</p>
+            </div>
+
+            <div class="space-y-4">
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico de Versões</span>
-                    <h3 class="text-base font-black text-white">Changelog do AI Coach</h3>
-                </div>
-                <button onclick="document.getElementById('modal-changelog').classList.add('hidden')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
-            </div>
-            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v1.2 (Atual)</span>
-                        <span class="text-[10px] text-slate-500">Setembro 2026</span>
+                    <label class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 block text-center">Nível de Energia (1 a 5) <span class="text-red-500">*</span></label>
+                    <div class="flex justify-center gap-2" id="readiness-energy-btns">
+                        <!-- Botões gerados via JS -->
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Persistência de chat na nuvem com histórico completo na aba.<br>• Realinhamento dos indicadores de DB e I.A. diretamente nos cabeçalhos da aplicação.<br>• Integração de vídeos do YouTube e refinamentos gerais.</p>
                 </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.1</span>
-                        <span class="text-[10px] text-slate-500">Agosto 2026</span>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Qualidade do Sono</label>
+                        <select id="read-sleep" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none">
+                            <option value="Bom">Bom (Reparador)</option>
+                            <option value="Regular" selected>Regular</option>
+                            <option value="Ruim">Ruim (Cansado)</option>
+                        </select>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba Análise Inicial e Chat I.A. integrado.</p>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Dor Muscular Atual</label>
+                        <select id="read-sore" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none">
+                            <option value="Nenhuma">Nenhuma</option>
+                            <option value="Leve" selected>Leve (Aceitável)</option>
+                            <option value="Intensa">Intensa (Fadigado)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-slate-800">
+                    <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                        <input type="checkbox" id="read-change-toggle" class="w-4 h-4 accent-brand-500" onchange="document.getElementById('read-change-panel').classList.toggle('hidden')">
+                        <span class="text-xs font-bold text-slate-300">Alterar foco ou tempo de hoje</span>
+                    </label>
+
+                    <div id="read-change-panel" class="hidden mt-3 p-3 bg-dark-950 border border-brand-500/30 rounded-xl space-y-3">
+                        <p class="text-[10px] text-brand-400 mb-1">A I.A. vai recalibrar a sessão para você imediatamente.</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Tempo Livre (min)</label>
+                                <input type="number" id="read-time" placeholder="Ex: 30" class="w-full bg-dark-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Novo Foco</label>
+                                <input type="text" id="read-focus" placeholder="Ex: Pernas e Core" class="w-full bg-dark-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white outline-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button onclick="document.getElementById('modal-readiness').classList.add('hidden')" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-2xl transition-colors text-xs uppercase">
+                        Cancelar
+                    </button>
+                    <button onclick="submitReadiness()" class="w-2/3 bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
+                        Avaliar & Iniciar <i class="fas fa-play ml-1"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Loading Overlay -->
     <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex-col items-center justify-center hidden p-6 text-center">
         <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
         <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. em Ação...</h2>
         <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
     </div>
 
+    <!-- Auth Screen -->
     <div id="screen-auth" class="w-full max-w-md p-6 mt-10 mx-auto flex flex-col items-center">
         <div class="w-full flex justify-end mb-2">
             <div class="flex items-center gap-2 bg-dark-900 border border-slate-800 px-3 py-1.5 rounded-full shadow">
@@ -193,7 +265,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.3</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.5</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -236,6 +308,7 @@
         </div>
     </div>
 
+    <!-- Onboarding Screen -->
     <div id="screen-onboarding" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center">
         <div class="mb-6 flex items-center justify-between w-full">
             <div>
@@ -354,10 +427,11 @@
         </form>
     </div>
 
+    <!-- Dashboard Screen -->
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto">
         <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.3</span></h1>
+                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.5</span></h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[160px]">...</p>
             </div>
             <div class="flex items-center gap-2">
@@ -430,7 +504,8 @@
                         <p id="dash-nw-desc" class="text-xs text-slate-400 mb-4 leading-relaxed">...</p>
                         
                         <div class="flex gap-2">
-                            <button onclick="startWorkout()" class="flex-1 bg-white text-dark-950 hover:bg-slate-200 font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2 text-xs uppercase">
+                            <!-- Modificado de startWorkout() para openReadinessModal() -->
+                            <button onclick="openReadinessModal()" class="flex-1 bg-white text-dark-950 hover:bg-slate-200 font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2 text-xs uppercase">
                                 <i class="fas fa-play"></i> Iniciar Treino
                             </button>
                             <button onclick="openWorkoutLibraryModal()" class="px-4 bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors flex items-center justify-center font-bold text-xs" title="Ver Exercícios">
@@ -441,8 +516,8 @@
                 </div>
                 
                 <div class="pt-4 border-t border-slate-900/60 flex justify-center pb-4">
-                    <button onclick="openConfirmModal()" class="text-[11px] font-bold text-red-500/70 hover:text-red-400 uppercase tracking-widest flex items-center gap-2 transition-colors">
-                        <i class="fas fa-trash-alt"></i> Reiniciar Plano e Apagar Histórico
+                    <button onclick="openConfirmModal()" class="text-[11px] font-bold text-slate-500 hover:text-white uppercase tracking-widest flex items-center gap-2 transition-colors">
+                        <i class="fas fa-cog"></i> Gerenciar Dados e Histórico
                     </button>
                 </div>
             </div>
@@ -506,6 +581,13 @@
                 </div>
 
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3" title="Recuperação Cardíaca (HRR). Queda de FC nos primeiros 3 minutos pós-treino."><i class="fas fa-heart text-pink-400 mr-2"></i>Recuperação Cardíaca (FC após 3min)</h3>
+                    <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
+                        <canvas id="chart-hr-recovery"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-fire-alt text-amber-400 mr-2"></i>Gasto Calórico (kcal)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-kcal"></canvas>
@@ -521,6 +603,7 @@
                 </div>
                 
                 <div class="space-y-4">
+                    <!-- Library Items... -->
                     <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-brand-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Flexão de Braços (Push-up)</h3>
@@ -564,29 +647,7 @@
                             <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
                         </a>
                     </div>
-
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
-                        <div class="absolute left-0 top-0 w-1.5 h-full bg-blue-500"></div>
-                        <h3 class="text-white font-bold text-sm mb-1">Mergulho nas Paralelas (Dips)</h3>
-                        <p class="text-xs text-blue-400 font-semibold mb-1">Foco: Tríceps, Peitoral Inferior e Deltoide Anterior.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Apoie-se nas paralelas com os braços estendidos. Projete o tronco levemente à frente para focar no peitoral. Flexione os cotovelos descendo o corpo até formar um ângulo de 90 graus nos braços. Empurre com força para cima.</p>
-                        <p class="text-xs text-slate-400 mb-3"><strong>Variações:</strong> Iniciante (Dips em banco) / Avançado (Dips com peso adicional).</p>
-                        <a href="https://www.youtube.com/results?search_query=como+fazer+mergulho+nas+paralelas+dips" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
-                        </a>
-                    </div>
-
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
-                        <div class="absolute left-0 top-0 w-1.5 h-full bg-rose-500"></div>
-                        <h3 class="text-white font-bold text-sm mb-1">Afundo / Avanço (Lunges)</h3>
-                        <p class="text-xs text-rose-400 font-semibold mb-1">Foco: Quadríceps, Glúteos e Equilíbrio Unipodal.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Dê um passo largo à frente. Flexione ambos os joelhos simultaneamente, descendo o quadril de forma vertical até o joelho de trás quase tocar o solo. Retorne à posição inicial impulsionando com firmeza a perna da frente.</p>
-                        <p class="text-xs text-slate-400 mb-3"><strong>Variações:</strong> Iniciante (Afundo estático) / Avançado (Walking lunge dinâmico).</p>
-                        <a href="https://www.youtube.com/results?search_query=como+fazer+afundo+exercicio" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
-                        </a>
-                    </div>
-
+                    
                     <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
                         <div class="absolute left-0 top-0 w-1.5 h-full bg-indigo-500"></div>
                         <h3 class="text-white font-bold text-sm mb-1">Burpee Explosivo</h3>
@@ -597,20 +658,10 @@
                             <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
                         </a>
                     </div>
-
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
-                        <div class="absolute left-0 top-0 w-1.5 h-full bg-teal-500"></div>
-                        <h3 class="text-white font-bold text-sm mb-1">Mountain Climbers (Escalador)</h3>
-                        <p class="text-xs text-teal-400 font-semibold mb-1">Foco: Core, Resistência Aeróbica e Flexores do Quadril.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Posicione-se em prancha alta com braços estendidos. Alterne a corrida no lugar levando rapidamente os joelhos em direção ao peito, mantendo o quadril firme e baixo e os ombros estáveis sobre os punhos.</p>
-                        <p class="text-xs text-slate-400 mb-3"><strong>Variações:</strong> Iniciante (Movimento cadenciado e controlado) / Avançado (Velocidade máxima).</p>
-                        <a href="https://www.youtube.com/results?search_query=como+fazer+mountain+climbers" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
-                        </a>
-                    </div>
                 </div>
             </div>
 
+            <!-- Tab 6: Chat I.A. -->
             <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
                 <div class="flex items-center justify-between px-1 mb-1">
                     <h2 class="text-base font-black text-white">Chat com o Coach I.A.</h2>
@@ -643,6 +694,7 @@
         </div>
     </div>
 
+    <!-- Modal Checkin -->
     <div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex-col items-center justify-end sm:justify-center p-0 sm:p-4">
         <div class="bg-dark-900 border border-slate-800 w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl mx-auto">
             <div class="flex justify-between items-center mb-5">
@@ -665,6 +717,7 @@
         </div>
     </div>
 
+    <!-- Modal Workout Library -->
     <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
             <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
@@ -676,13 +729,15 @@
             </div>
             <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1"></div>
             <div class="pt-3 border-t border-slate-800 mt-3">
-                <button onclick="document.getElementById('modal-workout-library').classList.add('hidden'); startWorkout();" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
+                <!-- Modificado para openReadinessModal() -->
+                <button onclick="document.getElementById('modal-workout-library').classList.add('hidden'); openReadinessModal();" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase">
                     Iniciar Treino Agora <i class="fas fa-play ml-1"></i>
                 </button>
             </div>
         </div>
     </div>
 
+    <!-- Timer Screen -->
     <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
         <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden mx-auto">
             
@@ -743,6 +798,7 @@
         </div>
     </div>
 
+    <!-- Post Workout Modal -->
     <div id="modal-post-workout" class="fixed inset-0 bg-dark-950 z-[160] hidden flex-col overflow-y-auto custom-scrollbar">
         <div class="p-5 pb-20 max-w-md mx-auto w-full">
             <div class="text-center mb-5 mt-3">
@@ -762,18 +818,22 @@
 
                     <div>
                         <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Métricas do Smartwatch</h3>
-                        <div class="grid grid-cols-3 gap-2">
+                        <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">FC Média (bpm)</label>
-                                <input type="number" id="pw-fc" placeholder="135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                <input type="number" id="pw-fc" placeholder="Ex: 135" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">FC Máxima (bpm)</label>
-                                <input type="number" id="pw-fc-max" placeholder="170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                <input type="number" id="pw-fc-max" placeholder="Ex: 170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                            </div>
+                            <div>
+                                <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1" title="Frequência Cardíaca de Recuperação 3 minutos após o treino. Padrão ouro cardiovascular.">FC após 3 min (bpm) <i class="fas fa-info-circle"></i></label>
+                                <input type="number" id="pw-fc-rec" placeholder="Ex: 100" class="w-full bg-dark-950 border border-pink-500/50 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
-                                <input type="number" id="pw-kcal" placeholder="320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                <input type="number" id="pw-kcal" placeholder="Ex: 320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                         </div>
                     </div>
@@ -889,7 +949,7 @@
         let currentUser = null;
         let userData = null;
         let currentPlan = null; 
-        let chartWeight, chartBf, chartHr, chartKcal;
+        let chartWeight, chartBf, chartHr, chartKcal, chartHrRec;
         let isSignupMode = false;
         
         let timerInterval;
@@ -898,8 +958,11 @@
         let currentQueueIndex = 0;
         let timeLeft = 0;
         let totalWorkoutTimeLeft = 0;
+        
+        // Variaveis de Estado
         let selectedPseValue = null;
         let aiEvaluationResult = null;
+        let selectedEnergy = null; // Readiness Score
 
         const tabList = ['analysis', 'training', 'calendar', 'progress', 'library', 'chat'];
         let currentTabIndex = 0;
@@ -1008,7 +1071,8 @@
         window.openChangelog = () => show('modal-changelog');
         window.closeWhatsNew = () => {
             hide('modal-whats-new');
-            localStorage.setItem('seen_whats_new_v1.3', 'true');
+            // Update to v1.5 lock
+            localStorage.setItem('seen_whats_new_v1.5', 'true');
         };
 
         function showLoading(text, sub = "Coach I.A. está analisando seus dados e histórico na nuvem...") {
@@ -1065,6 +1129,7 @@
             if (tabName === 'chat') { loadChatHistory(); }
         };
 
+        // Lógica de Swipe lateral para mobile
         let touchStartX = 0;
         let touchStartY = 0;
         
@@ -1081,15 +1146,12 @@
                 const diffX = touchStartX - touchEndX;
                 const diffY = Math.abs(touchStartY - touchEndY);
                 
-                // Limiar de swipe: mínimo de 60px de movimento horizontal. 
-                // E o movimento vertical deve ser menor que 100px para não conflitar com a rolagem vertical.
+                // Swipe rule: min 60px horizontal, max 100px vertical to not conflict with scrolling
                 if (Math.abs(diffX) > 60 && diffY < 100) {
                     if (diffX > 0 && currentTabIndex < tabList.length - 1) {
-                        // Swipe para a esquerda (próxima aba)
                         switchTab(tabList[currentTabIndex + 1]);
                         scrollToTabBtn(tabList[currentTabIndex + 1]);
                     } else if (diffX < 0 && currentTabIndex > 0) {
-                        // Swipe para a direita (aba anterior)
                         switchTab(tabList[currentTabIndex - 1]);
                         scrollToTabBtn(tabList[currentTabIndex - 1]);
                     }
@@ -1111,12 +1173,11 @@
 
                 if (historyData.length === 0) return "Nenhum histórico anterior (este é o primeiro treino).";
 
-                // LIMITADOR DE SEGURANÇA: Limita o envio aos últimos 15 treinos 
-                // para evitar que o limite de tokens da API do Gemini seja estourado após semanas de uso.
+                // PROTEÇÃO: Limita aos últimos 15 treinos para não estourar tokens da I.A. (v1.4 fix)
                 const recentHistory = historyData.slice(-15);
 
                 return recentHistory.map((h, index) => 
-                    `Treino #${historyData.length - recentHistory.length + index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | Avaliação Curta da IA: ${h.aiFeedback ? h.aiFeedback.substring(0, 40) + '...' : 'N/A'}`
+                    `Treino #${historyData.length - recentHistory.length + index + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | Esforço PSE: ${h.pse}/10 | FC Média: ${h.fc||'N/A'}bpm | FC Máx: ${h.fcMax||'N/A'}bpm | FC Recup (3m): ${h.fcRec||'N/A'}bpm | Avaliação: ${h.aiFeedback ? h.aiFeedback.substring(0, 40) + '...' : 'N/A'}`
                 ).join('\n');
             } catch(e) {
                 console.error("Error fetching history", e);
@@ -1290,7 +1351,8 @@
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard();
                         showScreen('screen-dashboard');
-                        if (!localStorage.getItem('seen_whats_new_v1.3')) {
+                        // Show what's new v1.5 if not seen
+                        if (!localStorage.getItem('seen_whats_new_v1.5')) {
                             show('modal-whats-new');
                         }
                     } else {
@@ -1327,6 +1389,7 @@
 
             showLoading("Coach I.A. Analisando Perfil...", "Interpretando suas respostas físicas, biotipo, nível de condicionamento e criando o plano biomecânico personalizado...");
             
+            // OBRIGAÇÃO ALGORÍTMICA (v1.5): Aquecimento Dinâmico Obrigatório nos Prompts
             const prompt = `Atue como Coach Sênior de Calistenia e Especialista em Fisiologia do Exercício. 
             ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bf}%, BF Meta: ${profile.targetBf}%.
             OBJETIVO DETALHADO: "${profile.goal}".
@@ -1341,7 +1404,8 @@
             2. 'planExplanation': Explique em detalhes a estratégia e o plano de treino ideal estruturado para este biotipo e objetivo.
             3. 'macrocycleSummary': Escreva sua análise tática para esta jornada.
             4. 'workout': Crie apenas o PRIMEIRO TREINO personalizado.
-            5. REGRAS DA QUEUE: Item 0 = Aquecimento exato de 120 segundos (type: rest, duration: 120, roundInfo: 'Preparar'). Último item = Volta à calma exata de 120 segundos (type: rest, duration: 120, roundInfo: 'Recuperar'). Todos os 'work' DEVEM ter 'roundInfo' preenchido (Ex: '3x12', '45s Máximo').`;
+            5. REGRAS DE AQUECIMENTO (OBRIGATÓRIO): Os 2 PRIMEIROS itens da queue DEVEM ser exercícios de Mobilidade e Aquecimento Dinâmico ESPECÍFICOS para a musculatura que será exigida no treino (type: 'work', duration: 45 a 60, roundInfo: 'Aquecimento Dinâmico e Mobilidade'). 
+            6. O último item = Volta à calma / Alongamento (type: rest, duration: 120, roundInfo: 'Recuperação e Alongamento').`;
 
             try {
                 const resData = await callGemini(prompt);
@@ -1372,7 +1436,7 @@
                 hideLoading();
                 renderDashboard();
                 showScreen('screen-dashboard');
-                show('modal-whats-new');
+                show('modal-whats-new'); // Show updates
                 
             } catch (err) {
                 hideLoading();
@@ -1394,28 +1458,52 @@
         }
 
         async function resetPlanAndHistory() {
-            showLoading("Limpando Banco de Dados...", "Apagando plano ativo e histórico completo de sessões na nuvem...");
-            currentPlan = null;
+            const delHist = $('del-history').checked;
+            const delCheck = $('del-checkins').checked;
+            const delChat = $('del-chat').checked;
+            const delPlan = $('del-plan').checked;
+
+            if (!delHist && !delCheck && !delChat && !delPlan) {
+                window.showAlert("Aviso", "Selecione pelo menos uma opção para excluir.");
+                return;
+            }
+
+            showLoading("Limpando Dados Selecionados...", "Atualizando informações na nuvem...");
+            
             try {
-                const historySnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-                const delHistory = historySnap.docs.map(d => deleteDoc(d.ref));
-                await Promise.all(delHistory);
-
-                const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
-                const delCheckins = checkinSnap.docs.map(d => deleteDoc(d.ref));
-                await Promise.all(delCheckins);
-
-                const chatSnap = await getDocs(collection(db, `users/${currentUser.uid}/messages`));
-                const delChat = chatSnap.docs.map(d => deleteDoc(d.ref));
-                await Promise.all(delChat);
-
-                await setDoc(doc(db, "users", currentUser.uid), {
-                    plan: null,
-                    updatedAt: new Date().toISOString()
-                }, { merge: true });
+                if (delHist) {
+                    const historySnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                    const delHistory = historySnap.docs.map(d => deleteDoc(d.ref));
+                    await Promise.all(delHistory);
+                }
+                if (delCheck) {
+                    const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
+                    const delCheckins = checkinSnap.docs.map(d => deleteDoc(d.ref));
+                    await Promise.all(delCheckins);
+                }
+                if (delChat) {
+                    const chatSnap = await getDocs(collection(db, `users/${currentUser.uid}/messages`));
+                    const delChat = chatSnap.docs.map(d => deleteDoc(d.ref));
+                    await Promise.all(delChat);
+                }
+                if (delPlan) {
+                    currentPlan = null;
+                    await setDoc(doc(db, "users", currentUser.uid), {
+                        plan: null,
+                        updatedAt: new Date().toISOString()
+                    }, { merge: true });
+                    hideLoading();
+                    showScreen('screen-onboarding');
+                    return;
+                }
 
                 hideLoading();
-                showScreen('screen-onboarding');
+                window.showAlert("Sucesso", "Os dados selecionados foram apagados com sucesso.");
+                
+                if (delHist || delCheck) renderCharts();
+                if (delHist) { loadHistory(); renderProgressEvaluations(); }
+                if (delChat) loadChatHistory();
+
             } catch (e) {
                 hideLoading();
                 window.showAlert("Erro ao Resetar", e.message);
@@ -1452,56 +1540,119 @@
             }
         }
 
-        window.openWorkoutLibraryModal = () => {
-            const nw = currentPlan.workouts.find(w => !w.isCompleted);
-            if (!nw || !nw.queue) return;
+        // --- READINESS E ADAPTAÇÃO EM TEMPO REAL (v1.5) ---
+        window.openReadinessModal = () => {
+            show('modal-readiness');
+            const container = $('readiness-energy-btns');
+            container.innerHTML = '';
+            selectedEnergy = null;
+            $('read-change-toggle').checked = false;
+            $('read-change-panel').classList.add('hidden');
+            $('read-time').value = userData.mins || 45;
+            $('read-focus').value = "";
 
-            $('mwl-title').innerText = nw.name;
-            const list = $('mwl-list');
-            list.innerHTML = '';
-
-            const workItems = nw.queue.filter(q => q.type === 'work');
-            const uniqueExercises = [];
-            const seen = new Set();
-            workItems.forEach(item => {
-                const baseName = item.name.split(' (')[0].trim();
-                if (!seen.has(baseName)) {
-                    seen.add(baseName);
-                    uniqueExercises.push(item);
-                }
-            });
-
-            uniqueExercises.forEach((q) => {
-                const guide = getDetailedGuide(q.name);
-
-                list.innerHTML += `
-                    <div class="p-4 rounded-2xl border bg-dark-950 border-slate-800 flex flex-col gap-2.5 w-full shadow-md">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-xl bg-dark-900 border border-slate-800 flex items-center justify-center shrink-0 shadow-inner text-brand-400">
-                                <i class="fas fa-dumbbell"></i>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="text-xs font-bold text-white">${q.name}</h4>
-                                <p class="text-[10px] text-brand-400 font-medium">${q.roundInfo || 'Execução controlada'}</p>
-                            </div>
-                        </div>
-                        <div class="bg-dark-900/80 p-3 rounded-xl border border-slate-800 text-[11px] space-y-1">
-                            <p class="text-slate-300"><strong class="text-brand-300">Foco:</strong> ${guide.focus}</p>
-                            <p class="text-slate-400 leading-relaxed"><strong class="text-slate-200">Execução:</strong> ${guide.exec}</p>
-                        </div>
-                        <div class="pt-1">
-                            <a href="${guide.videoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                                <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo Curto
-                            </a>
-                        </div>
-                    </div>
-                `;
-            });
-
-            show('modal-workout-library');
+            for (let i = 1; i <= 5; i++) {
+                const btn = document.createElement('button');
+                btn.className = `w-10 h-10 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 font-black text-sm transition-all active:scale-95 flex items-center justify-center`;
+                btn.innerText = i;
+                btn.onclick = () => {
+                    Array.from(container.children).forEach(c => {
+                        c.classList.remove('bg-brand-500', 'text-dark-950', 'border-brand-400', 'scale-110');
+                        c.classList.add('bg-slate-800', 'text-slate-300', 'border-slate-700');
+                    });
+                    btn.classList.remove('bg-slate-800', 'text-slate-300', 'border-slate-700');
+                    btn.classList.add('bg-brand-500', 'text-dark-950', 'border-brand-400', 'scale-110');
+                    selectedEnergy = i;
+                };
+                container.appendChild(btn);
+            }
         };
 
-        window.startWorkout = () => {
+        window.submitReadiness = async () => {
+            if (!selectedEnergy) {
+                window.showAlert("Atenção", "Por favor, selecione seu nível de energia (1 a 5) antes de continuar.");
+                return;
+            }
+
+            const sleep = $('read-sleep').value;
+            const sore = $('read-sore').value;
+            const wantChange = $('read-change-toggle').checked;
+            
+            const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+            if (nwIndex !== -1) {
+                currentPlan.workouts[nwIndex].readiness = { energy: selectedEnergy, sleep, sore };
+            }
+
+            // Ativa Recalibração de I.A se a energia for muito baixa (<=2), dor for Intensa, ou se pediu mudança explicita
+            if (wantChange || selectedEnergy <= 2 || sore === 'Intensa') {
+                const time = $('read-time').value || userData.mins;
+                let focus = $('read-focus').value;
+                
+                // Força recuperação se estiver exausto/com dor, caso não tenha digitado nenhum foco
+                if (!focus && (selectedEnergy <= 2 || sore === 'Intensa')) {
+                    focus = "Mobilidade, Alongamento e Recuperação Ativa (Obrigatório devido a fadiga)";
+                }
+
+                await regenerateCurrentWorkout(selectedEnergy, sleep, sore, time, focus);
+            } else {
+                hide('modal-readiness');
+                startTimerRoutine();
+            }
+        };
+
+        async function regenerateCurrentWorkout(energy, sleep, sore, time, focus) {
+            showLoading("Recalibrando Treino...", "A I.A. está adaptando a sessão de hoje para respeitar seu nível de energia e condição física atual...");
+            
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            const originalFocus = nw ? nw.focus : "Geral";
+            const currentFocusStr = focus ? focus : originalFocus;
+
+            const prompt = `Atue como Coach Sênior de Fisiologia e Calistenia. O aluno ia fazer um treino de "${originalFocus}", mas o treino DEVE ser ajustado IMEDIATAMENTE antes de começar.
+            
+            PRONTIDÃO HOJE (Readiness): Energia ${energy}/5, Sono: ${sleep}, Dor Muscular: ${sore}.
+            PEDIDO PARA AGORA: Tempo disponível: ${time} min. Novo foco desejado: "${currentFocusStr}".
+            
+            TAREFAS E REGRAS:
+            1. 'workout': Gere a nova sessão IMEDIATA respeitando esse tempo e foco. 
+            2. ATENÇÃO MÁXIMA: Se a energia for baixa (1-2) ou dor for Intensa, o treino DEVE ser leve, focado ESTRITAMENTE em Alongamento, Mobilidade e Recuperação Ativa, independentemente de qual era o treino original.
+            3. AQUECIMENTO DINÂMICO OBRIGATÓRIO: Os 2 PRIMEIROS itens da queue DEVEM ser exercícios de Mobilidade / Aquecimento Dinâmico (type: 'work', roundInfo: 'Aquecimento').
+            4. O último item = Volta à calma / Alongamento (type: rest, duration: 120, roundInfo: 'Recuperação').
+            5. Retorne as chaves do schema padrão preenchendo principalmente a 'workout' e 'coachFeedback'.`;
+
+            try {
+                const res = await callGemini(prompt);
+                
+                if(res.workout) {
+                    res.workout.id = `w_${Date.now()}_regen`;
+                    res.workout.isCompleted = false;
+                    res.workout.readiness = { energy, sleep, sore };
+                    
+                    const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+                    if(nwIndex !== -1) {
+                        currentPlan.workouts[nwIndex] = res.workout;
+                    }
+                    if(res.coachFeedback) {
+                        currentPlan.coachFeedback = `Ajuste de Prontidão I.A: ${res.coachFeedback}`;
+                    }
+                    
+                    await saveFullState();
+                    hideLoading();
+                    hide('modal-readiness');
+                    renderDashboard(); // Update screen with new workout
+                    startTimerRoutine(); // Start Timer
+                } else {
+                    throw new Error("A I.A. não retornou um treino válido.");
+                }
+            } catch(e) {
+                hideLoading();
+                window.showAlert("Erro na Adaptação", "Não foi possível recalibrar o treino agora pela I.A. Iniciando treino original.");
+                hide('modal-readiness');
+                startTimerRoutine();
+            }
+        }
+        // --- FIM READINESS ---
+
+        function startTimerRoutine() {
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
             if (!nw || !nw.queue) return;
             
@@ -1518,7 +1669,7 @@
             loadQueueItem(0);
             
             timerInterval = setInterval(timerTick, 1000);
-        };
+        }
 
         window.abortWorkout = () => {
             clearInterval(timerInterval);
@@ -1666,29 +1817,32 @@
 
             const fc = $('pw-fc').value;
             const fcMax = $('pw-fc-max').value;
+            const fcRec = $('pw-fc-rec').value;
             const kcal = $('pw-kcal').value;
 
-            showLoading("Coach I.A. Analisando Histórico Completo...", "Analisando todos os treinos anteriores, esforço PSE, frequência cardíaca média/máxima e gasto calórico acumulado para estipular o próximo estímulo tático.");
+            showLoading("Coach I.A. Analisando Histórico Completo...", "Analisando todos os treinos anteriores, esforço PSE, frequência cardíaca e sua capacidade de recuperação para estipular o próximo estímulo.");
             
             const historyContext = await getCumulativeHistoryContext();
 
+            // AQUECIMENTO OBRIGATÓRIO também no pós-treino
             const prompt = `Atue como Coach Sênior de Calistenia. 
             O aluno concluiu uma sessão de treino.
             
-            HISTÓRICO CUMULATIVO DE TODOS OS TREINOS ANTERIORES:
+            HISTÓRICO CUMULATIVO (15 ÚLTIMOS TREINOS):
             ${historyContext}
             
-            MÉTRICAS DO TREINO MAIS RECENTE:
+            MÉTRICAS DO TREINO AGORA:
             - Esforço PSE: ${selectedPseValue}/10
             - FC Média: ${fc||'N/A'} bpm
             - FC Máxima: ${fcMax||'N/A'} bpm
+            - Queda FC (após 3 min): ${fcRec||'N/A'} bpm
             - Calorias: ${kcal||'N/A'} kcal
             
             TAREFAS OBRIGATÓRIAS:
-            1. 'coachFeedback': Avalie criticamente a evolução do aluno comparando este treino com todo o histórico anterior.
-            2. 'suggestedDays': Sugira o número ideal de dias de descanso até a próxima sessão (1, 2, 3 ou 4).
-            3. 'suggestedMinutes': Sugira a duração ideal em minutos para o próximo treino com base na fadiga (ex: 30, 45, 60).
-            4. 'workout': Crie o PRÓXIMO TREINO calibrado. Item 0 = Aquecimento (120s rest). Último item = Volta à calma (120s rest).`;
+            1. 'coachFeedback': Avalie criticamente a evolução. Avalie fortemente a Recuperação Cardíaca (Queda FC) se houver dado, pois demonstra saúde do parassimpático.
+            2. 'suggestedDays': Dias de descanso até o próximo (1 a 4).
+            3. 'suggestedMinutes': Tempo ideal baseado na fadiga atual.
+            4. 'workout': Crie o PRÓXIMO TREINO calibrado. REGRAS DE AQUECIMENTO OBRIGATÓRIAS: Os 2 PRIMEIROS itens da queue DEVEM ser de Aquecimento Dinâmico ou Mobilidade (type: 'work', roundInfo: 'Aquecimento'). O último item = Volta à calma (type: rest, duration: 120, roundInfo: 'Recuperação').`;
 
             try {
                 const resData = await callGemini(prompt);
@@ -1724,57 +1878,21 @@
             await finalizeAndSaveWorkout(aiEvaluationResult.suggestedDays || 2, aiEvaluationResult.suggestedMinutes || 45);
         };
 
-        window.toggleCalibrationPanel = () => {
-            const panel = $('calibration-subpanel');
-            panel.classList.toggle('hidden');
-        };
-
-        window.saveWithCalibration = async () => {
-            const days = parseInt($('pw-next-days').value) || 2;
-            const mins = parseInt($('pw-next-mins').value) || 45;
-            const pref = $('pw-pref').value;
-
-            showLoading("Coach I.A. Recalibrando Novo Treino...", "Aplicando seus ajustes manuais de tempo e preferência junto com todo o histórico cumulativo de treinos...");
-
-            const historyContext = await getCumulativeHistoryContext();
-            const fc = $('pw-fc').value;
-            const fcMax = $('pw-fc-max').value;
-            const kcal = $('pw-kcal').value;
-
-            const prompt = `Atue como Coach Sênior de Calistenia. 
-            O aluno concluiu um treino e solicitou uma CALIBRAÇÃO MANUAL para o próximo.
-            
-            HISTÓRICO CUMULATIVO COMPLETO:
-            ${historyContext}
-            
-            MÉTRICAS RECENTES: PSE ${selectedPseValue}/10, FC Média ${fc||'N/A'}bpm, FC Máx ${fcMax||'N/A'}bpm, Kcal ${kcal||'N/A'}.
-            AJUSTES MANUAIS SOLICITADOS: Descanso de ${days} dia(s), Duração exata de ${mins} minutos, Foco/Preferência: "${pref}".
-            
-            TAREFAS OBRIGATÓRIAS:
-            1. 'coachFeedback': Avalie a calibração com base no histórico completo.
-            2. 'suggestedDays': ${days}
-            3. 'suggestedMinutes': ${mins}
-            4. 'workout': Crie um NOVO TREINO exatamente adaptado aos ${mins} minutos solicitados e à preferência de foco, mantendo progressão segura.`;
-
-            try {
-                const resData = await callGemini(prompt);
-                aiEvaluationResult = resData;
-                await finalizeAndSaveWorkout(days, mins);
-            } catch(e) {
-                hideLoading();
-                window.showAlert("Erro na Calibração", e.message);
-            }
-        };
-
         async function finalizeAndSaveWorkout(days, mins) {
+            showLoading("Salvando Nova Sessão...", "Atualizando histórico e agendando próximo treino na nuvem...");
+            
             const fc = $('pw-fc').value;
             const fcMax = $('pw-fc-max').value;
+            const fcRec = $('pw-fc-rec').value;
             const kcal = $('pw-kcal').value;
-
+            
             const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+            let readinessData = null;
+
             if (nwIndex !== -1) {
                 currentPlan.workouts[nwIndex].isCompleted = true;
-                
+                readinessData = currentPlan.workouts[nwIndex].readiness;
+
                 try {
                     await addDoc(collection(db, `users/${currentUser.uid}/history`), {
                         date: new Date().toISOString(),
@@ -1782,8 +1900,12 @@
                         pse: selectedPseValue,
                         fc: fc ? parseFloat(fc) : null,
                         fcMax: fcMax ? parseFloat(fcMax) : null,
+                        fcRec: fcRec ? parseFloat(fcRec) : null,
                         kcal: kcal ? parseFloat(kcal) : null,
-                        aiFeedback: aiEvaluationResult?.coachFeedback || currentPlan.coachFeedback || "Treino concluído sem avaliação detalhada."
+                        readinessEnergy: readinessData ? readinessData.energy : null,
+                        readinessSleep: readinessData ? readinessData.sleep : null,
+                        readinessSoreness: readinessData ? readinessData.sore : null,
+                        aiFeedback: aiEvaluationResult?.coachFeedback || currentPlan.coachFeedback || "Treino concluído sem avaliação."
                     });
                 } catch(e) { console.error("History err", e); }
             }
@@ -1800,12 +1922,45 @@
                 currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
             }
 
-            showLoading("Salvando Plano Atualizado na Nuvem...", "Atualizando cronograma de sessões e histórico...");
             await saveFullState();
             hideLoading();
             hide('modal-post-workout');
             renderDashboard();
             switchTab('training');
+        }
+
+        window.toggleCalibrationPanel = () => {
+            const panel = $('calibration-subpanel');
+            panel.classList.toggle('hidden');
+        };
+
+        window.saveWithCalibration = async () => {
+            const days = parseInt($('pw-next-days').value) || 2;
+            const mins = parseInt($('pw-next-mins').value) || 45;
+            const pref = $('pw-pref').value;
+
+            showLoading("Coach I.A. Recalibrando Novo Treino...", "Aplicando seus ajustes manuais...");
+
+            const historyContext = await getCumulativeHistoryContext();
+            
+            const prompt = `Atue como Coach Sênior. 
+            O aluno pediu uma calibração manual do próximo treino: Tempo: ${mins} min. Foco/Estratégia: ${pref}.
+            HISTÓRICO: ${historyContext}
+            
+            REGRAS OBRIGATÓRIAS: 
+            1. Ajustar o 'workout' e 'coachFeedback' perfeitamente a esse novo pedido manual.
+            2. Os 2 PRIMEIROS itens DEVEM ser Aquecimento Dinâmico/Mobilidade.`;
+
+            try {
+                const resData = await callGemini(prompt);
+                aiEvaluationResult.workout = resData.workout;
+                if (resData.coachFeedback) aiEvaluationResult.coachFeedback = resData.coachFeedback;
+                
+                await finalizeAndSaveWorkout(days, mins);
+            } catch(e) {
+                hideLoading();
+                window.showAlert("Erro de Calibração", "Não foi possível recalibrar. " + e.message);
+            }
         }
 
         window.saveCheckin = async () => {
@@ -1854,27 +2009,15 @@
                 if(chartWeight) chartWeight.destroy();
                 chartWeight = new Chart($('chart-weight'), {
                     type: 'line',
-                    data: {
-                        labels,
-                        datasets: [
-                            { label: 'Peso Atual', data: weights, borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.4 },
-                            { label: 'Meta', data: trgW, borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+                    data: { labels, datasets: [ { label: 'Peso', data: weights, borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.4 }, { label: 'Meta', data: trgW, borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } ] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
 
                 if(chartBf) chartBf.destroy();
                 chartBf = new Chart($('chart-bf'), {
                     type: 'line',
-                    data: {
-                        labels,
-                        datasets: [
-                            { label: '% Gordura', data: bfs, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.2)', fill: true, tension: 0.4 },
-                            { label: 'Meta', data: trgBf, borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: false } } }
+                    data: { labels, datasets: [ { label: '% Gordura', data: bfs, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.2)', fill: true, tension: 0.4 }, { label: 'Meta', data: trgBf, borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } ] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
 
                 const histSnap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
@@ -1885,31 +2028,28 @@
                 const hLabels = historyData.map(h => new Date(h.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
                 const fcMedias = historyData.map(h => h.fc || 0);
                 const fcMaxs = historyData.map(h => h.fcMax || 0);
+                const fcRecs = historyData.map(h => h.fcRec || 0);
                 const kcals = historyData.map(h => h.kcal || 0);
 
                 if(chartHr) chartHr.destroy();
                 chartHr = new Chart($('chart-hr'), {
                     type: 'line',
-                    data: {
-                        labels: hLabels,
-                        datasets: [
-                            { label: 'FC Média', data: fcMedias, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true, tension: 0.4 },
-                            { label: 'FC Máxima', data: fcMaxs, borderColor: '#f43f5e', borderDash: [3,3], fill: false, tension: 0.4 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } }, scales: { y: { beginAtZero: false } } }
+                    data: { labels: hLabels, datasets: [ { label: 'FC Média', data: fcMedias, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true, tension: 0.4 }, { label: 'FC Máx', data: fcMaxs, borderColor: '#f43f5e', borderDash: [3,3], fill: false, tension: 0.4 } ] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { boxWidth: 10, font: { size: 10 } } } } }
+                });
+
+                if(chartHrRec) chartHrRec.destroy();
+                chartHrRec = new Chart($('chart-hr-recovery'), {
+                    type: 'line',
+                    data: { labels: hLabels, datasets: [ { label: 'FC após 3 min', data: fcRecs, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.4 } ] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
 
                 if(chartKcal) chartKcal.destroy();
                 chartKcal = new Chart($('chart-kcal'), {
                     type: 'bar',
-                    data: {
-                        labels: hLabels,
-                        datasets: [
-                            { label: 'Calorias (kcal)', data: kcals, backgroundColor: 'rgba(245, 158, 11, 0.5)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 6 }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+                    data: { labels: hLabels, datasets: [ { label: 'Calorias', data: kcals, backgroundColor: 'rgba(245, 158, 11, 0.5)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 6 } ] },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
                 });
 
             } catch(e) { console.error("Chart err", e); }
@@ -1919,293 +2059,166 @@
             try {
                 const list = $('progress-evaluations-list');
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-                
                 let data = [];
                 snap.forEach(d => data.push(d.data()));
-                
-                // Filtra apenas treinos que possuem feedback e ordena pelo mais recente
                 data = data.filter(d => d.aiFeedback).sort((a,b) => new Date(b.date) - new Date(a.date));
-                
                 list.innerHTML = '';
-                if(data.length === 0) {
-                    list.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Nenhuma avaliação registrada ainda.</p>`;
-                    return;
-                }
-
+                if(data.length === 0) { list.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Nenhuma avaliação registrada ainda.</p>`; return; }
                 data.forEach(h => {
-                    const dt = new Date(h.date).toLocaleDateString('pt-BR');
                     list.innerHTML += `
                         <div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 shadow-sm mb-2">
                             <div class="flex justify-between items-center mb-1.5 border-b border-slate-800/80 pb-1">
                                 <span class="text-[10px] font-bold text-slate-400">${h.workoutName}</span>
-                                <span class="text-[9px] font-bold text-slate-500">${dt}</span>
+                                <span class="text-[9px] font-bold text-slate-500">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
                             </div>
                             <p class="text-xs text-slate-300 italic leading-relaxed">"${h.aiFeedback}"</p>
                         </div>`;
                 });
-            } catch(e) { console.error("Evaluation list err", e); }
+            } catch(e) { console.error("Eval list err", e); }
         }
 
         window.generateProgressReport = async () => {
-            showLoading("I.A. Gerando Relatório...", "Analisando seu biotipo, metas, check-ins e avaliações de todos os treinos para criar o relatório preditivo...");
-            
+            showLoading("I.A. Gerando Relatório...", "Analisando seu biotipo, metas, check-ins e avaliações...");
             try {
                 const checkinSnap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`));
                 let checkins = [];
                 checkinSnap.forEach(d => checkins.push(d.data()));
                 checkins.sort((a,b) => new Date(a.date) - new Date(b.date));
                 let checkinContext = checkins.map(c => `${new Date(c.date).toLocaleDateString()}: Peso ${c.weight}kg, BF ${c.bf}%`).join('\n');
-
                 const historyContext = await getCumulativeHistoryContext();
 
-                const prompt = `Atue como Coach Sênior de Calistenia e Fisiologia.
-                ALUNO: ${userData.age} anos, Meta de Peso: ${userData.targetWeight}kg, Meta BF: ${userData.targetBf}%. Objetivo: ${userData.goal}
-                
-                EVOLUÇÃO (CHECK-INS):
-                ${checkinContext || 'Nenhum check-in registrado ainda.'}
-                
-                HISTÓRICO DE TREINOS RECENTES E AVALIAÇÕES:
-                ${historyContext}
-                
-                Gere um relatório estruturado e direto.
-                1. 'analysis': Avaliação geral. Estamos no caminho certo ou abaixo do esperado? O que precisa melhorar?
-                2. 'estimatedTime': Com base nos check-ins e metas, qual a estimativa de tempo realista para atingir o objetivo final?
-                3. 'nextSteps': O que será feito ou focado estrategicamente nos próximos treinos para manter ou corrigir a rota.`;
+                const prompt = `Atue como Coach Sênior. ALUNO: ${userData.age} anos, Meta Peso: ${userData.targetWeight}kg, Meta BF: ${userData.targetBf}%. Obj: ${userData.goal}
+                CHECK-INS: ${checkinContext || 'N/A'}
+                TREINOS: ${historyContext}
+                Gere relatório estruturado: 1. 'analysis' (Avaliação geral e evolução cardiorrespiratória se houver dados). 2. 'estimatedTime' (Previsão de alcance de meta). 3. 'nextSteps' (Ajustes de rota).`;
 
                 const resData = await callGemini(prompt, 'report');
-
-                const reportData = {
-                    date: new Date().toISOString(),
-                    analysis: resData.analysis,
-                    estimatedTime: resData.estimatedTime,
-                    nextSteps: resData.nextSteps
-                };
+                const reportData = { date: new Date().toISOString(), analysis: resData.analysis, estimatedTime: resData.estimatedTime, nextSteps: resData.nextSteps };
                 
-                await setDoc(doc(db, "users", currentUser.uid), {
-                    lastProgressReport: reportData
-                }, { merge: true });
-                
+                await setDoc(doc(db, "users", currentUser.uid), { lastProgressReport: reportData }, { merge: true });
                 renderReportUI(reportData);
                 hideLoading();
-
-            } catch (err) {
-                hideLoading();
-                window.showAlert("Erro na I.A.", err.message);
-            }
+            } catch (err) { hideLoading(); window.showAlert("Erro na I.A.", err.message); }
         };
 
         function renderReportUI(report) {
-            const container = $('progress-report-content');
-            if (!report) return;
-            
-            container.innerHTML = `
+            $('progress-report-content').innerHTML = `
                 <div class="space-y-3">
-                    <div class="border-b border-slate-800 pb-2">
-                        <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Última Análise: ${new Date(report.date).toLocaleDateString('pt-BR')}</span>
-                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-white">Diagnóstico:</strong> ${report.analysis}</p>
-                    </div>
-                    <div class="border-b border-slate-800 pb-2">
-                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-brand-400"><i class="fas fa-clock w-4"></i> Previsão:</strong> ${report.estimatedTime}</p>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-300 leading-relaxed"><strong class="text-purple-400"><i class="fas fa-road w-4"></i> Próximos Passos:</strong> ${report.nextSteps}</p>
-                    </div>
-                </div>
-            `;
+                    <div class="border-b border-slate-800 pb-2"><span class="text-[9px] text-slate-500 font-bold block mb-1">Última Análise: ${new Date(report.date).toLocaleDateString('pt-BR')}</span><p class="text-xs text-slate-300"><strong class="text-white">Diagnóstico:</strong> ${report.analysis}</p></div>
+                    <div class="border-b border-slate-800 pb-2"><p class="text-xs text-slate-300"><strong class="text-brand-400"><i class="fas fa-clock w-4"></i> Previsão:</strong> ${report.estimatedTime}</p></div>
+                    <div><p class="text-xs text-slate-300"><strong class="text-purple-400"><i class="fas fa-road w-4"></i> Próximos Passos:</strong> ${report.nextSteps}</p></div>
+                </div>`;
         }
 
         async function loadHistory() {
             try {
-                const list = $('calendar-list');
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-                
                 let data = [];
                 snap.forEach(d => data.push(d.data()));
                 data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
-                
                 $('cal-count').innerText = `${data.length} Sessões`;
-                list.innerHTML = '';
-                if(data.length === 0) {
-                    list.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">Nenhum treino concluído ainda na nuvem.</p>`;
-                    return;
-                }
-
-                data.forEach(h => {
-                    const dt = new Date(h.date).toLocaleDateString('pt-BR');
-                    list.innerHTML += `
+                $('calendar-list').innerHTML = data.length === 0 ? `<p class="text-xs text-slate-500 text-center py-6">Nenhum treino concluído ainda na nuvem.</p>` : data.map(h => `
                         <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 flex justify-between items-center shadow-md w-full">
                             <div>
-                                <span class="text-[9px] font-bold text-slate-500 uppercase">${dt}</span>
+                                <span class="text-[9px] font-bold text-slate-500 uppercase">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
                                 <h4 class="text-sm font-bold text-white mt-0.5">${h.workoutName}</h4>
-                                <p class="text-xs text-brand-400 font-medium mt-0.5">Esforço PSE: ${h.pse}/10</p>
+                                <p class="text-xs text-brand-400 font-medium mt-0.5">Esforço: ${h.pse}/10 ${h.readinessEnergy ? `| Energia Prév.: ${h.readinessEnergy}/5` : ''}</p>
                             </div>
                             <div class="text-right">
-                                ${h.fc ? `<span class="block text-xs font-bold text-red-400"><i class="fas fa-heartbeat"></i> ${h.fc}/${h.fcMax||'--'} bpm</span>` : ''}
+                                ${h.fc ? `<span class="block text-xs font-bold text-red-400"><i class="fas fa-heartbeat"></i> ${h.fc}/${h.fcMax||'--'}</span>` : ''}
                                 ${h.kcal ? `<span class="block text-xs font-bold text-amber-400"><i class="fas fa-fire"></i> ${h.kcal} kcal</span>` : ''}
                             </div>
-                        </div>`;
-                });
+                        </div>`).join('');
             } catch(e) { console.error("History err", e); }
         }
+
+        window.openWorkoutLibraryModal = () => {
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if (!nw || !nw.queue) return;
+            $('mwl-title').innerText = nw.name;
+            const list = $('mwl-list');
+            list.innerHTML = '';
+            const uniqueExercises = [];
+            const seen = new Set();
+            nw.queue.filter(q => q.type === 'work').forEach(item => {
+                const baseName = item.name.split(' (')[0].trim();
+                if (!seen.has(baseName)) { seen.add(baseName); uniqueExercises.push(item); }
+            });
+            uniqueExercises.forEach((q) => {
+                const guide = getDetailedGuide(q.name);
+                list.innerHTML += `
+                    <div class="p-4 rounded-2xl border bg-dark-950 border-slate-800 flex flex-col gap-2 w-full">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-dark-900 border border-slate-800 flex items-center justify-center text-brand-400"><i class="fas fa-dumbbell"></i></div>
+                            <div><h4 class="text-xs font-bold text-white">${q.name}</h4><p class="text-[10px] text-brand-400">${q.roundInfo || 'Execução controlada'}</p></div>
+                        </div>
+                        <div class="bg-dark-900/80 p-3 rounded-xl border border-slate-800 text-[11px]"><p class="text-slate-300"><strong class="text-brand-300">Foco:</strong> ${guide.focus}</p><p class="text-slate-400"><strong class="text-slate-200">Execução:</strong> ${guide.exec}</p></div>
+                        <div><a href="${guide.videoUrl}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl"><i class="fab fa-youtube"></i> Ver Vídeo Curto</a></div>
+                    </div>`;
+            });
+            show('modal-workout-library');
+        };
 
         async function loadChatHistory() {
             try {
                 const chatContainer = $('chat-messages');
-                const q = query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'));
-                const snap = await getDocs(q);
-                
+                const snap = await getDocs(query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc')));
                 chatContainer.innerHTML = '';
                 if (snap.empty) {
-                    chatContainer.innerHTML = `
-                        <div class="flex gap-2.5">
-                            <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
-                                <i class="fas fa-robot text-xs"></i>
-                            </div>
-                            <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                                Olá! Sou seu Coach Sênior de Calistenia. Já analisei seu perfil birométrico, suas estratégias de treino e todo o seu histórico. Como posso te orientar hoje em relação à sua evolução, nutrição ou técnica?
-                            </div>
-                        </div>`;
+                    chatContainer.innerHTML = `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 shadow">Olá! Sou seu Coach Sênior. Já analisei seu biotipo e histórico. Como posso te orientar hoje?</div></div>`;
                 } else {
                     snap.forEach(docSnap => {
                         const msg = docSnap.data();
-                        if (msg.role === 'user') {
-                            chatContainer.innerHTML += `
-                                <div class="flex gap-2.5 justify-end">
-                                    <div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] leading-relaxed shadow">
-                                        ${escapeHtml(msg.text)}
-                                    </div>
-                                </div>`;
-                        } else {
-                            chatContainer.innerHTML += `
-                                <div class="flex gap-2.5">
-                                    <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
-                                        <i class="fas fa-robot text-xs"></i>
-                                    </div>
-                                    <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                                        ${escapeHtml(msg.text)}
-                                    </div>
-                                </div>`;
-                        }
+                        chatContainer.innerHTML += msg.role === 'user' 
+                            ? `<div class="flex gap-2.5 justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] shadow">${escapeHtml(msg.text)}</div></div>`
+                            : `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] shadow">${escapeHtml(msg.text)}</div></div>`;
                     });
                 }
                 chatContainer.scrollTop = chatContainer.scrollHeight;
-            } catch(e) {
-                console.error("Error loading chat history", e);
-            }
+            } catch(e) { console.error("Chat load err", e); }
         }
 
-        function escapeHtml(text) {
-            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-            return text.replace(/[&<>"']/g, m => map[m]);
-        }
+        function escapeHtml(text) { const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }; return text.replace(/[&<>"']/g, m => map[m]); }
 
         window.clearChatHistory = async () => {
-            if(!currentUser) return;
-            showLoading("Limpando Histórico...", "Removendo mensagens do chat na nuvem...");
+            showLoading("Limpando...", "Removendo histórico...");
             try {
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/messages`));
-                const batch = snap.docs.map(d => deleteDoc(d.ref));
-                await Promise.all(batch);
-                hideLoading();
-                loadChatHistory();
-            } catch(e) {
-                hideLoading();
-                window.showAlert("Erro", "Não foi possível limpar o histórico do chat.");
-            }
+                await Promise.all(snap.docs.map(d => deleteDoc(d.ref)));
+                hideLoading(); loadChatHistory();
+            } catch(e) { hideLoading(); window.showAlert("Erro", "Falha ao limpar chat."); }
         };
 
         window.sendChatMessage = async () => {
             const input = $('chat-input');
             const text = input.value.trim();
             if (!text) return;
-
             const chatContainer = $('chat-messages');
-            chatContainer.innerHTML += `
-                <div class="flex gap-2.5 justify-end">
-                    <div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] leading-relaxed shadow">
-                        ${escapeHtml(text)}
-                    </div>
-                </div>`;
-            input.value = '';
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            chatContainer.innerHTML += `<div class="flex gap-2.5 justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%] shadow">${escapeHtml(text)}</div></div>`;
+            input.value = ''; chatContainer.scrollTop = chatContainer.scrollHeight;
 
-            try {
-                await addDoc(collection(db, `users/${currentUser.uid}/messages`), {
-                    role: 'user',
-                    text: text,
-                    timestamp: new Date().toISOString()
-                });
-            } catch(e) { console.error("Error saving user message", e); }
-
+            try { await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'user', text: text, timestamp: new Date().toISOString() }); } catch(e) {}
             const loadingId = 'typing_' + Date.now();
-            chatContainer.innerHTML += `
-                <div id="${loadingId}" class="flex gap-2.5">
-                    <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
-                        <i class="fas fa-robot text-xs animate-spin"></i>
-                    </div>
-                    <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-400 italic">
-                        Coach I.A. pensando e consultando seu histórico...
-                    </div>
-                </div>`;
+            chatContainer.innerHTML += `<div id="${loadingId}" class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs animate-spin"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-400 italic">Coach I.A. pensando...</div></div>`;
             chatContainer.scrollTop = chatContainer.scrollHeight;
 
             const historyContext = await getCumulativeHistoryContext();
-            const profileStr = userData ? JSON.stringify(userData) : "Perfil não informado";
-            const strategyStr = currentPlan ? currentPlan.planExplanation : "Estratégia em andamento";
-
-            const prompt = `Atue como Coach Sênior de Calistenia. 
-            DADOS DO ALUNO: ${profileStr}
-            ESTRATÉGIA DO PLANO: ${strategyStr}
-            HISTÓRICO DE TREINOS CUMULATIVO:
-            ${historyContext}
-            
-            MENSAGEM DO ALUNO: "${text}"
-            
-            Responda de forma motivadora, técnica, direta e personalizada, utilizando estritamente os dados reais do aluno acima. Se necessário, forneça dicas práticas de biomecânica ou nutrição.`;
+            const prompt = `Atue como Coach Sênior de Calistenia. DADOS: ${userData ? JSON.stringify(userData) : "N/A"}. ESTRATÉGIA: ${currentPlan ? currentPlan.planExplanation : "N/A"}. HISTÓRICO CUMULATIVO: ${historyContext}. MENSAGEM DO ALUNO: "${text}". Responda de forma motivadora, técnica e direta.`;
 
             try {
-                const resData = await callGemini(prompt, true);
-                const reply = resData.reply || "Entendido! Como mais posso te ajudar em sua rotina de treinos?";
-
+                const resData = await callGemini(prompt, 'chat');
                 $(loadingId).remove();
-                chatContainer.innerHTML += `
-                    <div class="flex gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
-                            <i class="fas fa-robot text-xs"></i>
-                        </div>
-                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                            ${escapeHtml(reply)}
-                        </div>
-                    </div>`;
+                chatContainer.innerHTML += `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] shadow">${escapeHtml(resData.reply)}</div></div>`;
                 chatContainer.scrollTop = chatContainer.scrollHeight;
-
-                await addDoc(collection(db, `users/${currentUser.uid}/messages`), {
-                    role: 'model',
-                    text: reply,
-                    timestamp: new Date().toISOString()
-                });
-
+                await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'model', text: resData.reply, timestamp: new Date().toISOString() });
             } catch(e) {
                 $(loadingId).remove();
-                chatContainer.innerHTML += `
-                    <div class="flex gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0">
-                            <i class="fas fa-exclamation text-xs"></i>
-                        </div>
-                        <div class="bg-dark-950 border border-red-500/30 p-3.5 rounded-2xl text-xs text-red-300 max-w-[80%] leading-relaxed shadow">
-                            Desculpe, ocorreu um erro ao processar sua mensagem. Verifique a conexão com o Render.
-                        </div>
-                    </div>`;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
+                chatContainer.innerHTML += `<div class="flex gap-2.5"><div class="bg-dark-950 border border-red-500/30 p-3.5 rounded-2xl text-xs text-red-300 max-w-[80%] shadow">Desculpe, erro ao processar. Verifique a conexão com o Render.</div></div>`;
             }
         };
-
-        $('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendChatMessage();
-        });
+        $('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
 
         showScreen('screen-auth');
-
     </script>
 </body>
 </html>
