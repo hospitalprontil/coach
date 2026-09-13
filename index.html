@@ -81,25 +81,25 @@
         <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
     </div>
 
-    <!-- Proactive Scan Calibration Modal -->
+    <!-- Post-Login Welcome & Proactive Scan Calibration Modal -->
     <div id="modal-proactive-calibration" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[180] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 via-purple-500 to-amber-500"></div>
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center border border-brand-500/30 shrink-0">
-                    <i class="fas fa-layer-group text-xl"></i>
+                    <i class="fas fa-sparkles text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Perfil Híbrido Detectado</span>
-                    <h3 class="text-base font-black text-white">Calibração de Novas Modalidades</h3>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Novidades v3.1 & Perfil Híbrido</span>
+                    <h3 class="text-base font-black text-white">Bem-vindo(a) ao Super App</h3>
                 </div>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                Notamos que seu perfil ainda não cadastrou parâmetros completos de <strong class="text-amber-400">Corrida</strong> ou <strong class="text-purple-400">Musculação</strong>. Vamos fazer a anamnese clínica para calibrar Pace e cargas?
+                Chegaram as novidades da versão <strong class="text-brand-400">v3.1</strong>: Gestos de Swipe para celular, respostas de áudio por voz no chat, manter a tela acesa no treino e calibração modular avançada para <strong class="text-amber-400">Corrida</strong> e <strong class="text-purple-400">Musculação</strong>!
             </p>
-            <div class="space-y-3 mb-6">
+            <div class="space-y-3 mb-2">
                 <button onclick="window.startProactiveAnamnesis()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide flex items-center justify-center gap-2">
-                    <i class="fas fa-clipboard-list"></i> Calibrar Agora com a I.A.
+                    <i class="fas fa-clipboard-list"></i> Calibrar Modalidades / Refazer Anamnese
                 </button>
                 <button onclick="window.skipProactiveCalibration()" class="w-full bg-dark-950 hover:bg-slate-800 text-slate-400 border border-slate-800 font-bold py-3 rounded-2xl transition-colors text-xs uppercase tracking-wide">
                     Configurar Depois / Pular por enquanto
@@ -148,9 +148,9 @@
         </div>
     </div>
 
-    <!-- Modal Changelog v3.1 -->
+    <!-- Modal Changelog v3.1 (Full 10 Last Updates) -->
     <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
-        <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[80vh] flex flex-col">
+        <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
                 <div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico de Versões</span>
@@ -158,14 +158,98 @@
                 </div>
                 <button onclick="window.hide('modal-changelog')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
             </div>
-            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
+            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
+                
+                <!-- 1. v3.1 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v3.1 (Super App Clínico)</span>
-                        <span class="text-[10px] text-slate-500">13 de Setembro de 2026</span>
+                        <span class="font-black text-brand-400 text-sm">v3.1 (Super App Clínico & UX)</span>
+                        <span class="text-[9px] text-slate-500">Set 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Onboarding Clínico-Esportivo de 8 passos com avaliação modular.<br>• Módulos dedicados com 5 Qs + Múltipla Escolha + Campo de Texto Livre em Calistenia, Musculação e Corrida.<br>• Suporte nativo a Gestos de Swipe (deslizar o dedo na tela do celular para trocar de abas).<br>• Reconhecimento de Voz (STT) e Síntese de Voz (TTS) com voz off/on automática.<br>• Screen Wake Lock nativo para manter a tela acesa no treino.<br>• Botão de Logout rápido diretamente no Cabeçalho Superior.<br>• Área de Perigo minimizada em Accordion expansível no Perfil.</p>
+                    <p class="text-slate-400 leading-relaxed">• Suporte nativo a Gestos de Swipe (deslizar no celular para trocar de abas).<br>• Reconhecimento de Voz (STT) e Voz do Coach (TTS).<br>• Screen Wake Lock nativo para manter a tela acesa no treino.<br>• Botão de Logout rápido diretamente no Cabeçalho Superior.<br>• Anamnese clínica de 8 passos por modalidade e área de perigo em Accordion.</p>
                 </div>
+
+                <!-- 2. v3.0 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-purple-500/30">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-purple-400 text-sm">v3.0 (Ecossistema Multimodal)</span>
+                        <span class="text-[9px] text-slate-500">Ago 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Integração unificada de Calistenia, Musculação e Corrida sob a mesma Inteligência Artificial.<br>• Periodização com Eixo Mestre e auto-regulação de fadiga muscular cruzada.</p>
+                </div>
+
+                <!-- 3. v2.9 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-amber-400 text-xs">v2.9 (Migração de Eixo Mestre)</span>
+                        <span class="text-[9px] text-slate-500">Jul 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Troca da modalidade mestre principal a qualquer momento com transferência de histórico biomecânico sem apagar gráficos.</p>
+                </div>
+
+                <!-- 4. v2.8 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-slate-200 text-xs">v2.8 (Varredura Proativa Pós-Login)</span>
+                        <span class="text-[9px] text-slate-500">Jun 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Identificação automática pós-login de métricas secundárias faltantes com pop-up interativo e opção de pular.</p>
+                </div>
+
+                <!-- 5. v2.5 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-pink-400 text-xs">v2.5 (Smartwatch & HRR Fisiológico)</span>
+                        <span class="text-[9px] text-slate-500">Mai 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Suporte a métricas de FC Média, FC Máxima e Queda de Frequência Cardíaca em 3 minutos (HRR).</p>
+                </div>
+
+                <!-- 6. v2.2 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-amber-400 text-xs">v2.2 (Métricas Avançadas de Corrida)</span>
+                        <span class="text-[9px] text-slate-500">Abr 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Registro de Pace médio (min/km), distância em quilômetros e triagem de canelite/joelhos.</p>
+                </div>
+
+                <!-- 7. v2.0 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-brand-400 text-xs">v2.0 (Relatórios & 5 Gráficos)</span>
+                        <span class="text-[9px] text-slate-500">Mar 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba de Progresso com 5 gráficos em tempo real (Peso, % BF, FC, HRR e Calorias Kcal).</p>
+                </div>
+
+                <!-- 8. v1.5 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-green-400 text-xs">v1.5 (Score de Prontidão / Readiness)</span>
+                        <span class="text-[9px] text-slate-500">Fev 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Avaliação pré-treino de nível de Energia (1-5), qualidade de sono e dores musculares para recalibragem instantânea.</p>
+                </div>
+
+                <!-- 9. v1.1 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-slate-300 text-xs">v1.1 (Cronômetro com Fila Estrita)</span>
+                        <span class="text-[9px] text-slate-500">Jan 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Algoritmo de tempo com alternância estrita entre blocos de Exercício e Descanso com sinais sonoros de bip.</p>
+                </div>
+
+                <!-- 10. v1.0 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-slate-400 text-xs">v1.0 (Lançamento Inicial)</span>
+                        <span class="text-[9px] text-slate-500">Dez 2025</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Estrutura base de autenticação Firebase, cadastro biométrico e geração de planos dinâmicos com Gemini I.A.</p>
+                </div>
+
             </div>
         </div>
     </div>
@@ -627,7 +711,7 @@
             <button onclick="window.switchTab('profile')" id="nav-profile" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-user-circle mr-1"></i> Perfil</button>
         </div>
 
-        <!-- Tab Content Container with Swipe Gesture Area -->
+        <!-- Tab Content Container with Mobile Swipe Gesture Listener -->
         <div id="tab-content-container" class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16 swipe-area">
             
             <!-- Tab 1: Treinamento -->
@@ -1207,7 +1291,6 @@
         window.pendingDangerAction = null;
         window.hasSeenReminder = false;
 
-        // Voice & Wake Lock State Variables
         let wakeLockSentinel = null;
         let isTtsAutoReadEnabled = false;
         let speechRecognition = null;
@@ -1368,7 +1451,6 @@
         const hide = window.hide;
         const show = window.show;
 
-        // --- MOBILE SWIPE GESTURES FOR TAB NAVIGATION ---
         let touchStartX = 0;
         let touchStartY = 0;
         let touchEndX = 0;
@@ -1394,15 +1476,12 @@
             const deltaX = touchEndX - touchStartX;
             const deltaY = touchEndY - touchStartY;
 
-            // Trigger tab switch if horizontal movement is at least 60px and significantly larger than vertical movement
             if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 60) {
                 if (deltaX < 0) {
-                    // Swiped Left -> Next Tab
                     if (currentTabIndex < tabList.length - 1) {
                         window.switchTab(tabList[currentTabIndex + 1]);
                     }
                 } else {
-                    // Swiped Right -> Previous Tab
                     if (currentTabIndex > 0) {
                         window.switchTab(tabList[currentTabIndex - 1]);
                     }
@@ -1627,22 +1706,22 @@
             } catch (err) { hideLoading(); window.showAlert("Erro", "Falha de BD."); }
         }
 
+        // Post-Login Novelty & Proactive Scan Modal Trigger
         function checkProactiveSecondaryScan() {
-            if (localStorage.getItem(`skipped_proactive_${currentUser.uid}`)) {
-                return;
-            }
-            if (!userData.secondaryCalibrated) {
+            const hasSeenModal = localStorage.getItem(`seen_proactive_v31_${currentUser.uid}`);
+            if (!hasSeenModal || !userData.secondaryCalibrated) {
                 show('modal-proactive-calibration');
             }
         }
 
         window.skipProactiveCalibration = () => {
             hide('modal-proactive-calibration');
-            localStorage.setItem(`skipped_proactive_${currentUser.uid}`, 'true');
+            localStorage.setItem(`seen_proactive_v31_${currentUser.uid}`, 'true');
         };
 
         window.startProactiveAnamnesis = () => {
             hide('modal-proactive-calibration');
+            localStorage.setItem(`seen_proactive_v31_${currentUser.uid}`, 'true');
             showScreen('screen-step4-calisthenics');
         };
 
