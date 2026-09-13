@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v3.1 - Calistenia, Corrida & Musculação</title>
+    <title>AI Coach Híbrido v3.2 - Calistenia, Corrida & Musculação</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -81,7 +81,7 @@
         <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
     </div>
 
-    <!-- Post-Login Welcome & Proactive Scan Calibration Modal -->
+    <!-- POP-UP 1: Post-Login Novelty & Proactive Scan Calibration Modal -->
     <div id="modal-proactive-calibration" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[180] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 via-purple-500 to-amber-500"></div>
@@ -90,20 +90,68 @@
                     <i class="fas fa-sparkles text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Novidades v3.1 & Perfil Híbrido</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Novidades v3.2 & Calibração Híbrida</span>
                     <h3 class="text-base font-black text-white">Bem-vindo(a) ao Super App</h3>
                 </div>
             </div>
             <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                Chegaram as novidades da versão <strong class="text-brand-400">v3.1</strong>: Gestos de Swipe para celular, respostas de áudio por voz no chat, manter a tela acesa no treino e calibração modular avançada para <strong class="text-amber-400">Corrida</strong> e <strong class="text-purple-400">Musculação</strong>!
+                Chegaram as novidades da versão <strong class="text-brand-400">v3.2</strong>: Gestão de agenda no Dashboard (Adiar +1 dia / Adiantar), Score de Prontidão %, Voz no Chat, Wake Lock e Anamnese Clínica Modular de 8 passos!
             </p>
             <div class="space-y-3 mb-2">
                 <button onclick="window.startProactiveAnamnesis()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide flex items-center justify-center gap-2">
-                    <i class="fas fa-clipboard-list"></i> Calibrar Modalidades / Refazer Anamnese
+                    <i class="fas fa-sliders-h"></i> Calibrar Modalidades / Refazer Anamnese
                 </button>
                 <button onclick="window.skipProactiveCalibration()" class="w-full bg-dark-950 hover:bg-slate-800 text-slate-400 border border-slate-800 font-bold py-3 rounded-2xl transition-colors text-xs uppercase tracking-wide">
                     Configurar Depois / Pular por enquanto
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- POP-UP 2: Automatic Pending Workout Reminder Modal -->
+    <div id="modal-pending-reminder" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[175] hidden items-center justify-center p-4">
+        <div class="bg-dark-900 border border-amber-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-red-500"></div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30 shrink-0">
+                    <i class="fas fa-bell text-xl animate-bounce"></i>
+                </div>
+                <div>
+                    <span id="reminder-badge-status" class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">TREINO PENDENTE</span>
+                    <h3 id="reminder-workout-title" class="text-base font-black text-white">Você tem um treino agendado!</h3>
+                </div>
+            </div>
+            <p id="reminder-workout-desc" class="text-xs text-slate-300 leading-relaxed mb-5">
+                Sua próxima sessão está pronta para ser executada. O que você gostaria de fazer agora?
+            </p>
+            <div class="space-y-2.5">
+                <button onclick="window.closePendingReminder(); window.openReadinessModal();" class="w-full bg-gradient-to-r from-green-600 to-brand-500 hover:from-green-500 hover:to-brand-400 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)] text-xs uppercase tracking-wide flex items-center justify-center gap-2">
+                    <i class="fas fa-play"></i> Iniciar Treino Agora
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="window.postponeWorkoutFromReminder()" class="flex-1 bg-dark-950 hover:bg-slate-800 text-amber-400 border border-amber-500/30 font-bold py-3 rounded-2xl transition-colors text-xs uppercase tracking-wide flex items-center justify-center gap-1">
+                        <i class="fas fa-calendar-plus"></i> Adiar (+1 Dia)
+                    </button>
+                    <button onclick="window.closePendingReminder(); window.openWorkoutLibraryModal();" class="flex-1 bg-dark-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-bold py-3 rounded-2xl transition-colors text-xs uppercase tracking-wide flex items-center justify-center gap-1">
+                        <i class="fas fa-eye"></i> Ver Detalhes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Reschedule Custom Date -->
+    <div id="modal-reschedule" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[170] hidden items-center justify-center p-4">
+        <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl relative overflow-hidden mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-base font-black text-white"><i class="fas fa-calendar-alt text-brand-400 mr-2"></i>Alterar Data do Treino</h3>
+                <button onclick="window.hide('modal-reschedule')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="text-xs text-slate-300 mb-4 leading-relaxed">Escolha a nova data em que deseja realizar este treino:</p>
+            <input type="date" id="reschedule-date-input" class="w-full bg-dark-950 border border-slate-700 rounded-2xl p-3 text-white text-xs outline-none focus:border-brand-500 mb-5">
+            <div class="flex gap-2">
+                <button onclick="window.setWorkoutDateToToday()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-brand-400 font-bold py-3 rounded-2xl text-xs uppercase border border-slate-700">Mudar para HOJE</button>
+                <button onclick="window.confirmCustomReschedule()" class="flex-1 bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)]">Salvar Data</button>
             </div>
         </div>
     </div>
@@ -148,106 +196,106 @@
         </div>
     </div>
 
-    <!-- Modal Changelog v3.1 (Full 10 Last Updates) -->
+    <!-- Modal Changelog v3.2 (Last 10 Updates with Coherent Real Chronology) -->
     <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[85vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico de Versões</span>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico Real de Versões</span>
                     <h3 class="text-base font-black text-white">Changelog AI Coach Híbrido</h3>
                 </div>
                 <button onclick="window.hide('modal-changelog')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
                 
-                <!-- 1. v3.1 -->
+                <!-- 1. v3.2 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v3.1 (Super App Clínico & UX)</span>
-                        <span class="text-[9px] text-slate-500">Set 2026</span>
+                        <span class="font-black text-brand-400 text-sm">v3.2 (Super App v3.2 & Gestão de Agenda)</span>
+                        <span class="text-[9px] text-slate-500">Mar 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Suporte nativo a Gestos de Swipe (deslizar no celular para trocar de abas).<br>• Reconhecimento de Voz (STT) e Voz do Coach (TTS).<br>• Screen Wake Lock nativo para manter a tela acesa no treino.<br>• Botão de Logout rápido diretamente no Cabeçalho Superior.<br>• Anamnese clínica de 8 passos por modalidade e área de perigo em Accordion.</p>
+                    <p class="text-slate-400 leading-relaxed">• Botões de Gestão de Agenda no Card (Adiar +1 dia / Adiantar Data).<br>• Pop-up de Lembrete Automático para treinos de Hoje/Atrasados desvinculado do anúncio.<br>• Display visual de Score de Prontidão (% Readiness) no Dashboard.<br>• Swipe Gestures horizontais nativos para alternar abas sem travar o scroll vertical.</p>
                 </div>
 
-                <!-- 2. v3.0 -->
+                <!-- 2. v3.1 -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-black text-brand-300 text-xs">v3.1 (Interação por Voz & Wake Lock)</span>
+                        <span class="text-[9px] text-slate-500">Fev 2026</span>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed">• Reconhecimento de Voz (STT) com ditado e síntese de voz (TTS) com leitura audível do Coach.<br>• Screen Wake Lock nativo para manter a tela do celular acesa durante o timer.<br>• Anamnese clínica de 8 passos separada por modalidade.</p>
+                </div>
+
+                <!-- 3. v3.0 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-purple-500/30">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-purple-400 text-sm">v3.0 (Ecossistema Multimodal)</span>
-                        <span class="text-[9px] text-slate-500">Ago 2026</span>
+                        <span class="font-black text-purple-400 text-xs">v3.0 (Ecossistema Multimodal Híbrido)</span>
+                        <span class="text-[9px] text-slate-500">Jan 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Integração unificada de Calistenia, Musculação e Corrida sob a mesma Inteligência Artificial.<br>• Periodização com Eixo Mestre e auto-regulação de fadiga muscular cruzada.</p>
+                    <p class="text-slate-400 leading-relaxed">• Integração unificada de Calistenia, Musculação e Corrida sob a mesma I.A.<br>• Periodização com Eixo Mestre e auto-regulação de fadiga muscular cruzada.</p>
                 </div>
 
-                <!-- 3. v2.9 -->
+                <!-- 4. v2.9 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-amber-400 text-xs">v2.9 (Migração de Eixo Mestre)</span>
-                        <span class="text-[9px] text-slate-500">Jul 2026</span>
+                        <span class="font-black text-amber-400 text-xs">v2.9 (Pivotagem & Migração de Eixo Mestre)</span>
+                        <span class="text-[9px] text-slate-500">Nov 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Troca da modalidade mestre principal a qualquer momento com transferência de histórico biomecânico sem apagar gráficos.</p>
+                    <p class="text-slate-400 leading-relaxed">• Migração da modalidade principal a qualquer momento com retenção de histórico biomecânico sem apagar gráficos.</p>
                 </div>
 
-                <!-- 4. v2.8 -->
+                <!-- 5. v2.8 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-slate-200 text-xs">v2.8 (Varredura Proativa Pós-Login)</span>
-                        <span class="text-[9px] text-slate-500">Jun 2026</span>
+                        <span class="text-[9px] text-slate-500">Set 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Identificação automática pós-login de métricas secundárias faltantes com pop-up interativo e opção de pular.</p>
+                    <p class="text-slate-400 leading-relaxed">• Detecção proativa pós-login de modalidades não calibradas com botão de pular.</p>
                 </div>
 
-                <!-- 5. v2.5 -->
+                <!-- 6. v2.5 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-pink-400 text-xs">v2.5 (Smartwatch & HRR Fisiológico)</span>
-                        <span class="text-[9px] text-slate-500">Mai 2026</span>
+                        <span class="font-black text-pink-400 text-xs">v2.5 (Smartwatch & HRR Cardiovascular)</span>
+                        <span class="text-[9px] text-slate-500">Jul 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Suporte a métricas de FC Média, FC Máxima e Queda de Frequência Cardíaca em 3 minutos (HRR).</p>
+                    <p class="text-slate-400 leading-relaxed">• Coleta de FC Média, FC Máxima e Queda da Frequência Cardíaca em 3 min (HRR).</p>
                 </div>
 
-                <!-- 6. v2.2 -->
+                <!-- 7. v2.2 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-amber-400 text-xs">v2.2 (Métricas Avançadas de Corrida)</span>
-                        <span class="text-[9px] text-slate-500">Abr 2026</span>
+                        <span class="font-black text-amber-400 text-xs">v2.2 (Métricas de Pace & Distância)</span>
+                        <span class="text-[9px] text-slate-500">Mai 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Registro de Pace médio (min/km), distância em quilômetros e triagem de canelite/joelhos.</p>
+                    <p class="text-slate-400 leading-relaxed">• Registro de Pace médio (min/km), distância percorrida e triagem articular de impacto.</p>
                 </div>
 
-                <!-- 7. v2.0 -->
+                <!-- 8. v2.0 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-xs">v2.0 (Relatórios & 5 Gráficos)</span>
-                        <span class="text-[9px] text-slate-500">Mar 2026</span>
+                        <span class="font-black text-brand-400 text-xs">v2.0 (Relatórios I.A. & 5 Gráficos)</span>
+                        <span class="text-[9px] text-slate-500">Mar 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Lançamento da aba de Progresso com 5 gráficos em tempo real (Peso, % BF, FC, HRR e Calorias Kcal).</p>
+                    <p class="text-slate-400 leading-relaxed">• Painel de Progresso com 5 gráficos interativos (Peso, % BF, FC, HRR e Calorias).</p>
                 </div>
 
-                <!-- 8. v1.5 -->
+                <!-- 9. v1.5 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
                         <span class="font-black text-green-400 text-xs">v1.5 (Score de Prontidão / Readiness)</span>
-                        <span class="text-[9px] text-slate-500">Fev 2026</span>
+                        <span class="text-[9px] text-slate-500">Jan 2025</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Avaliação pré-treino de nível de Energia (1-5), qualidade de sono e dores musculares para recalibragem instantânea.</p>
-                </div>
-
-                <!-- 9. v1.1 -->
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-slate-300 text-xs">v1.1 (Cronômetro com Fila Estrita)</span>
-                        <span class="text-[9px] text-slate-500">Jan 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Algoritmo de tempo com alternância estrita entre blocos de Exercício e Descanso com sinais sonoros de bip.</p>
+                    <p class="text-slate-400 leading-relaxed">• Triagem pré-treino de Energia, Sono e Dores Musculares para recalibragem dinâmica.</p>
                 </div>
 
                 <!-- 10. v1.0 -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-slate-400 text-xs">v1.0 (Lançamento Inicial)</span>
-                        <span class="text-[9px] text-slate-500">Dez 2025</span>
+                        <span class="font-black text-slate-400 text-xs">v1.0 (Lançamento Inicial SPA)</span>
+                        <span class="text-[9px] text-slate-500">Out 2024</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Estrutura base de autenticação Firebase, cadastro biométrico e geração de planos dinâmicos com Gemini I.A.</p>
+                    <p class="text-slate-400 leading-relaxed">• Arquitetura base SPA com Firebase Web SDK v11 e integração REST com Gemini I.A.</p>
                 </div>
 
             </div>
@@ -269,8 +317,8 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-layer-group text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline">v3.1</span></h1>
-            <p class="text-slate-400 font-medium mt-1">Super App Híbrido: Calistenia, Corrida & Musculação</p>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline">v3.2</span></h1>
+            <p class="text-slate-400 font-medium mt-1"><p>Calistenia, Corrida & Musculação <p> Sua evolução calculada por I.A</p>
         </div>
 
         <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden w-full">
@@ -676,7 +724,7 @@
     <!-- Dashboard Screen -->
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto relative overflow-hidden">
         
-        <!-- Header UI v3.1 with Version & Quick Logout Icon -->
+        <!-- Header UI v3.2 with Version & Quick Logout Icon -->
         <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black">
@@ -685,7 +733,7 @@
                 <div>
                     <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                         <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
-                        <span onclick="window.openChangelog()" class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v3.1</span>
+                        <span onclick="window.openChangelog()" class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v3.2</span>
                     </h1>
                     <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">...</p>
                 </div>
@@ -722,13 +770,18 @@
                     <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
+                <!-- Next Workout Card with Scheduling & Visual Readiness % -->
                 <div id="dash-next-workout" class="bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/40 rounded-3xl p-5 shadow-2xl relative overflow-hidden w-full">
                     <div class="absolute -bottom-4 -right-4 text-8xl text-brand-500/5"><i class="fas fa-running"></i></div>
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-3">
                             <div>
-                                <span id="dash-nw-badge" class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">PRÓXIMO TREINO: ...</span>
-                                <h3 id="dash-nw-title" class="text-lg font-black text-white mt-2 mb-0.5">--</h3>
+                                <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+                                    <span id="dash-nw-badge" class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-wider">PRÓXIMO TREINO: ...</span>
+                                    <!-- Readiness Score Badge % -->
+                                    <span id="dash-readiness-badge" class="bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">⚡ Prontidão: --%</span>
+                                </div>
+                                <h3 id="dash-nw-title" class="text-lg font-black text-white mb-0.5">--</h3>
                                 <p id="dash-nw-focus" class="text-xs text-brand-400 font-medium">--</p>
                             </div>
                             <div class="w-12 h-12 rounded-2xl bg-dark-950 flex flex-col items-center justify-center border border-slate-700 shadow-inner shrink-0">
@@ -738,6 +791,16 @@
                         </div>
                         <p id="dash-nw-desc" class="text-xs text-slate-400 mb-4 leading-relaxed">...</p>
                         
+                        <!-- Scheduling Controls -->
+                        <div class="flex gap-2 mb-3 bg-dark-950 p-2 rounded-2xl border border-slate-800">
+                            <button onclick="window.postponeWorkoutOneDay()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 rounded-xl py-2 text-[10px] font-bold uppercase transition-colors flex items-center justify-center gap-1">
+                                <i class="fas fa-plus-circle"></i> Adiar (+1 Dia)
+                            </button>
+                            <button onclick="window.openRescheduleModal()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-brand-400 border border-slate-700 rounded-xl py-2 text-[10px] font-bold uppercase transition-colors flex items-center justify-center gap-1">
+                                <i class="fas fa-calendar-alt"></i> Trocar Data
+                            </button>
+                        </div>
+
                         <div class="flex flex-col gap-2">
                             <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
                                 <i class="fas fa-book-open mr-1"></i> Ver Exercícios do Dia
@@ -883,7 +946,7 @@
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest"><i class="fas fa-user-edit mr-1"></i> Dados Pessoais</span>
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md cursor-pointer" onclick="window.openChangelog()">v3.1 Híbrido</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md cursor-pointer" onclick="window.openChangelog()">v3.2 Híbrido</span>
                     </div>
                     
                     <div class="space-y-3 relative z-10">
@@ -1696,7 +1759,7 @@
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard(); showScreen('screen-dashboard');
                         window.switchTab('training');
-                        checkProactiveSecondaryScan();
+                        checkPostLoginPopupsSequence();
                     } else showScreen('screen-step1-id');
                 } else {
                     userData = {};
@@ -1706,23 +1769,105 @@
             } catch (err) { hideLoading(); window.showAlert("Erro", "Falha de BD."); }
         }
 
-        // Post-Login Novelty & Proactive Scan Modal Trigger
-        function checkProactiveSecondaryScan() {
-            const hasSeenModal = localStorage.getItem(`seen_proactive_v31_${currentUser.uid}`);
+        // Post-Login Sequential Pop-ups Flow
+        function checkPostLoginPopupsSequence() {
+            const hasSeenModal = localStorage.getItem(`seen_proactive_v32_${currentUser.uid}`);
             if (!hasSeenModal || !userData.secondaryCalibrated) {
                 show('modal-proactive-calibration');
+            } else {
+                checkPendingWorkoutReminder();
             }
         }
 
         window.skipProactiveCalibration = () => {
             hide('modal-proactive-calibration');
-            localStorage.setItem(`seen_proactive_v31_${currentUser.uid}`, 'true');
+            localStorage.setItem(`seen_proactive_v32_${currentUser.uid}`, 'true');
+            checkPendingWorkoutReminder();
         };
 
         window.startProactiveAnamnesis = () => {
             hide('modal-proactive-calibration');
-            localStorage.setItem(`seen_proactive_v31_${currentUser.uid}`, 'true');
+            localStorage.setItem(`seen_proactive_v32_${currentUser.uid}`, 'true');
             showScreen('screen-step4-calisthenics');
+        };
+
+        // Isolated Popup 2: Pending Workout Reminder
+        function checkPendingWorkoutReminder() {
+            if (window.hasSeenReminder) return;
+            window.hasSeenReminder = true;
+
+            if (!currentPlan || !currentPlan.workouts || !currentPlan.nextWorkoutDate) return;
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if (!nw) return;
+
+            const nwDate = new Date(currentPlan.nextWorkoutDate);
+            const today = new Date(); today.setHours(0,0,0,0);
+            const target = new Date(nwDate); target.setHours(0,0,0,0);
+            const diffDays = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays <= 0) {
+                const statusTxt = diffDays === 0 ? "TREINO DE HOJE PENDENTE" : "TREINO ATRASADO!";
+                $('reminder-badge-status').innerText = statusTxt;
+                $('reminder-workout-title').innerText = `[${nw.modality||userData.masterAxis||'Híbrido'}] ${nw.name || 'Treino do Dia'}`;
+                $('reminder-workout-desc').innerText = `Você tem uma sessão agendada para ${diffDays === 0 ? 'hoje' : 'anteriormente'} (${nw.estimatedMinutes||45} min). Deseja iniciar o treino agora ou prefere adiar +1 dia?`;
+                show('modal-pending-reminder');
+            }
+        }
+
+        window.closePendingReminder = () => hide('modal-pending-reminder');
+
+        window.postponeWorkoutFromReminder = async () => {
+            hide('modal-pending-reminder');
+            await window.postponeWorkoutOneDay();
+        };
+
+        // Quick Scheduling Actions on Dashboard Card
+        window.postponeWorkoutOneDay = async () => {
+            if (!currentPlan || !currentPlan.nextWorkoutDate) return;
+            showLoading("Adiando Treino...", "Atualizando agenda em +24 horas...");
+            try {
+                const currentDate = new Date(currentPlan.nextWorkoutDate);
+                currentDate.setDate(currentDate.getDate() + 1);
+                currentPlan.nextWorkoutDate = currentDate.toISOString();
+                await saveFullState();
+                hideLoading();
+                renderDashboard();
+                window.showAlert("Agenda Atualizada", `Seu treino foi adiado para ${currentDate.toLocaleDateString('pt-BR')}.`);
+            } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
+        };
+
+        window.openRescheduleModal = () => {
+            if (!currentPlan || !currentPlan.nextWorkoutDate) return;
+            const d = new Date(currentPlan.nextWorkoutDate);
+            $('reschedule-date-input').value = d.toISOString().split('T')[0];
+            show('modal-reschedule');
+        };
+
+        window.setWorkoutDateToToday = async () => {
+            hide('modal-reschedule');
+            showLoading("Reagendando...", "Definindo treino para a data de hoje...");
+            try {
+                currentPlan.nextWorkoutDate = new Date().toISOString();
+                await saveFullState();
+                hideLoading();
+                renderDashboard();
+                window.showAlert("Sucesso", "Treino definido para HOJE!");
+            } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
+        };
+
+        window.confirmCustomReschedule = async () => {
+            const val = $('reschedule-date-input').value;
+            if(!val) return window.showAlert("Aviso", "Selecione uma data válida.");
+            hide('modal-reschedule');
+            showLoading("Atualizando Data...");
+            try {
+                const selectedDate = new Date(`${val}T12:00:00`);
+                currentPlan.nextWorkoutDate = selectedDate.toISOString();
+                await saveFullState();
+                hideLoading();
+                renderDashboard();
+                window.showAlert("Data Salva", `Treino reagendado para ${selectedDate.toLocaleDateString('pt-BR')}.`);
+            } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
         };
 
         $('step1-form').addEventListener('submit', (e) => {
@@ -1874,6 +2019,26 @@
                     else if (diffDays < 0) dateBadgeText = "ATRASADO";
                     else dateBadgeText = target.toLocaleDateString('pt-BR').substring(0, 5);
                 }
+
+                // Render Visual Readiness % Score Badge
+                const readinessBadge = $('dash-readiness-badge');
+                if (nw.readiness) {
+                    let score = (nw.readiness.energy / 5) * 60;
+                    if (nw.readiness.sleep === 'Bom') score += 20; else if (nw.readiness.sleep === 'Regular') score += 10;
+                    if (nw.readiness.sore === 'Nenhuma') score += 20; else if (nw.readiness.sore === 'Leve') score += 10;
+                    if (score > 100) score = 100;
+
+                    let colorClass = 'bg-green-500/20 text-green-400 border-green-500/40';
+                    let label = 'Alta Capacidade';
+                    if (score < 60) { colorClass = 'bg-amber-500/20 text-amber-400 border-amber-500/40'; label = 'Foco em Recuperação'; }
+                    
+                    readinessBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded border ${colorClass} flex items-center gap-1`;
+                    readinessBadge.innerText = `⚡ Prontidão: ${score}% - ${label}`;
+                } else {
+                    readinessBadge.className = 'bg-slate-800 text-slate-400 border border-slate-700 text-[10px] font-bold px-2 py-0.5 rounded';
+                    readinessBadge.innerText = '⚡ Prontidão: A Calcular';
+                }
+
                 $('dash-nw-badge').innerText = `PRÓXIMO TREINO [${nw.modality||userData.masterAxis||'Híbrido'}]: ${dateBadgeText}`;
                 $('dash-nw-title').innerText = nw.name || "Sessão Atual"; 
                 $('dash-nw-focus').innerText = nw.focus || "Geral"; 
@@ -1980,7 +2145,7 @@
                 let focus = $('read-focus').value;
                 if (!focus && (selectedEnergy <= 2 || $('read-sore').value === 'Intensa')) focus = "Mobilidade, Alongamento e Recuperação Ativa";
                 await regenerateCurrentWorkout(selectedEnergy, $('read-sleep').value, $('read-sore').value, $('read-time').value || userData.mins, focus, targetModality);
-            } else { hide('modal-readiness'); startTimerRoutine(); }
+            } else { hide('modal-readiness'); renderDashboard(); startTimerRoutine(); }
         };
 
         async function regenerateCurrentWorkout(energy, sleep, sore, time, focus, modality) {
@@ -1991,12 +2156,13 @@
                 const res = await callGemini(prompt);
                 if(res.workout) {
                     res.workout.id = `w_${Date.now()}_regen`; res.workout.isCompleted = false; res.workout.modality = modality;
+                    res.workout.readiness = { energy, sleep, sore };
                     const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
                     if(nwIndex !== -1) currentPlan.workouts[nwIndex] = res.workout;
                     if(res.coachFeedback) currentPlan.coachFeedback = `Ajuste I.A (${modality}): ${res.coachFeedback}`;
                     await saveFullState(); hideLoading(); hide('modal-readiness'); renderDashboard(); startTimerRoutine();
                 } else throw new Error();
-            } catch(e) { hideLoading(); hide('modal-readiness'); startTimerRoutine(); }
+            } catch(e) { hideLoading(); hide('modal-readiness'); renderDashboard(); startTimerRoutine(); }
         }
 
         function startTimerRoutine() {
