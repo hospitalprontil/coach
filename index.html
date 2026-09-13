@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v1.6</title>
+    <title>AI Coach - Calistenia Dinâmica v1.8</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <!-- Danger Confirm Modal (v1.6 - Double Check) -->
+    <!-- Danger Confirm Modal -->
     <div id="modal-danger-confirm" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[1000] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-red-600 rounded-3xl p-6 max-w-sm w-full shadow-[0_0_40px_rgba(220,38,38,0.3)] mx-auto relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-1.5 bg-red-600"></div>
@@ -110,7 +110,7 @@
         </div>
     </div>
 
-    <!-- Next Workout Reminder Modal (v1.6) -->
+    <!-- Next Workout Reminder Modal -->
     <div id="modal-next-workout-reminder" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[150] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 to-purple-500"></div>
@@ -120,25 +120,28 @@
                 <p id="reminder-message" class="text-sm text-slate-300 font-bold mt-2 bg-dark-950 py-2 rounded-xl border border-slate-800">Seu treino é HOJE!</p>
             </div>
             
-            <div class="mt-5 space-y-3 pt-3 border-t border-slate-800">
-                <p class="text-[10px] text-slate-400 uppercase font-bold text-center">Deseja alterar a data?</p>
+            <button onclick="hide('modal-next-workout-reminder')" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-sm uppercase tracking-wide mb-4">
+                <i class="fas fa-thumbs-up mr-1"></i> OK, Entendi
+            </button>
+            
+            <div class="pt-4 border-t border-slate-800">
+                <p class="text-[10px] text-slate-400 uppercase font-bold text-center mb-3">Deseja alterar a data?</p>
                 <div class="flex gap-2">
                     <select id="reminder-new-days" class="flex-1 bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold outline-none focus:border-brand-500">
                         <option value="0">Fazer Hoje</option>
                         <option value="1">Adiar para Amanhã</option>
-                        <option value="2">Adiar +2 Dias</option>
-                        <option value="3">Adiar +3 Dias</option>
+                        <option value="2">Adiar 2 dias</option>
+                        <option value="3">Adiar 3 dias</option>
                     </select>
-                    <button onclick="rescheduleWorkout()" class="bg-brand-500 hover:bg-brand-400 text-white font-black px-4 rounded-xl text-xs uppercase transition-colors shadow-lg">
+                    <button onclick="rescheduleWorkout()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 rounded-xl transition-colors text-xs border border-slate-700">
                         Salvar
                     </button>
                 </div>
             </div>
-            <button onclick="hide('modal-next-workout-reminder')" class="w-full mt-4 text-xs font-bold text-slate-500 hover:text-white transition-colors">Fechar (Manter programação atual)</button>
         </div>
     </div>
 
-    <!-- What's New v1.6 -->
+    <!-- What's New v1.8 -->
     <div id="modal-whats-new" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[300] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-green-500"></div>
@@ -147,26 +150,22 @@
                     <i class="fas fa-rocket text-xl"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.6</span>
-                    <h3 class="text-lg font-black text-white">Mais Controle e Precisão</h3>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v1.8</span>
+                    <h3 class="text-lg font-black text-white">Gráficos de Desempenho e Otimização</h3>
                 </div>
             </div>
             <div class="space-y-3 mb-6 text-xs text-slate-300">
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-calendar-alt text-purple-400 mt-0.5"></i>
-                    <div><strong class="text-white">Lembrete e Reagendamento:</strong> Agora, ao abrir o app, você será notificado sobre a data do próximo treino e poderá adiá-lo facilmente.</div>
+                    <i class="fas fa-chart-line text-green-400 mt-0.5"></i>
+                    <div><strong class="text-white">Métricas Completas na Aba Progresso:</strong> Adicionados gráficos detalhados de Frequência Cardíaca, Calorias e Queda da FC (HRR).</div>
                 </div>
                 <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-tachometer-alt text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Legendas Interativas de Fadiga (PSE):</strong> Escala de esforço de 1 a 10 agora conta com feedback visual detalhado pós-treino.</div>
-                </div>
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-shield-alt text-red-400 mt-0.5"></i>
-                    <div><strong class="text-white">Exclusão Total e Segurança:</strong> Opção de excluir sua conta permanentemente e dupla checagem de segurança (red warning) para prevenir perdas de dados por engano.</div>
+                    <i class="fas fa-list text-brand-400 mt-0.5"></i>
+                    <div><strong class="text-white">Navegação Simplificada:</strong> Aba global de biblioteca removida. Agora, acesse todos os tutoriais e vídeos diretamente no botão do treino diário.</div>
                 </div>
             </div>
             <button onclick="closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar Versão 1.6 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar Versão 1.8 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -184,37 +183,16 @@
             <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v1.6 (Atual)</span>
+                        <span class="font-black text-brand-400 text-sm">v1.8 (Atual)</span>
                         <span class="text-[10px] text-slate-500">12 de Setembro de 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Reagendamento de treino no Login.<br>• Identificação visual de Biotipo no Onboarding.<br>• Legendas de Esforço PSE.<br>• Fix de rota pós-treino (volta ao Menu).<br>• Exclusão de Conta com segurança dupla.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.5</span>
-                        <span class="text-[10px] text-slate-500">12 de Setembro de 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Readiness Score: Avaliação pré-treino de energia e dor.<br>• Recalibração de treino em tempo real pela I.A.<br>• Obrigação algorítmica de aquecimento dinâmico.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.4</span>
-                        <span class="text-[10px] text-slate-500">11 de Setembro de 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Nova métrica: Recuperação Cardíaca (HRR - FC após 3 min).<br>• Painel seletivo de exclusão de dados.<br>• Proteção contra overflow de tokens na I.A.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.3</span>
-                        <span class="text-[10px] text-slate-500">10 de Setembro de 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Aba de Progresso reformulada com relatórios preditivos.<br>• Navegação via swipe lateral responsivo no celular.</p>
+                    <p class="text-slate-400 leading-relaxed">• Adicionados gráficos de FC, Calorias e Queda da FC na aba Progresso.<br>• Remoção da aba global de biblioteca (foco direto no treino do dia).<br>• Aba "Treinamento" como padrão inicial.<br>• Rótulo de HRR ajustado para "Queda da FC".</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Readiness Modal (v1.5/v1.6) -->
+    <!-- Readiness Modal -->
     <div id="modal-readiness" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[120] hidden flex-col items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-brand-500"></div>
@@ -230,9 +208,7 @@
             <div class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 block text-center">Nível de Energia (1 a 5) <span class="text-red-500">*</span></label>
-                    <div class="flex justify-center gap-2" id="readiness-energy-btns">
-                        <!-- Botões gerados via JS -->
-                    </div>
+                    <div class="flex justify-center gap-2" id="readiness-energy-btns"></div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-3">
@@ -276,12 +252,8 @@
                 </div>
 
                 <div class="flex gap-2 pt-2">
-                    <button onclick="hide('modal-readiness')" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-2xl transition-colors text-xs uppercase">
-                        Cancelar
-                    </button>
-                    <button onclick="submitReadiness()" class="w-2/3 bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                        Avaliar & Iniciar <i class="fas fa-play ml-1"></i>
-                    </button>
+                    <button onclick="hide('modal-readiness')" class="w-1/3 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3.5 rounded-2xl transition-colors text-xs uppercase">Cancelar</button>
+                    <button onclick="submitReadiness()" class="w-2/3 bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">Avaliar & Iniciar <i class="fas fa-play ml-1"></i></button>
                 </div>
             </div>
         </div>
@@ -298,13 +270,9 @@
     <div id="screen-auth" class="w-full max-w-md p-6 mt-10 mx-auto flex flex-col items-center">
         <div class="w-full flex justify-end mb-2">
             <div class="flex items-center gap-2 bg-dark-900 border border-slate-800 px-3 py-1.5 rounded-full shadow">
-                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400">
-                    <div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB
-                </div>
+                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
                 <span class="text-slate-700">|</span>
-                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400">
-                    <div id="dot-api" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.
-                </div>
+                <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-api" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
             </div>
         </div>
 
@@ -313,7 +281,7 @@
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
                 <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.6</span></h1>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v1.8</span></h1>
             <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
         </div>
 
@@ -328,30 +296,19 @@
             <form id="auth-form" class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">E-mail</label>
-                    <div class="relative">
-                        <i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                        <input type="email" id="auth-email" required class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm">
-                    </div>
+                    <div class="relative"><i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="email" id="auth-email" required class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Senha</label>
-                    <div class="relative">
-                        <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                        <input type="password" id="auth-password" required minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm">
-                    </div>
+                    <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-password" required minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
                 </div>
                 <div id="signup-fields" class="hidden space-y-4">
                     <div>
                         <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Repetir Senha</label>
-                        <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                            <input type="password" id="auth-confirm-password" minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm">
-                        </div>
+                        <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-confirm-password" minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
                     </div>
                 </div>
-                <button type="submit" id="auth-submit-btn" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] mt-2 uppercase tracking-wide text-sm">
-                    Entrar na Conta
-                </button>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] mt-2 uppercase tracking-wide text-sm">Entrar na Conta</button>
             </form>
         </div>
     </div>
@@ -364,15 +321,9 @@
                 <p class="text-brand-400 text-sm font-medium">Calibração inicial da I.A.</p>
             </div>
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
-                    <div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB
-                </div>
-                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
-                    <div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.
-                </div>
-                <button onclick="logOut()" class="text-slate-400 hover:text-white transition-colors ml-1" title="Sair">
-                    <i class="fas fa-sign-out-alt text-lg"></i>
-                </button>
+                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
+                <div class="flex items-center gap-1.5 bg-dark-900 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
+                <button onclick="logOut()" class="text-slate-400 hover:text-white transition-colors ml-1" title="Sair"><i class="fas fa-sign-out-alt text-lg"></i></button>
             </div>
         </div>
 
@@ -392,7 +343,6 @@
                     </div>
                 </div>
                 
-                <!-- V1.6: Body Fat Estimator -->
                 <div class="grid grid-cols-2 gap-3 items-start">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Peso Atual(kg)</label>
@@ -403,8 +353,7 @@
                         <div class="flex flex-col gap-2">
                             <input id="ob-bf" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                             <label class="flex items-center gap-2 text-[10px] text-slate-400 cursor-pointer hover:text-white transition-colors">
-                                <input type="checkbox" id="ob-bf-unknown" class="w-3.5 h-3.5 accent-brand-500" onchange="toggleBfUnknown()">
-                                Não sei meu % exato
+                                <input type="checkbox" id="ob-bf-unknown" class="w-3.5 h-3.5 accent-brand-500" onchange="toggleBfUnknown()"> Não sei meu % exato
                             </label>
                             <select id="ob-bf-select" class="hidden w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white focus:border-brand-500 outline-none">
                                 <option value="10">Magro/Definido (~10%)</option>
@@ -494,56 +443,28 @@
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto relative overflow-hidden">
         <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
             <div>
-                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.6</span></h1>
+                <h1 class="text-lg font-black tracking-tight text-white">AI Coach <span onclick="openChangelog()" class="text-brand-400 cursor-pointer hover:underline text-xs" title="Ver Histórico de Versões">v1.8</span></h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[160px]">...</p>
             </div>
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
-                    <div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB
-                </div>
-                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400">
-                    <div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.
-                </div>
-                <button onclick="logOut()" class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors ml-0.5" title="Sair">
-                    <i class="fas fa-sign-out-alt text-xs"></i>
-                </button>
+                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
+                <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
+                <button onclick="logOut()" class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white border border-slate-700 transition-colors ml-0.5" title="Sair"><i class="fas fa-sign-out-alt text-xs"></i></button>
             </div>
         </div>
 
         <div class="flex px-4 pt-3 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
-            <button onclick="switchTab('analysis')" id="nav-analysis" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Análise Inicial</button>
-            <button onclick="switchTab('training')" id="nav-training" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Treinamento</button>
+            <button onclick="switchTab('training')" id="nav-training" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Treinamento</button>
+            <button onclick="switchTab('analysis')" id="nav-analysis" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Análise Inicial</button>
             <button onclick="switchTab('calendar')" id="nav-calendar" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
             <button onclick="switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
-            <button onclick="switchTab('library')" id="nav-library" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Biblioteca</button>
             <button onclick="switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         </div>
 
         <div id="tab-content-container" class="flex-1 overflow-y-auto custom-scrollbar p-4 relative pb-16">
             
-            <!-- Tab 1: Análise Inicial (Profile & Strategy) -->
-            <div id="tab-analysis" class="space-y-4 animate-fade-in">
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest block mb-2"><i class="fas fa-user-md mr-1"></i> Perfil e Biotipo (Análise Científica)</span>
-                    <p id="dash-profile" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
-                </div>
-
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2"><i class="fas fa-dumbbell mr-1"></i> Estratégia do Plano para seu Biotipo</span>
-                    <p id="dash-plan-exp" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
-                </div>
-
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A. (Macro)</span>
-                    <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
-                </div>
-            </div>
-
-            <!-- Tab 2: Treinamento (Current Workout) -->
-            <div id="tab-training" class="space-y-4 hidden animate-fade-in">
+            <!-- Tab 1: Treinamento (Padrão Inicial) -->
+            <div id="tab-training" class="space-y-4 animate-fade-in">
                 <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                     <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2"><i class="fas fa-comment-dots mr-2"></i>Avaliação do Último Treino</h3>
@@ -555,7 +476,7 @@
                     <div class="relative z-10">
                         <div class="flex justify-between items-start mb-3">
                             <div>
-                                <span class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">Treino Atual</span>
+                                <span id="dash-nw-badge" class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">Próximo Treino</span>
                                 <h3 id="dash-nw-title" class="text-lg font-black text-white mt-2 mb-0.5">--</h3>
                                 <p id="dash-nw-focus" class="text-xs text-brand-400 font-medium">--</p>
                             </div>
@@ -584,6 +505,27 @@
                 </div>
             </div>
 
+            <!-- Tab 2: Análise Inicial -->
+            <div id="tab-analysis" class="space-y-4 hidden animate-fade-in">
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest block mb-2"><i class="fas fa-user-md mr-1"></i> Perfil e Biotipo (Análise Científica)</span>
+                    <p id="dash-profile" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2"><i class="fas fa-dumbbell mr-1"></i> Estratégia do Plano para seu Biotipo</span>
+                    <p id="dash-plan-exp" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
+                </div>
+
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A. (Macro)</span>
+                    <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
+                </div>
+            </div>
+
             <!-- Tab 3: Histórico -->
             <div id="tab-calendar" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
@@ -595,14 +537,11 @@
 
             <!-- Tab 4: Progresso -->
             <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
-                
                 <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-brain text-purple-400 mr-2"></i>Análise de Evolução (I.A.)</h3>
-                        <button onclick="generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            Gerar Relatório
-                        </button>
+                        <button onclick="generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">Gerar Relatório</button>
                     </div>
                     <div id="progress-report-content" class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                         <p class="text-xs text-slate-400 italic text-center py-2">Clique em "Gerar Relatório" para a I.A. analisar todo o seu histórico e check-ins.</p>
@@ -619,9 +558,7 @@
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-chart-line text-brand-400 mr-2"></i>Evolução de Peso</h3>
-                        <button onclick="document.getElementById('modal-checkin').classList.remove('hidden')" class="bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            + Check-in
-                        </button>
+                        <button onclick="document.getElementById('modal-checkin').classList.remove('hidden')" class="bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">+ Check-in</button>
                     </div>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-weight"></canvas>
@@ -635,78 +572,49 @@
                     </div>
                 </div>
 
+                <!-- Novos Gráficos: Frequência Cardíaca, Calorias e Queda da FC -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-heartbeat text-red-400 mr-2"></i>Frequência Cardíaca (BPM)</h3>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-heartbeat text-red-400 mr-2"></i>Frequência Cardíaca (Média e Máxima)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
-                        <canvas id="chart-hr"></canvas>
+                        <canvas id="chart-fc"></canvas>
                     </div>
                 </div>
 
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3" title="Recuperação Cardíaca (HRR). Queda de FC nos primeiros 3 minutos pós-treino."><i class="fas fa-heart text-pink-400 mr-2"></i>Recuperação Cardíaca (FC após 3min)</h3>
-                    <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
-                        <canvas id="chart-hr-recovery"></canvas>
-                    </div>
-                </div>
-
-                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-fire-alt text-amber-400 mr-2"></i>Gasto Calórico (kcal)</h3>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-burn text-amber-400 mr-2"></i>Gasto Calórico (kcal)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-kcal"></canvas>
                     </div>
                 </div>
-            </div>
 
-            <!-- Tab 5: Biblioteca -->
-            <div id="tab-library" class="space-y-3 hidden animate-fade-in pb-12">
-                <div class="flex items-center justify-between px-1 mb-2">
-                    <h2 class="text-base font-black text-white">Biblioteca de Exercícios</h2>
-                    <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-bold">Guia Avançado & Vídeos</span>
-                </div>
-                
-                <div class="space-y-4">
-                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-lg relative overflow-hidden w-full">
-                        <div class="absolute left-0 top-0 w-1.5 h-full bg-brand-500"></div>
-                        <h3 class="text-white font-bold text-sm mb-1">Flexão de Braços (Push-up)</h3>
-                        <p class="text-xs text-brand-400 font-semibold mb-1">Foco: Peitoral, Tríceps, Deltoide Anterior e Core.</p>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-2"><strong>Execução Completa:</strong> Posicione as mãos na largura dos ombros, braços estendidos. Mantenha o corpo perfeitamente alinhado em prancha (abdômen e glúteos contraídos). Flexione os cotovelos em ângulo de 45 graus, descendo até o peito quase tocar o solo com controle absoluto. Empurre o chão com força até estender os braços.</p>
-                        <p class="text-xs text-slate-400 mb-3"><strong>Variações:</strong> Iniciante (com joelhos apoiados) / Avançado (pés elevados).</p>
-                        <a href="https://www.youtube.com/results?search_query=como+fazer+flexao+de+bracos+corretamente" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors">
-                            <i class="fab fa-youtube"></i> Ver Vídeo Demonstrativo
-                        </a>
+                <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-bolt text-pink-400 mr-2"></i>Queda da FC após 3 min (HRR)</h3>
+                    <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
+                        <canvas id="chart-fcrec"></canvas>
                     </div>
-                    <!-- (Other static library items kept minimal for brevity, functionality resides in dynamic generator) -->
                 </div>
             </div>
 
-            <!-- Tab 6: Chat I.A. -->
+            <!-- Tab 5: Chat I.A. -->
             <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
                 <div class="flex items-center justify-between px-1 mb-1">
                     <h2 class="text-base font-black text-white">Chat com o Coach I.A.</h2>
                     <div class="flex items-center gap-2">
-                        <button onclick="clearChatHistory()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg font-bold transition-colors" title="Limpar Histórico do Chat">
-                            <i class="fas fa-trash-alt mr-1"></i> Limpar Chat
-                        </button>
+                        <button onclick="clearChatHistory()" class="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1 rounded-lg font-bold transition-colors"><i class="fas fa-trash-alt mr-1"></i> Limpar Chat</button>
                         <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Nuvem Ativa</span>
                     </div>
                 </div>
                 
                 <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl">
                     <div class="flex gap-2.5">
-                        <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0">
-                            <i class="fas fa-robot text-xs"></i>
-                        </div>
-                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">
-                            Olá! Carregando histórico da nuvem...
-                        </div>
+                        <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div>
+                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">Olá! Carregando histórico da nuvem...</div>
                     </div>
                 </div>
 
                 <div class="flex gap-2 pt-2">
                     <input type="text" id="chat-input" placeholder="Ex: Como posso melhorar minha flexão de braço?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none shadow-inner">
-                    <button onclick="sendChatMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
+                    <button onclick="sendChatMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
         </div>
@@ -728,9 +636,7 @@
                     <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">% Gordura (Est.)</label>
                     <input type="number" id="checkin-bf" step="0.1" class="w-full bg-dark-950 border border-slate-700 rounded-2xl p-3 text-white text-sm focus:border-brand-500 outline-none">
                 </div>
-                <button onclick="saveCheckin()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl mt-2 transition-colors text-sm uppercase">
-                    Salvar Progresso
-                </button>
+                <button onclick="saveCheckin()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl mt-2 transition-colors text-sm uppercase">Salvar Progresso</button>
             </div>
         </div>
     </div>
@@ -757,7 +663,6 @@
     <!-- Timer Screen -->
     <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
         <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden mx-auto">
-            
             <div class="px-5 pt-5 pb-3 bg-dark-900 border-b border-slate-800 flex justify-between items-center shrink-0 shadow-md relative z-20">
                 <div>
                     <p id="timer-workout-name" class="text-xs text-brand-400 font-bold uppercase tracking-wider mb-0.5">--</p>
@@ -766,9 +671,7 @@
                         <p class="text-slate-300 text-[10px] font-bold"><i class="fas fa-clock text-brand-400 mr-1"></i> <span id="timer-total-left">00:00</span> restantes</p>
                     </div>
                 </div>
-                <button onclick="abortWorkout()" class="w-9 h-9 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/20">
-                    <i class="fas fa-times"></i>
-                </button>
+                <button onclick="abortWorkout()" class="w-9 h-9 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/20"><i class="fas fa-times"></i></button>
             </div>
 
             <div class="flex-1 flex flex-col items-center justify-center p-5 relative overflow-hidden">
@@ -793,9 +696,7 @@
                     </div>
 
                     <div class="bg-slate-900 border border-slate-800 w-full p-3 rounded-2xl flex items-center gap-3 shadow-lg">
-                        <div id="timer-next-icon" class="w-9 h-9 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0">
-                            <i class="fas fa-forward"></i>
-                        </div>
+                        <div id="timer-next-icon" class="w-9 h-9 bg-slate-950 rounded-xl flex items-center justify-center text-slate-400 border border-slate-800 shrink-0"><i class="fas fa-forward"></i></div>
                         <div class="flex-1 min-w-0">
                             <span class="text-[8px] text-slate-500 font-black uppercase tracking-wider block">A Seguir</span>
                             <p id="timer-next-name" class="text-xs font-bold text-slate-200 truncate">--</p>
@@ -805,12 +706,8 @@
             </div>
 
             <div class="p-5 bg-dark-900 border-t border-slate-800 shrink-0 z-20 pb-8 flex gap-3">
-                <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-14 rounded-2xl bg-brand-500 text-white font-black text-base flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95">
-                    <i class="fas fa-pause"></i> PAUSAR
-                </button>
-                <button onclick="skipExercise()" class="w-14 h-14 rounded-2xl bg-slate-800 text-slate-300 font-black text-base flex items-center justify-center shadow-lg transition-all active:scale-95 border border-slate-700 hover:text-white" title="Pular / Avançar">
-                    <i class="fas fa-step-forward"></i>
-                </button>
+                <button id="btn-pause-resume" onclick="toggleTimer()" class="flex-1 h-14 rounded-2xl bg-brand-500 text-white font-black text-base flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all active:scale-95"><i class="fas fa-pause"></i> PAUSAR</button>
+                <button onclick="skipExercise()" class="w-14 h-14 rounded-2xl bg-slate-800 text-slate-300 font-black text-base flex items-center justify-center shadow-lg transition-all active:scale-95 border border-slate-700 hover:text-white" title="Pular"><i class="fas fa-step-forward"></i></button>
             </div>
         </div>
     </div>
@@ -819,9 +716,7 @@
     <div id="modal-post-workout" class="fixed inset-0 bg-dark-950 z-[160] hidden flex-col overflow-y-auto custom-scrollbar">
         <div class="p-5 pb-20 max-w-md mx-auto w-full">
             <div class="text-center mb-5 mt-3">
-                <div class="w-14 h-14 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-2.5 border border-green-500/30">
-                    <i class="fas fa-check"></i>
-                </div>
+                <div class="w-14 h-14 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center text-2xl mx-auto mb-2.5 border border-green-500/30"><i class="fas fa-check"></i></div>
                 <h2 class="text-xl font-black text-white">Treino Concluído!</h2>
                 <p class="text-slate-400 text-xs mt-0.5 font-medium">Informe suas métricas para o Coach I.A. estruturar a próxima sessão.</p>
             </div>
@@ -831,7 +726,6 @@
                     <div>
                         <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-center">Esforço Geral (PSE) <span class="text-red-500">*</span></h3>
                         <div class="flex flex-wrap gap-1 justify-center" id="pse-buttons"></div>
-                        <!-- V1.6: PSE Legend -->
                         <div id="pse-legend" class="text-center text-[11px] font-bold mt-2.5 text-slate-500 uppercase tracking-wider h-4">Selecione o nível de esforço</div>
                     </div>
 
@@ -847,8 +741,8 @@
                                 <input type="number" id="pw-fc-max" placeholder="Ex: 170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
-                                <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1" title="Frequência Cardíaca de Recuperação 3 minutos após o treino. Padrão ouro cardiovascular.">FC após 3 min (bpm) <i class="fas fa-info-circle"></i></label>
-                                <input type="number" id="pw-fc-rec" placeholder="Ex: 100" class="w-full bg-dark-950 border border-pink-500/50 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Queda da FC após 3 min</label>
+                                <input type="number" id="pw-fc-rec" placeholder="Ex: 35" class="w-full bg-dark-950 border border-pink-500/50 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
@@ -888,44 +782,6 @@
                             </button>
                         </div>
                     </div>
-
-                    <div id="calibration-subpanel" class="hidden bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-3 w-full">
-                        <h4 class="text-xs font-bold text-brand-400 uppercase tracking-wider"><i class="fas fa-cog mr-1"></i> Ajustes Manuais</h4>
-                        
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Descanso até o Treino</label>
-                                <select id="pw-next-days" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold outline-none">
-                                    <option value="1">Amanhã (1 dia)</option>
-                                    <option value="2" selected>Depois de amanhã (2 dias)</option>
-                                    <option value="3">Em 3 dias</option>
-                                    <option value="4">Em 4 dias</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Tempo Disponível</label>
-                                <div class="relative">
-                                    <input type="number" id="pw-next-mins" value="45" min="20" max="90" step="5" class="w-full bg-dark-950 border border-brand-500/50 rounded-xl px-2.5 py-2 text-xs text-white font-bold text-center outline-none">
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] text-slate-500">min</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Preferência de Foco</label>
-                            <select id="pw-pref" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-white font-bold outline-none">
-                                <option value="Manter progressão, aumentando levemente o estímulo">Progressão contínua</option>
-                                <option value="Variar exercícios mantendo o foco">Variar exercícios</option>
-                                <option value="Focar em membros inferiores / pernas">Focar em Pernas</option>
-                                <option value="Focar em membros superiores / braços">Focar em Braços</option>
-                                <option value="Focar em core e abdômen">Focar em Core/Abdômen</option>
-                            </select>
-                        </div>
-
-                        <button onclick="saveWithCalibration()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors text-xs uppercase tracking-wide mt-1">
-                            Salvar (Gerar Novo Treino)
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -936,7 +792,6 @@
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Security restrictions
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', (e) => {
             if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && [85, 83].includes(e.keyCode))) {
@@ -963,7 +818,11 @@
         let currentUser = null;
         let userData = null;
         let currentPlan = null; 
-        let chartWeight, chartBf, chartHr, chartKcal, chartHrRec;
+        let chartWeight = null; 
+        let chartBf = null;
+        let chartFc = null;
+        let chartKcal = null;
+        let chartFcrec = null;
         let isSignupMode = false;
         
         let timerInterval;
@@ -976,16 +835,19 @@
         let selectedPseValue = null;
         let aiEvaluationResult = null;
         let selectedEnergy = null;
-        window.pendingDangerAction = null; // 'data' or 'account'
+        window.pendingDangerAction = null;
 
-        const tabList = ['analysis', 'training', 'calendar', 'progress', 'library', 'chat'];
+        const tabList = ['training', 'analysis', 'calendar', 'progress', 'chat'];
         let currentTabIndex = 0;
 
-        const $ = id => document.getElementById(id);
-        const hide = id => $(id).classList.add('hidden');
-        const show = id => $(id).classList.remove('hidden');
+        window.$ = id => document.getElementById(id);
+        window.hide = id => window.$(id).classList.add('hidden');
+        window.show = id => window.$(id).classList.remove('hidden');
 
-        // Helpers
+        const $ = window.$;
+        const hide = window.hide;
+        const show = window.show;
+
         function playBeep(freq = 440, duration = 150, type = 'sine') {
             try {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -1019,7 +881,7 @@
             show(screenId);
         }
 
-        function updateBadge(system, status, errorMsg = "") {
+        function updateBadge(system, status) {
             const dots = document.querySelectorAll(`#dot-${system}`);
             dots.forEach(dot => {
                 dot.className = 'w-1.5 h-1.5 rounded-full';
@@ -1030,7 +892,11 @@
         }
 
         window.openChangelog = () => show('modal-changelog');
-        window.closeWhatsNew = () => { hide('modal-whats-new'); localStorage.setItem('seen_whats_new_v1.6', 'true'); };
+        window.closeWhatsNew = () => { 
+            hide('modal-whats-new'); 
+            localStorage.setItem('seen_whats_new_v1.8', 'true'); 
+            checkNextWorkoutReminder(); 
+        };
 
         window.openConfirmModal = () => show('confirm-modal');
         window.closeConfirm = () => hide('confirm-modal');
@@ -1053,25 +919,20 @@
         };
 
         async function deleteFullAccount() {
-            showLoading("Excluindo Conta...", "Apagando todos os seus dados da nuvem permanentemente...");
+            showLoading("Excluindo Conta...", "Apagando todos os seus dados da nuvem...");
             try {
-                // Delete all collections
                 const colNames = ['history', 'checkins', 'messages'];
                 for (let col of colNames) {
                     const snap = await getDocs(collection(db, `users/${currentUser.uid}/${col}`));
                     await Promise.all(snap.docs.map(d => deleteDoc(d.ref)));
                 }
-                // Delete user doc
                 await deleteDoc(doc(db, "users", currentUser.uid));
-                // Delete Auth user
                 await deleteUser(currentUser);
-                
                 hideLoading();
-                window.showAlert("Adeus!", "Sua conta e todos os dados foram apagados com sucesso.");
-                // onAuthStateChanged will handle routing to auth screen
+                window.showAlert("Adeus!", "Sua conta foi apagada com sucesso.");
             } catch (err) {
                 hideLoading();
-                window.showAlert("Erro ao Excluir Conta", err.message + "\n\nVocê pode precisar fazer login novamente para excluir a conta por motivos de segurança do Firebase.");
+                window.showAlert("Erro ao Excluir Conta", err.message);
             }
         }
 
@@ -1080,7 +941,7 @@
             const delChat = $('del-chat').checked; const delPlan = $('del-plan').checked;
             if (!delHist && !delCheck && !delChat && !delPlan) return window.showAlert("Aviso", "Selecione algo para excluir.");
 
-            showLoading("Limpando Dados Selecionados...", "Atualizando nuvem...");
+            showLoading("Limpando Dados...", "Atualizando nuvem...");
             try {
                 if (delHist) { const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); await Promise.all(snap.docs.map(d => deleteDoc(d.ref))); }
                 if (delCheck) { const snap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`)); await Promise.all(snap.docs.map(d => deleteDoc(d.ref))); }
@@ -1093,8 +954,6 @@
                 hideLoading();
                 window.showAlert("Sucesso", "Dados apagados com sucesso.");
                 if (delHist || delCheck) renderCharts();
-                if (delHist) { loadHistory(); renderProgressEvaluations(); }
-                if (delChat) loadChatHistory();
             } catch (e) { hideLoading(); window.showAlert("Erro", e.message); }
         }
 
@@ -1117,12 +976,11 @@
                 activeBtn.classList.replace('border-slate-800', 'border-brand-500/30');
                 activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
-            if (tabName === 'progress') { renderCharts(); renderProgressEvaluations(); getDoc(doc(db, "users", currentUser.uid)).then(docSnap => { if(docSnap.exists() && docSnap.data().lastProgressReport) renderReportUI(docSnap.data().lastProgressReport); }); }
+            if (tabName === 'progress') { setTimeout(renderCharts, 100); renderProgressEvaluations(); }
             if (tabName === 'calendar') loadHistory();
             if (tabName === 'chat') loadChatHistory();
         };
 
-        // Swipe Logic
         let touchStartX = 0; let touchStartY = 0;
         const tabContainer = document.getElementById('tab-content-container');
         if (tabContainer) {
@@ -1144,7 +1002,7 @@
                 historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
                 if (historyData.length === 0) return "Nenhum histórico anterior.";
                 const recentHistory = historyData.slice(-15);
-                return recentHistory.map((h, i) => `Treino #${historyData.length - recentHistory.length + i + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | PSE: ${h.pse}/10 | FC: ${h.fc||'N/A'} | Avaliação: ${h.aiFeedback ? h.aiFeedback.substring(0,40)+'...' : 'N/A'}`).join('\n');
+                return recentHistory.map((h, i) => `Treino #${historyData.length - recentHistory.length + i + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | PSE: ${h.pse}/10 | Queda FC: ${h.fcRec||'N/A'} | Avaliação: ${h.aiFeedback ? h.aiFeedback.substring(0,40)+'...' : 'N/A'}`).join('\n');
             } catch(e) { return "Histórico indisponível."; }
         }
 
@@ -1162,7 +1020,7 @@
                 clearTimeout(timeoutId);
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json(); updateBadge('api', 'ok'); return data;
-            } catch (err) { updateBadge('api', 'error'); throw new Error("Falha no servidor da I.A (Render). " + err.message); }
+            } catch (err) { updateBadge('api', 'error'); throw new Error("Falha no servidor da I.A. " + err.message); }
         }
 
         function checkNextWorkoutReminder() {
@@ -1172,10 +1030,8 @@
             if (!nw) return;
 
             const nwDate = new Date(currentPlan.nextWorkoutDate);
-            const today = new Date();
-            today.setHours(0,0,0,0);
-            const target = new Date(nwDate);
-            target.setHours(0,0,0,0);
+            const today = new Date(); today.setHours(0,0,0,0);
+            const target = new Date(nwDate); target.setHours(0,0,0,0);
 
             const diffTime = target - today;
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -1196,15 +1052,13 @@
 
         window.rescheduleWorkout = async () => {
             const addDays = parseInt($('reminder-new-days').value);
-            const nextDate = new Date();
-            nextDate.setDate(nextDate.getDate() + addDays);
-            
+            const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + addDays);
             showLoading("Reagendando...");
             currentPlan.nextWorkoutDate = nextDate.toISOString();
             await saveFullState();
             hideLoading();
             hide('modal-next-workout-reminder');
-            renderDashboard(); // to update dates if displayed elsewhere
+            renderDashboard();
             window.showAlert("Atualizado", `Seu treino foi agendado para ${nextDate.toLocaleDateString('pt-BR')}.`);
         };
 
@@ -1226,7 +1080,7 @@
             e.preventDefault();
             const email = $('auth-email').value; const password = $('auth-password').value;
             if (isSignupMode && password !== $('auth-confirm-password').value) return window.showAlert("Erro", "As senhas não coincidem.");
-            showLoading("Autenticando...", "Conectando ao Firebase...");
+            showLoading("Autenticando...");
             try {
                 if (isSignupMode) await createUserWithEmailAndPassword(auth, email, password);
                 else await signInWithEmailAndPassword(auth, email, password);
@@ -1246,15 +1100,16 @@
         });
 
         async function loadUserData() {
-            showLoading("Sincronizando...", "Carregando dados...");
+            showLoading("Sincronizando...");
             try {
                 const docSnap = await getDoc(doc(db, "users", currentUser.uid));
                 if (docSnap.exists()) {
                     userData = docSnap.data().profile; currentPlan = docSnap.data().plan;
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard(); showScreen('screen-dashboard');
-                        if (!localStorage.getItem('seen_whats_new_v1.6')) show('modal-whats-new');
-                        else checkNextWorkoutReminder(); // V1.6 Check reminder
+                        switchTab('training');
+                        if (!localStorage.getItem('seen_whats_new_v1.8')) show('modal-whats-new');
+                        else checkNextWorkoutReminder();
                     } else showScreen('screen-onboarding');
                 } else showScreen('screen-onboarding');
                 hideLoading();
@@ -1263,21 +1118,14 @@
 
         window.toggleBfUnknown = () => {
             const isUnknown = $('ob-bf-unknown').checked;
-            if(isUnknown) {
-                hide('ob-bf'); $('ob-bf').removeAttribute('required');
-                show('ob-bf-select');
-            } else {
-                show('ob-bf'); $('ob-bf').setAttribute('required', 'true');
-                hide('ob-bf-select');
-            }
+            if(isUnknown) { hide('ob-bf'); $('ob-bf').removeAttribute('required'); show('ob-bf-select'); }
+            else { show('ob-bf'); $('ob-bf').setAttribute('required', 'true'); hide('ob-bf-select'); }
         };
 
         $('onboarding-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            // Get BF value (either input or selected dropdown estimate)
             let finalBf = $('ob-bf-unknown').checked ? $('ob-bf-select').value : $('ob-bf').value;
-            let bfDescription = $('ob-bf-unknown').checked ? $('ob-bf-select').options[$('ob-bf-select').selectedIndex].text : `${finalBf}% exatos`;
+            let bfDescription = $('ob-bf-unknown').checked ? $('ob-bf-select').options[$('ob-bf-selectselectedIndex') || $('ob-bf-select').selectedIndex].text : `${finalBf}% exatos`;
 
             const profile = {
                 age: $('ob-age').value, height: $('ob-height').value, weight: $('ob-weight').value,
@@ -1286,18 +1134,15 @@
                 knowledge: $('ob-knowledge').value, days: $('ob-days').value, mins: $('ob-mins').value
             };
 
-            showLoading("Criando Plano com I.A...", "Mapeando Biotipo e Fisiologia...");
-            const prompt = `Atue como Coach Sênior. ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF Atual: ${profile.bfDesc}, BF Meta: ${profile.targetBf}%.
-            OBJETIVO: "${profile.goal}". COND: "${profile.cond}". ATIVIDADE: "${profile.activity}". CALISTENIA: "${profile.knowledge}". DISP: ${profile.days}dias, ${profile.mins}min/t.
-            TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout'
-            REGRAS OBRIGATÓRIAS: Os 2 PRIMEIROS itens DEVEM ser de Aquecimento Dinâmico/Mobilidade. O último = Recuperação.`;
+            showLoading("Criando Plano com I.A...", "Mapeando Biotipo...");
+            const prompt = `Atue como Coach Sênior. ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF: ${profile.bfDesc}, Meta BF: ${profile.targetBf}%.
+            OBJETIVO: "${profile.goal}". DISP: ${profile.days}dias, ${profile.mins}min/t.
+            TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout'`;
 
             try {
                 const res = await callGemini(prompt);
                 if(res.workout) { res.workout.id = `w_${Date.now()}_0`; res.workout.isCompleted = false; }
                 userData = profile;
-                
-                // Set first nextWorkoutDate for Tomorrow
                 const nwd = new Date(); nwd.setDate(nwd.getDate() + 1);
                 
                 currentPlan = { userProfileAnalysis: res.userProfileAnalysis, planExplanation: res.planExplanation, macrocycleSummary: res.macrocycleSummary, coachFeedback: "Bem-vindo!", workouts: [res.workout], nextWorkoutDate: nwd.toISOString() };
@@ -1313,19 +1158,31 @@
         function renderDashboard() {
             if (!currentPlan || !currentPlan.workouts) return;
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
-            $('dash-profile').innerText = currentPlan.userProfileAnalysis || "Aguardando.";
-            $('dash-plan-exp').innerText = currentPlan.planExplanation || "Aguardando.";
-            $('dash-macro').innerText = currentPlan.macrocycleSummary || "Aguardando.";
+            $('dash-profile').innerText = currentPlan.userProfileAnalysis || "";
+            $('dash-plan-exp').innerText = currentPlan.planExplanation || "";
+            $('dash-macro').innerText = currentPlan.macrocycleSummary || "";
             if (currentPlan.coachFeedback) { show('dash-feedback-container'); $('dash-feedback-text').innerText = currentPlan.coachFeedback; }
             if (nw) {
                 show('dash-next-workout');
+                let dateBadgeText = "Treino Atual";
+                if (currentPlan.nextWorkoutDate) {
+                    const nwDate = new Date(currentPlan.nextWorkoutDate);
+                    const today = new Date(); today.setHours(0,0,0,0);
+                    const target = new Date(nwDate); target.setHours(0,0,0,0);
+                    const diffDays = Math.ceil((target - today) / (1000 * 60 * 60 * 24));
+                    
+                    if (diffDays === 0) dateBadgeText = "HOJE";
+                    else if (diffDays === 1) dateBadgeText = "AMANHÃ";
+                    else if (diffDays < 0) dateBadgeText = "ATRASADO";
+                    else dateBadgeText = target.toLocaleDateString('pt-BR').substring(0, 5);
+                }
+                $('dash-nw-badge').innerText = `PRÓXIMO TREINO: ${dateBadgeText}`;
                 $('dash-nw-title').innerText = nw.name || "Sessão Atual"; $('dash-nw-focus').innerText = nw.focus || "Geral"; $('dash-nw-time').innerText = nw.estimatedMinutes || userData.mins;
                 const wks = nw.queue.filter(q => q.type === 'work');
                 $('dash-nw-desc').innerText = `Exercícios: ${wks.map(w => w.name).join(', ')}`;
             } else hide('dash-next-workout');
         }
 
-        // Readiness & Regeneration
         window.openReadinessModal = () => {
             show('modal-readiness'); selectedEnergy = null; $('read-change-toggle').checked = false; hide('read-change-panel'); $('read-time').value = userData.mins; $('read-focus').value = "";
             const cont = $('readiness-energy-btns'); cont.innerHTML = '';
@@ -1346,25 +1203,25 @@
             if (nwIndex !== -1) currentPlan.workouts[nwIndex].readiness = { energy: selectedEnergy, sleep: $('read-sleep').value, sore: $('read-sore').value };
             if ($('read-change-toggle').checked || selectedEnergy <= 2 || $('read-sore').value === 'Intensa') {
                 let focus = $('read-focus').value;
-                if (!focus && (selectedEnergy <= 2 || $('read-sore').value === 'Intensa')) focus = "Mobilidade, Alongamento e Recuperação Ativa (Obrigatório devido a fadiga)";
+                if (!focus && (selectedEnergy <= 2 || $('read-sore').value === 'Intensa')) focus = "Mobilidade, Alongamento e Recuperação Ativa";
                 await regenerateCurrentWorkout(selectedEnergy, $('read-sleep').value, $('read-sore').value, $('read-time').value || userData.mins, focus);
             } else { hide('modal-readiness'); startTimerRoutine(); }
         };
 
         async function regenerateCurrentWorkout(energy, sleep, sore, time, focus) {
-            showLoading("Recalibrando Treino...", "I.A. adaptando à sua energia atual...");
+            showLoading("Recalibrando Treino...");
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
-            const prompt = `Atue como Coach Sênior. Prontidão: Energia ${energy}/5, Sono: ${sleep}, Dor: ${sore}. Tempo: ${time}min. Foco: "${focus || nw.focus}". REGRAS: 1. 'workout' 2. Se energia 1-2 ou dor Intensa, DEVE ser só alongamento leve. 3. 2 PRIMEIROS itens DEVEM ser de Aquecimento/Mobilidade.`;
+            const prompt = `Atue como Coach Sênior. Prontidão: Energia ${energy}/5, Sono: ${sleep}, Dor: ${sore}. Tempo: ${time}min. Foco: "${focus || nw.focus}".`;
             try {
                 const res = await callGemini(prompt);
                 if(res.workout) {
-                    res.workout.id = `w_${Date.now()}_regen`; res.workout.isCompleted = false; res.workout.readiness = { energy, sleep, sore };
+                    res.workout.id = `w_${Date.now()}_regen`; res.workout.isCompleted = false;
                     const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
                     if(nwIndex !== -1) currentPlan.workouts[nwIndex] = res.workout;
                     if(res.coachFeedback) currentPlan.coachFeedback = `Ajuste I.A: ${res.coachFeedback}`;
                     await saveFullState(); hideLoading(); hide('modal-readiness'); renderDashboard(); startTimerRoutine();
                 } else throw new Error();
-            } catch(e) { hideLoading(); window.showAlert("Erro", "Falha ao recalibrar. Iniciando original."); hide('modal-readiness'); startTimerRoutine(); }
+            } catch(e) { hideLoading(); hide('modal-readiness'); startTimerRoutine(); }
         }
 
         function startTimerRoutine() {
@@ -1385,8 +1242,7 @@
         function loadQueueItem(index) {
             if (index >= currentWorkoutQueue.length) {
                 clearInterval(timerInterval); document.body.classList.remove('no-scroll'); playBeep(880, 400, 'square'); 
-                hide('screen-timer'); // V1.6 ensure timer hides gracefully
-                openPostWorkout(); return;
+                hide('screen-timer'); openPostWorkout(); return;
             }
             const item = currentWorkoutQueue[index]; const nextItem = currentWorkoutQueue[index + 1]; timeLeft = item.duration;
             $('timer-step-counter').innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`; $('timer-ex-name').innerText = item.name;
@@ -1414,13 +1270,12 @@
         function updateTotalTimeUI() { if(totalWorkoutTimeLeft<0) totalWorkoutTimeLeft=0; $('timer-total-left').innerText = `${Math.floor(totalWorkoutTimeLeft/60).toString().padStart(2,'0')}:${(totalWorkoutTimeLeft%60).toString().padStart(2,'0')}`; }
 
         function openPostWorkout() {
-            show('screen-dashboard'); // Fallback background
+            show('screen-dashboard');
             show('modal-post-workout');
             $('step-ai-proposal').classList.add('hidden'); $('step-metrics-container').classList.remove('hidden');
             const cont = $('pse-buttons'); cont.innerHTML = ''; selectedPseValue = null; $('btn-eval-ai').disabled = true;
             $('pse-legend').innerText = 'Selecione o nível de esforço'; $('pse-legend').className = "text-center text-[11px] font-bold mt-2.5 text-slate-500 uppercase tracking-wider h-4";
 
-            // V1.6 PSE Legends array
             const pseTexts = ["Nenhum (0)", "Muito Leve (1)", "Leve (2)", "Moderado Leve (3)", "Moderado (4)", "Firme (5)", "Difícil (6)", "Muito Difícil (7)", "Fadigante (8)", "Quase Máximo (9)", "Exaustivo (10)"];
 
             for(let i=0; i<=10; i++) {
@@ -1434,8 +1289,6 @@
                     Array.from(cont.children).forEach(c => c.classList.remove('ring-2', 'ring-white', 'scale-105'));
                     b.classList.add('ring-2', 'ring-white', 'scale-105');
                     selectedPseValue = i; $('btn-eval-ai').disabled = false;
-                    
-                    // V1.6 Updates dynamically
                     $('pse-legend').innerText = pseTexts[i];
                     if(i <= 3) $('pse-legend').className = "text-center text-xs font-bold mt-2.5 text-green-400 uppercase tracking-wider h-4";
                     else if(i <= 7) $('pse-legend').className = "text-center text-xs font-bold mt-2.5 text-amber-400 uppercase tracking-wider h-4";
@@ -1447,26 +1300,26 @@
 
         window.evaluateWorkoutWithAI = async () => {
             if (selectedPseValue === null) return;
-            showLoading("Avaliando com I.A...", "Mapeando esforço e recuperação...");
+            showLoading("Avaliando com I.A...", "Processando métricas...");
             const hc = await getCumulativeHistoryContext();
-            const prompt = `Atue como Coach Sênior. Histórico: ${hc}. PSE Agora: ${selectedPseValue}/10. FC: ${$('pw-fc').value||'N/A'}. FC Rec(3m): ${$('pw-fc-rec').value||'N/A'}. Kcal: ${$('pw-kcal').value||'N/A'}.
-            TAREFAS: 1. 'coachFeedback' (Destaque o HRR FC Rec se existir). 2. 'suggestedDays'. 3. 'suggestedMinutes'. 4. 'workout'. REGRAS: Os 2 PRIMEIROS da queue DEVEM ser Aquecimento Dinâmico/Mobilidade.`;
+            const prompt = `Atue como Coach Sênior. Histórico: ${hc}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${$('pw-fc-rec').value||'N/A'}. Kcal: ${$('pw-kcal').value||'N/A'}.
+            TAREFAS: 1. 'coachFeedback'. 2. 'suggestedDays'. 3. 'suggestedMinutes'. 4. 'workout'.`;
             try {
                 aiEvaluationResult = await callGemini(prompt);
-                $('ai-suggestion-text').innerText = aiEvaluationResult.coachFeedback || "Sucesso.";
+                $('ai-suggestion-text').innerText = aiEvaluationResult.coachFeedback || "";
                 const nw = aiEvaluationResult.workout;
                 if (nw) {
                     $('prop-workout-name').innerText = nw.name || "Próxima Sessão"; $('prop-workout-focus').innerText = nw.focus;
                     $('prop-schedule-info').innerText = `Daqui a ${aiEvaluationResult.suggestedDays || 2} dia(s) (${aiEvaluationResult.suggestedMinutes || 45} min)`;
                     $('prop-workout-desc').innerText = `Exercícios: ${nw.queue.filter(q=>q.type==='work').map(w=>w.name).join(', ')}`;
                 }
-                if (aiEvaluationResult.suggestedDays) $('pw-next-days').value = Math.min(Math.max(aiEvaluationResult.suggestedDays, 1), 4);
-                if (aiEvaluationResult.suggestedMinutes) $('pw-next-mins').value = aiEvaluationResult.suggestedMinutes;
                 hideLoading(); $('step-metrics-container').classList.add('hidden'); $('step-ai-proposal').classList.remove('hidden');
             } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
         };
 
-        window.acceptAiProposal = async () => { if (aiEvaluationResult) await finalizeAndSaveWorkout(aiEvaluationResult.suggestedDays || 2, aiEvaluationResult.suggestedMinutes || 45); };
+        window.acceptAiProposal = async () => { 
+            if (aiEvaluationResult) await finalizeAndSaveWorkout(aiEvaluationResult.suggestedDays || 2, aiEvaluationResult.suggestedMinutes || 45); 
+        };
 
         async function finalizeAndSaveWorkout(days, mins) {
             showLoading("Salvando...");
@@ -1475,7 +1328,17 @@
                 currentPlan.workouts[nwIndex].isCompleted = true;
                 const rd = currentPlan.workouts[nwIndex].readiness;
                 try {
-                    await addDoc(collection(db, `users/${currentUser.uid}/history`), { date: new Date().toISOString(), workoutName: currentPlan.workouts[nwIndex].name, pse: selectedPseValue, fc: $('pw-fc').value?parseFloat($('pw-fc').value):null, fcMax: $('pw-fc-max').value?parseFloat($('pw-fc-max').value):null, fcRec: $('pw-fc-rec').value?parseFloat($('pw-fc-rec').value):null, kcal: $('pw-kcal').value?parseFloat($('pw-kcal').value):null, readinessEnergy: rd?rd.energy:null, aiFeedback: aiEvaluationResult?.coachFeedback||"OK" });
+                    await addDoc(collection(db, `users/${currentUser.uid}/history`), { 
+                        date: new Date().toISOString(), 
+                        workoutName: currentPlan.workouts[nwIndex].name, 
+                        pse: selectedPseValue, 
+                        fc: $('pw-fc').value ? parseFloat($('pw-fc').value) : null, 
+                        fcMax: $('pw-fc-max').value ? parseFloat($('pw-fc-max').value) : null, 
+                        fcRec: $('pw-fc-rec').value ? parseFloat($('pw-fc-rec').value) : null, 
+                        kcal: $('pw-kcal').value ? parseFloat($('pw-kcal').value) : null, 
+                        readinessEnergy: rd ? rd.energy : null, 
+                        aiFeedback: aiEvaluationResult?.coachFeedback || "" 
+                    });
                 } catch(e) {}
             }
 
@@ -1483,25 +1346,17 @@
             if(nxw) { nxw.id = `w_${Date.now()}`; nxw.isCompleted = false; if(mins) nxw.estimatedMinutes = parseInt(mins); currentPlan.workouts.push(nxw); }
             if(aiEvaluationResult.coachFeedback) currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
             
-            // V1.6 Update next date
             const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + parseInt(days));
             currentPlan.nextWorkoutDate = nextDate.toISOString();
 
             await saveFullState();
             hideLoading(); hide('modal-post-workout');
             renderDashboard(); switchTab('training');
+            
+            window.showAlert("Treino Concluído!", `A I.A. ajustou e estruturou seu plano. Seu próximo treino está agendado para ${nextDate.toLocaleDateString('pt-BR')}.`);
         }
 
-        window.toggleCalibrationPanel = () => $('calibration-subpanel').classList.toggle('hidden');
-        window.saveWithCalibration = async () => {
-            showLoading("Recalibrando...", "Ajustando manualmente...");
-            const hc = await getCumulativeHistoryContext();
-            const p = `Atue como Coach. Pedido manual: Tempo: ${$('pw-next-mins').value} min. Foco: ${$('pw-pref').value}. Hist: ${hc}. REGRAS: 1. workout adaptado ao pedido. 2. 2 PRIMEIROS itens = Aquecimento/Mobilidade.`;
-            try {
-                const res = await callGemini(p); aiEvaluationResult.workout = res.workout; if (res.coachFeedback) aiEvaluationResult.coachFeedback = res.coachFeedback;
-                await finalizeAndSaveWorkout($('pw-next-days').value, $('pw-next-mins').value);
-            } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
-        };
+        window.toggleCalibrationPanel = () => $('calibration-subpanel')?.classList.toggle('hidden');
 
         window.saveCheckin = async () => {
             const w = $('checkin-weight').value; const bf = $('checkin-bf').value; if(!w || !bf) return window.showAlert("Erro", "Preencha todos os campos");
@@ -1510,14 +1365,109 @@
         };
 
         async function renderCharts() {
-            // Reusing existing robust chart implementation (condensed to maintain focus on functionality)
             try {
-                const snap = await getDocs(collection(db, `users/${currentUser.uid}/checkins`)); let cd = []; snap.forEach(d => cd.push(d.data())); cd.sort((a,b) => new Date(a.date) - new Date(b.date));
-                const labels = cd.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})); const weights = cd.map(d => d.weight); const bfs = cd.map(d => d.bf);
-                Chart.defaults.color = '#94a3b8'; Chart.defaults.font.family = 'Inter';
-                if(chartWeight) chartWeight.destroy(); chartWeight = new Chart($('chart-weight'), { type: 'line', data: { labels, datasets: [ { label: 'Peso', data: weights, borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.4 }, { label: 'Meta', data: Array(labels.length).fill(userData.targetWeight), borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } ] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-                if(chartBf) chartBf.destroy(); chartBf = new Chart($('chart-bf'), { type: 'line', data: { labels, datasets: [ { label: '% Gordura', data: bfs, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.2)', fill: true, tension: 0.4 }, { label: 'Meta', data: Array(labels.length).fill(userData.targetBf), borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } ] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } });
-            } catch(e) {}
+                const snapCheckins = await getDocs(collection(db, `users/${currentUser.uid}/checkins`)); 
+                let checkinData = []; 
+                snapCheckins.forEach(d => checkinData.push(d.data())); 
+                checkinData.sort((a,b) => new Date(a.date) - new Date(b.date));
+                
+                const labelsCheckin = checkinData.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})); 
+                const weights = checkinData.map(d => d.weight); 
+                const bfs = checkinData.map(d => d.bf);
+                
+                const snapHistory = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                let historyData = [];
+                snapHistory.forEach(d => historyData.push(d.data()));
+                historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
+
+                const labelsHistory = historyData.map(d => new Date(d.date).toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'}));
+                const fcAvg = historyData.map(d => d.fc || 0);
+                const fcMax = historyData.map(d => d.fcMax || 0);
+                const kcals = historyData.map(d => d.kcal || 0);
+                const fcRecs = historyData.map(d => d.fcRec || 0);
+
+                Chart.defaults.color = '#94a3b8'; 
+                Chart.defaults.font.family = 'Inter';
+                
+                const ctxWeight = document.getElementById('chart-weight');
+                if (ctxWeight) {
+                    if (chartWeight) { chartWeight.destroy(); chartWeight = null; }
+                    chartWeight = new Chart(ctxWeight, { 
+                        type: 'line', 
+                        data: { 
+                            labels: labelsCheckin, 
+                            datasets: [ 
+                                { label: 'Peso', data: weights, borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.4 }, 
+                                { label: 'Meta', data: Array(labelsCheckin.length).fill(userData?.targetWeight || 70), borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } 
+                            ] 
+                        }, 
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } 
+                    });
+                }
+
+                const ctxBf = document.getElementById('chart-bf');
+                if (ctxBf) {
+                    if (chartBf) { chartBf.destroy(); chartBf = null; }
+                    chartBf = new Chart(ctxBf, { 
+                        type: 'line', 
+                        data: { 
+                            labels: labelsCheckin, 
+                            datasets: [ 
+                                { label: '% Gordura', data: bfs, borderColor: '#f97316', backgroundColor: 'rgba(249, 115, 22, 0.2)', fill: true, tension: 0.4 }, 
+                                { label: 'Meta', data: Array(labelsCheckin.length).fill(userData?.targetBf || 15), borderColor: '#334155', borderDash: [5,5], fill: false, pointRadius: 0 } 
+                            ] 
+                        }, 
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } } 
+                    });
+                }
+
+                const ctxFc = document.getElementById('chart-fc');
+                if (ctxFc) {
+                    if (chartFc) { chartFc.destroy(); chartFc = null; }
+                    chartFc = new Chart(ctxFc, {
+                        type: 'line',
+                        data: {
+                            labels: labelsHistory,
+                            datasets: [
+                                { label: 'FC Média', data: fcAvg, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.2)', fill: true, tension: 0.4 },
+                                { label: 'FC Máxima', data: fcMax, borderColor: '#f87171', borderDash: [3,3], fill: false, tension: 0.4 }
+                            ]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: true, labels: { boxWidth: 10, font: { size: 10 } } } } }
+                    });
+                }
+
+                const ctxKcal = document.getElementById('chart-kcal');
+                if (ctxKcal) {
+                    if (chartKcal) { chartKcal.destroy(); chartKcal = null; }
+                    chartKcal = new Chart(ctxKcal, {
+                        type: 'bar',
+                        data: {
+                            labels: labelsHistory,
+                            datasets: [
+                                { label: 'Calorias (kcal)', data: kcals, backgroundColor: '#f59e0b', borderRadius: 6 }
+                            ]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                    });
+                }
+
+                const ctxFcrec = document.getElementById('chart-fcrec');
+                if (ctxFcrec) {
+                    if (chartFcrec) { chartFcrec.destroy(); chartFcrec = null; }
+                    chartFcrec = new Chart(ctxFcrec, {
+                        type: 'line',
+                        data: {
+                            labels: labelsHistory,
+                            datasets: [
+                                { label: 'Queda FC (3 min)', data: fcRecs, borderColor: '#ec4899', backgroundColor: 'rgba(236, 72, 153, 0.2)', fill: true, tension: 0.4 }
+                            ]
+                        },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                    });
+                }
+
+            } catch(e) { console.error("Erro ao renderizar gráficos:", e); }
         }
         
         async function loadHistory() {
@@ -1549,9 +1499,42 @@
         };
         function renderReportUI(r) { $('progress-report-content').innerHTML = `<div class="space-y-3"><div class="border-b border-slate-800 pb-2"><span class="text-[9px] text-slate-500 font-bold block mb-1">Última: ${new Date(r.date).toLocaleDateString('pt-BR')}</span><p class="text-xs text-slate-300"><strong class="text-white">Diagnóstico:</strong> ${r.analysis}</p></div><div class="border-b border-slate-800 pb-2"><p class="text-xs text-slate-300"><strong class="text-brand-400"><i class="fas fa-clock w-4"></i> Previsão:</strong> ${r.estimatedTime}</p></div><div><p class="text-xs text-slate-300"><strong class="text-purple-400"><i class="fas fa-road w-4"></i> Passos:</strong> ${r.nextSteps}</p></div></div>`; }
 
-        window.openWorkoutLibraryModal = () => show('modal-workout-library'); // simplified static lib trigger
+        window.openWorkoutLibraryModal = () => {
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if (!nw || !nw.queue) return;
+            
+            const listContainer = $('mwl-list');
+            listContainer.innerHTML = '';
+            $('mwl-title').innerText = nw.name || "Sessão Atual";
+            
+            const workExercises = nw.queue.filter(q => q.type === 'work');
+            
+            if (workExercises.length === 0) {
+                listContainer.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Nenhum exercício encontrado nesta sessão.</p>';
+            } else {
+                const uniqueExercises = [...new Set(workExercises.map(ex => ex.name))];
+                const colors = ['bg-brand-500', 'bg-purple-500', 'bg-orange-500', 'bg-green-500', 'bg-pink-500'];
+                
+                uniqueExercises.forEach((exName, idx) => {
+                    const colorClass = colors[idx % colors.length];
+                    const searchStr = encodeURIComponent("como fazer " + exName + " corretamente calistenia");
+                    const exData = workExercises.find(q => q.name === exName);
+                    const roundInfo = exData && exData.roundInfo ? exData.roundInfo : "Foque na postura correta, amplitude completa e respiração controlada.";
+                    
+                    listContainer.innerHTML += `
+                    <div class="bg-dark-950 p-4 rounded-2xl border border-slate-800 shadow-md relative overflow-hidden mb-3">
+                        <div class="absolute left-0 top-0 w-1.5 h-full ${colorClass}"></div>
+                        <h3 class="text-white font-bold text-sm mb-1">${exName}</h3>
+                        <p class="text-[11px] text-slate-300 font-medium mb-2 leading-relaxed"><i class="fas fa-bullseye text-slate-500 mr-1"></i> <strong>Execução:</strong> ${roundInfo}</p>
+                        <a href="https://www.youtube.com/results?search_query=${searchStr}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors mt-1">
+                            <i class="fab fa-youtube text-sm"></i> Ver Vídeo Demonstrativo
+                        </a>
+                    </div>`;
+                });
+            }
+            show('modal-workout-library');
+        };
 
-        // Chat logic
         function escapeHtml(text) { const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }; return text.replace(/[&<>"']/g, m => map[m]); }
         async function loadChatHistory() {
             try {
