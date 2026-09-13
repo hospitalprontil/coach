@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach - Calistenia Dinâmica v2.1</title>
+    <title>AI Coach Híbrido v3.0 - Calistenia, Corrida & Musculação</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 
@@ -28,11 +28,13 @@
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06); }
+        .glass-panel { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
         .timer-circle { transition: stroke-dashoffset 1s linear, stroke 0.3s ease; transform: rotate(-90deg); transform-origin: 50% 50%; }
         .no-scroll { overflow: hidden; }
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .accordion-content { transition: max-height 0.3s cubic-bezier(0, 1, 0, 1); overflow: hidden; }
+        .accordion-content.expanded { max-height: 1000px; transition: max-height 0.3s ease-in-out; }
     </style>
 </head>
 <body class="min-h-screen font-sans flex flex-col items-center custom-scrollbar">
@@ -70,13 +72,40 @@
     </div>
 
     <!-- Loading Overlay -->
-    <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex-col items-center justify-center hidden p-6 text-center">
+    <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
         <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-        <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. em Ação...</h2>
+        <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. Híbrido em Ação...</h2>
         <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
     </div>
 
-    <!-- Next Workout Reminder Modal -->
+    <!-- Proactive Scan Calibration Modal -->
+    <div id="modal-proactive-calibration" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[180] hidden items-center justify-center p-4">
+        <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 via-purple-500 to-amber-500"></div>
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center border border-brand-500/30 shrink-0">
+                    <i class="fas fa-layer-group text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Perfil Híbrido Detectado</span>
+                    <h3 class="text-base font-black text-white">Calibração de Novas Modalidades</h3>
+                </div>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                Notamos que seu perfil possui excelente histórico, mas ainda não cadastrou parâmetros de <strong class="text-brand-400">Corrida</strong> ou <strong class="text-purple-400">Musculação</strong>. Vamos fazer uma anamnese rápida para calibrar seu ritmo de Pace e cargas?
+            </p>
+            <div class="space-y-3 mb-6">
+                <button onclick="window.startProactiveAnamnesis()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide flex items-center justify-center gap-2">
+                    <i class="fas fa-comments"></i> Calibrar Agora com a I.A.
+                </button>
+                <button onclick="window.skipProactiveCalibration()" class="w-full bg-dark-950 hover:bg-slate-800 text-slate-400 border border-slate-800 font-bold py-3 rounded-2xl transition-colors text-xs uppercase tracking-wide">
+                    Configurar Depois / Pular por enquanto
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Next Workout Reminder -->
     <div id="modal-next-workout-reminder" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[150] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 to-purple-500"></div>
@@ -85,11 +114,9 @@
                 <h3 class="text-lg font-black text-white">Status do Treino</h3>
                 <p id="reminder-message" class="text-sm text-slate-300 font-bold mt-2 bg-dark-950 py-2 rounded-xl border border-slate-800">Seu treino é HOJE!</p>
             </div>
-            
             <button onclick="window.hide('modal-next-workout-reminder')" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-sm uppercase tracking-wide mb-4">
                 <i class="fas fa-thumbs-up mr-1"></i> OK, Entendi
             </button>
-            
             <div class="pt-4 border-t border-slate-800">
                 <p class="text-[10px] text-slate-400 uppercase font-bold text-center mb-3">Deseja alterar a data?</p>
                 <div class="flex gap-2">
@@ -99,81 +126,76 @@
                         <option value="2">Adiar 2 dias</option>
                         <option value="3">Adiar 3 dias</option>
                     </select>
-                    <button onclick="window.rescheduleWorkout()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 rounded-xl transition-colors text-xs border border-slate-700">
-                        Salvar
-                    </button>
+                    <button onclick="window.rescheduleWorkout()" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 rounded-xl transition-colors text-xs border border-slate-700">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- What's New v2.1 -->
-    <div id="modal-whats-new" class="fixed inset-0 bg-black/85 backdrop-blur-md z-[300] hidden items-center justify-center p-4">
-        <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-green-500"></div>
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center border border-brand-500/30 shrink-0">
-                    <i class="fas fa-rocket text-xl"></i>
-                </div>
-                <div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Atualização v2.1</span>
-                    <h3 class="text-lg font-black text-white">Fluxo de Onboarding Melhorado</h3>
-                </div>
+    <!-- Modal Change Master Axis -->
+    <div id="modal-change-axis" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[170] hidden items-center justify-center p-4">
+        <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 to-brand-400"></div>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base font-black text-white"><i class="fas fa-route text-purple-400 mr-2"></i>Alterar Eixo Mestre</h3>
+                <button onclick="window.hide('modal-change-axis')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
             </div>
-            <div class="space-y-3 mb-6 text-xs text-slate-300">
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-route text-green-400 mt-0.5"></i>
-                    <div><strong class="text-white">Redirecionamento Inteligente:</strong> Ao criar sua conta, o app te leva direto para a aba de Plano Inicial para você ler sua avaliação, antes de ir aos treinos.</div>
-                </div>
-                <div class="flex items-start gap-2.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <i class="fas fa-layer-group text-brand-400 mt-0.5"></i>
-                    <div><strong class="text-white">Reorganização das Abas:</strong> O "Plano Inicial" agora fica posicionado estrategicamente ao lado de "Treinamento" no topo da tela.</div>
-                </div>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                Ao alterar seu Eixo Mestre, a I.A. usará suas métricas fisiológicas e seu histórico biomecânico acumulado para recalibrar seu plano principal sem apagar seus gráficos.
+            </p>
+            <div class="space-y-3 mb-6">
+                <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                    <input type="radio" name="new-master-axis" value="Calistenia" class="w-4 h-4 accent-brand-500">
+                    <div>
+                        <span class="text-xs font-black text-white block">Calistenia (Domínio do Peso Corporal)</span>
+                        <span class="text-[10px] text-slate-400">Flexões, barras, de ponta-cabeça e isometricos.</span>
+                    </div>
+                </label>
+                <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-amber-500/50 transition-colors">
+                    <input type="radio" name="new-master-axis" value="Corrida" class="w-4 h-4 accent-amber-500">
+                    <div>
+                        <span class="text-xs font-black text-white block">Corrida (Cardio & Pace)</span>
+                        <span class="text-[10px] text-slate-400">Treinos intervalados, tiros, ritmo e rodagem contínua.</span>
+                    </div>
+                </label>
+                <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-purple-500/50 transition-colors">
+                    <input type="radio" name="new-master-axis" value="Musculação" class="w-4 h-4 accent-purple-500">
+                    <div>
+                        <span class="text-xs font-black text-white block">Musculação (Sobrecarga de Cargas)</span>
+                        <span class="text-[10px] text-slate-400">Halteres, barras, aparelhos e hipertrofia focada.</span>
+                    </div>
+                </label>
             </div>
-            <button onclick="window.closeWhatsNew()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar Versão 2.1 <i class="fas fa-arrow-right ml-1"></i>
+            <button onclick="window.confirmAxisChange()" class="w-full bg-gradient-to-r from-purple-600 to-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)] text-xs uppercase tracking-wide">
+                Confirmar Novo Eixo Mestre
             </button>
         </div>
     </div>
 
-    <!-- Combined Changelog -->
+    <!-- Modal Changelog -->
     <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[80vh] flex flex-col">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
                 <div>
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Histórico de Versões</span>
-                    <h3 class="text-base font-black text-white">Changelog do AI Coach</h3>
+                    <h3 class="text-base font-black text-white">Changelog AI Coach Híbrido</h3>
                 </div>
                 <button onclick="window.hide('modal-changelog')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
             </div>
             <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-1 text-xs text-slate-300">
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/30">
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-brand-400 text-sm">v2.1 (Atual)</span>
+                        <span class="font-black text-brand-400 text-sm">v3.0 (Super App Híbrido)</span>
                         <span class="text-[10px] text-slate-500">13 de Setembro de 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Reorganização das abas: Plano Inicial após Treinamento.<br>• Exibição automática do Plano Inicial logo após criar a conta.<br>• Refinamentos na fluidez de interface pós-onboarding.</p>
+                    <p class="text-slate-400 leading-relaxed">• Suporte Híbrido Completo: Calistenia, Corrida e Musculação.<br>• Varredura Proativa no Login com opção de pular.<br>• Troca Dinâmica do Eixo Mestre com migração biomecânica.<br>• Botão de Logout rápido diretamente no Cabeçalho Superior.<br>• Área de Perigo minimizada em Accordion expansível no Perfil.<br>• Cards do Histórico com Pace, Distância, HRR e Calorias.</p>
                 </div>
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v2.0</span>
+                        <span class="font-black text-white text-sm">v2.1</span>
                         <span class="text-[10px] text-slate-500">13 de Setembro de 2026</span>
                     </div>
-                    <p class="text-slate-400 leading-relaxed">• Nova Tela de Boas-vindas.<br>• Criação da aba "Meu Perfil".<br>• I.A. agora chama o usuário pelo nome.<br>• Gráficos mistos (Linha vs Tracejado).<br>• Centralização de exclusão de dados.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.9</span>
-                        <span class="text-[10px] text-slate-500">13 de Setembro de 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Separação rigorosa de Exercício/Descanso pela I.A.<br>• Remoção da aba Biblioteca Genérica.</p>
-                </div>
-                <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <div class="flex justify-between items-center mb-1">
-                        <span class="font-black text-white text-sm">v1.8</span>
-                        <span class="text-[10px] text-slate-500">12 de Setembro de 2026</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">• Aba "Treinamento" como padrão inicial.<br>• Geração de Links do Youtube dinâmicos.</p>
+                    <p class="text-slate-400 leading-relaxed">• Fluxo de Onboarding melhorado com Plano Inicial em destaque.<br>• Reorganização estratégica de abas.</p>
                 </div>
             </div>
         </div>
@@ -189,17 +211,17 @@
             </div>
         </div>
 
-        <div class="text-center mb-10 relative w-full">
+        <div class="text-center mb-8 relative w-full">
             <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full w-32 h-32 mx-auto"></div>
             <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
-                <i class="fas fa-dumbbell text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
+                <i class="fas fa-layer-group text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
             </div>
-            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline" title="Ver Histórico de Versões">v2.1</span></h1>
-            <p class="text-slate-400 font-medium mt-1">Sua evolução calculada por I.A.</p>
+            <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline">v3.0</span></h1>
+            <p class="text-slate-400 font-medium mt-1">Super App Híbrido: Calistenia, Corrida & Musculação</p>
         </div>
 
         <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden w-full">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 to-brand-300"></div>
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-600 via-purple-500 to-amber-500"></div>
             
             <div class="flex bg-dark-900 rounded-2xl p-1.5 mb-6 border border-slate-800">
                 <button id="tab-login" class="flex-1 py-2.5 text-sm font-bold text-white bg-slate-800 rounded-xl shadow transition-all">Entrar</button>
@@ -209,67 +231,78 @@
             <form id="auth-form" class="space-y-4">
                 <div>
                     <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">E-mail</label>
-                    <div class="relative"><i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="email" id="auth-email" required class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
+                    <div class="relative"><i class="fas fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="email" id="auth-email" required class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors text-sm"></div>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Senha</label>
-                    <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-password" required minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
+                    <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-password" required minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors text-sm"></div>
                 </div>
                 <div id="signup-fields" class="hidden space-y-4">
                     <div>
                         <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Repetir Senha</label>
-                        <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-confirm-password" minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors shadow-inner text-sm"></div>
+                        <div class="relative"><i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i><input type="password" id="auth-confirm-password" minlength="6" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 pl-10 pr-4 text-white outline-none transition-colors text-sm"></div>
                     </div>
                 </div>
-                <button type="submit" id="auth-submit-btn" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] mt-2 uppercase tracking-wide text-sm">Entrar na Conta</button>
+                <button type="submit" id="auth-submit-btn" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] mt-2 uppercase tracking-wide text-sm">Entrar na Conta</button>
             </form>
         </div>
     </div>
 
-    <!-- Welcome Screen (New Users Only) -->
-    <div id="screen-welcome" class="w-full max-w-md p-6 mt-10 mx-auto hidden flex-col items-center animate-fade-in">
-        <div class="text-center mb-8">
-            <div class="w-20 h-20 bg-brand-500/10 border border-brand-500/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-hand-sparkles text-3xl text-brand-400"></i>
+    <!-- Onboarding Step 1: Identification -->
+    <div id="screen-step1-id" class="w-full max-w-md p-6 mt-6 mx-auto hidden flex-col items-center animate-fade-in">
+        <div class="text-center mb-6">
+            <div class="w-16 h-16 bg-brand-500/10 border border-brand-500/30 rounded-2xl flex items-center justify-center mx-auto mb-3 text-brand-400">
+                <i class="fas fa-id-card text-2xl"></i>
             </div>
-            <h2 class="text-2xl font-black text-white mb-2">Bem-vindo ao AI Coach</h2>
-            <p class="text-sm text-slate-400 leading-relaxed font-medium">Este não é um app de treinos genéricos. Você terá uma <strong class="text-brand-400">Inteligência Artificial</strong> dedicada a adaptar cada sessão ao seu cansaço, evolução e rotina diária.</p>
+            <h2 class="text-2xl font-black text-white">Como podemos te chamar?</h2>
+            <p class="text-xs text-slate-400 mt-1">Primeiro passo para personalizar sua Inteligência Artificial.</p>
         </div>
 
-        <form id="welcome-form" class="w-full space-y-5 bg-dark-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
+        <form id="step1-form" class="w-full space-y-4 bg-dark-900 border border-slate-800 p-6 rounded-3xl shadow-xl">
             <div>
-                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">Qual é o seu nome completo?</label>
-                <input type="text" id="welcome-name" required placeholder="Ex: João da Silva" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-xl py-3 px-4 text-white outline-none transition-colors shadow-inner text-sm">
+                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Nome Completo</label>
+                <input type="text" id="ob-name" required placeholder="Ex: João Silva Santos" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 px-4 text-white outline-none text-sm">
             </div>
             <div>
-                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-2">Como prefere ser chamado?</label>
-                <input type="text" id="welcome-nick" required placeholder="Ex: João" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-xl py-3 px-4 text-white outline-none transition-colors shadow-inner text-sm">
-                <p class="text-[10px] text-slate-500 mt-1">Sua I.A. usará este nome para se comunicar com você.</p>
+                <label class="text-xs font-bold text-slate-300 uppercase tracking-wider block mb-1">Apelido (Como deseja ser chamado)</label>
+                <input type="text" id="ob-nick" required placeholder="Ex: João" class="w-full bg-dark-950 border border-slate-700 focus:border-brand-500 rounded-2xl py-3 px-4 text-white outline-none text-sm">
+                <p class="text-[10px] text-slate-500 mt-1">Sua I.A. usará este apelido diretamente no diálogo com você.</p>
             </div>
-            
-            <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] mt-2 uppercase tracking-wide text-sm flex items-center justify-center gap-2">
-                Continuar <i class="fas fa-arrow-right"></i>
+            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-sm uppercase tracking-wide mt-2">
+                Avançar <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </form>
     </div>
 
-    <!-- Onboarding Screen -->
-    <div id="screen-onboarding" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center">
-        <div class="mb-6 flex items-center justify-between w-full">
-            <div>
-                <h2 class="text-2xl font-black text-white">Análise Física</h2>
-                <p class="text-brand-400 text-sm font-medium">Calibração inicial da I.A.</p>
+    <!-- Onboarding Step 2: Humanized Welcome Screen -->
+    <div id="screen-step2-welcome" class="w-full max-w-md p-6 mt-4 mx-auto hidden flex-col items-center animate-fade-in">
+        <div class="glass-panel p-6 rounded-3xl border border-brand-500/30 shadow-2xl text-center space-y-4 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 via-purple-500 to-amber-500"></div>
+            <div class="w-20 h-20 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/40 flex items-center justify-center mx-auto text-3xl shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+                <i class="fas fa-hand-sparkles"></i>
             </div>
-            <div class="flex items-center gap-2">
-                <button onclick="window.logOut()" class="text-slate-400 hover:text-white transition-colors p-2" title="Sair"><i class="fas fa-sign-out-alt text-lg"></i></button>
+            <h2 class="text-2xl font-black text-white">Bem-vindo(a), <span id="welcome-nick-display" class="text-brand-400">Aluno</span>!</h2>
+            <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-left bg-dark-950 p-4 rounded-2xl border border-slate-800">
+                <p><strong class="text-white">Este é o seu Super App de Treino Híbrido, Dinâmico e Integrado.</strong></p>
+                <p>Aqui você não fica preso a uma única modalidade. Sob a mesma Inteligência Artificial, você pode combinar <strong class="text-brand-400">Calistenia</strong> (força relativa), <strong class="text-amber-400">Corrida</strong> (cardio e pace) e <strong class="text-purple-400">Musculação</strong> (carga pesada).</p>
+                <p>A I.A. calcula sua fadiga geral, ajusta seus descansos e gerencia sua evolução para você evoluir sem lesões.</p>
             </div>
+            <button onclick="window.goToStep3()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] uppercase tracking-wide text-sm">
+                Configurar Meu Biotipo <i class="fas fa-arrow-right ml-1"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Onboarding Step 3: Biometrics -->
+    <div id="screen-step3-biometrics" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center">
+        <div class="mb-4 text-center">
+            <h2 class="text-xl font-black text-white">Métricas Fisiológicas</h2>
+            <p class="text-xs text-brand-400 font-medium">Calibragem do organismo e objetivos</p>
         </div>
 
-        <form id="onboarding-form" class="space-y-4 pb-12 w-full">
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-500"></div>
-                <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-id-card text-brand-400 mr-2"></i>Métricas Atuais</h3>
-                
+        <form id="step3-form" class="space-y-4 w-full pb-10">
+            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4">
+                <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-ruler-combined text-brand-400 mr-2"></i>Biometria Atual</h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Idade</label>
@@ -280,77 +313,44 @@
                         <input id="ob-height" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                 </div>
-                
-                <div class="grid grid-cols-2 gap-3 items-start">
+                <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Peso Atual (kg)</label>
                         <input id="ob-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
                     </div>
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">% Gordura Est.</label>
-                        <div class="flex flex-col gap-2">
-                            <input id="ob-bf" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
-                            <label class="flex items-center gap-2 text-[10px] text-slate-400 cursor-pointer hover:text-white transition-colors">
-                                <input type="checkbox" id="ob-bf-unknown" class="w-3.5 h-3.5 accent-brand-500" onchange="window.toggleBfUnknown()"> Não sei meu %
-                            </label>
-                            <select id="ob-bf-select" class="hidden w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white focus:border-brand-500 outline-none">
-                                <option value="10">Magro/Definido (~10%)</option>
-                                <option value="14">Magro sem músculos (~14%)</option>
-                                <option value="18" selected>Falso Magro/Barriga (~18%)</option>
-                                <option value="25">Sobrepeso Leve (~25%)</option>
-                                <option value="32">Sobrepeso Alto (~32%+)</option>
-                            </select>
-                        </div>
+                        <input id="ob-bf" type="number" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white focus:border-brand-500 outline-none">
+                        <label class="flex items-center gap-2 text-[10px] text-slate-400 mt-2 cursor-pointer">
+                            <input type="checkbox" id="ob-bf-unknown" class="w-3.5 h-3.5 accent-brand-500" onchange="window.toggleBfUnknown()"> Não sei meu %
+                        </label>
+                        <select id="ob-bf-select" class="hidden w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white mt-1">
+                            <option value="10">Magro/Definido (~10%)</option>
+                            <option value="14">Magro sem músculos (~14%)</option>
+                            <option value="18" selected>Falso Magro/Barriga (~18%)</option>
+                            <option value="25">Sobrepeso Leve (~25%)</option>
+                            <option value="32">Sobrepeso Alto (~32%+)</option>
+                        </select>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
-                <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-bullseye text-purple-400 mr-2"></i>Objetivos</h3>
-                
+            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4">
+                <h3 class="font-bold text-slate-200 border-b border-slate-800 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-bullseye text-purple-400 mr-2"></i>Metas & Disponibilidade</h3>
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta % Gordura</label>
-                        <input id="ob-target-bf" type="number" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none">
+                        <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta Peso (kg)</label>
+                        <input id="ob-target-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white outline-none">
                     </div>
                     <div>
-                        <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta de Peso(kg)</label>
-                        <input id="ob-target-weight" type="number" step="0.1" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white focus:border-purple-500 outline-none">
+                        <label class="text-[10px] text-purple-300 block font-bold uppercase mb-1">Meta % Gordura</label>
+                        <input id="ob-target-bf" type="number" required class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3 py-2.5 text-sm text-white outline-none">
                     </div>
                 </div>
-                <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1 mt-1">Objetivo Principal (Análise Detalhada)</label>
-                    <textarea id="ob-goal" rows="3" required placeholder="Escreva detalhadamente seus objetivos, histórico de lesões, nível de condicionamento..." class="w-full bg-slate-950 border border-slate-700 focus:border-purple-500 outline-none rounded-2xl px-3.5 py-3 text-xs text-white resize-none shadow-inner"></textarea>
-                </div>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
-                <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-heartbeat text-amber-400 mr-2"></i>Situação Física Atual</h3>
-                
-                <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1">1. Condicionamento físico atual?</label>
-                    <textarea id="ob-cond" rows="2" required placeholder="Ex: Sedentário, intermediário..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 outline-none rounded-2xl px-3.5 py-2.5 text-xs text-white resize-none shadow-inner"></textarea>
-                </div>
-                <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1">2. Prática de atividade física?</label>
-                    <textarea id="ob-activity" rows="2" required placeholder="Ex: Nenhuma rotina no momento..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 outline-none rounded-2xl px-3.5 py-2.5 text-xs text-white resize-none shadow-inner"></textarea>
-                </div>
-                <div>
-                    <label class="text-[10px] text-slate-300 block font-bold uppercase mb-1">3. Conhecimento sobre calistenia?</label>
-                    <textarea id="ob-knowledge" rows="2" required placeholder="Ex: Básico, zero conhecimento, avançado..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 outline-none rounded-2xl px-3.5 py-2.5 text-xs text-white resize-none shadow-inner"></textarea>
-                </div>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl shadow-xl border border-slate-800 space-y-4 relative overflow-hidden w-full">
-                <div class="absolute top-0 left-0 w-1.5 h-full bg-green-500"></div>
-                <h3 class="font-bold text-slate-200 border-b border-slate-800/80 pb-2 text-xs uppercase tracking-wider"><i class="fas fa-clock text-green-400 mr-2"></i>Disponibilidade</h3>
-                
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Dias na Semana</label>
-                        <select id="ob-days" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none">
+                        <select id="ob-days" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
                             <option value="2">2 Dias</option>
                             <option value="3" selected>3 Dias</option>
                             <option value="4">4 Dias</option>
@@ -360,39 +360,115 @@
                     </div>
                     <div>
                         <label class="text-[10px] text-slate-400 block font-bold uppercase mb-1">Tempo por Treino</label>
-                        <select id="ob-mins" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-sm text-white font-bold outline-none">
+                        <select id="ob-mins" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
                             <option value="20">20 min</option>
                             <option value="30">30 min</option>
                             <option value="45" selected>45 min</option>
                             <option value="60">60 min</option>
-                            <option value="90">90 min</option>
                         </select>
                     </div>
                 </div>
             </div>
 
-            <button type="submit" class="w-full bg-gradient-to-r from-brand-600 to-brand-400 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.4)] text-sm uppercase tracking-widest mt-2">
-                Avaliar perfil e gerar plano <i class="fas fa-brain ml-2"></i>
+            <button type="submit" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-sm uppercase tracking-wide">
+                Escolher Eixo Mestre <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </form>
+    </div>
+
+    <!-- Onboarding Step 4: Master Axis -->
+    <div id="screen-step4-axis" class="w-full max-w-md p-6 hidden mx-auto flex-col items-center animate-fade-in">
+        <div class="text-center mb-6">
+            <h2 class="text-xl font-black text-white">Selecione seu Eixo Mestre</h2>
+            <p class="text-xs text-slate-400 mt-1">Sua modalidade principal (você poderá variar no dia a dia).</p>
+        </div>
+
+        <div class="space-y-4 w-full">
+            <button onclick="window.selectMasterAxis('Calistenia')" class="w-full glass-panel p-5 rounded-3xl border border-brand-500/40 text-left hover:border-brand-400 transition-all group flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-black text-white">1. Calistenia (Eixo Principal)</h3>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">Foco no controle corporal, flexões, barras, de ponta-cabeça e força relativa sem pesos.</p>
+                </div>
+            </button>
+
+            <button onclick="window.selectMasterAxis('Corrida')" class="w-full glass-panel p-5 rounded-3xl border border-amber-500/40 text-left hover:border-amber-400 transition-all group flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-running"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-black text-white">2. Corrida (Eixo Principal)</h3>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">Foco em capacidade cardiorrespiratória, ritmo de Pace, tiros intervalados e rodagem.</p>
+                </div>
+            </button>
+
+            <button onclick="window.selectMasterAxis('Musculação')" class="w-full glass-panel p-5 rounded-3xl border border-purple-500/40 text-left hover:border-purple-400 transition-all group flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-black text-white">3. Musculação (Eixo Principal)</h3>
+                    <p class="text-xs text-slate-400 mt-1 leading-relaxed">Foco na sobrecarga progressiva com cargas, halteres, aparelhos e hipertrofia direcionada.</p>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Onboarding Step 5: Conversational AI Anamnesis -->
+    <div id="screen-step5-anamnesis" class="w-full max-w-md p-4 hidden mx-auto flex flex-col h-[calc(100vh-40px)] animate-fade-in">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+            <div>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider">Anamnese Conversacional</span>
+                <h3 class="text-base font-black text-white">Entrevista Clínico-Esportiva</h3>
+            </div>
+            <div class="w-8 h-8 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center"><i class="fas fa-robot text-xs"></i></div>
+        </div>
+
+        <div id="anamnesis-chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl">
+            <!-- Messages dynamic -->
+        </div>
+
+        <div class="flex gap-2 pt-3">
+            <input type="text" id="anamnesis-input" placeholder="Responda o Coach I.A..." class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none">
+            <button onclick="window.sendAnamnesisMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"><i class="fas fa-paper-plane"></i></button>
+        </div>
+        <button onclick="window.finishAnamnesisAndGeneratePlan()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-lg text-xs uppercase tracking-wide mt-2">
+            Finalizar Anamnese & Gerar Plano <i class="fas fa-brain ml-1"></i>
+        </button>
     </div>
 
     <!-- Dashboard Screen -->
     <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto relative overflow-hidden">
         
+        <!-- Header UI v3.0 with Version & Quick Logout Icon -->
         <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
-            <div>
-                <h1 class="text-lg font-black tracking-tight text-white">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></h1>
-                <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[160px]">...</p>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
+                        <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
+                        <span onclick="window.openChangelog()" class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v3.0</span>
+                    </h1>
+                    <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">...</p>
+                </div>
             </div>
+
             <div class="flex items-center gap-2">
                 <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-firebase" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
                 <div class="flex items-center gap-1.5 bg-dark-950 border border-slate-800 px-2 py-1 rounded-full text-[9px] font-bold text-slate-400"><div id="dot-api" class="w-1.5 h-1.5 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
+                <!-- Clean Header Logout Icon -->
+                <button onclick="window.logOut()" class="w-9 h-9 rounded-xl bg-slate-800 hover:bg-red-600/20 text-slate-300 hover:text-red-400 border border-slate-700 transition-colors flex items-center justify-center ml-1" title="Sair do Aplicativo">
+                    <i class="fas fa-sign-out-alt text-xs"></i>
+                </button>
             </div>
         </div>
 
+        <!-- Navigation Tabs -->
         <div class="flex px-4 pt-3 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
-            <!-- REORDERED TABS: Plano Inicial is now right after Treinamento -->
             <button onclick="window.switchTab('training')" id="nav-training" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Treinamento</button>
             <button onclick="window.switchTab('analysis')" id="nav-analysis" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Plano Inicial</button>
             <button onclick="window.switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
@@ -428,7 +504,7 @@
                         <p id="dash-nw-desc" class="text-xs text-slate-400 mb-4 leading-relaxed">...</p>
                         
                         <div class="flex flex-col gap-2">
-                            <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3" title="Aprender os exercícios da I.A.">
+                            <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
                                 <i class="fas fa-book-open mr-1"></i> Ver Exercícios do Dia
                             </button>
                             <button onclick="window.openReadinessModal()" class="w-full bg-white text-dark-950 hover:bg-slate-200 font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2 text-sm uppercase tracking-wide mt-1">
@@ -439,7 +515,7 @@
                 </div>
             </div>
 
-            <!-- Tab 1.5: Análise Inicial (Plano Inicial) -->
+            <!-- Tab 2: Plano Inicial -->
             <div id="tab-analysis" class="space-y-4 hidden animate-fade-in">
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                     <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
@@ -454,13 +530,13 @@
                 </div>
 
                 <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A. (Macro)</span>
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
+                    <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest block mb-2">Estratégia I.A. Híbrida (Macro)</span>
                     <p id="dash-macro" class="text-sm text-slate-300 font-medium leading-relaxed relative z-10 whitespace-pre-line">...</p>
                 </div>
             </div>
 
-            <!-- Tab 2: Progresso -->
+            <!-- Tab 3: Progresso -->
             <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
                 <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
@@ -480,7 +556,7 @@
                     </div>
                 </div>
 
-                <!-- Peso Chart -->
+                <!-- 1. Peso Chart -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <div class="flex justify-between items-center mb-3">
                         <h3 class="font-bold text-white text-xs uppercase tracking-wider"><i class="fas fa-weight text-brand-400 mr-2"></i>Evolução de Peso</h3>
@@ -491,7 +567,7 @@
                     </div>
                 </div>
 
-                <!-- BF Chart -->
+                <!-- 2. BF Chart -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-fire text-orange-400 mr-2"></i>Gordura Corporal (%)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
@@ -499,7 +575,7 @@
                     </div>
                 </div>
                 
-                <!-- FC Media vs Max Chart -->
+                <!-- 3. FC Media vs Max Chart -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-1"><i class="fas fa-wave-square text-red-500 mr-2"></i>Frequência Cardíaca (Treino)</h3>
                     <p class="text-[9px] text-slate-400 mb-2 leading-relaxed">Acompanhe a evolução da sua FC Média e FC Máxima nas sessões.</p>
@@ -508,7 +584,7 @@
                     </div>
                 </div>
 
-                <!-- Queda FC Chart (Linha) -->
+                <!-- 4. Queda FC Chart (HRR) -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-heartbeat text-pink-500 mr-2"></i>Recuperação: Queda FC (HRR)</h3>
                     <p class="text-[9px] text-slate-400 mb-2 leading-relaxed">Maior queda nos primeiros 3 minutos indica melhor saúde cardiovascular.</p>
@@ -517,16 +593,16 @@
                     </div>
                 </div>
                 
-                <!-- Calorias Chart -->
+                <!-- 5. Calorias Chart -->
                 <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-bolt text-yellow-500 mr-2"></i>Calorias Queimadas</h3>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3"><i class="fas fa-bolt text-yellow-500 mr-2"></i>Calorias Queimadas (kcal)</h3>
                     <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative">
                         <canvas id="chart-kcal"></canvas>
                     </div>
                 </div>
             </div>
 
-            <!-- Tab 3: Histórico -->
+            <!-- Tab 4: Histórico (Detailed Session Cards) -->
             <div id="tab-calendar" class="space-y-3 hidden animate-fade-in pb-12">
                 <div class="flex items-center justify-between px-1 mb-2">
                     <h2 class="text-base font-black text-white">Histórico de Sessões</h2>
@@ -535,24 +611,22 @@
                 <div id="calendar-list" class="space-y-3"></div>
             </div>
 
-            <!-- Tab 4: Chat I.A. -->
+            <!-- Tab 5: Chat I.A. -->
             <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
                 <div class="flex items-center justify-between px-1 mb-1">
                     <h2 class="text-base font-black text-white">Chat com o Coach I.A.</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Nuvem Ativa</span>
-                    </div>
+                    <span class="text-[10px] bg-brand-500/20 text-brand-400 border border-brand-500/30 px-2.5 py-1 rounded-lg font-bold">Nuvem Ativa</span>
                 </div>
                 
                 <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl">
                     <div class="flex gap-2.5">
                         <div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div>
-                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">Olá! Carregando histórico da nuvem...</div>
+                        <div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%] leading-relaxed shadow">Olá! Como posso orientar seu treino híbrido hoje?</div>
                     </div>
                 </div>
 
                 <div class="flex gap-2 pt-2">
-                    <input type="text" id="chat-input" placeholder="Ex: Como posso melhorar minha flexão de braço?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none shadow-inner">
+                    <input type="text" id="chat-input" placeholder="Ex: Como melhorar meu ritmo de Pace na corrida?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none">
                     <button onclick="window.sendChatMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"><i class="fas fa-paper-plane"></i></button>
                 </div>
             </div>
@@ -565,7 +639,7 @@
                     <div class="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <div class="flex justify-between items-center mb-4">
                         <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest"><i class="fas fa-user-edit mr-1"></i> Dados Pessoais</span>
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md cursor-pointer" onclick="window.openChangelog()">App v2.1</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md cursor-pointer" onclick="window.openChangelog()">v3.0 Híbrido</span>
                     </div>
                     
                     <div class="space-y-3 relative z-10">
@@ -581,9 +655,13 @@
                     </div>
                 </div>
 
-                <!-- Métricas Base -->
-                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl w-full">
-                    <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest block mb-4"><i class="fas fa-ruler mr-1"></i> Base do Plano (Apenas Leitura)</span>
+                <!-- Métricas Base & Eixo Mestre -->
+                <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl w-full space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest"><i class="fas fa-ruler mr-1"></i> Base do Plano & Eixo Mestre</span>
+                        <span id="prof-master-axis-badge" class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-md font-bold">Eixo: --</span>
+                    </div>
+
                     <div class="grid grid-cols-2 gap-3 text-xs text-slate-300">
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 mb-0.5 uppercase">Idade Base</span> <span id="prof-age">--</span></div>
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 mb-0.5 uppercase">Altura</span> <span id="prof-height">--</span></div>
@@ -592,46 +670,56 @@
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 mb-0.5 uppercase">Meta Peso</span> <span id="prof-tweight">--</span></div>
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 mb-0.5 uppercase">Meta % BF</span> <span id="prof-tbf">--</span></div>
                     </div>
-                    <p class="text-[10px] text-slate-500 mt-3 italic text-center">Para alterar drasticamente suas métricas biológicas, faça um novo Onboarding abaixo.</p>
+
+                    <div class="space-y-2 pt-2 border-t border-slate-800">
+                        <button onclick="window.show('modal-change-axis')" class="w-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/50 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-exchange-alt"></i> Alterar Eixo Mestre (Calistenia/Corrida/Musculação)
+                        </button>
+                        <button onclick="window.reDoOnboardingKeepHistory()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-sync-alt"></i> Refazer Onboarding com I.A. (Mantendo Histórico)
+                        </button>
+                    </div>
                 </div>
 
-                <!-- Gerenciamento de Dados (Danger Zone) -->
-                <div class="glass-panel p-5 rounded-3xl border border-red-900/30 shadow-xl w-full">
-                    <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest block mb-4"><i class="fas fa-radiation mr-1"></i> Gerenciar Dados (Área de Perigo)</span>
-                    
-                    <p class="text-xs text-slate-400 mb-4 font-medium">Selecione o que deseja limpar do banco de dados na nuvem.</p>
-                    
-                    <div class="space-y-2.5 mb-5 text-sm text-slate-300 font-medium">
-                        <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
-                            <input type="checkbox" id="del-history" class="w-4 h-4 accent-red-500">
-                            <span class="text-xs">Excluir Histórico de Treinos e Avaliações</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
-                            <input type="checkbox" id="del-checkins" class="w-4 h-4 accent-red-500">
-                            <span class="text-xs">Excluir Check-ins (Peso e BF)</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
-                            <input type="checkbox" id="del-chat" class="w-4 h-4 accent-red-500">
-                            <span class="text-xs">Limpar Histórico do Chat I.A.</span>
-                        </label>
-                        <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-orange-900/30 cursor-pointer hover:border-orange-500/50 transition-colors">
-                            <input type="checkbox" id="del-plan" class="w-4 h-4 accent-orange-500">
-                            <span class="text-orange-400 font-bold text-xs">Resetar Perfil e Plano (Novo Onboarding)</span>
-                        </label>
-                    </div>
+                <!-- Accordion: Gerenciamento de Dados (Área de Perigo) -->
+                <div class="glass-panel rounded-3xl border border-red-900/30 shadow-xl w-full overflow-hidden">
+                    <button onclick="window.toggleDangerAccordion()" class="w-full p-5 flex justify-between items-center text-left bg-dark-900 hover:bg-slate-900 transition-colors">
+                        <div>
+                            <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest block"><i class="fas fa-radiation mr-1"></i> Gerenciar Dados (Área de Perigo)</span>
+                            <p class="text-[11px] text-slate-400 mt-0.5">Clique para expandir as opções granulares de exclusão</p>
+                        </div>
+                        <i id="accordion-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
 
-                    <button onclick="window.openDangerConfirm('data')" class="w-full mb-4 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors text-[10px] uppercase tracking-wide border border-slate-700">Excluir Seleção Acima</button>
-                    
-                    <div class="pt-4 border-t border-red-900/40">
-                        <button onclick="window.openDangerConfirm('account')" class="w-full bg-red-950 hover:bg-red-900 text-red-400 border border-red-900 font-bold py-3 rounded-xl transition-colors text-[10px] uppercase tracking-wide flex items-center justify-center gap-2">
-                            <i class="fas fa-user-times"></i> Excluir Minha Conta (Apagar Tudo)
-                        </button>
-                    </div>
-                    
-                    <div class="pt-4 mt-4 border-t border-slate-800">
-                        <button onclick="window.logOut()" class="w-full bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold py-3 rounded-xl transition-colors text-[10px] uppercase tracking-wide flex items-center justify-center gap-2">
-                            <i class="fas fa-sign-out-alt"></i> Sair do Aplicativo
-                        </button>
+                    <div id="danger-accordion-content" class="accordion-content max-h-0 bg-dark-950 p-5 border-t border-red-900/20 space-y-4">
+                        <p class="text-xs text-slate-400 font-medium">Selecione o que deseja apagar permanentemente:</p>
+                        
+                        <div class="space-y-2.5 text-sm text-slate-300 font-medium">
+                            <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
+                                <input type="checkbox" id="del-history" class="w-4 h-4 accent-red-500">
+                                <span class="text-xs">Excluir Histórico de Treinos e Avaliações</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
+                                <input type="checkbox" id="del-checkins" class="w-4 h-4 accent-red-500">
+                                <span class="text-xs">Excluir Check-ins (Peso e BF)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-800 cursor-pointer hover:border-red-500/50 transition-colors">
+                                <input type="checkbox" id="del-chat" class="w-4 h-4 accent-red-500">
+                                <span class="text-xs">Limpar Histórico do Chat I.A.</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-orange-900/30 cursor-pointer hover:border-orange-500/50 transition-colors">
+                                <input type="checkbox" id="del-plan" class="w-4 h-4 accent-orange-500">
+                                <span class="text-orange-400 font-bold text-xs">Resetar Perfil e Plano (Novo Onboarding)</span>
+                            </label>
+                        </div>
+
+                        <button onclick="window.openDangerConfirm('data')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors text-[10px] uppercase tracking-wide border border-slate-700">Excluir Seleção Acima</button>
+                        
+                        <div class="pt-3 border-t border-red-900/40">
+                            <button onclick="window.openDangerConfirm('account')" class="w-full bg-red-950 hover:bg-red-900 text-red-400 border border-red-900 font-bold py-3 rounded-xl transition-colors text-[10px] uppercase tracking-wide flex items-center justify-center gap-2">
+                                <i class="fas fa-user-times"></i> Excluir Minha Conta (Apagar Tudo)
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -639,7 +727,7 @@
         </div>
     </div>
 
-    <!-- Readiness Modal -->
+    <!-- Readiness Modal (Pre-workout & Stimulus Variation) -->
     <div id="modal-readiness" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[120] hidden flex-col items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative overflow-hidden mx-auto">
             <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-brand-500"></div>
@@ -649,7 +737,7 @@
                     <i class="fas fa-battery-three-quarters"></i>
                 </div>
                 <h3 class="text-lg font-black text-white">Como você está hoje?</h3>
-                <p class="text-xs text-slate-400 font-medium">A I.A. ajustará o treino baseada na sua recuperação.</p>
+                <p class="text-xs text-slate-400 font-medium">A I.A. ajustará a sessão baseada na sua dor e energia.</p>
             </div>
 
             <div class="space-y-4">
@@ -677,7 +765,18 @@
                     </div>
                 </div>
 
-                <div class="pt-3 border-t border-slate-800">
+                <!-- Stimulus Variation Selector -->
+                <div class="pt-3 border-t border-slate-800 space-y-2">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Modalidade para Hoje (Flexibilidade)</label>
+                    <select id="read-stimulus-modality" class="w-full bg-dark-950 border border-brand-500/40 rounded-xl p-2.5 text-xs text-white font-bold outline-none">
+                        <option value="default">Manter Eixo Mestre Ativo</option>
+                        <option value="Calistenia">Variar para Calistenia</option>
+                        <option value="Corrida">Variar para Corrida (Cardio & Pace)</option>
+                        <option value="Musculação">Variar para Musculação (Pesos)</option>
+                    </select>
+                </div>
+
+                <div class="pt-2">
                     <label class="flex items-center gap-3 p-3 bg-dark-950 rounded-xl border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
                         <input type="checkbox" id="read-change-toggle" class="w-4 h-4 accent-brand-500" onchange="document.getElementById('read-change-panel').classList.toggle('hidden')">
                         <span class="text-xs font-bold text-slate-300">Alterar foco ou tempo de hoje</span>
@@ -727,7 +826,7 @@
         </div>
     </div>
 
-    <!-- Modal Workout Library (Dinâmica) -->
+    <!-- Modal Workout Library -->
     <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
         <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
             <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
@@ -816,7 +915,7 @@
                     </div>
 
                     <div class="border-t border-slate-800 pt-3 mt-3">
-                        <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Métricas do Smartwatch (Opcional)</h3>
+                        <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2">Métricas do Treino & Smartwatch</h3>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">FC Média (bpm)</label>
@@ -827,12 +926,27 @@
                                 <input type="number" id="pw-fc-max" placeholder="Ex: 170" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
-                                <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Queda da FC após 3 min</label>
+                                <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Queda FC 3m (HRR)</label>
                                 <input type="number" id="pw-fc-rec" placeholder="Ex: 35" class="w-full bg-dark-950 border border-pink-500/50 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
                             </div>
                             <div>
                                 <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Calorias (kcal)</label>
                                 <input type="number" id="pw-kcal" placeholder="Ex: 320" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                            </div>
+                        </div>
+
+                        <!-- Running Specific Metrics -->
+                        <div id="pw-running-fields" class="mt-3 p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl space-y-2">
+                            <span class="text-[9px] text-amber-400 font-bold uppercase block"><i class="fas fa-running mr-1"></i> Métricas de Corrida (Se Aplicável)</span>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Distância (km)</label>
+                                    <input type="number" id="pw-dist" step="0.01" placeholder="Ex: 5.2" class="w-full bg-dark-950 border border-amber-500/40 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                </div>
+                                <div>
+                                    <label class="text-[8px] text-slate-400 font-bold uppercase block mb-1">Pace Médio (min/km)</label>
+                                    <input type="text" id="pw-pace" placeholder="Ex: 5:30" class="w-full bg-dark-950 border border-amber-500/40 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -859,30 +973,9 @@
                         </div>
                         <p id="prop-workout-desc" class="text-[11px] text-slate-400 leading-relaxed mb-4">...</p>
 
-                        <!-- Subpainel de Calibragem -->
-                        <div id="calibration-subpanel" class="hidden mb-4 p-3 bg-dark-950 border border-slate-700 rounded-xl space-y-3 shadow-inner">
-                            <p class="text-[10px] text-slate-400 font-medium">Ajuste os parâmetros se desejar que a I.A. gere uma proposta diferente agora:</p>
-                            <div class="grid grid-cols-2 gap-2">
-                                <div>
-                                    <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Tempo (min)</label>
-                                    <input type="number" id="recal-time" placeholder="Ex: 30" class="w-full bg-dark-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white outline-none">
-                                </div>
-                                <div>
-                                    <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Novo Foco</label>
-                                    <input type="text" id="recal-focus" placeholder="Ex: Costas" class="w-full bg-dark-900 border border-slate-700 rounded-lg px-2 py-2 text-xs text-white outline-none">
-                                </div>
-                            </div>
-                            <button onclick="window.recalibrateNextWorkout()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-2.5 rounded-xl transition-colors text-[10px] uppercase border border-slate-600">
-                                <i class="fas fa-sync-alt mr-1"></i> Gerar Novo Treino (I.A.)
-                            </button>
-                        </div>
-
                         <div class="space-y-2">
                             <button onclick="window.acceptAiProposal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
                                 <i class="fas fa-check mr-1.5"></i> Aceitar Sugestão e Salvar
-                            </button>
-                            <button onclick="window.toggleCalibrationPanel()" class="w-full bg-dark-950 hover:bg-slate-800 text-slate-300 border border-slate-700 font-bold py-2.5 rounded-2xl transition-colors text-xs">
-                                <i class="fas fa-sliders-h mr-1.5"></i> Calibrar / Ajustar Parâmetros
                             </button>
                         </div>
                     </div>
@@ -946,8 +1039,8 @@
         let selectedEnergy = null;
         window.pendingDangerAction = null;
         window.hasSeenReminder = false;
+        let anamnesisHistory = [];
 
-        // Reordered: Training, Analysis (Plano Inicial), Progress, Calendar, Chat, Profile
         const tabList = ['training', 'analysis', 'progress', 'calendar', 'chat', 'profile'];
         let currentTabIndex = 0;
 
@@ -959,7 +1052,6 @@
         const hide = window.hide;
         const show = window.show;
 
-        // Sound Engine
         function playBeep(freq = 440, duration = 150, type = 'sine') {
             try {
                 const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -975,7 +1067,6 @@
             } catch(e) {}
         }
 
-        // Modals
         window.showAlert = (title, message) => {
             $('alert-title').innerText = title; $('alert-message').innerText = message;
             show('alert-modal');
@@ -990,7 +1081,7 @@
         function hideLoading() { hide('loading-overlay'); }
 
         function showScreen(screenId) {
-            ['screen-auth', 'screen-welcome', 'screen-onboarding', 'screen-dashboard', 'screen-timer'].forEach(hide);
+            ['screen-auth', 'screen-step1-id', 'screen-step2-welcome', 'screen-step3-biometrics', 'screen-step4-axis', 'screen-step5-anamnesis', 'screen-dashboard', 'screen-timer'].forEach(hide);
             show(screenId);
         }
 
@@ -1005,10 +1096,12 @@
         }
 
         window.openChangelog = () => show('modal-changelog');
-        window.closeWhatsNew = () => { 
-            hide('modal-whats-new'); 
-            localStorage.setItem('seen_whats_new_v2.1', 'true'); 
-            checkNextWorkoutReminder(); 
+
+        window.toggleDangerAccordion = () => {
+            const content = $('danger-accordion-content');
+            const arrow = $('accordion-arrow');
+            content.classList.toggle('expanded');
+            arrow.classList.toggle('rotate-180');
         };
 
         window.openDangerConfirm = (actionType) => {
@@ -1058,7 +1151,7 @@
                 if (delPlan) {
                     currentPlan = null;
                     await setDoc(doc(db, "users", currentUser.uid), { plan: null, updatedAt: new Date().toISOString() }, { merge: true });
-                    hideLoading(); showScreen('screen-onboarding'); return;
+                    hideLoading(); showScreen('screen-step1-id'); return;
                 }
                 hideLoading();
                 window.showAlert("Sucesso", "Dados apagados com sucesso.");
@@ -1091,28 +1184,14 @@
             if (tabName === 'profile') renderProfileTab();
         };
 
-        let touchStartX = 0; let touchStartY = 0;
-        const tabContainer = document.getElementById('tab-content-container');
-        if (tabContainer) {
-            tabContainer.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; touchStartY = e.changedTouches[0].screenY; }, {passive: true});
-            tabContainer.addEventListener('touchend', e => {
-                const diffX = touchStartX - e.changedTouches[0].screenX;
-                const diffY = Math.abs(touchStartY - e.changedTouches[0].screenY);
-                if (Math.abs(diffX) > 60 && diffY < 100) {
-                    if (diffX > 0 && currentTabIndex < tabList.length - 1) switchTab(tabList[currentTabIndex + 1]);
-                    else if (diffX < 0 && currentTabIndex > 0) switchTab(tabList[currentTabIndex - 1]);
-                }
-            }, {passive: true});
-        }
-
         async function getCumulativeHistoryContext() {
             try {
                 const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
                 let historyData = []; snap.forEach(d => historyData.push(d.data()));
                 historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
                 if (historyData.length === 0) return "Nenhum histórico anterior.";
-                const recentHistory = historyData.slice(-15); // Previne estouro de tokens da IA
-                return recentHistory.map((h, i) => `Treino #${historyData.length - recentHistory.length + i + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} | PSE: ${h.pse}/10 | Queda FC: ${h.fcRec||'N/A'} | Avaliação: ${h.aiFeedback ? h.aiFeedback.substring(0,40)+'...' : 'N/A'}`).join('\n');
+                const recentHistory = historyData.slice(-15);
+                return recentHistory.map((h, i) => `Treino #${historyData.length - recentHistory.length + i + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} [Modalidade: ${h.modality||'Calistenia'}] | PSE: ${h.pse}/10 | Queda FC: ${h.fcRec||'N/A'} | Kcal: ${h.kcal||'N/A'} ${h.distance ? `| Dist: ${h.distance}km | Pace: ${h.pace}` : ''} | Avaliação: ${h.aiFeedback ? h.aiFeedback.substring(0,40)+'...' : 'N/A'}`).join('\n');
             } catch(e) { return "Histórico indisponível."; }
         }
 
@@ -1122,7 +1201,7 @@
             if (schemaMode === 'chat') { schema = { type: "object", properties: { reply: { type: "string" } }, required: ["reply"] }; } 
             else if (schemaMode === 'report') { schema = { type: "object", properties: { analysis: { type: "string" }, estimatedTime: { type: "string" }, nextSteps: { type: "string" } }, required: ["analysis", "estimatedTime", "nextSteps"] }; } 
             else {
-                schema = { type: "object", properties: { userProfileAnalysis: { type: "string" }, planExplanation: { type: "string" }, macrocycleSummary: { type: "string" }, coachFeedback: { type: "string" }, suggestedDays: { type: "integer" }, suggestedMinutes: { type: "integer" }, workout: { type: "object", properties: { id: { type: "string" }, name: { type: "string" }, focus: { type: "string" }, isCompleted: { type: "boolean" }, estimatedMinutes: { type: "integer" }, queue: { type: "array", items: { type: "object", properties: { type: { type: "string", enum: ["work", "rest"] }, name: { type: "string" }, duration: { type: "integer" }, roundInfo: { type: "string" } }, required: ["type", "name", "duration"] } } }, required: ["name", "focus", "estimatedMinutes", "queue"] } }, required: ["macrocycleSummary", "workout"] };
+                schema = { type: "object", properties: { userProfileAnalysis: { type: "string" }, planExplanation: { type: "string" }, macrocycleSummary: { type: "string" }, coachFeedback: { type: "string" }, suggestedDays: { type: "integer" }, suggestedMinutes: { type: "integer" }, workout: { type: "object", properties: { id: { type: "string" }, name: { type: "string" }, focus: { type: "string" }, modality: { type: "string" }, isCompleted: { type: "boolean" }, estimatedMinutes: { type: "integer" }, queue: { type: "array", items: { type: "object", properties: { type: { type: "string", enum: ["work", "rest"] }, name: { type: "string" }, duration: { type: "integer" }, roundInfo: { type: "string" } }, required: ["type", "name", "duration"] } } }, required: ["name", "focus", "estimatedMinutes", "queue"] } }, required: ["macrocycleSummary", "workout"] };
             }
             try {
                 const controller = new AbortController(); const timeoutId = setTimeout(() => controller.abort(), 60000);
@@ -1132,45 +1211,6 @@
                 const data = await response.json(); updateBadge('api', 'ok'); return data;
             } catch (err) { updateBadge('api', 'error'); throw new Error("Falha no servidor da I.A. " + err.message); }
         }
-
-        function checkNextWorkoutReminder() {
-            if (window.hasSeenReminder) return; 
-            if (!currentPlan || !currentPlan.nextWorkoutDate) return;
-            const nw = currentPlan.workouts.find(w => !w.isCompleted);
-            if (!nw) return;
-
-            const nwDate = new Date(currentPlan.nextWorkoutDate);
-            const today = new Date(); today.setHours(0,0,0,0);
-            const target = new Date(nwDate); target.setHours(0,0,0,0);
-
-            const diffTime = target - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            let msg = ""; let highlight = "text-brand-400";
-            if (diffDays === 0) { msg = "Seu treino está agendado para HOJE!"; highlight = "text-green-400"; }
-            else if (diffDays === 1) { msg = "Seu treino está agendado para AMANHÃ."; }
-            else if (diffDays > 1) { msg = `Seu próximo treino será daqui a ${diffDays} dias (${target.toLocaleDateString('pt-BR')}).`; }
-            else { msg = `Seu treino está ATRASADO desde ${target.toLocaleDateString('pt-BR')}!`; highlight = "text-red-400"; }
-
-            $('reminder-message').innerText = msg;
-            $('reminder-message').className = `text-sm font-black mt-2 bg-dark-950 py-2.5 rounded-xl border border-slate-800 ${highlight}`;
-            $('reminder-new-days').value = diffDays > 0 ? (diffDays > 3 ? 3 : diffDays) : 0;
-            
-            show('modal-next-workout-reminder');
-            window.hasSeenReminder = true;
-        }
-
-        window.rescheduleWorkout = async () => {
-            const addDays = parseInt($('reminder-new-days').value);
-            const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + addDays);
-            showLoading("Reagendando...");
-            currentPlan.nextWorkoutDate = nextDate.toISOString();
-            await saveFullState();
-            hideLoading();
-            hide('modal-next-workout-reminder');
-            renderDashboard();
-            window.showAlert("Atualizado", `Seu treino foi agendado para ${nextDate.toLocaleDateString('pt-BR')}.`);
-        };
 
         $('tab-login').addEventListener('click', () => {
             isSignupMode = false; $('signup-fields').classList.add('hidden');
@@ -1218,27 +1258,52 @@
                     currentPlan = docSnap.data().plan;
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
                         renderDashboard(); showScreen('screen-dashboard');
-                        window.switchTab('training'); // Always default to training for returning users
+                        window.switchTab('training');
                         
-                        // Handing popups for established users
-                        if (!localStorage.getItem('seen_whats_new_v2.1')) show('modal-whats-new');
-                        else checkNextWorkoutReminder();
-                    } else showScreen('screen-onboarding');
+                        // Proactive Scan for Secondary Modalities
+                        checkProactiveSecondaryScan();
+                    } else showScreen('screen-step1-id');
                 } else {
-                    // New user logic
                     userData = {};
-                    showScreen('screen-welcome');
+                    showScreen('screen-step1-id');
                 }
                 hideLoading();
             } catch (err) { hideLoading(); window.showAlert("Erro", "Falha de BD."); }
         }
 
-        $('welcome-form').addEventListener('submit', (e) => {
+        function checkProactiveSecondaryScan() {
+            if (localStorage.getItem(`skipped_proactive_${currentUser.uid}`)) {
+                checkNextWorkoutReminder();
+                return;
+            }
+            // If user doesn't have secondary modality metrics registered
+            if (!userData.secondaryCalibrated) {
+                show('modal-proactive-calibration');
+            } else {
+                checkNextWorkoutReminder();
+            }
+        }
+
+        window.skipProactiveCalibration = () => {
+            hide('modal-proactive-calibration');
+            localStorage.setItem(`skipped_proactive_${currentUser.uid}`, 'true');
+            checkNextWorkoutReminder();
+        };
+
+        window.startProactiveAnamnesis = () => {
+            hide('modal-proactive-calibration');
+            startAnamnesisChat(true); // Proactive calibration mode
+        };
+
+        $('step1-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            userData.name = $('welcome-name').value;
-            userData.nickname = $('welcome-nick').value;
-            showScreen('screen-onboarding');
+            userData.name = $('ob-name').value;
+            userData.nickname = $('ob-nick').value;
+            $('welcome-nick-display').innerText = userData.nickname;
+            showScreen('screen-step2-welcome');
         });
+
+        window.goToStep3 = () => showScreen('screen-step3-biometrics');
 
         window.toggleBfUnknown = () => {
             const isUnknown = $('ob-bf-unknown').checked;
@@ -1246,48 +1311,110 @@
             else { show('ob-bf'); $('ob-bf').setAttribute('required', 'true'); hide('ob-bf-select'); }
         };
 
-        $('onboarding-form').addEventListener('submit', async (e) => {
+        $('step3-form').addEventListener('submit', (e) => {
             e.preventDefault();
             let finalBf = $('ob-bf-unknown').checked ? $('ob-bf-select').value : $('ob-bf').value;
             let bfDescription = $('ob-bf-unknown').checked ? $('ob-bf-select').options[$('ob-bf-select').selectedIndex].text : `${finalBf}% exatos`;
 
-            const profile = {
-                name: userData.name || "", nickname: userData.nickname || "Aluno",
-                age: $('ob-age').value, height: $('ob-height').value, weight: $('ob-weight').value,
-                bf: finalBf, bfDesc: bfDescription, targetBf: $('ob-target-bf').value, targetWeight: $('ob-target-weight').value,
-                goal: $('ob-goal').value, cond: $('ob-cond').value, activity: $('ob-activity').value,
-                knowledge: $('ob-knowledge').value, days: $('ob-days').value, mins: $('ob-mins').value
-            };
+            userData.age = $('ob-age').value;
+            userData.height = $('ob-height').value;
+            userData.weight = $('ob-weight').value;
+            userData.bf = finalBf;
+            userData.bfDesc = bfDescription;
+            userData.targetWeight = $('ob-target-weight').value;
+            userData.targetBf = $('ob-target-bf').value;
+            userData.days = $('ob-days').value;
+            userData.mins = $('ob-mins').value;
 
-            showLoading("Criando Plano com I.A...", "Mapeando Biotipo...");
-            const prompt = `Atue como Coach Sênior. O nome do aluno é ${profile.nickname}. 
-            ALUNO: ${profile.age} anos, ${profile.weight}kg, ${profile.height}cm, BF: ${profile.bfDesc}, Meta BF: ${profile.targetBf}%.
-            OBJETIVO: "${profile.goal}". DISP: ${profile.days}dias, ${profile.mins}min/t.
-            TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout'. \n ${WORKOUT_RULES}`;
+            showScreen('screen-step4-axis');
+        });
+
+        window.selectMasterAxis = (axis) => {
+            userData.masterAxis = axis;
+            startAnamnesisChat(false);
+        };
+
+        function startAnamnesisChat(isProactive = false) {
+            anamnesisHistory = [];
+            const container = $('anamnesis-chat-messages');
+            container.innerHTML = '';
+            
+            let initialMsg = "";
+            if (isProactive) {
+                initialMsg = `Olá, ${userData.nickname}! Vamos calibrar seu perfil híbrido. Me conte: você já pratica Corrida ou Musculação? Qual é seu ritmo de Pace confortável ou suas cargas habituais, e se tem lesões?`;
+            } else {
+                initialMsg = `Olá, ${userData.nickname}! Sou seu Coach I.A. Híbrido. Seu Eixo Mestre selecionado é **${userData.masterAxis}**. Para estruturar seu plano perfeito, me diga: qual o seu nível atual de força/cardio, se pratica outras modalidades e se possui dores ou limitações físicas?`;
+            }
+
+            container.innerHTML = `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 leading-relaxed">${initialMsg}</div></div>`;
+            anamnesisHistory.push({ role: 'model', text: initialMsg });
+            showScreen('screen-step5-anamnesis');
+        }
+
+        window.sendAnamnesisMessage = async () => {
+            const inp = $('anamnesis-input');
+            const txt = inp.value.trim();
+            if(!txt) return;
+
+            const container = $('anamnesis-chat-messages');
+            container.innerHTML += `<div class="flex gap-2.5 justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${txt}</div></div>`;
+            inp.value = '';
+            container.scrollTop = container.scrollHeight;
+            anamnesisHistory.push({ role: 'user', text: txt });
+
+            const loadId = 'l_' + Date.now();
+            container.innerHTML += `<div id="${loadId}" class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs animate-spin"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-400 italic">Analisando respostas...</div></div>`;
+            container.scrollTop = container.scrollHeight;
+
+            const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Histórico da anamnese: ${JSON.stringify(anamnesisHistory)}. O aluno acabou de responder: "${txt}". Responda de forma curta e direta motivando o aluno e tirando dúvidas se houver.`;
+            try {
+                const res = await callGemini(prompt, 'chat');
+                $(`${loadId}`)?.remove();
+                container.innerHTML += `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 border border-brand-500/30 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${res.reply}</div></div>`;
+                container.scrollTop = container.scrollHeight;
+                anamnesisHistory.push({ role: 'model', text: res.reply });
+            } catch(e) {
+                $(`${loadId}`)?.remove();
+                container.innerHTML += `<div class="flex gap-2.5"><div class="bg-dark-950 border border-red-500/30 p-3.5 rounded-2xl text-xs text-red-300">Erro na conexão. Pode prosseguir e gerar o plano.</div></div>`;
+            }
+        };
+
+        window.finishAnamnesisAndGeneratePlan = async () => {
+            showLoading("Criando Plano Híbrido com I.A...", "Calculando periodização...");
+            userData.secondaryCalibrated = true;
+            
+            const hc = await getCumulativeHistoryContext();
+            const prompt = `Atue como Coach Sênior Híbrido. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bfDesc}. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${userData.days}dias/sem, ${userData.mins}min/treino.
+            ANAMNESE CONVERSACIONAL: ${JSON.stringify(anamnesisHistory)}. HISTÓRICO ANTERIOR DE EXERCÍCIOS/BIOMECÂNICA: ${hc}.
+            TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout' (respeitando o Eixo Mestre e a estrita alternância de trabalho e descanso). \n ${WORKOUT_RULES}`;
 
             try {
                 const res = await callGemini(prompt);
-                if(res.workout) { res.workout.id = `w_${Date.now()}_0`; res.workout.isCompleted = false; }
-                userData = profile;
+                if(res.workout) { res.workout.id = `w_${Date.now()}_0`; res.workout.isCompleted = false; res.workout.modality = res.workout.modality || userData.masterAxis; }
                 const nwd = new Date(); nwd.setDate(nwd.getDate() + 1);
                 
-                currentPlan = { userProfileAnalysis: res.userProfileAnalysis, planExplanation: res.planExplanation, macrocycleSummary: res.macrocycleSummary, coachFeedback: `Bem-vindo(a), ${profile.nickname}!`, workouts: [res.workout], nextWorkoutDate: nwd.toISOString() };
-                
+                // Preserve history if re-doing onboarding
+                if (!currentPlan) currentPlan = {};
+                currentPlan.userProfileAnalysis = res.userProfileAnalysis;
+                currentPlan.planExplanation = res.planExplanation;
+                currentPlan.macrocycleSummary = res.macrocycleSummary;
+                currentPlan.coachFeedback = `Bem-vindo(a) ao seu plano híbrido, ${userData.nickname}!`;
+                currentPlan.workouts = [res.workout];
+                currentPlan.nextWorkoutDate = nwd.toISOString();
+
                 await saveFullState();
-                await addDoc(collection(db, `users/${currentUser.uid}/checkins`), { date: new Date().toISOString(), weight: parseFloat(profile.weight), bf: parseFloat(profile.bf) });
-                
-                // Suppress popups for brand new accounts
-                localStorage.setItem('seen_whats_new_v2.1', 'true');
-                window.hasSeenReminder = true;
+                await addDoc(collection(db, `users/${currentUser.uid}/checkins`), { date: new Date().toISOString(), weight: parseFloat(userData.weight), bf: parseFloat(userData.bf) });
                 
                 hideLoading(); 
                 renderDashboard(); 
                 showScreen('screen-dashboard');
-                window.switchTab('analysis'); // Force direct to "Plano Inicial"
+                window.switchTab('analysis');
             } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
-        });
+        };
 
-        async function saveFullState() { await setDoc(doc(db, "users", currentUser.uid), { profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() }, { merge: true }); }
+        async function saveFullState() { 
+            await setDoc(doc(db, "users", currentUser.uid), { profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() }, { merge: true }); 
+        }
 
         function renderDashboard() {
             if (!currentPlan || !currentPlan.workouts) return;
@@ -1313,9 +1440,11 @@
                     else if (diffDays < 0) dateBadgeText = "ATRASADO";
                     else dateBadgeText = target.toLocaleDateString('pt-BR').substring(0, 5);
                 }
-                $('dash-nw-badge').innerText = `PRÓXIMO TREINO: ${dateBadgeText}`;
-                $('dash-nw-title').innerText = nw.name || "Sessão Atual"; $('dash-nw-focus').innerText = nw.focus || "Geral"; $('dash-nw-time').innerText = nw.estimatedMinutes || userData.mins;
-                const wks = nw.queue.filter(q => q.type === 'work');
+                $('dash-nw-badge').innerText = `PRÓXIMO TREINO [${nw.modality||userData.masterAxis||'Híbrido'}]: ${dateBadgeText}`;
+                $('dash-nw-title').innerText = nw.name || "Sessão Atual"; 
+                $('dash-nw-focus').innerText = nw.focus || "Geral"; 
+                $('dash-nw-time').innerText = nw.estimatedMinutes || userData.mins;
+                const wks = nw.queue ? nw.queue.filter(q => q.type === 'work') : [];
                 $('dash-nw-desc').innerText = `Exercícios: ${wks.map(w => w.name).join(', ')}`;
             } else hide('dash-next-workout');
         }
@@ -1329,6 +1458,7 @@
             $('prof-bf').innerText = userData.bf ? `${userData.bf}%` : '--';
             $('prof-tweight').innerText = userData.targetWeight ? `${userData.targetWeight} kg` : '--';
             $('prof-tbf').innerText = userData.targetBf ? `${userData.targetBf}%` : '--';
+            $('prof-master-axis-badge').innerText = `Eixo Mestre: ${userData.masterAxis || 'Calistenia'}`;
         }
 
         window.saveProfileInfo = async () => {
@@ -1351,6 +1481,46 @@
             }
         };
 
+        window.confirmAxisChange = async () => {
+            const selected = document.querySelector('input[name="new-master-axis"]:checked');
+            if(!selected) return window.showAlert("Aviso", "Selecione a nova modalidade principal.");
+            const newAxis = selected.value;
+            hide('modal-change-axis');
+
+            showLoading("Migrando Eixo Mestre...", "Enviando histórico biomecânico e fisiológico para a I.A...");
+            userData.masterAxis = newAxis;
+            const hc = await getCumulativeHistoryContext();
+
+            const prompt = `Atue como Coach Sênior Híbrido. O aluno ${userData.nickname} MUDOU SEU EIXO MESTRE PARA **${newAxis}**.
+            DADOS FISIOLÓGICOS E BIOMECÂNICOS ACUMULADOS: ${hc}.
+            RECALCULE O PLANO E A ESPINHA DORSAL DE TREINOS COM FOCO NO NOVO EIXO MESTRE (${newAxis}), TRANSFERINDO A CAPACIDADE DE TRABALHO ANTERIOR E EVITANDO SOBRECARGAS.
+            TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout' (Eixo ${newAxis}). \n ${WORKOUT_RULES}`;
+
+            try {
+                const res = await callGemini(prompt);
+                if(res.workout) { res.workout.id = `w_${Date.now()}_axis`; res.workout.isCompleted = false; res.workout.modality = newAxis; }
+                currentPlan.userProfileAnalysis = res.userProfileAnalysis;
+                currentPlan.planExplanation = res.planExplanation;
+                currentPlan.macrocycleSummary = res.macrocycleSummary;
+                currentPlan.coachFeedback = `Eixo Mestre migrado com sucesso para ${newAxis}!`;
+                
+                // Replace active next workout
+                const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+                if(nwIndex !== -1) currentPlan.workouts[nwIndex] = res.workout;
+                else currentPlan.workouts.push(res.workout);
+
+                await saveFullState();
+                hideLoading();
+                renderDashboard();
+                renderProfileTab();
+                window.showAlert("Eixo Mestre Atualizado", `Seu plano agora está focado principalment em ${newAxis}. Seu histórico foi mantido!`);
+            } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
+        };
+
+        window.reDoOnboardingKeepHistory = () => {
+            showScreen('screen-step3-biometrics');
+        };
+
         window.openReadinessModal = () => {
             show('modal-readiness'); selectedEnergy = null; $('read-change-toggle').checked = false; hide('read-change-panel'); $('read-time').value = userData.mins; $('read-focus').value = "";
             const cont = $('readiness-energy-btns'); cont.innerHTML = '';
@@ -1368,25 +1538,29 @@
         window.submitReadiness = async () => {
             if (!selectedEnergy) return window.showAlert("Atenção", "Selecione seu nível de energia (1 a 5).");
             const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+            const chosenModality = $('read-stimulus-modality').value;
+            const targetModality = chosenModality === 'default' ? (currentPlan.workouts[nwIndex]?.modality || userData.masterAxis) : chosenModality;
+
             if (nwIndex !== -1) currentPlan.workouts[nwIndex].readiness = { energy: selectedEnergy, sleep: $('read-sleep').value, sore: $('read-sore').value };
-            if ($('read-change-toggle').checked || selectedEnergy <= 2 || $('read-sore').value === 'Intensa') {
+            
+            if ($('read-change-toggle').checked || chosenModality !== 'default' || selectedEnergy <= 2 || $('read-sore').value === 'Intensa') {
                 let focus = $('read-focus').value;
                 if (!focus && (selectedEnergy <= 2 || $('read-sore').value === 'Intensa')) focus = "Mobilidade, Alongamento e Recuperação Ativa";
-                await regenerateCurrentWorkout(selectedEnergy, $('read-sleep').value, $('read-sore').value, $('read-time').value || userData.mins, focus);
+                await regenerateCurrentWorkout(selectedEnergy, $('read-sleep').value, $('read-sore').value, $('read-time').value || userData.mins, focus, targetModality);
             } else { hide('modal-readiness'); startTimerRoutine(); }
         };
 
-        async function regenerateCurrentWorkout(energy, sleep, sore, time, focus) {
-            showLoading("Recalibrando Treino...");
+        async function regenerateCurrentWorkout(energy, sleep, sore, time, focus, modality) {
+            showLoading("Recalibrando Sessão Híbrida...");
             const nw = currentPlan.workouts.find(w => !w.isCompleted);
-            const prompt = `Atue como Coach Sênior. Aluno: ${userData.nickname}. Prontidão: Energia ${energy}/5, Sono: ${sleep}, Dor: ${sore}. Tempo: ${time}min. Foco: "${focus || nw.focus}". \n ${WORKOUT_RULES}`;
+            const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. Prontidão: Energia ${energy}/5, Sono: ${sleep}, Dor: ${sore}. Tempo: ${time}min. Foco: "${focus || nw.focus}". MODALIDADE DESEJADA DA SESSÃO: ${modality}. \n ${WORKOUT_RULES}`;
             try {
                 const res = await callGemini(prompt);
                 if(res.workout) {
-                    res.workout.id = `w_${Date.now()}_regen`; res.workout.isCompleted = false;
+                    res.workout.id = `w_${Date.now()}_regen`; res.workout.isCompleted = false; res.workout.modality = modality;
                     const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
                     if(nwIndex !== -1) currentPlan.workouts[nwIndex] = res.workout;
-                    if(res.coachFeedback) currentPlan.coachFeedback = `Ajuste I.A: ${res.coachFeedback}`;
+                    if(res.coachFeedback) currentPlan.coachFeedback = `Ajuste I.A (${modality}): ${res.coachFeedback}`;
                     await saveFullState(); hideLoading(); hide('modal-readiness'); renderDashboard(); startTimerRoutine();
                 } else throw new Error();
             } catch(e) { hideLoading(); hide('modal-readiness'); startTimerRoutine(); }
@@ -1397,7 +1571,7 @@
             if (!nw || !nw.queue) return;
             currentWorkoutQueue = nw.queue; currentQueueIndex = 0; isPaused = false;
             totalWorkoutTimeLeft = currentWorkoutQueue.reduce((a, b) => a + b.duration, 0);
-            $('timer-workout-name').innerText = nw.name || "Sessão";
+            $('timer-workout-name').innerText = `[${nw.modality||'Treino'}] ${nw.name || 'Sessão'}`;
             document.body.classList.add('no-scroll');
             showScreen('screen-timer'); loadQueueItem(0);
             timerInterval = setInterval(timerTick, 1000);
@@ -1444,6 +1618,10 @@
             const cont = $('pse-buttons'); cont.innerHTML = ''; selectedPseValue = null; $('btn-eval-ai').disabled = true;
             $('pse-legend').innerText = 'Selecione o nível de esforço'; $('pse-legend').className = "text-center text-[11px] font-bold mt-2.5 text-slate-500 uppercase tracking-wider h-4";
 
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if(nw && nw.modality === 'Corrida') show('pw-running-fields');
+            else hide('pw-running-fields');
+
             const pseTexts = ["Nenhum (0)", "Muito Leve (1)", "Leve (2)", "Moderado Leve (3)", "Moderado (4)", "Firme (5)", "Difícil (6)", "Muito Difícil (7)", "Fadigante (8)", "Quase Máximo (9)", "Exaustivo (10)"];
 
             for(let i=0; i<=10; i++) {
@@ -1468,47 +1646,28 @@
 
         window.evaluateWorkoutWithAI = async () => {
             if (selectedPseValue === null) return;
-            showLoading("Avaliando com I.A...", "Processando métricas...");
+            showLoading("Avaliando com I.A...", "Processando métricas e aplicando Regra do Eixo Mestre...");
             const hc = await getCumulativeHistoryContext();
-            const prompt = `Atue como Coach Sênior. Aluno: ${userData.nickname}. Histórico: ${hc}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${$('pw-fc-rec').value||'N/A'}. Kcal: ${$('pw-kcal').value||'N/A'}.
-            TAREFAS: 1. 'coachFeedback'. 2. 'suggestedDays'. 3. 'suggestedMinutes'. 4. 'workout'. \n ${WORKOUT_RULES}`;
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            
+            // Master Axis Return Rule: Next workout returns to Master Axis unless changed
+            const nextModality = userData.masterAxis || 'Calistenia';
+
+            const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino Atual executado: ${nw?.name} [${nw?.modality}]. Histórico: ${hc}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${$('pw-fc-rec').value||'N/A'}. Kcal: ${$('pw-kcal').value||'N/A'}. Distância: ${$('pw-dist').value||'N/A'}km. Pace: ${$('pw-pace').value||'N/A'}.
+            REGRA DO EIXO MESTRE: O próximo treino deve RETORNAR AUTOMATICAMENTE para o Eixo Mestre (${nextModality}).
+            TAREFAS: 1. 'coachFeedback'. 2. 'suggestedDays'. 3. 'suggestedMinutes'. 4. 'workout' (modalidade: ${nextModality}). \n ${WORKOUT_RULES}`;
             try {
                 aiEvaluationResult = await callGemini(prompt);
                 $('ai-suggestion-text').innerText = aiEvaluationResult.coachFeedback || "";
-                const nw = aiEvaluationResult.workout;
-                if (nw) {
-                    $('prop-workout-name').innerText = nw.name || "Próxima Sessão"; $('prop-workout-focus').innerText = nw.focus;
+                const propNw = aiEvaluationResult.workout;
+                if (propNw) {
+                    propNw.modality = nextModality;
+                    $('prop-workout-name').innerText = `[${nextModality}] ${propNw.name || "Próxima Sessão"}`; 
+                    $('prop-workout-focus').innerText = propNw.focus;
                     $('prop-schedule-info').innerText = `Daqui a ${aiEvaluationResult.suggestedDays || 2} dia(s) (${aiEvaluationResult.suggestedMinutes || 45} min)`;
-                    $('prop-workout-desc').innerText = `Exercícios: ${nw.queue.filter(q=>q.type==='work').map(w=>w.name).join(', ')}`;
+                    $('prop-workout-desc').innerText = `Exercícios: ${propNw.queue.filter(q=>q.type==='work').map(w=>w.name).join(', ')}`;
                 }
                 hideLoading(); $('step-metrics-container').classList.add('hidden'); $('step-ai-proposal').classList.remove('hidden');
-                $('calibration-subpanel').classList.add('hidden');
-            } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
-        };
-
-        window.toggleCalibrationPanel = () => $('calibration-subpanel')?.classList.toggle('hidden');
-
-        window.recalibrateNextWorkout = async () => {
-            const newTime = $('recal-time').value || userData.mins;
-            const newFocus = $('recal-focus').value || "Geral";
-            showLoading("Recalibrando...", "A I.A. está gerando uma nova proposta...");
-            const hc = await getCumulativeHistoryContext();
-            const prompt = `Atue como Coach Sênior. Aluno: ${userData.nickname}. Histórico: ${hc}. PSE: ${selectedPseValue}/10. 
-            O aluno pediu para recalibrar a PRÓXIMA sessão. NOVO TEMPO DESEJADO: ${newTime}min. NOVO FOCO: "${newFocus}".
-            TAREFAS: 1. 'coachFeedback'. 2. 'suggestedDays'. 3. 'suggestedMinutes' (use ${newTime}). 4. 'workout' (foco em ${newFocus}). \n ${WORKOUT_RULES}`;
-            try {
-                aiEvaluationResult = await callGemini(prompt);
-                $('ai-suggestion-text').innerText = aiEvaluationResult.coachFeedback || "";
-                const nw = aiEvaluationResult.workout;
-                if (nw) {
-                    $('prop-workout-name').innerText = nw.name || "Sessão Recalibrada"; 
-                    $('prop-workout-focus').innerText = nw.focus;
-                    $('prop-schedule-info').innerText = `Daqui a ${aiEvaluationResult.suggestedDays || 2} dia(s) (${aiEvaluationResult.suggestedMinutes || newTime} min)`;
-                    $('prop-workout-desc').innerText = `Exercícios: ${nw.queue.filter(q=>q.type==='work').map(w=>w.name).join(', ')}`;
-                }
-                hideLoading();
-                $('calibration-subpanel').classList.add('hidden');
-                window.showAlert("Sucesso", "O próximo treino foi atualizado conforme seus parâmetros.");
             } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
         };
 
@@ -1523,12 +1682,31 @@
                 currentPlan.workouts[nwIndex].isCompleted = true;
                 const rd = currentPlan.workouts[nwIndex].readiness;
                 try {
-                    await addDoc(collection(db, `users/${currentUser.uid}/history`), { date: new Date().toISOString(), workoutName: currentPlan.workouts[nwIndex].name, pse: selectedPseValue, fc: $('pw-fc').value?parseFloat($('pw-fc').value):null, fcMax: $('pw-fc-max').value?parseFloat($('pw-fc-max').value):null, fcRec: $('pw-fc-rec').value?parseFloat($('pw-fc-rec').value):null, kcal: $('pw-kcal').value?parseFloat($('pw-kcal').value):null, readinessEnergy: rd?rd.energy:null, aiFeedback: aiEvaluationResult?.coachFeedback||"" });
+                    await addDoc(collection(db, `users/${currentUser.uid}/history`), { 
+                        date: new Date().toISOString(), 
+                        workoutName: currentPlan.workouts[nwIndex].name, 
+                        modality: currentPlan.workouts[nwIndex].modality || userData.masterAxis,
+                        pse: selectedPseValue, 
+                        fc: $('pw-fc').value?parseFloat($('pw-fc').value):null, 
+                        fcMax: $('pw-fc-max').value?parseFloat($('pw-fc-max').value):null, 
+                        fcRec: $('pw-fc-rec').value?parseFloat($('pw-fc-rec').value):null, 
+                        kcal: $('pw-kcal').value?parseFloat($('pw-kcal').value):null,
+                        distance: $('pw-dist').value?parseFloat($('pw-dist').value):null,
+                        pace: $('pw-pace').value || null,
+                        readinessEnergy: rd?rd.energy:null, 
+                        aiFeedback: aiEvaluationResult?.coachFeedback||"" 
+                    });
                 } catch(e) {}
             }
 
             const nxw = aiEvaluationResult.workout;
-            if(nxw) { nxw.id = `w_${Date.now()}`; nxw.isCompleted = false; if(mins) nxw.estimatedMinutes = parseInt(mins); currentPlan.workouts.push(nxw); }
+            if(nxw) { 
+                nxw.id = `w_${Date.now()}`; 
+                nxw.isCompleted = false; 
+                nxw.modality = nxw.modality || userData.masterAxis;
+                if(mins) nxw.estimatedMinutes = parseInt(mins); 
+                currentPlan.workouts.push(nxw); 
+            }
             if(aiEvaluationResult.coachFeedback) currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
             
             const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + parseInt(days));
@@ -1538,7 +1716,7 @@
             hideLoading(); hide('modal-post-workout');
             renderDashboard(); window.switchTab('training');
             
-            window.showAlert("Treino Concluído!", `A I.A. ajustou e estruturou seu plano. Seu próximo treino está agendado para ${nextDate.toLocaleDateString('pt-BR')}.`);
+            window.showAlert("Treino Concluído!", `A I.A. ajustou seu plano. O próximo treino (${nxw?.modality||userData.masterAxis}) foi agendado para ${nextDate.toLocaleDateString('pt-BR')}.`);
         }
 
         window.saveCheckin = async () => {
@@ -1597,9 +1775,36 @@
         
         async function loadHistory() {
             try {
-                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); let data = []; snap.forEach(d => data.push(d.data())); data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); 
+                let data = []; snap.forEach(d => data.push(d.data())); 
+                data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
+                
                 $('cal-count').innerText = `${data.length} Sessões`;
-                $('calendar-list').innerHTML = data.length === 0 ? `<p class="text-xs text-slate-500 text-center py-6">Nenhum treino concluído.</p>` : data.map(h => `<div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 flex justify-between items-center shadow-md w-full"><div><span class="text-[9px] font-bold text-slate-500 uppercase">${new Date(h.date).toLocaleDateString('pt-BR')}</span><h4 class="text-sm font-bold text-white mt-0.5">${h.workoutName}</h4><p class="text-xs text-brand-400 font-medium mt-0.5">Esforço: ${h.pse}/10 ${h.readinessEnergy ? `| Energia: ${h.readinessEnergy}/5` : ''}</p></div></div>`).join('');
+                $('calendar-list').innerHTML = data.length === 0 ? `<p class="text-xs text-slate-500 text-center py-6">Nenhum treino concluído.</p>` : data.map(h => {
+                    let modBadge = `<span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${h.modality||'Calistenia'}</span>`;
+                    if (h.modality === 'Corrida') modBadge = `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[9px] font-bold px-2 py-0.5 rounded">Corrida</span>`;
+                    else if (h.modality === 'Musculação') modBadge = `<span class="bg-purple-500/20 text-purple-400 border border-purple-500/30 text-[9px] font-bold px-2 py-0.5 rounded">Musculação</span>`;
+
+                    return `
+                    <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 shadow-md w-full space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[9px] font-bold text-slate-500 uppercase">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
+                            ${modBadge}
+                        </div>
+                        <h4 class="text-sm font-bold text-white">${h.workoutName}</h4>
+                        
+                        <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl border border-slate-800/80 text-[10px] text-slate-300">
+                            <div><span class="text-slate-500">Esforço (PSE):</span> <strong>${h.pse}/10</strong></div>
+                            <div><span class="text-slate-500">Energia:</span> <strong>${h.readinessEnergy?`${h.readinessEnergy}/5`:'N/A'}</strong></div>
+                            <div><span class="text-slate-500">FC Média/Máx:</span> <strong>${h.fc?`${h.fc} bpm`:'--'} / ${h.fcMax?`${h.fcMax}`:'--'}</strong></div>
+                            <div><span class="text-slate-500">Queda FC 3m:</span> <strong>${h.fcRec?`${h.fcRec} bpm`:'--'}</strong></div>
+                            <div><span class="text-slate-500">Calorias:</span> <strong>${h.kcal?`${h.kcal} kcal`:'--'}</strong></div>
+                            <div><span class="text-slate-500">Corrida:</span> <strong>${h.distance?`${h.distance}km (${h.pace||'Pace'})`:'N/A'}</strong></div>
+                        </div>
+
+                        ${h.aiFeedback ? `<p class="text-[11px] text-slate-400 italic bg-purple-950/20 p-2 rounded-xl border border-purple-900/30">"${h.aiFeedback}"</p>` : ''}
+                    </div>`;
+                }).join('');
             } catch(e) {}
         }
 
@@ -1608,15 +1813,15 @@
                 const l = $('progress-evaluations-list'); const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); let d = []; snap.forEach(doc => d.push(doc.data()));
                 d = d.filter(x => x.aiFeedback).sort((a,b) => new Date(b.date) - new Date(a.date)); l.innerHTML = '';
                 if(d.length===0) { l.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Nenhuma avaliação.</p>`; return; }
-                d.forEach(h => l.innerHTML += `<div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 shadow-sm mb-2"><div class="flex justify-between items-center mb-1.5 border-b border-slate-800/80 pb-1"><span class="text-[10px] font-bold text-slate-400">${h.workoutName}</span><span class="text-[9px] font-bold text-slate-500">${new Date(h.date).toLocaleDateString('pt-BR')}</span></div><p class="text-xs text-slate-300 italic leading-relaxed">"${h.aiFeedback}"</p></div>`);
+                d.forEach(h => l.innerHTML += `<div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 shadow-sm mb-2"><div class="flex justify-between items-center mb-1.5 border-b border-slate-800/80 pb-1"><span class="text-[10px] font-bold text-slate-400">${h.workoutName} [${h.modality||'Híbrido'}]</span><span class="text-[9px] font-bold text-slate-500">${new Date(h.date).toLocaleDateString('pt-BR')}</span></div><p class="text-xs text-slate-300 italic leading-relaxed">"${h.aiFeedback}"</p></div>`);
             } catch(e) {}
         }
 
         window.generateProgressReport = async () => {
-            showLoading("Gerando Relatório...", "Analisando histórico...");
+            showLoading("Gerando Relatório Híbrido...", "Analisando histórico de modalidades...");
             try {
                 const hc = await getCumulativeHistoryContext();
-                const prompt = `Atue como Coach Sênior. ALUNO: ${userData.nickname}, ${userData.age}a, Meta: ${userData.targetWeight}kg. TREINOS: ${hc}. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
+                const prompt = `Atue como Coach Sênior Híbrido. ALUNO: ${userData.nickname}, ${userData.age}a, Eixo Mestre: ${userData.masterAxis}, Meta: ${userData.targetWeight}kg. HISTÓRICO HÍBRIDO: ${hc}. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
                 const res = await callGemini(prompt, 'report');
                 const rd = { date: new Date().toISOString(), analysis: res.analysis, estimatedTime: res.estimatedTime, nextSteps: res.nextSteps };
                 await setDoc(doc(db, "users", currentUser.uid), { lastProgressReport: rd }, { merge: true }); renderReportUI(rd); hideLoading();
@@ -1630,7 +1835,7 @@
             
             const listContainer = $('mwl-list');
             listContainer.innerHTML = '';
-            $('mwl-title').innerText = nw.name || "Sessão Atual";
+            $('mwl-title').innerText = `[${nw.modality||userData.masterAxis}] ${nw.name || "Sessão Atual"}`;
             
             const workExercises = nw.queue.filter(q => q.type === 'work');
             
@@ -1638,11 +1843,11 @@
                 listContainer.innerHTML = '<p class="text-xs text-slate-400 text-center py-4">Nenhum exercício encontrado nesta sessão.</p>';
             } else {
                 const uniqueExercises = [...new Set(workExercises.map(ex => ex.name))];
-                const colors = ['bg-brand-500', 'bg-purple-500', 'bg-orange-500', 'bg-green-500', 'bg-pink-500'];
+                const colors = ['bg-brand-500', 'bg-purple-500', 'bg-orange-500', 'bg-amber-500', 'bg-green-500'];
                 
                 uniqueExercises.forEach((exName, idx) => {
                     const colorClass = colors[idx % colors.length];
-                    const searchStr = encodeURIComponent("como fazer " + exName + " corretamente calistenia");
+                    const searchStr = encodeURIComponent("como fazer " + exName + " corretamente " + (nw.modality || ''));
                     const exData = workExercises.find(q => q.name === exName);
                     const roundInfo = exData && exData.roundInfo ? exData.roundInfo : "Foque na postura correta, amplitude completa e respiração controlada.";
                     
@@ -1661,22 +1866,22 @@
         };
 
         function escapeHtml(text) { const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }; return text.replace(/[&<>"']/g, m => map[m]); }
+        
         async function loadChatHistory() {
             try {
                 const cont = $('chat-messages'); const snap = await getDocs(query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'))); cont.innerHTML = '';
-                if (snap.empty) cont.innerHTML = `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200">Olá, ${userData.nickname}! Como posso orientar seu treino hoje?</div></div>`;
+                if (snap.empty) cont.innerHTML = `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200">Olá, ${userData.nickname}! Como posso orientar seu treino híbrido hoje?</div></div>`;
                 else snap.forEach(d => { const m = d.data(); cont.innerHTML += m.role === 'user' ? `<div class="flex gap-2.5 justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(m.text)}</div></div>` : `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${escapeHtml(m.text)}</div></div>`; });
                 cont.scrollTop = cont.scrollHeight;
             } catch(e) {}
         }
-        window.clearChatHistory = async () => { showLoading("Limpando..."); try { const snap = await getDocs(collection(db, `users/${currentUser.uid}/messages`)); await Promise.all(snap.docs.map(d=>deleteDoc(d.ref))); hideLoading(); loadChatHistory(); } catch(e) {} };
-        
+
         window.sendChatMessage = async () => {
             const inp = $('chat-input'); const t = inp.value.trim(); if(!t) return;
             const c = $('chat-messages'); c.innerHTML += `<div class="flex gap-2.5 justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(t)}</div></div>`; inp.value = ''; c.scrollTop = c.scrollHeight;
             try { await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'user', text: t, timestamp: new Date().toISOString() }); } catch(e) {}
             const lId = 't_'+Date.now(); c.innerHTML += `<div id="${lId}" class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs animate-spin"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-400 italic">Pensando...</div></div>`; c.scrollTop = c.scrollHeight;
-            const hc = await getCumulativeHistoryContext(); const prompt = `Atue como Coach Sênior. Aluno: ${userData.nickname}. DADOS: ${userData?JSON.stringify(userData):""}. HISTÓRICO: ${hc}. MSG: "${t}".`;
+            const hc = await getCumulativeHistoryContext(); const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. DADOS: ${userData?JSON.stringify(userData):""}. HISTÓRICO: ${hc}. MSG: "${t}".`;
             try { const res = await callGemini(prompt, 'chat'); $(lId).remove(); c.innerHTML += `<div class="flex gap-2.5"><div class="w-8 h-8 rounded-full bg-brand-500/20 flex items-center justify-center text-brand-400 shrink-0"><i class="fas fa-robot text-xs"></i></div><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${escapeHtml(res.reply)}</div></div>`; c.scrollTop = c.scrollHeight; await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'model', text: res.reply, timestamp: new Date().toISOString() }); } 
             catch(e) { $(lId).remove(); c.innerHTML += `<div class="flex gap-2.5"><div class="bg-dark-950 border border-red-500/30 p-3.5 rounded-2xl text-xs text-red-300">Erro de conexão.</div></div>`; }
         };
