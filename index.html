@@ -1012,10 +1012,9 @@
             <!-- Line 2: Workout Description (Wrapped, no overflow) -->
             <p id="timer-workout-desc" class="text-xs text-slate-300 font-medium break-words line-clamp-2 mt-1">--</p>
 
-            <!-- Line 3: Step Badge + Total Timer + Wake Lock Badge + Exit Button -->
+            <!-- Line 3: Total Timer + Wake Lock Badge + Exit Button -->
             <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2.5 border-t border-slate-800/80">
                 <div class="flex items-center gap-2 flex-wrap">
-                    <p id="timer-step-counter" class="text-slate-200 text-xs font-bold bg-slate-800 border border-slate-700 px-2.5 py-1 rounded-lg">Passo 0/0</p>
                     <p class="text-slate-200 text-xs font-bold bg-dark-950 border border-brand-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
                         <i class="fas fa-clock text-brand-400"></i> <span id="timer-total-left" class="text-brand-300 font-black">00:00</span>
                     </p>
@@ -1041,7 +1040,7 @@
                     <circle id="timer-ring" class="timer-circle" cx="50" cy="50" r="46" fill="none" stroke="#06b6d4" stroke-width="6" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="0" />
                 </svg>
                 <div class="absolute inset-0 flex items-center justify-center text-center p-3">
-                    <span id="timer-time" class="text-6xl font-black text-white tracking-tighter">00:00</span>
+                    <span id="timer-time" class="text-5xl font-black text-white tracking-tight">00:00</span>
                 </div>
             </div>
 
@@ -2373,8 +2372,10 @@
         const item = currentWorkoutQueue[index]; 
         timeLeft = parseInt(item.duration, 10) || 30;
         
-        document.getElementById('timer-step-counter').innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
-        document.getElementById('timer-step-badge').innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
+        const stepCounter = document.getElementById('timer-step-counter');
+        if (stepCounter) stepCounter.innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
+        const stepBadge = document.getElementById('timer-step-badge');
+        if (stepBadge) stepBadge.innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
         
         // Card 1 (Blue): Current Exercise & Guideline
         document.getElementById('timer-current-name').innerText = item.name;
