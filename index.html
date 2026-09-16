@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v3.6 - Calistenia, Corrida & Musculação</title>
+    <title>AI Coach Híbrido v4.0 - Fisiologia de Precisão, ACWR & Skill Trees</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +26,7 @@
     </script>
 
     <style>
-        body { background-color: #020617; color: #f8fafc; overflow-x: hidden; user-select: none; -webkit-user-select: none; }
+        body { background-color: #020617; color: #f8fafc; overflow-x: hidden; }
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
@@ -36,7 +36,7 @@
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .accordion-content { transition: max-height 0.35s cubic-bezier(0, 1, 0, 1); overflow: hidden; }
-        .accordion-content.expanded { max-height: 1200px; transition: max-height 0.4s ease-in-out; }
+        .accordion-content.expanded { max-height: 1400px; transition: max-height 0.4s ease-in-out; }
         .swipe-area { touch-action: pan-y; }
     </style>
 </head>
@@ -77,46 +77,46 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. Híbrido em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Coach I.A. Híbrido v4.0 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
-<!-- POP-UP 1: Novelty Banner v3.6 Modal -->
-<div id="modal-v34-novelty" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[185] hidden items-center justify-center p-4">
+<!-- POP-UP 1: Novelty Banner v4.0 Modal -->
+<div id="modal-v40-novelty" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[185] hidden items-center justify-center p-4">
     <div class="bg-dark-900 border border-brand-500/50 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden mx-auto flex flex-col">
         <div class="h-36 bg-gradient-to-r from-brand-900 via-purple-900 to-amber-900 relative flex items-center justify-center overflow-hidden shrink-0">
             <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-400/20 via-transparent to-transparent"></div>
             <div class="flex items-center gap-4 relative z-10 px-6">
                 <div class="w-16 h-16 rounded-2xl bg-dark-900/80 border border-brand-400/40 flex items-center justify-center text-brand-400 shadow-xl shrink-0">
-                    <i class="fas fa-rocket text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
+                    <i class="fas fa-calculator text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">NOVIDADES v3.6</span>
-                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Super App v3.6 Ativo!</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">NOVIDADES v4.0</span>
+                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Super App v4.0 Ativo!</h2>
                 </div>
             </div>
         </div>
 
         <div class="p-6 space-y-4">
             <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                Seu assistente técnico evoluiu para a versão <strong class="text-brand-400">v3.6</strong>! Confira os novos recursos de calibração:
+                Evoluímos para a versão <strong class="text-brand-400">v4.0</strong> com precisão fisiológica avançada e engenharia de I.A.:
             </p>
             <div class="space-y-2.5 bg-dark-950 p-4 rounded-2xl border border-slate-800 text-xs text-slate-300">
                 <div class="flex items-start gap-2.5">
-                    <i class="fas fa-clock text-brand-400 mt-0.5"></i>
-                    <span><strong>Ajuste Livre do Tempo de Treino:</strong> Digite a duração exata desejada em minutos no modal de Prontidão (Readiness) pré-treino.</span>
+                    <i class="fas fa-bullseye text-brand-400 mt-0.5"></i>
+                    <span><strong>Repetições de Reserva (RIR) & 1RM Epley:</strong> Estimativa matemática da carga máxima em cada exercício multiarticular.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
-                    <i class="fas fa-notes-medical text-purple-400 mt-0.5"></i>
-                    <span><strong>Relato Pré e Pós-Treino:</strong> Mapeamento por texto ou voz (STT) de dores e sintomas integrado à I.A.</span>
+                    <i class="fas fa-chart-line text-purple-400 mt-0.5"></i>
+                    <span><strong>Razão de Carga ACWR:</strong> Cálculo da relação Aguda/Crônica com ativação de Deload preventivo quando ACWR > 1.5.</span>
                 </div>
                 <div class="flex items-start gap-2.5">
-                    <i class="fas fa-desktop text-amber-400 mt-0.5"></i>
-                    <span><strong>Timer & Interface Recalibrados:</strong> Cards ampliados com visualização limpa de passo atual e proposto.</span>
+                    <i class="fas fa-microchip text-amber-400 mt-0.5"></i>
+                    <span><strong>Vetor de Estado Sintético JSON:</strong> Compressão inteligente de histórico para otimização de tokens e respostas mais precisas da I.A.</span>
                 </div>
             </div>
-            <button onclick="window.closeV34NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar Versão v3.6 <i class="fas fa-arrow-right ml-1"></i>
+            <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
+                Explorar Versão v4.0 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -216,8 +216,8 @@
             <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
                 <input type="radio" name="new-master-axis" value="Calistenia" class="w-4 h-4 accent-brand-500">
                 <div>
-                    <span class="text-xs font-black text-white block">Calistenia (Domínio do Peso Corporal)</span>
-                    <span class="text-[10px] text-slate-400">Flexões, barras, isométricos e força relativa.</span>
+                    <span class="text-xs font-black text-white block">Calistenia (Skill Trees & Torque)</span>
+                    <span class="text-[10px] text-slate-400">Progressões avançadas, isometria e força relativa.</span>
                 </div>
             </label>
             <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-amber-500/50 transition-colors">
@@ -230,8 +230,8 @@
             <label class="flex items-center gap-3 p-3.5 bg-dark-950 rounded-2xl border border-slate-800 cursor-pointer hover:border-purple-500/50 transition-colors">
                 <input type="radio" name="new-master-axis" value="Musculação" class="w-4 h-4 accent-purple-500">
                 <div>
-                    <span class="text-xs font-black text-white block">Musculação (Sobrecarga de Cargas)</span>
-                    <span class="text-[10px] text-slate-400">Halteres, barras, aparelhos e hipertrofia.</span>
+                    <span class="text-xs font-black text-white block">Musculação (Sobrecarga de Cargas & 1RM)</span>
+                    <span class="text-[10px] text-slate-400">Halteres, barras, RIR, estimativa de 1RM e hipertrofia.</span>
                 </div>
             </label>
         </div>
@@ -241,7 +241,7 @@
     </div>
 </div>
 
-<!-- Modal Changelog v3.6 -->
+<!-- Modal Changelog v4.0 -->
 <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-700 rounded-3xl p-6 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto max-h-[85vh] flex flex-col">
         <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800">
@@ -254,24 +254,24 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v3.6 (Ajuste Livre de Duração no Readiness)</span>
+                    <span class="font-black text-brand-400 text-sm">v4.0 (Precisão Fisiológica, ACWR & Estado Sintético)</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
-                <p class="text-slate-400 leading-relaxed font-medium">• Campo discreto de duração customizada (em minutos) no modal de Prontidão (Readiness) pré-treino.<br>• Recálculo e rebalanceamento automático da fila de exercícios e descansos baseados na duração estipulada.<br>• Layout do timer e cabeçalho recalibrados com fontes ampliadas e cards visualmente isolados.</p>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Métrica de Repetições de Reserva (RIR) substituindo/complementando RPE.<br>
+                    • Cálculo em tempo real de 1RM Estimado via Fórmula de Epley.<br>
+                    • Regra de progressão automática de +2% a +5% para RIR ≥ 2.<br>
+                    • Monitoramento de Carga Aguda/Crônica (ACWR) com Deload automático se ACWR > 1.5.<br>
+                    • Vetor de Estado Sintético em JSON para compressão massiva de tokens na I.A.<br>
+                    • Matriz Cinesiológica de Substituição de exercícios conforme relatos de dores.
+                </p>
             </div>
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-xs">v3.5 (Registro Subjetivo Pré-Treino)</span>
+                    <span class="font-black text-slate-200 text-xs">v3.7 (Cinesiologia & Skill Trees)</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
-                <p class="text-slate-400 leading-relaxed font-medium">• Campo livre de texto/voz no modal de Prontidão pré-treino.<br>• Mapeamento de dores articulares e insônia integrado à I.A.</p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-xs">v3.4 (Metodologias Específicas por Modalidade)</span>
-                    <span class="text-[9px] text-slate-500">Set 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">• Musculação Set-by-Set Logging com sugestão de carga ($kg$) e RPE.<br>• Corrida Autônoma com Zonas de FC (Z1-Z5).<br>• Microciclos de Deload Automáticos.</p>
+                <p class="text-slate-400 leading-relaxed font-medium">• Árvores de Progressão Biomecânica baseadas em torque articular.<br>• Volume Isométrico & TUT em segundos.<br>• Matriz de Estresse Tendíneo (Straight-Arm vs Bent-Arm).<br>• Índice de Força Relativa (IFR).</p>
             </div>
         </div>
     </div>
@@ -292,8 +292,8 @@
         <div class="w-20 h-20 bg-dark-900 border border-slate-800 rounded-3xl flex items-center justify-center mx-auto mb-4 relative z-10 shadow-xl">
             <i class="fas fa-layer-group text-3xl text-brand-400 drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]"></i>
         </div>
-        <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline">v3.6</span></h1>
-        <p class="text-slate-400 font-medium mt-1">Calistenia, Corrida & Musculação <br> Sua evolução calculada por I.A.</p>
+        <h1 class="text-3xl font-black tracking-tight text-white relative z-10">AI Coach <span onclick="window.openChangelog()" class="text-[12px] text-brand-400 font-bold align-top cursor-pointer hover:underline">v4.0</span></h1>
+        <p class="text-slate-400 font-medium mt-1">Fisiologia de Precisão, ACWR & Skill Trees <br> Inteligência Artificial Multimodal</p>
     </div>
 
     <div class="glass-panel p-6 rounded-3xl shadow-2xl relative overflow-hidden w-full">
@@ -358,9 +358,9 @@
         </div>
         <h2 class="text-2xl font-black text-white">Bem-vindo(a), <span id="welcome-nick-display" class="text-brand-400">Aluno</span>!</h2>
         <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-left bg-dark-950 p-4 rounded-2xl border border-slate-800 font-medium">
-            <p><strong class="text-white">Este é o seu Super App de Treino Híbrido v3.6.</strong></p>
-            <p>Combine <strong class="text-brand-400">Calistenia</strong>, <strong class="text-amber-400">Corrida Autônoma</strong> e <strong class="text-purple-400">Musculação Set-by-Set</strong>.</p>
-            <p>A I.A. ajusta descansos, prescreve cargas, calcula Zonas de FC e previne overtraining automaticamente.</p>
+            <p><strong class="text-white">Este é o seu Super App de Treino Híbrido v4.0.</strong></p>
+            <p>Combine <strong class="text-brand-400">Calistenia</strong>, <strong class="text-amber-400">Corrida Autônoma</strong> e <strong class="text-purple-400">Musculação com RIR e 1RM Epley</strong>.</p>
+            <p>A I.A. calcula a razão de carga ACWR, identifica vetores de dor e comprime seu histórico em um estado sintético de alta eficiência.</p>
         </div>
         <button onclick="window.goToStep3()" class="w-full bg-gradient-to-r from-brand-600 to-purple-600 hover:from-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] uppercase tracking-wide text-sm">
             Configurar Meu Biotipo <i class="fas fa-arrow-right ml-1"></i>
@@ -454,62 +454,64 @@
 <!-- Onboarding Step 4: Calisthenics Assessment -->
 <div id="screen-step4-calisthenics" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center animate-fade-in">
     <div class="mb-4 text-center">
-        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block">Módulo 1 de 3</span>
-        <h2 class="text-xl font-black text-white flex items-center justify-center gap-2"><i class="fas fa-child text-brand-400"></i> Avaliação: Calistenia</h2>
-        <p class="text-xs text-slate-400 font-medium">Peso corporal & força relativa</p>
+        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest block">Módulo 1 de 3 (v4.0 Fisiologia)</span>
+        <h2 class="text-xl font-black text-white flex items-center justify-center gap-2"><i class="fas fa-project-diagram text-brand-400"></i> Avaliação: Calistenia & Skill Trees</h2>
+        <p class="text-xs text-slate-400 font-medium">Torque, Alavancas e Estresse Tendíneo</p>
     </div>
 
     <form id="step4-calisthenics-form" class="space-y-4 w-full pb-10">
         <div class="glass-panel p-5 rounded-3xl shadow-xl border border-brand-500/30 space-y-4 text-xs">
             <div>
-                <label class="font-bold text-white block mb-1.5">1. Quantas flexões de braço estritas consegue fazer seguidas?</label>
+                <label class="font-bold text-white block mb-1.5">1. Nível atual na Árvore de Empurrar (Push Skill Tree):</label>
                 <select id="cal-q1" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none">
-                    <option value="Menos de 5">Menos de 5 repetições</option>
-                    <option value="5 a 15" selected>5 a 15 repetições</option>
-                    <option value="16 a 30">16 a 30 repetições</option>
-                    <option value="Mais de 30">Mais de 30 repetições</option>
+                    <option value="Flexão Inclinada">Flexão Inclinada (Iniciante)</option>
+                    <option value="Flexão Padrão" selected>Flexão Padrão no Solo (Intermediário)</option>
+                    <option value="Flexão Declinada / Diamante">Flexão Declinada ou Diamante</option>
+                    <option value="Pseudo Planche Push-ups">Pseudo Planche Push-ups (Avançado)</option>
+                    <option value="Flexão Unilateral / Handstand">Flexão Unilateral / Handstand Push-ups</option>
                 </select>
             </div>
             <div>
-                <label class="font-bold text-white block mb-1.5">2. Qual o seu nível atual na barra fixa (pull-ups)?</label>
+                <label class="font-bold text-white block mb-1.5">2. Nível atual na Árvore de Puxar (Pull Skill Tree):</label>
                 <select id="cal-q2" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none">
-                    <option value="Nenhuma">Nenhuma / Não consigo subir</option>
-                    <option value="1 a 5" selected>1 a 5 repetições</option>
-                    <option value="6 a 12">6 a 12 repetições</option>
-                    <option value="Mais de 12 ou com peso">Mais de 12 repetições ou com peso</option>
+                    <option value="Remada Inclinada">Remada Inclinada TRX / Argolas</option>
+                    <option value="Barra Fixa Negativa">Barra Fixa Negativa / Assistida</option>
+                    <option value="Barra Fixa Estrita" selected>Barra Fixa Estrita (1 a 8 reps)</option>
+                    <option value="Barra Fixa Avançada (>12 reps)">Barra Fixa Supinada/Pronada (>12 reps)</option>
+                    <option value="Muscle-Up / Front Lever">Muscle-Up / Front Lever Tuck</option>
                 </select>
             </div>
             <div>
-                <label class="font-bold text-white block mb-1.5">3. Como está a estabilidade do seu Core (abdômen/lombar)?</label>
+                <label class="font-bold text-white block mb-1.5">3. Capacidade de Isometria (TUT) e Core:</label>
                 <select id="cal-q3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none">
-                    <option value="Fraqueza ou dor">Sinto fraqueza ou dores na lombar</option>
-                    <option value="Prancha 30s" selected>Consigo prancha por até 30s</option>
-                    <option value="Prancha >1min">Prancha por mais de 1 minuto</option>
-                    <option value="Avançado (toes-to-bar)">Domino abdominais avançados</option>
+                    <option value="Prancha básica 30s">Prancha básica até 30 segundos</option>
+                    <option value="Prancha 1min / Hollow 30s" selected>Prancha 1 min / Hollow Hold 30s</option>
+                    <option value="L-Sit Tuck 20s">L-Sit Tuck por 20 segundos</option>
+                    <option value="L-Sit Completo / Front Lever Hold">L-Sit Completo / Front Lever Hold</option>
                 </select>
             </div>
             <div>
-                <label class="font-bold text-white block mb-1.5">4. Possui restrições articulares (ombros/cotovelos/punhos)?</label>
+                <label class="font-bold text-white block mb-1.5">4. Histórico de desconforto articular (Straight-Arm):</label>
                 <select id="cal-q4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none">
-                    <option value="Dores frequentes">Sim, sinto dores frequentes</option>
-                    <option value="Desconforto leve">Desconforto leve ocasional</option>
-                    <option value="Nenhuma restrição" selected>Nenhuma restrição</option>
+                    <option value="Histórico de epicondilite">Sim, sensibilidade em cotovelos/ombros</option>
+                    <option value="Desconforto leve ocasional">Desconforto leve ocasional em treinos longos</option>
+                    <option value="Nenhuma restrição" selected>Nenhuma restrição articular ou tendínea</option>
                 </select>
             </div>
             <div>
-                <label class="font-bold text-white block mb-1.5">5. Objetivos na Calistenia:</label>
-                <div class="space-y-1.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="cal-q5" value="Definição e perda de peso" class="accent-brand-500"> Definição e Perda de Peso</label>
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="cal-q5" value="Hipertrofia relativa" class="accent-brand-500" checked> Hipertrofia Relativa</label>
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="cal-q5" value="Condicionamento físico geral" class="accent-brand-500" checked> Condicionamento físico geral</label>
-                </div>
+                <label class="font-bold text-white block mb-1.5">5. Aptidão para Calistenia com Carga (Weighted):</label>
+                <select id="cal-q5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none">
+                    <option value="Apenas peso corporal" selected>Apenas peso corporal</option>
+                    <option value="Uso colete até 10kg">Já uso colete ou cinto de tração (até 10kg)</option>
+                    <option value="Cargas avançadas (>15kg)">Domino cargas avançadas (>15kg adicionais)</option>
+                </select>
             </div>
             <div>
                 <div class="flex items-center justify-between mb-1">
                     <label class="font-bold text-white block">Observações adicionais (Opcional):</label>
                     <button type="button" onclick="window.toggleMic('cal-text', 'btn-mic-cal')" id="btn-mic-cal" class="text-xs text-slate-400 hover:text-brand-400 p-1"><i class="fas fa-microphone"></i></button>
                 </div>
-                <textarea id="cal-text" rows="2" placeholder="Ex: Treino há 6 meses..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none resize-none"></textarea>
+                <textarea id="cal-text" rows="2" placeholder="Ex: Consigo 10 barras estritas..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-slate-200 outline-none resize-none"></textarea>
             </div>
         </div>
 
@@ -524,7 +526,7 @@
     <div class="mb-4 text-center">
         <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest block">Módulo 2 de 3</span>
         <h2 class="text-xl font-black text-white flex items-center justify-center gap-2"><i class="fas fa-dumbbell text-purple-400"></i> Avaliação: Musculação</h2>
-        <p class="text-xs text-slate-400 font-medium">Sobrecargas, halteres & aparelhos</p>
+        <p class="text-xs text-slate-400 font-medium">Sobrecargas, halteres & estimativa de 1RM</p>
     </div>
 
     <form id="step5-bodybuilding-form" class="space-y-4 w-full pb-10">
@@ -559,13 +561,6 @@
                     <option value="Atenção especial">Sim, preciso de atenção especial</option>
                     <option value="Zero lesão" selected>Zero histórico de lesão</option>
                 </select>
-            </div>
-            <div>
-                <label class="font-bold text-white block mb-1.5">5. Objetivos na Musculação:</label>
-                <div class="space-y-1.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="musc-q5" value="Hipertrofia máxima" class="accent-purple-500" checked> Hipertrofia Máxima</label>
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="musc-q5" value="Condicionamento físico geral" class="accent-purple-500" checked> Condicionamento físico geral</label>
-                </div>
             </div>
             <div>
                 <div class="flex items-center justify-between mb-1">
@@ -624,13 +619,6 @@
                 </select>
             </div>
             <div>
-                <label class="font-bold text-white block mb-1.5">5. Objetivos na Corrida:</label>
-                <div class="space-y-1.5 bg-dark-950 p-3 rounded-xl border border-slate-800">
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="run-q5" value="Emagrecimento" class="accent-amber-500" checked> Emagrecimento</label>
-                    <label class="flex items-center gap-2 cursor-pointer font-medium"><input type="checkbox" name="run-q5" value="Condicionamento físico geral" class="accent-amber-500" checked> Condicionamento físico geral</label>
-                </div>
-            </div>
-            <div>
                 <div class="flex items-center justify-between mb-1">
                     <label class="font-bold text-white block">Observações adicionais (Opcional):</label>
                     <button type="button" onclick="window.toggleMic('run-text', 'btn-mic-run')" id="btn-mic-run" class="text-xs text-slate-400 hover:text-amber-400 p-1"><i class="fas fa-microphone"></i></button>
@@ -655,11 +643,11 @@
     <div class="space-y-4 w-full">
         <button onclick="window.selectMasterAxis('Calistenia')" class="w-full glass-panel p-5 rounded-3xl border border-brand-500/40 text-left hover:border-brand-400 transition-all group flex items-start gap-4">
             <div class="w-12 h-12 rounded-2xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
-                <i class="fas fa-child"></i>
+                <i class="fas fa-project-diagram"></i>
             </div>
             <div>
-                <h3 class="text-sm font-black text-white">1. Calistenia (Eixo Principal)</h3>
-                <p class="text-xs text-slate-400 mt-1 leading-relaxed font-medium">Foco no controle corporal, flexões, barras, isométricos e força relativa.</p>
+                <h3 class="text-sm font-black text-white">1. Calistenia (Skill Trees & Torque)</h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed font-medium">Foco em progressões biomecânicas, volume isométrico (TUT) e força relativa.</p>
             </div>
         </button>
 
@@ -678,8 +666,8 @@
                 <i class="fas fa-dumbbell"></i>
             </div>
             <div>
-                <h3 class="text-sm font-black text-white">3. Musculação (Eixo Principal)</h3>
-                <p class="text-xs text-slate-400 mt-1 leading-relaxed font-medium">Foco na sobrecarga progressiva, cartões de séries set-by-set e carga em kg.</p>
+                <h3 class="text-sm font-black text-white">3. Musculação (Sobrecarga, RIR & 1RM)</h3>
+                <p class="text-xs text-slate-400 mt-1 leading-relaxed font-medium">Foco em repetições de reserva (RIR), estimativa de 1RM Epley e cartões set-by-set.</p>
             </div>
         </button>
     </div>
@@ -688,7 +676,7 @@
 <!-- Dashboard Screen -->
 <div id="screen-dashboard" class="w-full max-w-md h-screen flex flex-col hidden bg-dark-950 mx-auto relative overflow-hidden">
     
-    <!-- Header UI v3.6 -->
+    <!-- Header UI v4.0 -->
     <div class="px-5 pt-4 pb-3 bg-dark-900 border-b border-slate-800 sticky top-0 z-20 flex justify-between items-center shadow-lg">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black">
@@ -697,7 +685,7 @@
             <div>
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                     <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
-                    <span onclick="window.openChangelog()" class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v3.6</span>
+                    <span onclick="window.openChangelog()" class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v4.0</span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">...</p>
             </div>
@@ -716,7 +704,8 @@
     <div class="flex px-4 pt-3 pb-2 gap-2 overflow-x-auto custom-scrollbar flex-shrink-0 bg-dark-950 border-b border-slate-900">
         <button onclick="window.switchTab('training')" id="nav-training" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-brand-500/20 text-brand-400 border border-brand-500/30 whitespace-nowrap">Treinamento</button>
         <button onclick="window.switchTab('analysis')" id="nav-analysis" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Plano Inicial</button>
-        <button onclick="window.switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso</button>
+        <button onclick="window.switchTab('howitworks')" id="nav-howitworks" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-graduation-cap mr-1"></i> Como Funciona</button>
+        <button onclick="window.switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso & ACWR</button>
         <button onclick="window.switchTab('calendar')" id="nav-calendar" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
         <button onclick="window.switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         <button onclick="window.switchTab('profile')" id="nav-profile" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-user-circle mr-1"></i> Perfil</button>
@@ -733,13 +722,13 @@
                 <p id="dash-feedback-text" class="text-sm text-slate-300 italic font-medium leading-relaxed">...</p>
             </div>
 
-            <!-- Deload Alert Banner (if applicable) -->
+            <!-- Deload Alert Banner (if applicable or ACWR > 1.5) -->
             <div id="dash-deload-banner" class="hidden bg-amber-950/40 border border-amber-500/50 p-4 rounded-3xl relative overflow-hidden w-full">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                 <div class="flex items-center gap-2 mb-1">
-                    <span class="text-[10px] bg-amber-500 text-dark-950 font-black px-2 py-0.5 rounded uppercase">MICROCICLO DE DELOAD</span>
+                    <span class="text-[10px] bg-amber-500 text-dark-950 font-black px-2 py-0.5 rounded uppercase">MICROCICLO DE DELOAD & PROTEÇÃO ACWR</span>
                 </div>
-                <p class="text-xs text-amber-200 font-medium leading-relaxed">Detectamos acúmulo de fadiga (PSE elevada por semanas seguidas). A I.A. reduziu temporariamente o volume para promover supercompensação.</p>
+                <p class="text-xs text-amber-200 font-medium leading-relaxed">Detectamos acúmulo de fadiga ou pico de carga aguda (ACWR > 1.5). A I.A. ajustou o volume em 30%-40% para proteger suas articulações.</p>
             </div>
 
             <!-- Next Workout Card -->
@@ -774,7 +763,7 @@
 
                     <div class="flex flex-col gap-2">
                         <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
-                            <i class="fas fa-book-open mr-1"></i> Ver Exercícios do Dia
+                            <i class="fas fa-book-open mr-1"></i> Ver Exercícios do Dia & Guia
                         </button>
                         <button onclick="window.openReadinessModal()" class="w-full bg-white text-dark-950 hover:bg-slate-200 font-black py-3 rounded-2xl transition-colors shadow-[0_0_15px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2 text-sm uppercase tracking-wide mt-1">
                             <i class="fas fa-play"></i> Iniciar Sessão
@@ -802,15 +791,164 @@
             </div>
         </div>
 
-        <!-- Tab 3: Progresso -->
+        <!-- Tab Explicativa: Como Funciona (Separado por Modalidade) -->
+        <div id="tab-howitworks" class="space-y-4 hidden animate-fade-in pb-12">
+            <!-- Header Banner -->
+            <div class="glass-panel p-5 rounded-3xl border border-brand-500/40 shadow-xl relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center shrink-0 font-black">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Metodologia v4.0</span>
+                        <h2 class="text-base font-black text-white">Como Funcionam os Seus Treinos</h2>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">
+                    Entenda como a I.A. calcula e estrutura a prescrição técnica de cada modalidade e como o motor de fisiologia previne lesões.
+                </p>
+            </div>
+
+            <!-- MODALIDADE 1: CALISTENIA -->
+            <div class="glass-panel p-5 rounded-3xl border border-brand-500/30 space-y-3.5">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black shrink-0">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-white">1. Calistenia (Skill Trees, Torque & TUT)</h3>
+                        <span class="text-[10px] text-brand-400 font-bold">Domínio do Peso Corporal e Alavancas Biomecânicas</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed font-medium">
+                    <p>
+                        <strong class="text-white">• Árvores de Progressão Biomecânica (Skill Trees):</strong> A I.A. mapeia seu nível nas 4 grandes árvores (Empurrar, Puxar, Isometria e Core), ajustando exercícios conforme suas alavancas corporais (ex: de Flexão Padrão para Pseudo Planche ou Handstand Push-up).
+                    </p>
+                    <p>
+                        <strong class="text-white">• Tempo Sob Tensão (TUT) & Isometria:</strong> Para movimentos estáticos (Pranchas, Hollow Hold, L-Sit), o volume é prescrito e computado em segundos de tensão efetiva para máxima ativação muscular.
+                    </p>
+                    <p>
+                        <strong class="text-white">• Estresse Tendíneo (Straight-Arm vs Bent-Arm):</strong> Diferenciação rigorosa entre movimentos de braço estendido (alto torque articular) e braço dobrado para proteger cotovelos e punhos contra dores ou tendinites.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MODALIDADE 2: MUSCULAÇÃO -->
+            <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-3.5">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center font-black shrink-0">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-white">2. Musculação (Sobrecarga, RIR & 1RM Epley)</h3>
+                        <span class="text-[10px] text-purple-400 font-bold">Cargas Progressivas, Séries & Estimativas Teóricas</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed font-medium">
+                    <p>
+                        <strong class="text-white">• Repetições de Reserva (RIR):</strong> Informa quantas repetições você ainda faria antes da falha concêntrica (RIR 0 = Falha, RIR 2 = 2 repetições de margem de segurança).
+                    </p>
+                    <p>
+                        <strong class="text-white">• Cálculo de 1RM Estimado (Fórmula de Epley):</strong> Em tempo real, a I.A. calcula a sua força máxima teórica para cada exercício multiarticular executado:
+                    </p>
+                    <div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 text-center font-mono text-purple-300 font-bold my-1">
+                        1RM = Carga (kg) × (1 + (Reps + RIR) / 30)
+                    </div>
+                    <p>
+                        <strong class="text-white">• Regra de Progressão Automática (+2% a +5%):</strong> Sempre que você atingir o teto das repetições mantendo RIR &ge; 2, a I.A. recomenda aumento gradual de carga na sessão seguinte.
+                    </p>
+                    <p>
+                        <strong class="text-white">• Cartões Set-by-Set:</strong> Registro individualizado série a série com sugestão de descanso ATP-CP no cronômetro interativo.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MODALIDADE 3: CORRIDA -->
+            <div class="glass-panel p-5 rounded-3xl border border-amber-500/30 space-y-3.5">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-black shrink-0">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-white">3. Corrida (Cardio Autônomo, Pace & Zonas de FC)</h3>
+                        <span class="text-[10px] text-amber-400 font-bold">Monitoramento do Aparelho Cardiorrespiratório</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed font-medium">
+                    <p>
+                        <strong class="text-white">• Zonas de Frequência Cardíaca (Z1 a Z5):</strong> Calculadas automaticamente via fórmula fisiológica com base na sua idade (FCmáx = 208 - 0.7 × Idade):
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl border border-slate-800 text-[10px] my-1">
+                        <div><span class="text-slate-400 font-bold">Z1 (50-60%):</span> Recuperação</div>
+                        <div><span class="text-brand-400 font-bold">Z2 (60-70%):</span> Base Aeróbica</div>
+                        <div><span class="text-amber-400 font-bold">Z3 (70-80%):</span> Limiar Aeróbico</div>
+                        <div><span class="text-orange-400 font-bold">Z4 (80-90%):</span> Limiar Anaeróbico</div>
+                        <div class="col-span-2"><span class="text-red-400 font-bold">Z5 (90-100%):</span> Tiro / Esforço Máximo</div>
+                    </div>
+                    <p>
+                        <strong class="text-white">• Painel Autônomo para Smartwatch:</strong> Prescrição estruturada em Aquecimento, Blocos de Tiro/Intervalados e Desaquecimento para você executar pelo seu app/relógio de preferência (Garmin, Apple, Strava).
+                    </p>
+                    <p>
+                        <strong class="text-white">• Indicadores de Progresso Cardio:</strong> Monitoramento do Pace médio (min/km), distância total e recuperação cardíaca pós-esforço (HRR aos 3 min).
+                    </p>
+                </div>
+            </div>
+
+            <!-- MOTOR CENTRAL: FISIOLOGIA, ACWR & VETOR SINTÉTICO -->
+            <div class="glass-panel p-5 rounded-3xl border border-slate-700 space-y-3.5">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-slate-800 text-brand-400 border border-slate-700 flex items-center justify-center font-black shrink-0">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black text-white">4. Motor Central de I.A., ACWR & Prevenção</h3>
+                        <span class="text-[10px] text-brand-400 font-bold">Integração Cruzada e Proteção Articular</span>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 text-xs text-slate-300 leading-relaxed font-medium">
+                    <p>
+                        <strong class="text-white">• Razão ACWR (Carga Aguda / Crônica):</strong> Compara o estresse da última semana com a média das últimas 4 semanas. Se ACWR > 1.5, a I.A. ativa automaticamente o banner de <strong>Deload Regenerativo</strong> e reduz o volume em 30%-40%.
+                    </p>
+                    <p>
+                        <strong class="text-white">• Matriz Cinesiológica de Substituição:</strong> Se você relata desconforto ou dor (ex: ombro, cotovelo, joelho) nos check-ins pré ou pós-treino, o vetor sintético redireciona a seleção de exercícios para variações biomecanicamente seguras.
+                    </p>
+                    <p>
+                        <strong class="text-white">• Vetor de Estado Sintético JSON:</strong> Compressão inteligente de todo o seu histórico em dados leves e estruturados, acelerando o tempo de resposta da I.A. Gemini.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Progresso & ACWR -->
         <div id="tab-progress" class="space-y-4 hidden animate-fade-in pb-12">
+            <!-- ACWR Dashboard Indicator Card -->
+            <div class="glass-panel p-4 rounded-3xl border border-amber-500/40 shadow-xl w-full relative overflow-hidden">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-shield-alt text-amber-400"></i> Índice ACWR Atual</h3>
+                    <span id="acwr-score-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl">--</span>
+                </div>
+                <p id="acwr-status-text" class="text-xs text-slate-300 font-medium leading-relaxed">Calculando proporção de carga Aguda / Crônica...</p>
+            </div>
+
+            <!-- 1RM Estimates Summary Card -->
+            <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-dumbbell text-purple-400"></i> Estimativa de 1RM por Exercício (Epley)</h3>
+                <div id="progress-1rm-list" class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 text-slate-400 font-medium">Aguardando dados...</div>
+                </div>
+            </div>
+
             <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full relative overflow-hidden">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-brain text-purple-400"></i> Relatório de Progresso (I.A.)</h3>
                     <button onclick="window.generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">Gerar Relatório</button>
                 </div>
                 <div id="progress-report-content" class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <p class="text-xs text-slate-400 italic text-center py-2 font-medium">Clique em "Gerar Relatório" para analisar seu progresso.</p>
+                    <p class="text-xs text-slate-400 italic text-center py-2 font-medium">Clique em "Gerar Relatório" para analisar seu progresso v4.0.</p>
                 </div>
             </div>
 
@@ -872,7 +1010,7 @@
             <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 p-3 bg-dark-900 border border-slate-800 rounded-3xl"></div>
 
             <div class="flex gap-2 pt-2">
-                <input type="text" id="chat-input" placeholder="Ex: Como melhorar minhas marcas de corrida?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none">
+                <input type="text" id="chat-input" placeholder="Ex: Qual meu 1RM no supino e como evoluir?" class="flex-1 bg-dark-900 border border-slate-700 focus:border-brand-500 rounded-2xl px-4 py-3 text-xs text-white outline-none">
                 <button id="btn-mic-chat" onclick="window.toggleMic('chat-input', 'btn-mic-chat')" class="w-12 h-12 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-2xl flex items-center justify-center border border-slate-700 shrink-0"><i class="fas fa-microphone"></i></button>
                 <button onclick="window.sendChatMessage()" class="w-12 h-12 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-2xl flex items-center justify-center transition-colors shadow-[0_0_15px_rgba(6,182,212,0.3)] shrink-0"><i class="fas fa-paper-plane"></i></button>
             </div>
@@ -883,7 +1021,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v3.6 Híbrido</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v4.0 Fisiologia</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -949,13 +1087,13 @@
     </div>
 </div>
 
-<!-- EXECUTION SCREEN 1: Bodybuilding (Set-by-Set Logging) -->
+<!-- EXECUTION SCREEN 1: Bodybuilding (Set-by-Set Logging & RIR) -->
 <div id="screen-bodybuilding-workout" class="fixed inset-0 z-[150] bg-dark-950 hidden flex-col overflow-y-auto custom-scrollbar">
     <div class="p-5 max-w-md mx-auto w-full pb-24">
-        <!-- Header Anti-Collision -->
+        <!-- Header -->
         <div class="flex justify-between items-start mb-4 pb-3 border-b border-slate-800">
             <div>
-                <span class="text-[10px] bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold px-2 py-0.5 rounded uppercase">MUSCULAÇÃO (SET-BY-SET)</span>
+                <span class="text-[10px] bg-purple-500/20 text-purple-400 border border-purple-500/30 font-bold px-2 py-0.5 rounded uppercase">MUSCULAÇÃO (RIR & 1RM LIVE)</span>
                 <h2 id="bb-workout-name" class="text-lg font-black text-white mt-1">Sessão de Força</h2>
             </div>
             <button onclick="window.abortWorkout()" class="w-10 h-10 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-colors border border-red-500/20 shrink-0">
@@ -992,7 +1130,6 @@
             </p>
         </div>
 
-        <!-- HR Zones & Session Target Plan -->
         <div id="run-targets-container" class="space-y-4"></div>
 
         <button onclick="window.openPostWorkoutFromRunning()" class="w-full bg-gradient-to-r from-amber-500 to-brand-500 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)] text-sm uppercase tracking-wide mt-6">
@@ -1004,15 +1141,10 @@
 <!-- EXECUTION SCREEN 3: Calisthenics Timer -->
 <div id="screen-timer" class="fixed inset-0 z-[150] bg-black/95 hidden justify-center">
     <div class="w-full max-w-md h-full bg-dark-950 flex flex-col relative shadow-2xl overflow-hidden mx-auto">
-        <!-- Header with line-by-line structure: Line 1 (Workout Title), Line 2 (Description), Line 3 (Unified Status & Controls) -->
         <div class="px-5 pt-4 pb-3.5 bg-dark-900 border-b border-slate-800 shrink-0 z-20">
-            <!-- Line 1: Workout Number / Title Only -->
             <p id="timer-workout-name" class="text-sm font-black text-brand-400 uppercase tracking-wider break-words line-clamp-1">Calistenia: Treino 1</p>
-
-            <!-- Line 2: Workout Description (Wrapped, no overflow) -->
             <p id="timer-workout-desc" class="text-xs text-slate-300 font-medium break-words line-clamp-2 mt-1">--</p>
 
-            <!-- Line 3: Total Timer + Wake Lock Badge + Exit Button -->
             <div class="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2.5 border-t border-slate-800/80">
                 <div class="flex items-center gap-2 flex-wrap">
                     <p class="text-slate-200 text-xs font-bold bg-dark-950 border border-brand-500/40 px-2.5 py-1 rounded-lg flex items-center gap-1.5">
@@ -1023,7 +1155,6 @@
                     </button>
                 </div>
                 
-                <!-- Exit Workout Icon Button -->
                 <button onclick="window.confirmAbortWorkout()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1 rounded-lg text-xs font-black flex items-center gap-1.5 transition-colors shrink-0" title="Sair do treino">
                     <i class="fas fa-sign-out-alt"></i> <span>Sair</span>
                 </button>
@@ -1033,7 +1164,6 @@
         <div class="flex-1 flex flex-col items-center justify-center p-5 relative overflow-hidden">
             <div id="timer-bg-pulse" class="absolute inset-0 bg-brand-500/5 transition-colors duration-1000"></div>
             
-            <!-- Clean Timer SVG Ring (Timer counter ONLY inside) -->
             <div class="relative w-60 h-60 flex items-center justify-center z-10 mb-6 mt-1">
                 <svg class="absolute inset-0 w-full h-full drop-shadow-2xl" viewBox="0 0 100 100">
                     <circle cx="50" cy="50" r="46" fill="none" stroke="#1e293b" stroke-width="6" />
@@ -1044,9 +1174,7 @@
                 </div>
             </div>
 
-            <!-- Timer Cards Container -->
             <div class="w-full flex flex-col gap-3 z-10">
-                <!-- Card 1 (Blue Theme): Current Exercise / Activity -->
                 <div id="timer-current-card" class="bg-gradient-to-r from-brand-950 via-dark-900 to-dark-900 border border-brand-500/50 w-full p-4 rounded-2xl flex flex-col justify-center shadow-lg relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-brand-400"></div>
                     <div class="flex items-center justify-between mb-1.5">
@@ -1057,7 +1185,6 @@
                     <span id="timer-current-info" class="text-sm text-brand-300 font-semibold mt-1 break-words line-clamp-2">--</span>
                 </div>
 
-                <!-- Card 2 (Orange Theme): Next Proposed Step -->
                 <div id="timer-next-card" class="bg-gradient-to-r from-amber-950/60 via-dark-900 to-dark-900 border border-amber-500/40 w-full p-4 rounded-2xl flex flex-col justify-center shadow-md relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                     <span class="text-xs text-amber-400 font-black uppercase tracking-widest mb-1 flex items-center gap-1.5"><i class="fas fa-forward"></i> Próximo Passo Proposto</span>
@@ -1106,7 +1233,7 @@
     <div class="bg-dark-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative overflow-hidden mx-auto">
         <div class="text-center mb-5">
             <h3 class="text-lg font-black text-white">Como você está hoje?</h3>
-            <p class="text-xs text-slate-400 font-medium">A I.A. ajustará a sessão baseada na sua energia.</p>
+            <p class="text-xs text-slate-400 font-medium">A I.A. ajustará a sessão baseada na sua energia e estresse articular.</p>
         </div>
 
         <div class="space-y-4">
@@ -1125,11 +1252,13 @@
                     </select>
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Dor Muscular Atual</label>
+                    <label class="text-[10px] font-bold text-slate-400 uppercase mb-1 block">Dor / Articulação Afetada</label>
                     <select id="read-sore" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none">
                         <option value="Nenhuma">Nenhuma</option>
-                        <option value="Leve" selected>Leve</option>
-                        <option value="Intensa">Intensa</option>
+                        <option value="Ombro">Ombro</option>
+                        <option value="Cotovelo">Cotovelo (Straight-Arm)</option>
+                        <option value="Joelho">Joelho</option>
+                        <option value="Lombar">Lombar</option>
                     </select>
                 </div>
             </div>
@@ -1138,22 +1267,20 @@
                 <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1">Modalidade para Hoje</label>
                 <select id="read-stimulus-modality" class="w-full bg-dark-950 border border-brand-500/40 rounded-xl p-2.5 text-xs text-white font-bold outline-none">
                     <option value="default">Manter Eixo Mestre Ativo</option>
-                    <option value="Calistenia">Variar para Calistenia</option>
+                    <option value="Calistenia">Variar para Calistenia (Skill Trees)</option>
                     <option value="Corrida">Variar para Corrida (Cardio & Pace)</option>
                     <option value="Musculação">Variar para Musculação (Pesos)</option>
                 </select>
             </div>
 
-            <!-- Subjective Pre-Workout Readiness Feedback -->
             <div>
                 <div class="flex justify-between items-center mb-1">
                     <label class="text-[10px] font-bold text-slate-300 uppercase block">Observação / Sintoma Pré-Treino (Opcional)</label>
                     <button type="button" onclick="window.toggleMic('read-notes', 'btn-mic-read')" id="btn-mic-read" class="text-xs text-slate-400 hover:text-brand-400 p-1" title="Ditar observações pré-treino"><i class="fas fa-microphone"></i></button>
                 </div>
-                <textarea id="read-notes" rows="2" placeholder="Ex: Sinto dor leve no ombro direito, dormi poucas horas..." class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none resize-none focus:border-brand-500"></textarea>
+                <textarea id="read-notes" rows="2" placeholder="Ex: Dor leve no ombro direito, dormi poucas horas..." class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none resize-none focus:border-brand-500"></textarea>
             </div>
 
-            <!-- v3.6 Discrete Custom Workout Duration Input -->
             <div class="p-3 bg-dark-950 border border-slate-800 rounded-2xl flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
                     <i class="fas fa-clock text-brand-400 text-sm"></i>
@@ -1180,7 +1307,7 @@
 <div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl mx-auto">
         <div class="flex justify-between items-center mb-5">
-            <h3 class="text-lg font-black text-white">Check-in Semanal</h3>
+            <h3 class="text-lg font-black text-white">Check-in Semanal & IFR</h3>
             <button onclick="window.hide('modal-checkin')" class="text-slate-500 hover:text-white text-xl"><i class="fas fa-times"></i></button>
         </div>
         <div class="space-y-4">
@@ -1192,17 +1319,17 @@
                 <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">% Gordura (Est.)</label>
                 <input type="number" id="checkin-bf" step="0.1" class="w-full bg-dark-950 border border-slate-700 rounded-2xl p-3 text-white text-sm outline-none">
             </div>
-            <button onclick="window.saveCheckin()" class="w-full bg-brand-500 text-white font-black py-3.5 rounded-2xl text-sm uppercase">Salvar Progresso</button>
+            <button onclick="window.saveCheckin()" class="w-full bg-brand-500 text-white font-black py-3.5 rounded-2xl text-sm uppercase">Salvar Check-in</button>
         </div>
     </div>
 </div>
 
-<!-- Modal Workout Library -->
+<!-- Modal Workout Library & Skill Trees -->
 <div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
         <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
             <div>
-                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Exercícios do Treino & Guia com Vídeo</span>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Árvores de Progressão & Guia de Exercícios</span>
                 <h3 id="mwl-title" class="text-base font-black text-white">Sessão Atual</h3>
             </div>
             <button onclick="window.hide('modal-workout-library')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
@@ -1254,8 +1381,7 @@
                         </div>
                     </div>
 
-                    <!-- Running Specific Metrics Form -->
-                    <div id="pw-running-fields" class="mt-3 p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl space-y-2">
+                    <div id="pw-running-fields" class="mt-3 p-3 bg-amber-950/30 border border-amber-500/30 rounded-xl space-y-2 hidden">
                         <span class="text-[9px] text-amber-400 font-bold uppercase block flex items-center gap-1"><i class="fas fa-running"></i> Métricas de Corrida</span>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
@@ -1269,25 +1395,24 @@
                         </div>
                     </div>
 
-                    <!-- Free Text Subjective Feedback -->
                     <div class="mt-3">
                         <div class="flex justify-between items-center mb-1">
                             <label class="text-[9px] text-slate-300 font-bold uppercase block">como voce se sentiu - teve dor, achou facil, dificil?</label>
                             <button type="button" onclick="window.toggleMic('pw-user-feedback', 'btn-mic-pw')" id="btn-mic-pw" class="text-xs text-slate-400 hover:text-brand-400 p-1" title="Ditar observações por voz"><i class="fas fa-microphone"></i></button>
                         </div>
-                        <textarea id="pw-user-feedback" rows="2" placeholder="Ex: Senti um leve desconforto no joelho, mas achei fácil no supino..." class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none resize-none focus:border-brand-500"></textarea>
+                        <textarea id="pw-user-feedback" rows="2" placeholder="Ex: Senti dor no ombro direito no supino, mas no agachamento RIR 2 fácil..." class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none resize-none focus:border-brand-500"></textarea>
                     </div>
                 </div>
 
                 <button id="btn-eval-ai" onclick="window.evaluateWorkoutWithAI()" disabled class="w-full bg-gradient-to-r from-purple-600 to-brand-500 hover:from-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] text-xs uppercase disabled:opacity-40 disabled:cursor-not-allowed">
-                    <i class="fas fa-robot"></i> Avaliar com o Coach (I.A.)
+                    <i class="fas fa-robot"></i> Avaliar com o Coach (I.A. v4.0)
                 </button>
             </div>
 
             <!-- AI Proposal View -->
             <div id="step-ai-proposal" class="hidden space-y-4 animate-fade-in w-full">
                 <div class="bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
-                    <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-1.5 flex items-center gap-2"><i class="fas fa-brain"></i> Avaliação do Coach I.A.</h3>
+                    <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-1.5 flex items-center gap-2"><i class="fas fa-brain"></i> Avaliação do Coach I.A. (Fisiologia & ACWR)</h3>
                     <p id="ai-suggestion-text" class="text-xs text-slate-300 italic font-medium leading-relaxed">...</p>
                 </div>
 
@@ -1324,8 +1449,8 @@
                             <div>
                                 <label class="text-[9px] text-slate-400 font-bold uppercase block mb-1">Estratégia dos Exercícios</label>
                                 <select id="recal-exercise-strategy" class="w-full bg-dark-900 border border-slate-700 rounded-xl p-2 text-xs text-white font-bold">
-                                    <option value="keep" selected>Manter Exercícios</option>
-                                    <option value="vary">Variar Exercícios (Novo Estímulo)</option>
+                                    <option value="keep" selected>Manter RIR / Skill Trees</option>
+                                    <option value="vary">Variar Estímulo (Deload/Substituição Cinesiológica)</option>
                                 </select>
                             </div>
                             <button type="button" onclick="window.recalibrateProposedWorkout()" class="w-full bg-purple-600 text-white font-bold py-2.5 rounded-xl text-xs uppercase">
@@ -1350,7 +1475,7 @@
     import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // Prevent context menu
+    // Context menu and developer protection
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', (e) => {
         if (e.keyCode === 123 || (e.ctrlKey && e.shiftKey && [73, 74, 67].includes(e.keyCode)) || (e.ctrlKey && [85, 83].includes(e.keyCode))) {
@@ -1373,8 +1498,26 @@
     const db = getFirestore(app);
 
     const BACKEND_API_URL = "https://coach-backend-97uw.onrender.com/api/gemini";
+
+    // Safe DOM Input Helpers
+    function getNumericInputValue(id) {
+        const el = document.getElementById(id);
+        if (!el || el.value === '' || el.value === null) return null;
+        const val = parseFloat(el.value);
+        return isNaN(val) ? null : val;
+    }
+
+    function getTextInputValue(id) {
+        const el = document.getElementById(id);
+        return el ? el.value.trim() : "";
+    }
     
-    const WORKOUT_RULES = `REGRA CRÍTICA PARA A FILA (queue): Se for Calistenia ou Musculação, alterne passos do tipo 'work' e 'rest'. A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DA FILA 'queue' DEVE SER EXATAMENTE IGUAL AO TEMPO TOTAL DO TREINO (estimatedMinutes * 60 segundos). Repita as séries/rounds de trabalho e descanso até preencher o tempo total estimado do treino (ex: para 45 min, a soma total da fila deve dar 2700 segundos). Para Musculação, prescreva repetições alvo (ex: '8-10 reps') e uma carga sugerida inicial em kg no campo 'roundInfo' (ex: '3 séries x 8-10 reps @ 20kg'). Para Corrida, preencha a fila 'queue' com a estrutura completa e tempos exatos em minutos/segundos: 1. Aquecimento (duracao em seg, zona Z1/Z2, ritmo), 2. Blocos Principais/Tiros com duracao de trabalho ('work') e duracao de descanso ('rest') alternados (duracao, zona Z3/Z4/Z5, pace/roundInfo), 3. Desaquecimento (duracao, Z1). Cada item em 'queue' deve ter 'type' ('work' ou 'rest'), 'name', 'duration' (em segundos como inteiro), e 'roundInfo' (descrevendo a Zona de FC com bpm, Tempo em min/seg, Pace e instrucao de descanso). OS 2 PRIMEIROS EXERCÍCIOS DA FILA DEVEM SER SEMPRE AQUECIMENTOS DINÂMICOS OU MOBILIDADE.`;
+    // WORKOUT_RULES v4.0
+    const WORKOUT_RULES = `REGRA CINESIOLÓGICA & FISIOLÓGICA v4.0:
+    1. RIR & 1RM EPLEY: Na Musculação, prescreva repetições e RIR (Repetições de Reserva, ex: RIR 2). Se RIR >= 2 no teto da meta com boa forma, recomende aumento de 2% a 5% de carga na sessão seguinte.
+    2. RAZÃO DE CARGA ACWR & DELOAD: Se a propriedade acwr_score no vetor sintético for > 1.5, ATIVE O [MICROCICLO DE DELOAD], reduzindo obrigatoriamente o volume de séries em 30% a 40% e evitando estresse nas articulações afetadas.
+    3. MATRIZ DE SUBSTITUIÇÃO CINESIOLÓGICA: Se joint_stress_index indicar dor (ex: "ombro", "cotovelo"), substitua imediatamente os exercícios que agravem a articulação por vetores antagônicos ou com menor torque articular (ex: trocar barra por halteres ou cabo).
+    4. FILA (queue): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A (estimatedMinutes * 60). Alterne passos 'work' e 'rest'. Para estáticos (Prancha/L-Sit), TUT em segundos.`;
 
     let currentUser = null;
     let userData = {};
@@ -1383,7 +1526,7 @@
     let chartWeight = null, chartBf = null, chartFc = null, chartKcal = null, chartFcRec = null;
     let isSignupMode = false;
     
-    let timerInterval, isPaused = false, currentWorkoutQueue = [], currentQueueIndex = 0, timeLeft = 0, totalWorkoutTimeLeft = 0;
+    let timerInterval, isPaused = false, currentWorkoutQueue = [], currentQueueIndex = 0, timeLeft = 0;
     let restTimerInterval, restTimeLeft = 0;
     
     let selectedPseValue = null, aiEvaluationResult = null, selectedEnergy = null;
@@ -1392,7 +1535,6 @@
 
     let wakeLockSentinel = null, isTtsAutoReadEnabled = false, speechRecognition = null, activeMicBtnId = null;
 
-    // Speech Recognition
     const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (SpeechRecognitionAPI) {
         speechRecognition = new SpeechRecognitionAPI();
@@ -1496,7 +1638,7 @@
         else await requestWakeLock();
     };
 
-    const tabList = ['training', 'analysis', 'progress', 'calendar', 'chat', 'profile'];
+    const tabList = ['training', 'analysis', 'howitworks', 'progress', 'calendar', 'chat', 'profile'];
     let currentTabIndex = 0;
 
     window.$ = id => document.getElementById(id);
@@ -1514,16 +1656,133 @@
 
             swipeContainer.addEventListener('touchend', (e) => {
                 touchEndX = e.changedTouches[0].screenX; touchEndY = e.changedTouches[0].screenY;
-                handleSwipeGesture();
+                handleSwipeGesture(e);
             }, { passive: true });
         }
     });
 
-    function handleSwipeGesture() {
+    function handleSwipeGesture(e) {
+        // Prevent tab switching if interaction originates from scrollable / interactive children
+        if (e && e.target) {
+            const tag = e.target.tagName.toLowerCase();
+            if (['input', 'textarea', 'button', 'select', 'canvas'].includes(tag) || e.target.closest('.overflow-y-auto, .overflow-x-auto, canvas')) {
+                return;
+            }
+        }
         const deltaX = touchEndX - touchStartX; const deltaY = touchEndY - touchStartY;
         if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 60) {
             if (deltaX < 0 && currentTabIndex < tabList.length - 1) window.switchTab(tabList[currentTabIndex + 1]);
             else if (deltaX > 0 && currentTabIndex > 0) window.switchTab(tabList[currentTabIndex - 1]);
+        }
+    }
+
+    // 2.2 Epley 1RM Calculation Formula: 1RM = Load * (1 + (Reps + RIR)/30)
+    window.calculateEpley1RM = (weight, reps, rir = 0) => {
+        const w = parseFloat(weight) || 0;
+        const r = parseFloat(reps) || 0;
+        const rirVal = parseFloat(rir) || 0;
+        if (w <= 0 || r <= 0) return 0;
+        return Math.round(w * (1 + (r + rirVal) / 30));
+    };
+
+    // 3.2 ACWR (Acute:Chronic Workload Ratio) Calculation - FIXED FOR ACCOUNT AGE
+    function calculateACWRFromHistory(historyData) {
+        if (!Array.isArray(historyData) || historyData.length === 0) return { acwr: 1.0, acuteLoad: 0, chronicLoad: 0 };
+        
+        const now = new Date();
+        const oneDayMs = 24 * 60 * 60 * 1000;
+
+        // Determine account/history age to prevent false acute spikes on new accounts
+        const oldestDate = new Date(historyData[0].date);
+        const daysSinceFirstWorkout = Math.max(1, (now - oldestDate) / oneDayMs);
+        const activeWeeks = Math.min(4, Math.max(1, daysSinceFirstWorkout / 7));
+
+        let acuteLoad = 0; // Last 7 days
+        let chronicSum = 0; // Last 28 days
+
+        historyData.forEach(item => {
+            const itemDate = new Date(item.date);
+            const daysDiff = (now - itemDate) / oneDayMs;
+
+            const loadUnit = (item.pse || 5) * (item.durationMinutes || 45);
+
+            if (daysDiff <= 7) {
+                acuteLoad += loadUnit;
+            }
+            if (daysDiff <= 28) {
+                chronicSum += loadUnit;
+            }
+        });
+
+        const chronicLoad = chronicSum / activeWeeks;
+        const acwr = chronicLoad > 0 ? parseFloat((acuteLoad / chronicLoad).toFixed(2)) : 1.0;
+
+        return { acwr, acuteLoad, chronicLoad };
+    }
+
+    // 3.1 Synthetic State Vector JSON Compression Engine
+    async function buildSyntheticStateVector() {
+        try {
+            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+            let historyData = [];
+            snap.forEach(d => historyData.push(d.data()));
+            historyData.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+            const { acwr } = calculateACWRFromHistory(historyData);
+
+            let estimates1RM = {};
+            let jointStressIndex = {};
+            let weeklyVolumeByGroup = { empurrar: 0, puxar: 0, pernas: 0, cardio: 0 };
+
+            const now = new Date();
+            historyData.slice(-20).forEach(h => {
+                const daysDiff = (now - new Date(h.date)) / (1000 * 60 * 60 * 24);
+                
+                // Track 1RM
+                if (h.exerciseLogs && Array.isArray(h.exerciseLogs)) {
+                    h.exerciseLogs.forEach(log => {
+                        if (log.name && log.weight && log.reps) {
+                            const val1RM = window.calculateEpley1RM(log.weight, log.reps, log.rir || 0);
+                            const key = log.name.toLowerCase().trim();
+                            if (!estimates1RM[key] || val1RM > estimates1RM[key]) {
+                                estimates1RM[key] = val1RM;
+                            }
+                        }
+                    });
+                }
+
+                // Track Joint Stress & Discomfort
+                if (h.userFeedback) {
+                    const fb = h.userFeedback.toLowerCase();
+                    if (fb.includes('ombro')) jointStressIndex['ombro'] = 'LEVE_OU_MODERADA';
+                    if (fb.includes('cotovelo')) jointStressIndex['cotovelo'] = 'STRAIGHT_ARM_RESTRICTION';
+                    if (fb.includes('joelho')) jointStressIndex['joelho'] = 'CARGA_JOELHO_REDUZIDA';
+                    if (fb.includes('lombar')) jointStressIndex['lombar'] = 'ISOMETRIA_SUPORTADA';
+                }
+
+                // Track Weekly Volume
+                if (daysDiff <= 7) {
+                    const mod = (h.modality || '').toLowerCase();
+                    if (mod.includes('calistenia') || mod.includes('empurrar')) weeklyVolumeByGroup.empurrar += 1;
+                    if (mod.includes('puxar')) weeklyVolumeByGroup.puxar += 1;
+                    if (mod.includes('musculação')) weeklyVolumeByGroup.pernas += 1;
+                    if (mod.includes('corrida')) weeklyVolumeByGroup.cardio += 1;
+                }
+            });
+
+            const syntheticState = {
+                "1RM_Estimates": estimates1RM,
+                "acwr_score": acwr,
+                "joint_stress_index": jointStressIndex,
+                "weekly_volume_by_group": weeklyVolumeByGroup,
+                "master_axis": userData.masterAxis || "Calistenia",
+                "body_weight": parseFloat(userData.weight || 70),
+                "bf_percentage": parseFloat(userData.bf || 18)
+            };
+
+            return syntheticState;
+        } catch(e) {
+            return { "acwr_score": 1.0, "error": "fallback" };
         }
     }
 
@@ -1638,22 +1897,11 @@
             activeBtn.classList.replace('border-slate-800', 'border-brand-500/30');
             activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
-        if (tabName === 'progress') { setTimeout(renderCharts, 100); renderProgressEvaluations(); }
+        if (tabName === 'progress') { setTimeout(renderCharts, 100); renderProgressEvaluations(); renderAcwrAnd1RMInfo(); }
         if (tabName === 'calendar') loadHistory();
         if (tabName === 'chat') loadChatHistory();
         if (tabName === 'profile') renderProfileTab();
     };
-
-    async function getCumulativeHistoryContext() {
-        try {
-            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-            let historyData = []; snap.forEach(d => historyData.push(d.data()));
-            historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
-            if (historyData.length === 0) return "Nenhum histórico anterior.";
-            const recentHistory = historyData.slice(-15);
-            return recentHistory.map((h, i) => `Treino #${historyData.length - recentHistory.length + i + 1} (${new Date(h.date).toLocaleDateString()}): ${h.workoutName} [${h.modality||'Calistenia'}] | PSE: ${h.pse}/10 | HRR: ${h.fcRec||'N/A'} | Kcal: ${h.kcal||'N/A'} ${h.distance ? `| Dist: ${h.distance}km | Pace: ${h.pace}` : ''} ${h.userFeedback ? `| Relato do Atleta: "${h.userFeedback}"` : ''}`).join('\n');
-        } catch(e) { return "Histórico indisponível."; }
-    }
 
     async function callGemini(prompt, schemaMode = 'workout') {
         updateBadge('api', 'loading');
@@ -1690,7 +1938,7 @@
         e.preventDefault();
         const email = document.getElementById('auth-email').value; const password = document.getElementById('auth-password').value;
         if (isSignupMode && password !== document.getElementById('auth-confirm-password').value) return window.showAlert("Erro", "As senhas não coincidem.");
-        showLoading("Autenticando...");
+        showLoading("Autenticando v4.0...");
         try {
             if (isSignupMode) await createUserWithEmailAndPassword(auth, email, password);
             else await signInWithEmailAndPassword(auth, email, password);
@@ -1710,7 +1958,7 @@
     });
 
     async function loadUserData() {
-        showLoading("Sincronizando...");
+        showLoading("Sincronizando v4.0...");
         try {
             const docSnap = await getDoc(doc(db, "users", currentUser.uid));
             if (docSnap.exists() && docSnap.data().profile) {
@@ -1727,15 +1975,15 @@
     }
 
     function checkPostLoginPopupsSequence() {
-        const seenV36 = localStorage.getItem(`seen_v36_novelty_${currentUser.uid}`);
-        if (!seenV36) window.show('modal-v34-novelty');
+        const seenV40 = localStorage.getItem(`seen_v40_novelty_${currentUser.uid}`);
+        if (!seenV40) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
         else checkPendingWorkoutReminder();
     }
 
-    window.closeV34NoveltyModal = () => {
-        window.hide('modal-v34-novelty');
-        localStorage.setItem(`seen_v36_novelty_${currentUser.uid}`, 'true');
+    window.closeV40NoveltyModal = () => {
+        window.hide('modal-v40-novelty');
+        localStorage.setItem(`seen_v40_novelty_${currentUser.uid}`, 'true');
         checkPostLoginPopupsSequence();
     };
 
@@ -1845,22 +2093,26 @@
 
     document.getElementById('step4-calisthenics-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const checkedQ5 = Array.from(document.querySelectorAll('input[name="cal-q5"]:checked')).map(cb => cb.value);
-        userData.evalCalisthenics = { q1: document.getElementById('cal-q1').value, q2: document.getElementById('cal-q2').value, q3: document.getElementById('cal-q3').value, q4: document.getElementById('cal-q4').value, q5: checkedQ5.length ? checkedQ5 : ['Condicionamento físico geral'], text: document.getElementById('cal-text').value.trim() };
+        userData.evalCalisthenics = { 
+            pushTree: document.getElementById('cal-q1').value, 
+            pullTree: document.getElementById('cal-q2').value, 
+            isometricTUT: document.getElementById('cal-q3').value, 
+            tendonStress: document.getElementById('cal-q4').value, 
+            weightedCalisthenics: document.getElementById('cal-q5').value, 
+            text: document.getElementById('cal-text').value.trim() 
+        };
         showScreen('screen-step5-bodybuilding');
     });
 
     document.getElementById('step5-bodybuilding-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const checkedQ5 = Array.from(document.querySelectorAll('input[name="musc-q5"]:checked')).map(cb => cb.value);
-        userData.evalBodybuilding = { q1: document.getElementById('musc-q1').value, q2: document.getElementById('musc-q2').value, q3: document.getElementById('musc-q3').value, q4: document.getElementById('musc-q4').value, q5: checkedQ5.length ? checkedQ5 : ['Condicionamento físico geral'], text: document.getElementById('musc-text').value.trim() };
+        userData.evalBodybuilding = { q1: document.getElementById('musc-q1').value, q2: document.getElementById('musc-q2').value, q3: document.getElementById('musc-q3').value, q4: document.getElementById('musc-q4').value, text: document.getElementById('musc-text').value.trim() };
         showScreen('screen-step6-running');
     });
 
     document.getElementById('step6-running-form').addEventListener('submit', (e) => {
         e.preventDefault();
-        const checkedQ5 = Array.from(document.querySelectorAll('input[name="run-q5"]:checked')).map(cb => cb.value);
-        userData.evalRunning = { q1: document.getElementById('run-q1').value, q2: document.getElementById('run-q2').value, q3: document.getElementById('run-q3').value, q4: document.getElementById('run-q4').value, q5: checkedQ5.length ? checkedQ5 : ['Condicionamento físico geral'], text: document.getElementById('run-text').value.trim() };
+        userData.evalRunning = { q1: document.getElementById('run-q1').value, q2: document.getElementById('run-q2').value, q3: document.getElementById('run-q3').value, q4: document.getElementById('run-q4').value, text: document.getElementById('run-text').value.trim() };
         showScreen('screen-step7-axis');
     });
 
@@ -1870,21 +2122,23 @@
     };
 
     async function finishAssessmentAndGeneratePlan() {
-        showLoading("Consolidando Avaliações Clíno-Esportivas...", "Gerando plano multimodal...");
-        const hc = await getCumulativeHistoryContext();
+        showLoading("Consolidando Estado Sintético JSON v4.0...", "Gerando plano de precisão fisiológica...");
+        const syntheticState = await buildSyntheticStateVector();
         const fcMax = Math.round(208 - (0.7 * parseFloat(userData.age)));
 
-        const prompt = `Atue como Coach Sênior Híbrido. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${userData.days}dias/sem, ${userData.mins}min. FC_máx estimada: ${fcMax}bpm.
-        AVALIAÇÕES: Calistenia: ${JSON.stringify(userData.evalCalisthenics)}, Musculação: ${JSON.stringify(userData.evalBodybuilding)}, Corrida: ${JSON.stringify(userData.evalRunning)}.
-        HISTÓRICO: ${hc}.
-        TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout' (respeitando o Eixo Mestre). \n ${WORKOUT_RULES}`;
+        const prompt = `Atue como Coach Sênior Híbrido v4.0. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${userData.days}dias/sem, ${userData.mins}min. FC_máx: ${fcMax}bpm.
+        ESTADO SINTÉTICO V3.9/V4.0 JSON: ${JSON.stringify(syntheticState)}.
+        AVALIAÇÃO CALISTENIA: ${JSON.stringify(userData.evalCalisthenics)}.
+        AVALIAÇÃO MUSCULAÇÃO: ${JSON.stringify(userData.evalBodybuilding)}.
+        AVALIAÇÃO CORRIDA: ${JSON.stringify(userData.evalRunning)}.
+        TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary' 4. 'workout' (respeitando Skill Trees, 1RM e RIR). \n ${WORKOUT_RULES}`;
 
         try {
             const res = await callGemini(prompt);
             if(res.workout) { res.workout.id = `w_${Date.now()}_0`; res.workout.isCompleted = false; res.workout.modality = res.workout.modality || userData.masterAxis; }
             const nwd = new Date(); nwd.setDate(nwd.getDate() + 1);
             
-            currentPlan = { userProfileAnalysis: res.userProfileAnalysis, planExplanation: res.planExplanation, macrocycleSummary: res.macrocycleSummary, coachFeedback: `Bem-vindo(a) ao seu plano v3.6, ${userData.nickname}!`, workouts: [res.workout], nextWorkoutDate: nwd.toISOString() };
+            currentPlan = { userProfileAnalysis: res.userProfileAnalysis, planExplanation: res.planExplanation, macrocycleSummary: res.macrocycleSummary, coachFeedback: `Bem-vindo(a) ao seu plano v4.0, ${userData.nickname}!`, workouts: [res.workout], nextWorkoutDate: nwd.toISOString() };
             await saveFullState();
             await addDoc(collection(db, `users/${currentUser.uid}/checkins`), { date: new Date().toISOString(), weight: parseFloat(userData.weight), bf: parseFloat(userData.bf) });
             
@@ -1972,11 +2226,11 @@
         const selected = document.querySelector('input[name="new-master-axis"]:checked');
         if(!selected) return window.showAlert("Aviso", "Selecione o novo Eixo Mestre.");
         const newAxis = selected.value; window.hide('modal-change-axis');
-        showLoading("Migrando Eixo Mestre..."); userData.masterAxis = newAxis;
-        const hc = await getCumulativeHistoryContext();
+        showLoading("Migrando Eixo Mestre v4.0..."); userData.masterAxis = newAxis;
+        const syntheticState = await buildSyntheticStateVector();
 
-        const prompt = `Atue como Coach Sênior Híbrido. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
-        HISTÓRICO DE EXERCÍCIOS: ${hc}.
+        const prompt = `Atue como Coach Sênior Híbrido v4.0. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
+        ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}.
         RECALCULE O PLANO PRINCIPAL MANTENDO O HISTÓRICO. TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4.'workout'. \n ${WORKOUT_RULES}`;
 
         try {
@@ -2069,7 +2323,7 @@
         }
     }
 
-    // Bodybuilding Set-by-Set Logging Engine
+    // Bodybuilding Set-by-Set Logging Engine with Live 1RM Calculation & RIR Support
     function setupBodybuildingWorkoutScreen(workout) {
         document.getElementById('bb-workout-name').innerText = workout.name || "Sessão de Musculação";
         const container = document.getElementById('bb-exercises-container');
@@ -2085,24 +2339,37 @@
             let setsHtml = '';
             for (let s = 1; s <= 3; s++) {
                 setsHtml += `
-                <div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 flex items-center justify-between gap-2">
-                    <span class="text-xs font-bold text-slate-400">Série ${s}</span>
-                    <div class="flex items-center gap-2">
+                <div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between gap-2">
+                        <span class="text-xs font-bold text-slate-400">Série ${s}</span>
+                        <span id="bb-live-1rm-${exIdx}-${s}" class="text-[10px] text-purple-400 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">1RM Est: -- kg</span>
+                    </div>
+                    <div class="flex items-center justify-between gap-2">
                         <div class="flex flex-col">
                             <span class="text-[8px] text-slate-500 font-bold uppercase">Carga (kg)</span>
-                            <input type="number" step="0.5" id="bb-weight-${exIdx}-${s}" placeholder="Ex: 20" class="w-16 bg-dark-900 border border-slate-700 rounded-lg p-1 text-center text-xs text-white font-bold outline-none">
+                            <input type="number" step="0.5" id="bb-weight-${exIdx}-${s}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="Ex: 20" class="w-16 bg-dark-900 border border-slate-700 rounded-lg p-1 text-center text-xs text-white font-bold outline-none">
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-[8px] text-slate-500 font-bold uppercase">RPE (1-10)</span>
-                            <input type="number" min="1" max="10" id="bb-rpe-${exIdx}-${s}" placeholder="Ex: 8" class="w-14 bg-dark-900 border border-slate-700 rounded-lg p-1 text-center text-xs text-white font-bold outline-none">
+                            <span class="text-[8px] text-slate-500 font-bold uppercase">Reps</span>
+                            <input type="number" id="bb-reps-${exIdx}-${s}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="8" class="w-12 bg-dark-900 border border-slate-700 rounded-lg p-1 text-center text-xs text-white font-bold outline-none">
                         </div>
-                        <button onclick="window.startRestTimer(60)" class="bg-purple-600/30 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/40 p-2 rounded-xl text-xs font-bold"><i class="fas fa-stopwatch"></i> Descanso</button>
+                        <div class="flex flex-col">
+                            <span class="text-[8px] text-purple-400 font-bold uppercase">RIR (0-5)</span>
+                            <select id="bb-rir-${exIdx}-${s}" onchange="window.updateLive1RM(${exIdx}, ${s})" class="w-14 bg-dark-900 border border-purple-500/40 rounded-lg p-1 text-center text-xs text-purple-300 font-bold outline-none">
+                                <option value="0">RIR 0 (Falha)</option>
+                                <option value="1">RIR 1</option>
+                                <option value="2" selected>RIR 2</option>
+                                <option value="3">RIR 3</option>
+                                <option value="4">RIR 4</option>
+                            </select>
+                        </div>
+                        <button onclick="window.startRestTimer(60)" class="bg-purple-600/30 hover:bg-purple-600 text-purple-300 hover:text-white border border-purple-500/40 p-2 rounded-xl text-xs font-bold"><i class="fas fa-stopwatch"></i></button>
                     </div>
                 </div>`;
             }
 
             container.innerHTML += `
-            <div class="bg-dark-900 p-4 rounded-3xl border border-purple-500/30 shadow-lg space-y-3">
+            <div class="bg-dark-900 p-4 rounded-3xl border border-purple-500/30 shadow-lg space-y-3" data-exname="${exName}">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
                     <h3 class="text-sm font-black text-white">${exName}</h3>
                     <span class="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-bold">${targetInfo}</span>
@@ -2111,6 +2378,18 @@
             </div>`;
         });
     }
+
+    window.updateLive1RM = (exIdx, s) => {
+        const w = document.getElementById(`bb-weight-${exIdx}-${s}`)?.value;
+        const r = document.getElementById(`bb-reps-${exIdx}-${s}`)?.value;
+        const rir = document.getElementById(`bb-rir-${exIdx}-${s}`)?.value;
+        
+        const estLabel = document.getElementById(`bb-live-1rm-${exIdx}-${s}`);
+        if (estLabel && w && r) {
+            const val = window.calculateEpley1RM(w, r, rir);
+            estLabel.innerText = `1RM Est: ${val} kg`;
+        }
+    };
 
     window.startRestTimer = (seconds) => {
         restTimeLeft = seconds;
@@ -2139,7 +2418,7 @@
         openPostWorkout();
     };
 
-    // Running Autonomous Target Dashboard Engine
+    // Running Autonomous Target Dashboard
     function setupRunningWorkoutScreen(workout) {
         document.getElementById('run-workout-name').innerText = workout.name || "Sessão de Corrida";
         const container = document.getElementById('run-targets-container');
@@ -2154,94 +2433,50 @@
         const z4Val = [Math.round(fcMax * 0.80), Math.round(fcMax * 0.90)];
         const z5Val = [Math.round(fcMax * 0.90), fcMax];
 
-        const z1 = `${z1Val[0]}-${z1Val[1]}`;
-        const z2 = `${z2Val[0]}-${z2Val[1]}`;
-        const z3 = `${z3Val[0]}-${z3Val[1]}`;
-        const z4 = `${z4Val[0]}-${z4Val[1]}`;
-        const z5 = `${z5Val[0]}-${z5Val[1]}`;
-
         let html = `
         <div class="bg-dark-900 border border-slate-800 rounded-3xl p-4 space-y-3">
             <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Zonas de FC Calculadas (FCmax: ${fcMax} bpm)</h4>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold">
-                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z1 (Recuperação): <span class="text-white">${z1} bpm</span></div>
-                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z2 (Aeróbico): <span class="text-white">${z2} bpm</span></div>
-                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z3 (Limiar Aeróbico): <span class="text-white">${z3} bpm</span></div>
-                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z4 (Limiar Anaeróbico): <span class="text-white">${z4} bpm</span></div>
-                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400 col-span-2">Z5 (Esforço Máximo): <span class="text-red-400">${z5} bpm</span></div>
+                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z1 (Recuperação): <span class="text-white">${z1Val[0]}-${z1Val[1]} bpm</span></div>
+                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z2 (Aeróbico): <span class="text-white">${z2Val[0]}-${z2Val[1]} bpm</span></div>
+                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z3 (Limiar Aeróbico): <span class="text-white">${z3Val[0]}-${z3Val[1]} bpm</span></div>
+                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z4 (Limiar Anaeróbico): <span class="text-white">${z4Val[0]}-${z4Val[1]} bpm</span></div>
+                <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400 col-span-2">Z5 (Esforço Máximo): <span class="text-red-400">${z5Val[0]}-${z5Val[1]} bpm</span></div>
             </div>
         </div>`;
 
         const queue = workout.queue || [];
-        let totalSecs = 0;
-        let workSecs = 0;
-        let restSecs = 0;
-
         let stepsHtml = '';
         if (queue.length > 0) {
             queue.forEach((item, idx) => {
                 const duration = item.duration || 300;
-                totalSecs += duration;
-                if (item.type === 'rest') restSecs += duration;
-                else workSecs += duration;
-
                 const mins = Math.floor(duration / 60);
                 const secs = duration % 60;
                 const timeStr = mins > 0 ? (secs > 0 ? `${mins}m ${secs}s` : `${mins} min`) : `${secs} seg`;
-
                 const isRest = item.type === 'rest';
-                const badgeColor = isRest ? 'bg-purple-500/20 text-purple-300 border-purple-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30';
-                const icon = isRest ? 'fa-bed' : 'fa-running';
 
                 stepsHtml += `
                 <div class="bg-dark-950 p-3.5 rounded-2xl border ${isRest ? 'border-purple-500/30' : 'border-slate-800'} flex items-start justify-between gap-3">
                     <div class="flex gap-3 items-start flex-1">
                         <div class="w-8 h-8 rounded-xl ${isRest ? 'bg-purple-500/20 text-purple-400' : 'bg-amber-500/20 text-amber-400'} flex items-center justify-center text-xs shrink-0 mt-0.5">
-                            <i class="fas ${icon}"></i>
+                            <i class="fas ${isRest ? 'fa-bed' : 'fa-running'}"></i>
                         </div>
                         <div class="space-y-0.5">
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <span class="text-xs font-black text-white">${idx + 1}. ${item.name}</span>
-                                <span class="text-[9px] ${badgeColor} border px-2 py-0.5 rounded font-bold uppercase">${isRest ? 'Descanso / Recuperação' : 'Estímulo'}</span>
-                            </div>
+                            <span class="text-xs font-black text-white">${idx + 1}. ${item.name}</span>
                             <p class="text-[11px] text-slate-300 font-medium">${item.roundInfo || 'Z2 Aeróbico'}</p>
                         </div>
                     </div>
-                    <div class="text-right shrink-0">
-                        <span class="text-xs font-black text-brand-400 block">${timeStr}</span>
-                    </div>
+                    <span class="text-xs font-black text-brand-400">${timeStr}</span>
                 </div>`;
             });
 
-            const totMins = Math.floor(totalSecs / 60);
-            const workMins = Math.floor(workSecs / 60);
-            const restMins = Math.floor(restSecs / 60);
-
-            html += `
-            <div class="grid grid-cols-3 gap-2 text-center my-3">
-                <div class="bg-dark-900 border border-slate-800 p-2.5 rounded-2xl">
-                    <span class="text-[8px] text-slate-500 font-bold uppercase block">Tempo Total</span>
-                    <span class="text-xs font-black text-white">${totMins} min</span>
-                </div>
-                <div class="bg-dark-900 border border-amber-500/30 p-2.5 rounded-2xl">
-                    <span class="text-[8px] text-amber-400 font-bold uppercase block">Trabalho</span>
-                    <span class="text-xs font-black text-amber-300">${workMins} min</span>
-                </div>
-                <div class="bg-dark-900 border border-purple-500/30 p-2.5 rounded-2xl">
-                    <span class="text-[8px] text-purple-400 font-bold uppercase block">Descanso</span>
-                    <span class="text-xs font-black text-purple-300">${restMins} min</span>
-                </div>
-            </div>
-            <div class="space-y-2 mt-3">
-                <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-list-ol text-amber-400"></i> Etapas do Treino</h4>
-                ${stepsHtml}
-            </div>`;
+            html += `<div class="space-y-2 my-3">${stepsHtml}</div>`;
         }
 
         container.innerHTML = html;
     }
 
-    // Calisthenics Timer Routine Startup & Recalibrated Handlers
+    // Calisthenics Timer Routine Startup & Queue Sanitize
     function sanitizeAndBalanceQueue(rawQueue, targetMinutes) {
         if (!Array.isArray(rawQueue) || rawQueue.length === 0) return [];
 
@@ -2253,54 +2488,17 @@
                 let parts = str.split(':');
                 return (parseInt(parts[0]) || 0) * 60 + (parseInt(parts[1]) || 0);
             }
-            if (str.includes('min') || (str.includes('m') && !str.includes('s'))) {
-                let num = parseFloat(str.replace(/[^0-9.]/g, ''));
-                if (!isNaN(num) && num > 0) return Math.round(num * 60);
-            }
             let num = parseInt(str.replace(/[^0-9]/g, ''), 10);
             return (!isNaN(num) && num > 0) ? num : 30;
         }
 
-        let cleanQueue = rawQueue.map(item => ({
+        return rawQueue.map(item => ({
             ...item,
             type: item.type === 'rest' ? 'rest' : 'work',
             name: item.name || 'Exercício',
             duration: parseDuration(item.duration),
             roundInfo: item.roundInfo || ''
         }));
-
-        let currentTotalSecs = cleanQueue.reduce((acc, curr) => acc + curr.duration, 0);
-        let targetSecs = (parseInt(targetMinutes) || 45) * 60;
-
-        // Auto-expand rounds if AI generated less than 85% of target workout time
-        if (currentTotalSecs < targetSecs * 0.85 && cleanQueue.length >= 2) {
-            let warmup = cleanQueue.slice(0, 2);
-            let cooldown = cleanQueue.length > 3 && cleanQueue[cleanQueue.length - 1].name.toLowerCase().includes('desaquec') 
-                ? [cleanQueue[cleanQueue.length - 1]] 
-                : [];
-            
-            let mainBody = cleanQueue.slice(warmup.length, cleanQueue.length - (cooldown.length ? 1 : 0));
-            if (mainBody.length === 0) mainBody = cleanQueue;
-
-            let mainBodySecs = mainBody.reduce((acc, curr) => acc + curr.duration, 0);
-            if (mainBodySecs > 0) {
-                let remainingSecsNeeded = targetSecs - (warmup.reduce((a,c)=>a+c.duration,0) + cooldown.reduce((a,c)=>a+c.duration,0));
-                let numRoundsNeeded = Math.max(1, Math.round(remainingSecsNeeded / mainBodySecs));
-
-                let expandedBody = [];
-                for (let r = 1; r <= numRoundsNeeded; r++) {
-                    mainBody.forEach(item => {
-                        expandedBody.push({
-                            ...item,
-                            roundInfo: item.roundInfo ? `${item.roundInfo} (Série ${r}/${numRoundsNeeded})` : `Série ${r}/${numRoundsNeeded}`
-                        });
-                    });
-                }
-                cleanQueue = [...warmup, ...expandedBody, ...cooldown];
-            }
-        }
-
-        return cleanQueue;
     }
 
     function startCalisthenicsTimerRoutine(nw) {
@@ -2313,35 +2511,21 @@
         const modalityStr = nw.modality || userData.masterAxis || 'Calistenia';
         const workoutNum = (currentPlan.workouts ? currentPlan.workouts.indexOf(nw) + 1 : 1);
         
-        // Line 1: Modality & Workout Number
-        document.getElementById('timer-workout-name').innerText = `${modalityStr}: Treino ${workoutNum}`;
-        
-        // Line 2: Workout Description
-        document.getElementById('timer-workout-desc').innerText = nw.focus ? `Foco: ${nw.focus}` : (nw.name || "Treino de Peso Corporal");
+        document.getElementById('timer-workout-name').innerText = `${modalityStr} (Skill Trees v4.0): Treino ${workoutNum}`;
+        document.getElementById('timer-workout-desc').innerText = nw.focus ? `Foco: ${nw.focus}` : (nw.name || "Sessão de Calistenia Avançada");
         
         document.body.classList.add('no-scroll');
         showScreen('screen-timer'); 
         loadQueueItem(0);
         timerInterval = setInterval(timerTick, 1000);
-        requestWakeLock();
     }
 
-    window.confirmAbortWorkout = () => {
-        window.show('modal-confirm-abort');
-    };
-
-    window.closeConfirmAbort = () => {
-        window.hide('modal-confirm-abort');
-    };
-
-    window.executeAbortWorkout = () => {
-        window.hide('modal-confirm-abort');
-        window.abortWorkout();
-    };
+    window.confirmAbortWorkout = () => window.show('modal-confirm-abort');
+    window.closeConfirmAbort = () => window.hide('modal-confirm-abort');
+    window.executeAbortWorkout = () => { window.hide('modal-confirm-abort'); window.abortWorkout(); };
 
     window.abortWorkout = () => { 
         clearInterval(timerInterval); 
-        releaseWakeLock(); 
         document.body.classList.remove('no-scroll'); 
         showScreen('screen-dashboard'); 
     };
@@ -2362,7 +2546,6 @@
     function loadQueueItem(index) {
         if (index >= currentWorkoutQueue.length) {
             clearInterval(timerInterval); 
-            releaseWakeLock(); 
             document.body.classList.remove('no-scroll'); 
             playBeep(880, 400, 'square'); 
             window.hide('screen-timer'); 
@@ -2372,28 +2555,19 @@
         const item = currentWorkoutQueue[index]; 
         timeLeft = parseInt(item.duration, 10) || 30;
         
-        const stepCounter = document.getElementById('timer-step-counter');
-        if (stepCounter) stepCounter.innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
         const stepBadge = document.getElementById('timer-step-badge');
         if (stepBadge) stepBadge.innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
         
-        // Card 1 (Blue): Current Exercise & Guideline
         document.getElementById('timer-current-name').innerText = item.name;
-        document.getElementById('timer-current-info').innerText = item.roundInfo || (item.type === 'rest' ? 'Intervalo de Descanso' : 'Execução estrita');
+        document.getElementById('timer-current-info').innerText = item.roundInfo || (item.type === 'rest' ? 'Intervalo de Descanso (ATP-CP)' : 'Execução de Torque / TUT');
         
-        // Card 2 (Orange): Next Proposed Step
         if (index + 1 < currentWorkoutQueue.length) {
             const nextItem = currentWorkoutQueue[index + 1];
-            const nextDur = parseInt(nextItem.duration, 10) || 30;
-            const nMins = Math.floor(nextDur / 60);
-            const nSecs = nextDur % 60;
-            const nTimeStr = nMins > 0 ? (nSecs > 0 ? `${nMins}m ${nSecs}s` : `${nMins} min`) : `${nSecs} seg`;
-            
             document.getElementById('timer-next-name').innerText = nextItem.name;
-            document.getElementById('timer-next-info').innerText = `${nextItem.roundInfo ? nextItem.roundInfo + ' • ' : ''}${nTimeStr}`;
+            document.getElementById('timer-next-info').innerText = `${nextItem.roundInfo ? nextItem.roundInfo + ' • ' : ''}${nextItem.duration}s`;
         } else {
             document.getElementById('timer-next-name').innerText = "Última Etapa";
-            document.getElementById('timer-next-info').innerText = "Finalização da Sessão de Treino";
+            document.getElementById('timer-next-info').innerText = "Finalização da Sessão";
         }
 
         updateTimerUI(); 
@@ -2456,7 +2630,6 @@
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         if(nw && nw.modality === 'Corrida') window.show('pw-running-fields'); else window.hide('pw-running-fields');
 
-        // Color & Intensity Scale configuration for Borg PSE 0-10
         const pseConfig = [
             { level: 0, color: 'border-slate-600 bg-slate-800/80 text-slate-300 hover:bg-slate-700', active: 'border-slate-400 bg-slate-600 text-white shadow-[0_0_12px_rgba(148,163,184,0.5)]', name: '0 - Repouso Absoluto', desc: 'Sem nenhum esforço' },
             { level: 1, color: 'border-emerald-700/60 bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/60', active: 'border-emerald-400 bg-emerald-600 text-white shadow-[0_0_12px_rgba(16,185,129,0.5)]', name: '1 - Muito Leve', desc: 'Mínimo esforço perceptível' },
@@ -2494,18 +2667,18 @@
 
     window.evaluateWorkoutWithAI = async () => {
         if (selectedPseValue === null) return;
-        showLoading("Avaliando com I.A...", "Verificando sobrecarga e deload...");
-        const hc = await getCumulativeHistoryContext();
+        showLoading("Avaliando com I.A. v4.0...", "Sintetizando ACWR e estimativa de 1RM...");
+        const syntheticState = await buildSyntheticStateVector();
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         const nextModality = userData.masterAxis || 'Calistenia';
         const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
         const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
 
-        const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. Histórico: ${hc}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec').value||'N/A'}. Kcal: ${document.getElementById('pw-kcal').value||'N/A'}. Distância: ${document.getElementById('pw-dist').value||'N/A'}km. Pace: ${document.getElementById('pw-pace').value||'N/A'}.
-SINTOMA / OBSERVAÇÃO RELATADA PELO ATLETA ANTES DE INICIAR O TREINO (Readiness Notes): "${preWorkoutNotes}".
-RELATO SUBJETIVO DO ATLETA APÓS O TREINO (como se sentiu, dores, facilidade/dificuldade): "${userFeedbackText}".
-REGRA DO EIXO MESTRE: O próximo treino DEVE RETORNAR PARA O EIXO MESTRE (${nextModality}).
-INSTRUÇÃO DE SOBRECARGA E SEGURANÇA: Considere obrigatoriamente as observações PRÉ e PÓS treino (especialmente queixas de dores articulares ou musculares) em conjunto com os dados objetivos (PSE, FC, cargas/distância) para calibrar rigorosamente os pesos, repetições e volume do próximo treino, adaptando exercícios que afetem áreas doloridas.
+        const prompt = `Atue como Coach Sênior Híbrido v4.0. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
+ESTADO SINTÉTICO V4.0 JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec').value||'N/A'}. Kcal: ${document.getElementById('pw-kcal').value||'N/A'}.
+SINTOMA / OBSERVAÇÃO PRÉ-TREINO (Readiness Notes): "${preWorkoutNotes}".
+RELATO SUBJETIVO PÓS-TREINO: "${userFeedbackText}".
+REGRA V4.0: Se acwr_score > 1.5 no vetor sintético, force o [MICROCICLO DE DELOAD]. Se houver relato de dor articular em joint_stress_index, aplique a MATRIZ DE SUBSTITUIÇÃO CINESIOLÓGICA. O próximo treino DEVE RETORNAR AO EIXO MESTRE (${nextModality}).
 TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout' (modalidade: ${nextModality}). \n ${WORKOUT_RULES}`;
 
         try {
@@ -2529,9 +2702,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         const timeMins = document.getElementById('recal-mins').value;
         const strategy = document.getElementById('recal-exercise-strategy').value;
         const nextModality = userData.masterAxis || 'Calistenia';
+        const syntheticState = await buildSyntheticStateVector();
 
-        showLoading("Recalibrando Proposta...");
-        const prompt = `Atue como Coach Sênior Híbrido. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${WORKOUT_RULES}`;
+        showLoading("Recalibrando Proposta v4.0...");
+        const prompt = `Atue como Coach Sênior Híbrido v4.0. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${WORKOUT_RULES}`;
 
         try {
             aiEvaluationResult = await callGemini(prompt);
@@ -2561,49 +2735,125 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     };
 
     async function finalizeAndSaveWorkout(days, mins) {
-        showLoading("Salvando...");
+        showLoading("Salvando no Firestore...");
         const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+        
+        let exerciseLogsCollected = [];
         if (nwIndex !== -1) {
             currentPlan.workouts[nwIndex].isCompleted = true;
+
+            // Collect set-by-set bodybuilding logs if present
+            const container = document.getElementById('bb-exercises-container');
+            if (container) {
+                const cards = container.querySelectorAll('[data-exname]');
+                cards.forEach((card, exIdx) => {
+                    const exName = card.getAttribute('data-exname');
+                    for (let s = 1; s <= 3; s++) {
+                        const w = document.getElementById(`bb-weight-${exIdx}-${s}`)?.value;
+                        const r = document.getElementById(`bb-reps-${exIdx}-${s}`)?.value;
+                        const rir = document.getElementById(`bb-rir-${exIdx}-${s}`)?.value;
+                        if (w && r) {
+                            exerciseLogsCollected.push({
+                                name: exName,
+                                weight: parseFloat(w),
+                                reps: parseInt(r, 10),
+                                rir: parseInt(rir, 10) || 0
+                            });
+                        }
+                    }
+                });
+            }
+
             try {
                 await addDoc(collection(db, `users/${currentUser.uid}/history`), { 
                     date: new Date().toISOString(), 
                     workoutName: currentPlan.workouts[nwIndex].name, 
                     modality: currentPlan.workouts[nwIndex].modality || userData.masterAxis,
                     pse: selectedPseValue, 
-                    fc: document.getElementById('pw-fc').value?parseFloat(document.getElementById('pw-fc').value):null, 
-                    fcMax: document.getElementById('pw-fc-max').value?parseFloat(document.getElementById('pw-fc-max').value):null, 
-                    fcRec: document.getElementById('pw-fc-rec').value?parseFloat(document.getElementById('pw-fc-rec').value):null, 
-                    kcal: document.getElementById('pw-kcal').value?parseFloat(document.getElementById('pw-kcal').value):null,
-                    distance: document.getElementById('pw-dist').value?parseFloat(document.getElementById('pw-dist').value):null,
-                    pace: document.getElementById('pw-pace').value || null,
-                    userFeedback: document.getElementById('pw-user-feedback')?.value?.trim() || null,
+                    durationMinutes: currentPlan.workouts[nwIndex].estimatedMinutes || 45,
+                    exerciseLogs: exerciseLogsCollected,
+                    fc: getNumericInputValue('pw-fc'), 
+                    fcMax: getNumericInputValue('pw-fc-max'), 
+                    fcRec: getNumericInputValue('pw-fc-rec'), 
+                    kcal: getNumericInputValue('pw-kcal'),
+                    distance: getNumericInputValue('pw-dist'),
+                    pace: getTextInputValue('pw-pace') || null,
+                    userFeedback: getTextInputValue('pw-user-feedback') || null,
                     aiFeedback: aiEvaluationResult?.coachFeedback||"" 
                 });
             } catch(e) {}
         }
 
         const nxw = aiEvaluationResult.workout;
-        if(nxw) { 
+        
+        // CLEANUP: Prevent Firestore document size limit inflation by keeping only pending workouts in currentPlan
+        currentPlan.workouts = currentPlan.workouts.filter(w => !w.isCompleted);
+
+        if (nxw) { 
             nxw.id = `w_${Date.now()}`; nxw.isCompleted = false; nxw.modality = nxw.modality || userData.masterAxis;
-            if(mins) nxw.estimatedMinutes = parseInt(mins); currentPlan.workouts.push(nxw); 
+            if (mins) nxw.estimatedMinutes = parseInt(mins); 
+            currentPlan.workouts.push(nxw); 
         }
-        if(aiEvaluationResult.coachFeedback) currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
+
+        if (aiEvaluationResult.coachFeedback) currentPlan.coachFeedback = aiEvaluationResult.coachFeedback;
         
         const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + parseInt(days));
         currentPlan.nextWorkoutDate = nextDate.toISOString();
 
         await saveFullState(); hideLoading(); window.hide('modal-post-workout');
         renderDashboard(); window.switchTab('training');
-        window.showAlert("Treino Concluído!", "Plano atualizado com sucesso!");
+        window.showAlert("Treino Concluído!", "Treino salvo no seu histórico com estado sintético v4.0!");
     }
 
     window.saveCheckin = async () => {
         const w = document.getElementById('checkin-weight').value; const bf = document.getElementById('checkin-bf').value;
         if(!w || !bf) return window.showAlert("Erro", "Preencha todos os campos");
-        showLoading("Salvando...");
-        try { userData.weight = w; userData.bf = bf; await saveFullState(); await addDoc(collection(db, `users/${currentUser.uid}/checkins`), { date: new Date().toISOString(), weight: parseFloat(w), bf: parseFloat(bf) }); hideLoading(); window.hide('modal-checkin'); renderCharts(); } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
+        showLoading("Salvando Check-in v4.0...");
+        try { 
+            userData.weight = w; userData.bf = bf; 
+            await saveFullState(); 
+            await addDoc(collection(db, `users/${currentUser.uid}/checkins`), { date: new Date().toISOString(), weight: parseFloat(w), bf: parseFloat(bf) }); 
+            hideLoading(); window.hide('modal-checkin'); renderCharts(); 
+        } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
+
+    async function renderAcwrAnd1RMInfo() {
+        try {
+            const syntheticState = await buildSyntheticStateVector();
+            const acwr = syntheticState.acwr_score || 1.0;
+            const badge = document.getElementById('acwr-score-badge');
+            const txt = document.getElementById('acwr-status-text');
+
+            if (badge && txt) {
+                badge.innerText = `ACWR: ${acwr}`;
+                if (acwr > 1.5) {
+                    badge.className = "bg-red-500/20 text-red-400 border border-red-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl animate-pulse";
+                    txt.innerHTML = `<strong class="text-red-400">Pico de Fadiga Detectado!</strong> Carga Aguda ultrapassou 150% da média das últimas 4 semanas. A I.A. acionará Deload.`;
+                } else if (acwr >= 0.8 && acwr <= 1.3) {
+                    badge.className = "bg-green-500/20 text-green-400 border border-green-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl";
+                    txt.innerHTML = `<strong class="text-green-400">Zona Doce de Treino (0.8 - 1.3):</strong> Excelente equilíbrio entre sobrecarga e recuperação.`;
+                } else {
+                    badge.className = "bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl";
+                    txt.innerHTML = `<strong class="text-amber-400">Transição de Carga:</strong> Mantenha a constância nos próximos check-ins.`;
+                }
+            }
+
+            const container1RM = document.getElementById('progress-1rm-list');
+            if (container1RM && syntheticState["1RM_Estimates"]) {
+                const ests = syntheticState["1RM_Estimates"];
+                const keys = Object.keys(ests);
+                if (keys.length === 0) {
+                    container1RM.innerHTML = `<p class="text-xs text-slate-500 font-medium col-span-2 text-center">Nenhum registro de 1RM na musculação ainda.</p>`;
+                } else {
+                    container1RM.innerHTML = keys.map(k => `
+                        <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+                            <span class="text-slate-300 font-bold capitalize text-[11px] truncate">${k}</span>
+                            <span class="text-purple-400 font-black text-xs shrink-0">${ests[k]} kg</span>
+                        </div>`).join('');
+                }
+            }
+        } catch(e) {}
+    }
 
     async function renderCharts() {
         try {
@@ -2624,7 +2874,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             const ctxWeight = document.getElementById('chart-weight');
             if (ctxWeight) {
                 if (chartWeight) chartWeight.destroy();
-                chartWeight = new Chart(ctxWeight, { type: 'line', data: { labels: checkinLabels, datasets: [ { label: 'Peso', data: weights, borderColor: '#06b6d4', fill: true, tension: 0.4 } ] }, options: { responsive: true, maintainAspectRatio: false } });
+                chartWeight = new Chart(ctxWeight, { type: 'line', data: { labels: checkinLabels, datasets: [ { label: 'Peso (kg)', data: weights, borderColor: '#06b6d4', fill: true, tension: 0.4 } ] }, options: { responsive: true, maintainAspectRatio: false } });
             }
 
             const ctxBf = document.getElementById('chart-bf');
@@ -2668,9 +2918,9 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     <h4 class="text-sm font-bold text-white">${h.workoutName}</h4>
                     <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">
                         <div>PSE: <strong>${h.pse}/10</strong></div>
-                        <div>FC: <strong>${h.fc?`${h.fc} bpm`:'--'}</strong></div>
                         <div>Calorias: <strong>${h.kcal?`${h.kcal} kcal`:'--'}</strong></div>
                         <div>Corrida: <strong>${h.distance?`${h.distance}km (${h.pace||''})`:'--'}</strong></div>
+                        <div>Carga Aguda: <strong>${(h.pse||5)*(h.durationMinutes||45)} u</strong></div>
                     </div>
                     ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">💬 "${escapeHtml(h.userFeedback)}"</p>` : ''}
                 </div>`).join('');
@@ -2687,12 +2937,12 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.generateProgressReport = async () => {
-        showLoading("Gerando Relatório...");
+        showLoading("Gerando Relatório Sintético v4.0...");
         try {
-            const hc = await getCumulativeHistoryContext();
-            const prompt = `Atue como Coach Sênior Híbrido. ALUNO: ${userData.nickname}. HISTÓRICO: ${hc}. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
+            const syntheticState = await buildSyntheticStateVector();
+            const prompt = `Atue como Coach Sênior Híbrido v4.0. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise a razão ACWR, estimativas de 1RM e progresso nas Skill Trees. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
             const res = await callGemini(prompt, 'report');
-            document.getElementById('progress-report-content').innerHTML = `<div class="space-y-2 text-xs text-slate-300"><p><strong>Diagnóstico:</strong> ${res.analysis}</p><p><strong>Previsão:</strong> ${res.estimatedTime}</p><p><strong>Próximos Passos:</strong> ${res.nextSteps}</p></div>`;
+            document.getElementById('progress-report-content').innerHTML = `<div class="space-y-2 text-xs text-slate-300"><p><strong>Diagnóstico Fisiológico & ACWR:</strong> ${res.analysis}</p><p><strong>Previsão de Supercompensação:</strong> ${res.estimatedTime}</p><p><strong>Próximos Passos (1RM & Skill Trees):</strong> ${res.nextSteps}</p></div>`;
             hideLoading();
         } catch (err) { hideLoading(); window.showAlert("Erro", err.message); }
     };
@@ -2707,10 +2957,11 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         const uniqueExercises = [...new Set(workExercises.map(ex => ex.name))];
         
         uniqueExercises.forEach((exName) => {
-            const searchStr = encodeURIComponent("como fazer " + exName + " corretamente");
+            const searchStr = encodeURIComponent("como fazer " + exName + " biomecanica fisionutricao");
             listContainer.innerHTML += `
             <div class="bg-dark-950 p-4 rounded-2xl border border-slate-800 mb-3">
                 <h3 class="text-white font-bold text-sm mb-1">${exName}</h3>
+                <p class="text-[10px] text-slate-400 mb-2">Progressão via alavancas biomecânicas e RIR v4.0.</p>
                 <a href="https://www.youtube.com/results?search_query=${searchStr}" target="_blank" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl">
                     <i class="fab fa-youtube text-sm"></i> Ver Vídeo Demonstrativo
                 </a>
@@ -2724,7 +2975,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     async function loadChatHistory() {
         try {
             const cont = document.getElementById('chat-messages'); const snap = await getDocs(query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'))); cont.innerHTML = '';
-            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Como posso orientar seu treino híbrido hoje?</span></div>`;
+            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Sou seu Coach v4.0. Como posso orientar suas estimativas de 1RM, ACWR ou Skill Trees hoje?</span></div>`;
             else snap.forEach(d => { 
                 const m = d.data(); 
                 if (m.role === 'user') cont.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(m.text)}</div></div>`; 
@@ -2735,17 +2986,22 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.sendChatMessage = async () => {
-        const inp = document.getElementById('chat-input'); const t = inp.value.trim(); if(!t) return;
+        const inp = document.getElementById('chat-input'); const t = inp ? inp.value.trim() : ''; if(!t) return;
         const c = document.getElementById('chat-messages'); c.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(t)}</div></div>`; inp.value = ''; c.scrollTop = c.scrollHeight;
         try { await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'user', text: t, timestamp: new Date().toISOString() }); } catch(e) {}
         
-        const hc = await getCumulativeHistoryContext(); const prompt = `Atue como Coach Sênior Híbrido. Aluno: ${userData.nickname}. HISTÓRICO: ${hc}. MSG: "${t}".`;
+        const syntheticState = await buildSyntheticStateVector();
+        const prompt = `Atue como Coach Sênior Híbrido v4.0. Aluno: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MSG: "${t}".`;
         try { 
             const res = await callGemini(prompt, 'chat'); 
             c.innerHTML += `<div class="flex"><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${escapeHtml(res.reply)}</div></div>`; 
             c.scrollTop = c.scrollHeight; 
             await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'model', text: res.reply, timestamp: new Date().toISOString() }); 
-            if (isTtsAutoReadEnabled) window.speakText(res.reply);
+            
+            // Restored automatic TTS readback if enabled
+            if (isTtsAutoReadEnabled && typeof window.speakText === 'function') {
+                window.speakText(res.reply);
+            }
         } catch(e) {}
     };
 
