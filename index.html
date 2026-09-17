@@ -2497,32 +2497,94 @@
         }
     };
 
-    window.submitReadiness = async () => {
-        if (!selectedEnergy) return window.showAlert("Atenção", "Selecione seu nível de energia (1 a 5).");
-        const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
-        const chosenModality = document.getElementById('read-stimulus-modality').value;
-        const targetModality = chosenModality === 'default' ? (currentPlan.workouts[nwIndex]?.modality || userData.masterAxis) : chosenModality;
-        const readNotes = document.getElementById('read-notes')?.value?.trim() || "";
+   window.submitReadiness = async () => {
+    if (!selectedEnergy) return window.showAlert("Atenção", "Selecione seu nível de energia (1 a 5).");
+    
+    const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+    const chosenModality = document.getElementById('read-stimulus-modality').value;
+    const targetModality = chosenModality === 'default' ? (currentPlan.workouts[nwIndex]?.modality || userData.masterAxis) : chosenModality;
+    const readNotes = document.getElementById('read-notes')?.value?.trim() || "";
+    
+    // Captura rigorosa do tempo customizado ou padrão
+    const customTimeVal = document.getElementById('read-custom-time')?.value;
+    const defaultMins = nwIndex !== -1 ? (currentPlan.workouts[nwIndex].estimatedMinutes || userData.mins || 45) : (userData.mins || 45);
+    const finalMins = (customTimeVal && parseInt(customTimeVal, 10) > 0) ? parseInt(customTimeVal, 10) : defaultMins;
 
-        const customTimeVal = document.getElementById('read-custom-time')?.value;
-        if (customTimeVal && parseInt(customTimeVal, 10) > 0) {
-            if (nwIndex !== -1) {
-                currentPlan.workouts[nwIndex].estimatedMinutes = parseInt(customTimeVal, 10);
-            }
-        }
-
-        if (nwIndex !== -1) {
-            currentPlan.workouts[nwIndex].readiness = { 
-                energy: selectedEnergy, 
-                sleep: document.getElementById('read-sleep').value, 
-                sore: document.getElementById('read-sore').value,
-                notes: readNotes
-            };
-        }
-        
-        window.hide('modal-readiness');
-        startWorkoutSession(targetModality);
+    const readinessPayload = {
+        energy: selectedEnergy,
+        sleep: document.getElementById('read-sleep').value,
+        sore: document.getElementById('read-sore').value,
+        notes: readNotes,
+        requestedMinutes: finalMins
     };
+
+    if (nwIndex !== -1) {
+        currentPlan.workouts[nwIndex].readiness = readinessPayload;
+        currentPlan.workouts[nwIndex].estimatedMinutes = finalMins;
+    }
+    
+    window.hide('modal-readiness');
+    
+    // Dispara a recalibração profunda baseada no Readiness e no Tempo Matemático
+    await recalibrateWorkoutWithReadiness(readinessPayload, targetModality);
+};
+
+// Função blindada de Recalibração Baseada em Prontidão e Tempo Proporcional
+async function recalibrateWorkoutWithReadiness(readiness, modality) {
+    showLoading("Recalibrando Sessão (I.A. v6.0)...", `Ajustando para ${readiness.requestedMinutes} minutos com base na sua energia...`);
+    
+    const syntheticState = await buildSyntheticStateVector();
+    
+    const prompt = `Atue como Apex Hybrid Coach v6.0. ALUNO: ${userData.nickname}. 
+    EIXO MESTRE / MODALIDADE DE HOJE: ${modality}.
+    TEMPO TOTAL EXIGIDO PELO ALUNO: ${readiness.requestedMinutes} minutos (ESTRICTO).
+    ESTADO DE PRONTIDÃO DIÁRIA (READINESS): 
+    - Energia (1-5): ${readiness.energy}/5
+    - Sono: ${readiness.sleep}
+    - Dor/Articulação Relatada: ${readiness.sore}
+    - Notas/Sintomas Textuais do Aluno: "${readiness.notes}"
+    
+    ESTADO SINTÉTICO V6.0 JSON (Inclui Histórico, 1RM, ACWR e Marcos de Volume): ${JSON.stringify(syntheticState)}.
+    
+    REGRAS CRÍTICAS DE RECALIBRAÇÃO:
+    1. INTERPRETAÇÃO DE SINTOMAS: Se houver dor relatada (ex: ombro, joelho, lombar), o motor DEVE substituir ou eliminar exercícios que gerem estresse direto nessa articulação, aplicando a matriz cinesiológica de proteção.
+    2. RECALCULO MATEMÁTICO DE TEMPO (OBRIGATÓRIO): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A ${readiness.requestedMinutes} * 60 segundos. Se o aluno pediu menos tempo, enxugue a sessão cortando volume acessório. Se pediu mais tempo, adicione séries e blocos compensatórios respeitando o MAV/MEV.
+    3. Retorne estritamente um objeto JSON válido contendo: 'userProfileAnalysis', 'planExplanation', 'macrocycleSummary', 'coachFeedback', e um objeto 'workout' detalhado com nome, focus, modality, estimatedMinutes (${readiness.requestedMinutes}), e a queue balanceada de 'work' e 'rest'.`;
+
+    try {
+        const res = await callGemini(prompt, 'workout');
+        if (res.workout) {
+            res.workout.id = `w_${Date.now()}_recal`;
+            res.workout.isCompleted = false;
+            res.workout.modality = modality;
+            res.workout.estimatedMinutes = readiness.requestedMinutes;
+            res.workout.readiness = readiness;
+            
+            // Substitui o treino pendente atual pelo treino recalibrado
+            const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+            if (nwIndex !== -1) {
+                currentPlan.workouts[nwIndex] = res.workout;
+            } else {
+                currentPlan.workouts.push(res.workout);
+            }
+            
+            if (res.coachFeedback) currentPlan.coachFeedback = res.coachFeedback;
+            await saveFullState();
+            renderDashboard();
+            hideLoading();
+            
+            // Inicia imediatamente a sessão recalibrada
+            startWorkoutSession(modality);
+        } else {
+            throw new Error("A I.A. não retornou um formato de treino válido.");
+        }
+    } catch (err) {
+        hideLoading();
+        window.showAlert("Erro na Recalibração", err.message);
+        // Fallback: Se der erro na I.A., inicia o treino com os parâmetros que já estavam salvos
+        startWorkoutSession(modality);
+    }
+}
 
     function startWorkoutSession(modality) {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
