@@ -1,4 +1,4 @@
-<dOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -280,9 +280,9 @@
 <div id="screen-auth" class="w-full max-w-md p-6 mt-10 mx-auto flex flex-col items-center">
     <div class="w-full flex justify-end mb-2">
         <div class="flex items-center gap-2 bg-dark-900 border border-slate-800 px-3 py-1.5 rounded-full shadow">
-            <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-firebase" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
-            <span class="text-slate-700">|</span>
-            <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-api" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
+            <div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-firebase-auth" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> DB</div>
+<span class="text-slate-700">|</span>
+<div class="flex items-center gap-1.5 text-[10px] font-bold text-slate-400"><div id="dot-api-auth" class="w-2 h-2 rounded-full bg-slate-500 animate-pulse"></div> I.A.</div>
         </div>
     </div>
 
@@ -778,6 +778,14 @@
                             <i class="fas fa-calendar-alt"></i> Trocar Data
                         </button>
                     </div>
+<!-- BLOCO 4A: ALERTA HTML -->
+                    <div id="dash-interference-banner" class="hidden mb-3 p-3 bg-amber-950/40 border border-amber-500/50 rounded-2xl space-y-1">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-exclamation-triangle text-amber-400 text-xs"></i>
+                            <span class="text-[10px] font-black text-amber-300 uppercase tracking-wider">Aviso Fisiológico</span>
+                        </div>
+                        <p id="dash-interference-desc" class="text-[11px] text-amber-200/90 font-medium leading-relaxed">...</p>
+                    </div>
 
                     <div class="flex flex-col gap-2">
                         <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
@@ -934,6 +942,16 @@
                     <span id="acwr-score-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl">--</span>
                 </div>
                 <p id="acwr-status-text" class="text-xs text-slate-300 font-medium leading-relaxed">Calculando proporção de carga Aguda / Crônica...</p>
+            </div>
+  <!-- BLOCO 5: CARD AUTONÔMICO (FASE 3) -->
+            <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
+                        <i class="fas fa-heart-pulse text-brand-400"></i> Recuperação Autonômica
+                    </h3>
+                    <span id="ans-status-badge" class="bg-brand-500/20 text-brand-300 border border-brand-500/40 text-[9px] font-black px-2 py-0.5 rounded">SNA: Ativo</span>
+                </div>
+                <p class="text-[10px] text-slate-400 mb-2 font-medium">Controle de Janela mTORC1/AMPK ativo.</p>
             </div>
 
             <!-- 1RM Estimates Summary Card -->
@@ -1581,12 +1599,14 @@
     }
     
     // WORKOUT_RULES v5.0 APEX HYBRID (FASE 1)
-    const WORKOUT_RULES = `REGRA CINESIOLÓGICA & FISIOLÓGICA v5.0 (FASE 1):
-    1. MARCOS DE VOLUME SEMANAL (MEV/MAV/MRV): Monitore as séries efetivas (RIR <= 3). Peitoral, Costas, Quadríceps, Posterior, Ombros, Braços e Core. Mantenha a maioria dos grupos no MAV (12 a 20 séries/sem).
-    2. 1RM UNIFICADO: Utilize Epley para reps <= 10 e Brzycki para reps > 10. Recomende progressão de carga de +2% a +5% se RIR >= 2 no teto da faixa.
-    3. RAZÃO DE CARGA ACWR & DELOAD: Se a propriedade acwr_score for > 1.5, ATIVE O [MICROCICLO DE DELOAD], reduzindo obrigatoriamente o volume de séries em 30% a 40%.
-    4. MATRIZ DE SUBSTITUIÇÃO CINESIOLÓGICA: Se joint_stress_index indicar dor, substitua imediatamente os exercícios correspondentes.
-    5. FILA (queue): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A (estimatedMinutes * 60). Alterne 'work' e 'rest'.`;
+    const WORKOUT_RULES = `REGRA CINESIOLÓGICA & FISIOLÓGICA v6.0 (FASE 3):
+    1. REGRAS ANTI-INTERFERÊNCIA (mTORC1 vs AMPK): Se mTORC1_AMPK_conflict.is_high_intensity_run_allowed === false, É PROIBIDO prescrever tiros ou corrida Z4/Z5. CONVERTA a corrida em regenerativa Z1/Z2 para proteger os ganhos de perna.
+    2. AUTO-REGULAÇÃO AUTONÔMICA: Se autonomic_recovery.ans_status === "SYMPATHETIC_DOMINANCE" (FCrep elevada), REDUZA VOLUME e AUMENTE RIR.
+    3. MARCOS DE VOLUME (MEV/MAV/MRV): Monitore séries efetivas. Mantenha no MAV (12-20 séries/sem).
+    4. 1RM UNIFICADO: Epley para reps <= 10 e Brzycki para reps > 10.
+    5. DELOAD (ACWR): Se acwr_score > 1.5, ATIVE [MICROCICLO DE DELOAD], reduzindo volume em 30-40%.
+    6. MATRIZ CINESIOLÓGICA: Se joint_stress_index indicar dor, substitua exercícios.
+    7. FILA (queue): A SOMA DOS SEGUNDOS (duration) DEVE SER EXATAMENTE IGUAL A (estimatedMinutes * 60).`;
 
     let currentUser = null;
     let userData = {};
@@ -1770,19 +1790,19 @@
     };
 
     // --- FASE 2: BANISTER TRIMP & 80/20 POLARIZED CARDIO ---
-    window.calculateTRIMP = (durationMins, fcAvg, fcRest, fcMax) => {
-        const d = parseFloat(durationMins) || 0;
-        const fAvg = parseFloat(fcAvg) || 0;
-        const fRest = parseFloat(fcRest) || 60;
-        const fMax = parseFloat(fcMax) || 190;
-        
-        if (fAvg <= fRest || fMax <= fRest) return 0;
-        
-        const deltaFC = (fAvg - fRest) / (fMax - fRest);
-        // Constante de Banister (1.92) para cálculo exponencial
-        const trimp = d * deltaFC * Math.exp(1.92 * deltaFC);
-        return Math.round(trimp);
-    };
+  window.calculateTRIMP = (durationMins, fcAvg, fcRest, fcMax) => {
+    const d = parseFloat(durationMins) || 0;
+    const fAvg = parseFloat(fcAvg) || 0;
+    const fRest = parseFloat(fcRest) || 60;
+    const fMax = parseFloat(fcMax) || 190;
+    
+    // Trava de segurança contra divisão por zero ou valores inconsistentes
+    if (!d || !fAvg || !fRest || !fMax || fMax <= fRest || fAvg <= fRest) return 0;
+    
+    const deltaFC = (fAvg - fRest) / (fMax - fRest);
+    const trimp = d * deltaFC * Math.exp(1.92 * deltaFC);
+    return isNaN(trimp) ? 0 : Math.round(trimp);
+};
 
     function calculatePolarizedCardioSplit(historyData) {
         let z1z2 = 0, z3 = 0, z4z5 = 0;
@@ -1952,85 +1972,144 @@
 
         return { acwr, acuteLoad, chronicLoad };
     }
+// BLOCO 1: CÁLCULO DE CONFLITO MOLECULAR E STATUS AUTONÔMICO
+function calculateInterferenceAndAutonomicStatus(historyData, profile) {
+    const now = new Date();
+    const oneHourMs = 60 * 60 * 1000;
+    let hoursSinceLastLegWorkout = 999;
+    let legFatigueIndex = "LOW";
 
-    // --- FASE 1: SYNTHETIC STATE VECTOR v5.0 ---
-    async function buildSyntheticStateVector() {
-        if (!currentUser || !currentUser.uid) return { "acwr_score": 1.0, "error": "no_user" };
-        try {
-            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-            let historyData = [];
-            snap.forEach(d => historyData.push(d.data()));
-            historyData.sort((a, b) => new Date(a.date) - new Date(b.date));
+    if (Array.isArray(historyData) && historyData.length > 0) {
+        // Encontra o último treino de membros inferiores
+        const legWorkouts = historyData.filter(h => {
+            const name = (h.workoutName || '').toLowerCase();
+            return name.includes('perna') || name.includes('quadríceps') || name.includes('posterior') || 
+                   name.includes('agachamento') || name.includes('inferiores') || 
+                   (h.exerciseLogs && h.exerciseLogs.some(l => {
+                       const grp = (l.targetGroup || '').toLowerCase();
+                       return grp === 'quadriceps' || grp === 'posterior';
+                   }));
+        });
 
-            const { acwr } = calculateACWRFromHistory(historyData);
-            const weeklyVolumeMap = calculateWeeklyVolumeLandmarks(historyData);
-
-            let estimates1RM = {};
-            let ifrWeightedMap = {};
-            let jointStressIndex = {};
-
-            const bw = parseFloat(userData.weight || 70);
-
-            historyData.slice(-20).forEach(h => {
-                if (h.exerciseLogs && Array.isArray(h.exerciseLogs)) {
-                    h.exerciseLogs.forEach(log => {
-                        if (log.name && log.weight && log.reps) {
-                            const val1RM = window.calculateUnified1RM(log.weight, log.reps, log.rir || 0);
-                            const key = log.name.toLowerCase().trim();
-                            if (!estimates1RM[key] || val1RM > estimates1RM[key]) {
-                                estimates1RM[key] = val1RM;
-                            }
-                            if (log.addedLoadKg && log.addedLoadKg > 0) {
-                                const ifrVal = window.calculateIFR(bw, log.addedLoadKg);
-                                if (!ifrWeightedMap[key] || ifrVal > ifrWeightedMap[key]) {
-                                    ifrWeightedMap[key] = ifrVal;
-                                }
-                            }
-                        }
-                    });
-                }
-
-                if (h.userFeedback) {
-                    const fb = h.userFeedback.toLowerCase();
-                    if (fb.includes('ombro')) jointStressIndex['ombro'] = 'LEVE_OU_MODERADA';
-                    if (fb.includes('cotovelo')) jointStressIndex['cotovelo'] = 'STRAIGHT_ARM_RESTRICTION';
-                    if (fb.includes('joelho')) jointStressIndex['joelho'] = 'CARGA_JOELHO_REDUZIDA';
-                    if (fb.includes('lombar')) jointStressIndex['lombar'] = 'ISOMETRIA_SUPORTADA';
-                }
-            });
-
-            // Derive volume landmarks status for I.A.
-            let volumeLandmarksStatus = {};
-            Object.keys(weeklyVolumeMap).forEach(k => {
-                const c = weeklyVolumeMap[k];
-                if (c < 6) volumeLandmarksStatus[k] = 'Abaixo do MEV';
-                else if (c <= 11) volumeLandmarksStatus[k] = 'MEV';
-                else if (c <= 20) volumeLandmarksStatus[k] = 'MAV';
-                else volumeLandmarksStatus[k] = 'MRV';
-            });
-
-            // Phase 2: Cardio Polarized Split
-            const cardioSplit = calculatePolarizedCardioSplit(historyData);
-
-            const syntheticState = {
-                "1RM_Estimates": estimates1RM,
-                "IFR_Weighted_Calisthenics": ifrWeightedMap,
-                "acwr_score": acwr,
-                "weekly_effective_sets": weeklyVolumeMap,
-                "volume_landmarks_status": volumeLandmarksStatus,
-                "cardio_polarized_distribution": cardioSplit,
-                "joint_stress_index": jointStressIndex,
-                "master_axis": userData.masterAxis || "Calistenia",
-                "body_weight": bw,
-                "bf_percentage": parseFloat(userData.bf || 18)
-            };
-
-            return syntheticState;
-        } catch(e) {
-            return { "acwr_score": 1.0, "error": "fallback" };
+        if (legWorkouts.length > 0) {
+            const lastLegDate = new Date(legWorkouts[legWorkouts.length - 1].date);
+            hoursSinceLastLegWorkout = Math.max(0, Math.round((now - lastLegDate) / oneHourMs));
         }
     }
 
+    const isHighIntensityRunAllowed = hoursSinceLastLegWorkout >= 24;
+    if (hoursSinceLastLegWorkout < 24) legFatigueIndex = hoursSinceLastLegWorkout < 12 ? "CRITICAL" : "HIGH";
+
+    const rhrBaseline = parseFloat(profile.restHeartRate || 60);
+    let currentRhr = rhrBaseline;
+    let rhrDelta = 0;
+
+    // Em implementações futuras, podemos pegar a FCrep do Checkin. Aqui usamos o baseline.
+    if (profile.currentRestHeartRate) {
+        currentRhr = parseFloat(profile.currentRestHeartRate);
+        rhrDelta = currentRhr - rhrBaseline;
+    }
+
+    let ansStatus = "BALANCED";
+    if (rhrDelta >= 5) ansStatus = "SYMPATHETIC_DOMINANCE";
+    else if (rhrDelta <= -5) ansStatus = "PARASYMPATHETIC_DOMINANCE";
+
+    return {
+        mTORC1_AMPK_conflict: { hours_since_last_leg_workout: hoursSinceLastLegWorkout, leg_fatigue_index: legFatigueIndex, is_high_intensity_run_allowed: isHighIntensityRunAllowed, recommended_spacing_hours: 24 },
+        autonomic_recovery: { rhr_baseline_bpm: rhrBaseline, current_rhr_bpm: currentRhr, rhr_delta_bpm: rhrDelta, ans_status: ansStatus }
+    };
+}
+    // --- FASE 1: SYNTHETIC STATE VECTOR v5.0 ---
+    async function buildSyntheticStateVector() {
+    try {
+        const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+        let historyData = [];
+        snap.forEach(d => historyData.push(d.data()));
+
+        // Mapeamento correto de 1RM e IFR por exercício no histórico
+        let estimates1RM = {};
+        let ifrWeightedMap = {};
+
+        historyData.forEach(h => {
+            if (h.exerciseLogs && Array.isArray(h.exerciseLogs)) {
+                h.exerciseLogs.forEach(log => {
+                    if (log.name) {
+                        const exName = log.name.toLowerCase();
+                        const totalLoad = (parseFloat(log.weight) || 0) + (parseFloat(log.addedLoadKg) || 0);
+                        const reps = parseInt(log.reps, 10) || 0;
+                        const rir = parseInt(log.rir, 10) || 0;
+
+                        if (totalLoad > 0 && reps > 0) {
+                            const e1rm = window.calculateUnified1RM(totalLoad, reps, rir);
+                            if (!estimates1RM[exName] || e1rm > estimates1RM[exName]) {
+                                estimates1RM[exName] = e1rm;
+                            }
+                        }
+                        if (log.addedLoadKg > 0) {
+                            const bw = parseFloat(userData.weight || 70);
+                            const ifr = window.calculateIFR(bw, log.addedLoadKg);
+                            if (!ifrWeightedMap[exName] || ifr > ifrWeightedMap[exName]) {
+                                ifrWeightedMap[exName] = ifr;
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        const acwrObj = calculateACWRFromHistory(historyData);
+        const acwr = acwrObj ? acwrObj.acwr : 1.0;
+        
+        const weeklyVolumeMap = calculateWeeklyVolumeLandmarks(historyData);
+        
+        let volumeLandmarksStatus = {};
+        Object.keys(weeklyVolumeMap).forEach(k => {
+            const c = weeklyVolumeMap[k];
+            if (c < 6) volumeLandmarksStatus[k] = 'Abaixo do MEV';
+            else if (c <= 11) volumeLandmarksStatus[k] = 'MEV';
+            else if (c <= 20) volumeLandmarksStatus[k] = 'MAV';
+            else volumeLandmarksStatus[k] = 'MRV';
+        });
+
+        let jointStressIndex = {};
+        historyData.forEach(h => {
+            if (h.userFeedback) {
+                const fb = h.userFeedback.toLowerCase();
+                if (fb.includes('ombro')) jointStressIndex['ombro'] = 'LEVE_OU_MODERADA';
+                if (fb.includes('cotovelo')) jointStressIndex['cotovelo'] = 'STRAIGHT_ARM_RESTRICTION';
+                if (fb.includes('joelho')) jointStressIndex['joelho'] = 'CARGA_JOELHO_REDUZIDA';
+                if (fb.includes('lombar')) jointStressIndex['lombar'] = 'ISOMETRIA_SUPORTADA';
+            }
+        });
+
+        const cardioSplit = calculatePolarizedCardioSplit(historyData);
+        const bw = parseFloat(userData.weight || 70);
+        const interferenceData = calculateInterferenceAndAutonomicStatus(historyData, userData);
+
+        const syntheticState = {
+            "1RM_Estimates": estimates1RM,
+            "IFR_Weighted_Calisthenics": ifrWeightedMap,
+            "acwr_score": acwr,
+            "weekly_effective_sets": weeklyVolumeMap,
+            "volume_landmarks_status": volumeLandmarksStatus,
+            "cardio_polarized_distribution": cardioSplit,
+            "mTORC1_AMPK_conflict": interferenceData.mTORC1_AMPK_conflict,
+            "autonomic_recovery": interferenceData.autonomic_recovery,
+            "joint_stress_index": jointStressIndex,
+            "master_axis": userData.masterAxis || "Calistenia",
+            "body_weight": bw,
+            "bf_percentage": parseFloat(userData.bf || 18)
+        };
+
+        return syntheticState;
+    } catch (e) {
+        console.error("Erro ao construir estado sintético:", e);
+        return { "acwr_score": 1.0, "error": "fallback" };
+    }
+}
+
+             
+    
     function playBeep(freq = 440, duration = 150, type = 'sine') {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -2191,7 +2270,14 @@
         } catch (err) { hideLoading(); window.showAlert("Erro de Login", err.code); }
     });
 
-    window.logOut = () => { window.hasSeenReminder = false; signOut(auth); };
+   window.logOut = async () => {
+    if (timerInterval) clearInterval(timerInterval);
+    if (restTimerInterval) clearInterval(restTimerInterval);
+    
+    await releaseWakeLock();
+    await signOut(auth);
+    window.location.reload();
+};
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
@@ -2456,6 +2542,29 @@
             const wks = nw.queue ? nw.queue.filter(q => q.type === 'work') : [];
             document.getElementById('dash-nw-desc').innerText = `Exercícios: ${wks.map(w => w.name).join(', ')}`;
         } else window.hide('dash-next-workout');
+                // BLOCO 4B: LÓGICA DO BANNER
+        getDocs(collection(db, `users/${currentUser.uid}/history`)).then(snap => {
+            let historyData = [];
+            snap.forEach(d => historyData.push(d.data()));
+            historyData.sort((a,b) => new Date(a.date) - new Date(b.date));
+            
+            const interference = calculateInterferenceAndAutonomicStatus(historyData, userData);
+            const banner = document.getElementById('dash-interference-banner');
+            const desc = document.getElementById('dash-interference-desc');
+            
+            if (banner && desc && nw) {
+                const nwModality = nw.modality || userData.masterAxis;
+                if (!interference.mTORC1_AMPK_conflict.is_high_intensity_run_allowed && nwModality === 'Corrida') {
+                    banner.classList.remove('hidden');
+                    desc.innerHTML = `<strong class="text-white">Janela Anti-Interferência (mTORC1/AMPK):</strong> Último treino de pernas há ${interference.mTORC1_AMPK_conflict.hours_since_last_leg_workout}h. Tiros em Z4/Z5 ajustados para regenerativo Z1/Z2.`;
+                } else if (interference.autonomic_recovery.ans_status === "SYMPATHETIC_DOMINANCE") {
+                    banner.classList.remove('hidden');
+                    desc.innerHTML = `<strong class="text-white">Estresse Autonômico:</strong> FCrep elevada em +${interference.autonomic_recovery.rhr_delta_bpm}bpm. I.A. ajustou volume de segurança.`;
+                } else {
+                    banner.classList.add('hidden');
+                }
+            }
+        }).catch(()=>{});
     }
 
     function renderProfileTab() {
