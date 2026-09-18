@@ -3481,6 +3481,14 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     document.getElementById('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') window.sendChatMessage(); });
 
     // BLOCO 2 e 5: PROCESSAMENTO MULTIMODAL DA IMAGEM E SALVAMENTO SEM PRINT
+    function extractBase64AndMime(dataUrl) {
+        if (!dataUrl || !dataUrl.includes(',')) return { mimeType: 'image/jpeg', data: dataUrl };
+        const parts = dataUrl.split(',');
+        const mimeType = parts[0].match(/:(.*?);/)?.[1] || 'image/jpeg';
+        const data = parts[1];
+        return { mimeType, data };
+    }
+
     window.handleSmartwatchImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -3520,12 +3528,18 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     }
                 };
 
+                const { mimeType, data } = extractBase64AndMime(base64Image);
+
                 const response = await fetch(BACKEND_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        prompt: `${prompt}\n[IMAGEM_BASE64]: ${base64Image}`,
-                        schema: schema
+                        prompt: prompt,
+                        schema: schema,
+                        image: {
+                            mimeType: mimeType,
+                            data: data
+                        }
                     })
                 });
 
@@ -3629,12 +3643,18 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     }
                 };
 
+                const { mimeType, data } = extractBase64AndMime(base64Image);
+
                 const response = await fetch(BACKEND_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        prompt: `${prompt}\n[IMAGEM_BASE64]: ${base64Image}`,
-                        schema: schema
+                        prompt: prompt,
+                        schema: schema,
+                        image: {
+                            mimeType: mimeType,
+                            data: data
+                        }
                     })
                 });
 
