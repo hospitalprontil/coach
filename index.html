@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<dOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -1381,6 +1381,27 @@
 
         <div class="space-y-4">
             <div id="step-metrics-container" class="bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-lg space-y-4 w-full">
+                <!-- BLOCO 1: SELETOR DE PRINT DO SMARTWATCH NO PÓS-TREINO -->
+                <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40 space-y-2 mb-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-camera"></i> Relatório do Smartwatch / Strava</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-bold">Visão I.A.</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 font-medium">Envie o print do relógio para preencher automaticamente ou salve para enviar depois.</p>
+                    <div class="flex gap-2 items-center">
+                        <input type="file" id="smartwatch-file-input" accept="image/*" class="hidden" onchange="window.handleSmartwatchImageUpload(event)">
+                        <button type="button" onclick="document.getElementById('smartwatch-file-input').click()" class="flex-1 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 text-xs font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-upload"></i> Enviar Print do Relógio
+                        </button>
+                        <button type="button" onclick="window.saveWorkoutWithoutPrintForLater()" class="bg-dark-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold py-3 px-3.5 rounded-xl transition-colors" title="Salvar treino e enviar print depois">
+                            <i class="fas fa-clock"></i> Importar Depois
+                        </button>
+                    </div>
+                    <div id="smartwatch-preview-container" class="hidden text-center pt-2">
+                        <p id="smartwatch-status-text" class="text-xs text-amber-400 font-medium animate-pulse">Analisando imagem com Visão Computacional...</p>
+                    </div>
+                </div>
+
                 <div>
                     <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-center">Esforço Geral (PSE) <span class="text-red-500">*</span></h3>
                     <div class="flex flex-wrap gap-1 justify-center" id="pse-buttons"></div>
@@ -1494,6 +1515,26 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- BLOCO 4: MODAL PARA IMPORTAÇÃO RETROSPECTIVA DE PRINT PENDENTE -->
+<div id="modal-pending-upload" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[190] hidden items-center justify-center p-4">
+    <div class="bg-dark-900 border border-amber-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl relative overflow-hidden mx-auto">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+            <h3 id="pending-modal-title" class="text-sm font-black text-white flex items-center gap-2">
+                <i class="fas fa-camera text-amber-400"></i> Importar Relatório
+            </h3>
+            <button onclick="window.hide('modal-pending-upload')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
+        </div>
+        <p class="text-xs text-slate-300 font-medium">Selecione a foto ou print do smartwatch referente a esta sessão para atualizar suas métricas e o $TRIMP$.</p>
+
+        <input type="file" id="pending-file-input" accept="image/*" class="hidden" onchange="window.processPendingPrintUpload(event)">
+        <button type="button" onclick="document.getElementById('pending-file-input').click()" class="w-full bg-amber-500 hover:bg-amber-400 text-dark-950 font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+            <i class="fas fa-file-image"></i> Selecionar Foto / Print
+        </button>
+
+        <p id="pending-status-text" class="text-xs text-slate-400 font-medium hidden">Aguardando arquivo...</p>
     </div>
 </div>
 
@@ -3311,15 +3352,32 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         } catch(e) {}
     }
 
+    // BLOCO 3: RENDERIZAÇÃO DO HISTÓRICO COM SUPORTE A SESSÕES PENDENTES DE PRINT
     async function loadHistory() {
         if (!currentUser || !currentUser.uid) return;
         try {
             const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); 
-            let data = []; snap.forEach(d => data.push(d.data())); data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
+            let data = []; 
+            snap.forEach(d => {
+                const item = d.data();
+                item.docId = d.id; // Guarda o ID do documento para permitir atualização posterior
+                data.push(item);
+            }); 
+            data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
             
             document.getElementById('cal-count').innerText = `${data.length} Sessões`;
-            document.getElementById('calendar-list').innerHTML = data.length === 0 ? `<p class="text-xs text-slate-500 text-center py-6 font-medium">Nenhum treino concluído.</p>` : data.map(h => `
-                <div class="bg-dark-900 p-4 rounded-3xl border border-slate-800 space-y-2">
+            const listContainer = document.getElementById('calendar-list');
+            
+            if (data.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6 font-medium">Nenhum treino concluído.</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = data.map(h => {
+                const isPending = h.biometricsPending === true;
+                return `
+                <div class="bg-dark-900 p-4 rounded-3xl border ${isPending ? 'border-amber-500/50' : 'border-slate-800'} space-y-2 relative overflow-hidden">
+                    ${isPending ? `<div class="absolute top-0 right-0 bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">📷 Print Pendente</div>` : ''}
                     <div class="flex justify-between items-center">
                         <span class="text-[9px] font-bold text-slate-500 uppercase">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
                         <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${h.modality||'Calistenia'}</span>
@@ -3329,12 +3387,17 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         <div>PSE: <strong class="text-white">${h.pse}/10</strong></div>
                         <div>Calorias: <strong class="text-amber-400">${h.kcal ? `${h.kcal} kcal` : '--'}</strong></div>
                         <div>FC Média/Máx: <strong class="text-pink-400">${h.fc ? `${h.fc}` : '--'} / ${h.fcMax ? `${h.fcMax} bpm` : '--'}</strong></div>
-                        <div>TRIMP (Fase 2): <strong class="text-red-400">${h.trimpScore ? Math.round(h.trimpScore) : '--'}</strong></div>
+                        <div>TRIMP: <strong class="text-red-400">${h.trimpScore ? Math.round(h.trimpScore) : '--'}</strong></div>
                         <div>Corrida: <strong class="text-brand-300">${h.distance ? `${h.distance}km (${h.pace||''})` : '--'}</strong></div>
                         <div>Carga Aguda: <strong class="text-slate-200">${(h.pse||5)*(h.durationMinutes||45)} u</strong></div>
                     </div>
+                    ${isPending ? `
+                    <button onclick="window.openUploadPendingModal('${h.docId}', '${escapeHtml(h.workoutName)}')" class="w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
+                        <i class="fas fa-upload"></i> Anexar Print do Relógio Agora
+                    </button>` : ''}
                     ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">💬 "${escapeHtml(h.userFeedback)}"</p>` : ''}
-                </div>`).join('');
+                </div>`;
+            }).join('');
         } catch(e) {}
     }
 
@@ -3416,6 +3479,207 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     };
 
     document.getElementById('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') window.sendChatMessage(); });
+
+    // BLOCO 2 e 5: PROCESSAMENTO MULTIMODAL DA IMAGEM E SALVAMENTO SEM PRINT
+    window.handleSmartwatchImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const previewContainer = document.getElementById('smartwatch-preview-container');
+        const statusText = document.getElementById('smartwatch-status-text');
+        previewContainer.classList.remove('hidden');
+        statusText.innerText = "Processando imagem com I.A. Multimodal...";
+
+        const reader = new FileReader();
+        reader.onload = async function(uploadEvent) {
+            const base64Image = uploadEvent.target.result;
+            
+            try {
+                statusText.innerText = "Extraindo biometria e dados do relógio...";
+                
+                const prompt = `Atue como um sistema de Visão Computacional esportiva de alta precisão. Analise este print de smartwatch/aplicativo de treino e extraia todos os dados biométricos e de desempenho visíveis.
+                Retorne estritamente um objeto JSON com os seguintes campos (use null se não encontrar o dado):
+                {
+                  "fc_media": número ou null,
+                  "fc_max": número ou null,
+                  "calorias": número ou null,
+                  "distancia_km": número ou null,
+                  "pace_min_km": "string ex: 5:30" ou null,
+                  "tempo_minutos": número ou null
+                }`;
+
+                const schema = {
+                    type: "object",
+                    properties: {
+                        fc_media: { type: ["number", "null"] },
+                        fc_max: { type: ["number", "null"] },
+                        calorias: { type: ["number", "null"] },
+                        distancia_km: { type: ["number", "null"] },
+                        pace_min_km: { type: ["string", "null"] },
+                        tempo_minutos: { type: ["number", "null"] }
+                    }
+                };
+
+                const response = await fetch(BACKEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: `${prompt}\n[IMAGEM_BASE64]: ${base64Image}`,
+                        schema: schema
+                    })
+                });
+
+                if (!response.ok) throw new Error("Falha ao comunicar com o servidor de visão I.A.");
+                const result = await response.json();
+
+                if (result.fc_media) document.getElementById('pw-fc').value = result.fc_media;
+                if (result.fc_max) document.getElementById('pw-fc-max').value = result.fc_max;
+                if (result.calorias) document.getElementById('pw-kcal').value = result.calorias;
+                if (result.distancia_km) document.getElementById('pw-dist').value = result.distancia_km;
+                if (result.pace_min_km) document.getElementById('pw-pace').value = result.pace_min_km;
+
+                statusText.innerText = "✅ Dados extraídos com sucesso! Preencha a PSE e avalie.";
+                statusText.className = "text-xs text-green-400 font-bold";
+
+            } catch (err) {
+                statusText.innerText = "⚠️ Leitura automática indisponível. Preencha os campos abaixo manualmente.";
+                statusText.className = "text-xs text-amber-400 font-medium";
+            }
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.saveWorkoutWithoutPrintForLater = async () => {
+        showLoading("Salvando Sessão (Pendente de Print)...");
+        const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+        
+        if (nwIndex !== -1) {
+            currentPlan.workouts[nwIndex].isCompleted = true;
+            const workoutName = currentPlan.workouts[nwIndex].name;
+            const modality = currentPlan.workouts[nwIndex].modality || userData.masterAxis;
+            
+            try {
+                await addDoc(collection(db, `users/${currentUser.uid}/history`), { 
+                    date: new Date().toISOString(), 
+                    workoutName: workoutName, 
+                    modality: modality,
+                    pse: 5, 
+                    durationMinutes: currentPlan.workouts[nwIndex].estimatedMinutes || 45,
+                    exerciseLogs: [],
+                    biometricsPending: true, // Indica que o print pode ser importado depois
+                    userFeedback: "Sessão salva sem print imediato. Aguardando importação do relatório do smartwatch."
+                });
+            } catch(e) {}
+
+            const nextDate = new Date(); nextDate.setDate(nextDate.getDate() + 2);
+            currentPlan.workouts = currentPlan.workouts.filter(w => !w.isCompleted);
+            currentPlan.nextWorkoutDate = nextDate.toISOString();
+            
+            await saveFullState();
+            hideLoading();
+            window.hide('modal-post-workout');
+            renderDashboard();
+            window.switchTab('training');
+            window.showAlert("Sessão Salva", "Treino concluído! Você pode anexar o print do relógio quando quiser na aba de Histórico.");
+        }
+    };
+
+    window.targetPendingDocId = null;
+
+    window.openUploadPendingModal = (docId, workoutName) => {
+        window.targetPendingDocId = docId;
+        document.getElementById('pending-modal-title').innerText = `Print: ${workoutName}`;
+        document.getElementById('pending-status-text').classList.add('hidden');
+        window.show('modal-pending-upload');
+    };
+
+    window.processPendingPrintUpload = async (event) => {
+        const file = event.target.files[0];
+        if (!file || !window.targetPendingDocId) return;
+
+        const statusText = document.getElementById('pending-status-text');
+        statusText.classList.remove('hidden');
+        statusText.innerText = "Lendo imagem com Visão Computacional...";
+        statusText.className = "text-xs text-amber-400 font-bold animate-pulse";
+
+        const reader = new FileReader();
+        reader.onload = async function(uploadEvent) {
+            const base64Image = uploadEvent.target.result;
+
+            try {
+                const prompt = `Atue como um analista de dados esportivos. Analise o print do relatório de treino do smartwatch e extraia:
+                {
+                  "fc_media": número ou null,
+                  "fc_max": número ou null,
+                  "calorias": número ou null,
+                  "distancia_km": número ou null,
+                  "pace_min_km": "string ex: 5:30" ou null,
+                  "tempo_minutos": número ou null
+                }`;
+
+                const schema = {
+                    type: "object",
+                    properties: {
+                        fc_media: { type: ["number", "null"] },
+                        fc_max: { type: ["number", "null"] },
+                        calorias: { type: ["number", "null"] },
+                        distancia_km: { type: ["number", "null"] },
+                        pace_min_km: { type: ["string", "null"] },
+                        tempo_minutos: { type: ["number", "null"] }
+                    }
+                };
+
+                const response = await fetch(BACKEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        prompt: `${prompt}\n[IMAGEM_BASE64]: ${base64Image}`,
+                        schema: schema
+                    })
+                });
+
+                if (!response.ok) throw new Error("Falha na leitura da imagem.");
+                const result = await response.json();
+
+                // Atualiza o documento específico no Firestore
+                const docRef = doc(db, `users/${currentUser.uid}/history`, window.targetPendingDocId);
+                
+                const fcAvg = result.fc_media || null;
+                const durMins = result.tempo_minutos || 45;
+                let calculatedTrimp = null;
+
+                if (fcAvg) {
+                    const fcMaxLimit = Math.round(208 - (0.7 * parseFloat(userData.age || 30)));
+                    calculatedTrimp = window.calculateTRIMP(durMins, fcAvg, userData.restHeartRate || 60, fcMaxLimit);
+                }
+
+                await setDoc(docRef, {
+                    fc: fcAvg,
+                    fcMax: result.fc_max || null,
+                    kcal: result.calorias || null,
+                    distance: result.distancia_km || null,
+                    pace: result.pace_min_km || null,
+                    trimpScore: calculatedTrimp,
+                    biometricsPending: false, // Remove a marcação de pendência
+                    updatedViaPrint: true
+                }, { merge: true });
+
+                window.hide('modal-pending-upload');
+                window.targetPendingDocId = null;
+                
+                // Recarrega o Histórico e os Gráficos
+                await loadHistory();
+                if (typeof renderCharts === 'function') renderCharts();
+                
+                window.showAlert("Biometria Atualizada!", "O relatório do smartwatch foi extraído com sucesso e integrado ao seu banco de dados!");
+
+            } catch (err) {
+                statusText.innerText = "❌ Erro ao ler imagem. Tente uma foto mais nítida.";
+                statusText.className = "text-xs text-red-400 font-bold";
+            }
+        };
+        reader.readAsDataURL(file);
+    };
 
     showScreen('screen-auth');
 </script>
