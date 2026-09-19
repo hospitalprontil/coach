@@ -5462,4 +5462,51 @@ ${WORKOUT_RULES}`;
                             data: data
                         }
                     })
-    
+                });
+
+                if (!response.ok) throw new Error("Falha na leitura da imagem.");
+                const result = await response.json();
+
+                const docRef = doc(db, `users/${currentUser.uid}/history`, window.targetPendingDocId);
+
+                const fcAvg = result.fc_media || null;
+                const durMins = result.tempo_minutos || 45;
+                let calculatedTrimp = null;
+
+                if (fcAvg) {
+                    calculatedTrimp = window.calculateTRIMP(durMins, fcAvg, currentRestHr(), estimateHrMax());
+                }
+                const zoneDist = zoneDistributionFromSession(durMins, fcAvg, null);
+
+                await setDoc(docRef, {
+                    fc: fcAvg,
+                    fcMax: result.fc_max || null,
+                    kcal: result.calorias || null,
+                    distance: result.distancia_km || null,
+                    pace: result.pace_min_km || null,
+                    trimpScore: calculatedTrimp,
+                    zoneDistribution: zoneDist,
+                    biometricsPending: false,
+                    updatedViaPrint: true
+                }, { merge: true });
+
+                window.hide('modal-pending-upload');
+                window.targetPendingDocId = null;
+
+                await loadHistory();
+                if (typeof renderCharts === 'function') renderCharts();
+
+                window.showAlert("Biometria Atualizada!", "O relatório do smartwatch foi extraído com sucesso e integrado ao seu banco de dados!");
+
+            } catch (err) {
+                statusText.innerText = "Erro ao ler imagem. Tente uma foto mais nítida.";
+                statusText.className = "text-xs text-red-400 font-bold";
+            }
+        };
+        reader.readAsDataURL(file);
+    };
+
+    showScreen('screen-auth');
+</script>
+</body>
+</html>
