@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  APEX HYBRID v6.2  |  SEMANA 0 — login idêntico ao v6.1
+  APEX HYBRID v6.3  |  TIMER SÉRIE A SÉRIE + KARVONEN + CHAT
   ============================================================================
   JUNTAR: BLOCO 1 + BLOCO 2 + BLOCO 3 nesta ordem, em UM único arquivo .html
 
@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.2 - Apex Hybrid Cadência</title>
+    <title>AI Coach Híbrido v6.3 - Timer série a série</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -128,10 +128,26 @@
     </div>
 </div>
 
+<div id="modal-reset-meso" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[240] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto">
+        <div class="text-center mb-5">
+            <div class="w-14 h-14 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center mx-auto mb-3 border border-brand-500/30">
+                <i class="fas fa-redo text-xl"></i>
+            </div>
+            <h3 class="text-lg font-black text-white mb-2">Reiniciar o ciclo de 4 semanas?</h3>
+            <p class="text-xs text-slate-300 leading-relaxed font-medium">Isso <strong class="text-white">não apaga</strong> treinos, histórico, cargas nem o plano. Só volta o mesociclo para a <strong class="text-brand-400">Semana 1 · Volume</strong>, a partir de hoje.</p>
+        </div>
+        <div class="flex gap-3">
+            <button type="button" onclick="window.hide('modal-reset-meso')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-2xl text-xs uppercase">Cancelar</button>
+            <button type="button" onclick="window.confirmResetMesocycle()" class="flex-1 bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Reiniciar ciclo</button>
+        </div>
+    </div>
+</div>
+
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.2 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.3 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -145,8 +161,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.2</span>
-                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Semana 0 — o fio da cadência</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.3</span>
+                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Timer, zonas e chat que aplica</h2>
                 </div>
             </div>
         </div>
@@ -157,24 +173,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v6.2 · Semana 0</strong>
-                    <p class="text-slate-400 mt-0.5">Âncoras na triagem (número, não opinião) · 3 sessões conservadoras · teto de troca de eixo · sem log o peso não sobe · swipe nas abas.</p>
+                    <strong class="text-brand-400">v6.3 · Série a série</strong>
+                    <p class="text-slate-400 mt-0.5">Timer de calistenia explode série/descanso · zonas Karvonen iguais ao relógio · chat pergunta se aplica no próximo treino.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v6.2 · Semana 0</strong>
+                    <p class="text-slate-400 mt-0.5">Âncoras na triagem · 3 sessões conservadoras · teto de eixo · sem log o peso não sobe · swipe.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v6.1 · Cadência</strong>
-                    <p class="text-slate-400 mt-0.5">O mesmo exercício sobe pelo RIR · meso de 4 semanas · série efetiva só RIR ≤ 3 · dia de teste · corrida opcional.</p>
+                    <p class="text-slate-400 mt-0.5">Progressão pelo RIR · meso 4 semanas · série efetiva · dia de teste.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v6.0 · Fase 4</strong>
                     <p class="text-slate-400 mt-0.5">.FIT/.GPX/.TCX · radar · PDF · barras MEV/MAV/MRV.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v5.2 · Motor</strong>
-                    <p class="text-slate-400 mt-0.5">Deload e volume no código · microciclo híbrido · 1RM Epley/Brzycki.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v6.2 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.3 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -312,7 +328,19 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.2 Semana 0 — o fio da cadência</span>
+                    <span class="font-black text-brand-400 text-sm">v6.3 Timer, zonas e chat</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Timer de calistenia série a série (treino / descanso / treino).<br>
+                    • Zonas da tela de corrida em Karvonen (igual o .FIT).<br>
+                    • Chat: “estava pesado/leve” pode aplicar no próximo treino.<br>
+                    • Textos de espera da I.A. atualizados.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-xs">v6.2 Semana 0 — o fio da cadência</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -422,14 +450,13 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.2</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.3</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.2 · Semana 0</strong>
-                    • Âncoras na triagem (número, não opinião).<br>
-                    • 3 sessões conservadoras de calibração.<br>
-                    • Teto de troca de eixo na semana.<br>
-                    • Sem log, o peso não sobe.<br>
-                    • Swipe nas abas no celular.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.3 · Timer e chat</strong>
+                    • Timer série a série na calistenia.<br>
+                    • Zonas Karvonen iguais ao relógio.<br>
+                    • Chat aplica no próximo treino se você pedir.<br>
+                    • Semana 0 e âncoras continuam.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -872,7 +899,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                     <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.2</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.3</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">...</p>
@@ -1023,12 +1050,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.2 · Semana 0</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.3 · Timer e chat</span>
                         <h2 class="text-base font-black text-white">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou. A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. No cadastro você dá <strong class="text-white">números</strong> (flexões, barras, um 5 RM, um 5 km). As 3 primeiras sessões são a <strong class="text-white">Semana 0</strong>: conservadoras, para o motor aprender. Depois entra o ciclo de 4 semanas. Sem anotar carga e reps, o treino conta como feito mas <strong class="text-white">não sobe</strong> o peso da próxima vez.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou. A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. Na calistenia o timer é <strong class="text-white">série → descanso → série</strong>, não um bloco só. Na corrida as zonas da tela usam a mesma régua do relógio (Karvonen). No chat, se você disser que estava pesado ou leve, o app pergunta se aplica isso no <strong class="text-white">próximo treino</strong>.
                 </p>
             </div>
 
@@ -1051,7 +1078,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Você sobe por etapas (flexão inclinada → no chão → mais difícil), como uma árvore de habilidades — não pula etapa. O timer guia tempo de tensão e pausa. Se colocar anilha ou colete, o app registra quanto isso pesa em relação ao seu corpo (IFR) e estima um “máximo” daquele movimento. Articulação dolorida? A I.A. troca o exercício; o motor impede volume extra naquela região.
+                    Você sobe por etapas (flexão inclinada → no chão → mais difícil), como uma árvore de habilidades — não pula etapa. O timer conta <strong class="text-white">uma série por vez</strong> e depois o descanso, separado. Se colocar anilha ou colete, o app registra o IFR. Articulação dolorida? A I.A. troca o exercício; o motor impede volume extra naquela região.
                 </p>
             </div>
 
@@ -1064,7 +1091,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Fôlego de verdade se constrói correndo <strong class="text-white">fácil</strong> na maior parte do tempo (conversando) e só de vez em quando em tiros. O relógio manda a FC; o app classifica em leve, médio ou intenso. Se você fez perna pesada nas últimas 24 h, <strong class="text-white">tiro fica bloqueado</strong> e vira rodagem regenerativa. O “cansaço do coração” da semana (TRIMP) entra no próximo ajuste.
+                    Fôlego de verdade se constrói correndo <strong class="text-white">fácil</strong> na maior parte do tempo e só de vez em quando em tiros. As zonas na tela e no arquivo do relógio usam <strong class="text-white">Karvonen</strong> (sua FCrep). Se você fez perna pesada nas últimas 24 h, <strong class="text-white">tiro fica bloqueado</strong>. O TRIMP da semana entra no próximo ajuste.
                 </p>
             </div>
 
@@ -1092,7 +1119,7 @@
                 <ul class="text-xs text-slate-300 space-y-2 font-medium leading-relaxed">
                     <li><strong class="text-white">A I.A. escolhe o cardápio:</strong> nomes dos exercícios, ordem, o texto de orientação e a variação do dia (energia baixa, ombro doendo, “quero 30 min”).</li>
                     <li><strong class="text-white">O motor segura o volante:</strong> corta volume se a semana inflou, troca tiro por corrida leve, bloqueia perna pesada após sprint, não deixa músculo passar do teto, preserva o descanso de força.</li>
-                    <li><strong class="text-white">Vocês conversam no chat:</strong> ela lê o mesmo resumo do seu corpo (histórico, 1RM, zonas, dores) e responde em português — sem inventar série que o teto já vetou.</li>
+                    <li><strong class="text-white">Vocês conversam no chat:</strong> ela lê o mesmo resumo do seu corpo. Se você disser que o treino estava pesado ou leve demais, aparece um botão para <strong class="text-white">aplicar isso no próximo treino</strong> da fila — sem apagar o histórico.</li>
                 </ul>
             </div>
 
@@ -1269,7 +1296,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.2 Apex</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.3 Apex</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -1688,7 +1715,7 @@
                 </div>
 
                 <button id="btn-eval-ai" onclick="window.evaluateWorkoutWithAI()" disabled class="w-full bg-gradient-to-r from-purple-600 to-brand-500 hover:from-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] text-xs uppercase disabled:opacity-40 disabled:cursor-not-allowed">
-                    <i class="fas fa-robot"></i> Avaliar com o Coach (I.A. v5.0)
+                    <i class="fas fa-robot"></i> Avaliar com o Coach
                 </button>
             </div>
 
@@ -1877,7 +1904,9 @@
     10. PROGRESSÃO: use last_lifts. RIR≤2 sobe ~2,5% (ou +1 rep na calistenia); RIR≥4 mantém; RIR 0 desce ~5%. Não invente carga se last_lifts existir.
     11. MESOCICLO 4 SEMANAS (mesocycle_week): 1 volume (RIR alto, sem Z4); 2 volume alto; 3 intensidade (RIR baixo, 1 estímulo); 4 deload planejado −30% séries, sem tiro. O deload de ACWR continua como freio.
     12. SÉRIE EFETIVA: só RIR≤3 conta no MEV. Aquecimento (RIR≥5 ou HRR<60%) não entra no 80/20.
-    13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.`;
+    13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.
+    14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
+    15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.`;
 
     let currentUser = null;
     let userData = {};
@@ -2364,6 +2393,41 @@
         return 90;
     }
 
+    function expandQueueForTimer(rawQueue) {
+        if (!Array.isArray(rawQueue) || !rawQueue.length) return [];
+        const out = [];
+        rawQueue.forEach((item) => {
+            if (!item) return;
+            if (item.type === 'rest') {
+                out.push({ ...item, type: 'rest', name: item.name || 'Descanso' });
+                return;
+            }
+            const nSets = Math.min(6, Math.max(1, parseInt(item.sets, 10) || 1));
+            if (nSets <= 1) {
+                out.push({ ...item, type: 'work' });
+                return;
+            }
+            let block = parseInt(item.duration, 10) || 30;
+            let perSet = block;
+            if (block >= nSets * 15) perSet = Math.max(15, Math.round(block / nSets));
+            const restDur = Math.max(20, Math.min(60, parseInt(item.restSeconds, 10) || 30));
+            for (let s = 1; s <= nSets; s++) {
+                out.push({
+                    ...item,
+                    type: 'work',
+                    name: `${item.name || 'Exercício'} · série ${s}/${nSets}`,
+                    duration: perSet,
+                    roundInfo: item.roundInfo || `Série ${s} de ${nSets}`,
+                    sets: 1
+                });
+                if (s < nSets) {
+                    out.push({ type: 'rest', name: 'Descanso entre séries', duration: restDur, roundInfo: `${restDur}s` });
+                }
+            }
+        });
+        return out;
+    }
+
     function looksLikeCalisthenics(name) {
         const n = (name || '').toLowerCase();
         return /flexao|barra|prancha|hollow|l-sit|muscle|front lever|dip|paralela|pistol|handstand|pull.?up/.test(n);
@@ -2555,7 +2619,10 @@
         const easyRuns = historyData.filter(h => h.modality === 'Corrida' && h.pace && (h.zoneDistribution?.z4_z5_minutes || 0) < 3)
             .sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
         if (easyRuns.length >= 2) return easyRuns[0].pace;
-        return easyRuns[0]?.pace || null;
+        if (easyRuns[0]?.pace) return easyRuns[0].pace;
+        const fk = parseFloat(userData.evalRunning?.fiveKMinutes);
+        if (fk >= 10 && !userData.evalRunning?.doesNotRun) return formatPaceSec((fk * 60) / 5 + 75);
+        return null;
     }
 
     function daysSinceLastTest(historyData) {
@@ -3183,7 +3250,7 @@
     }
 
     window.exportTrainingPdf = async () => {
-        showLoading('Montando relatório PDF v6.0...');
+        showLoading('Montando relatório PDF...');
         try {
             const { jsPDF } = await import('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/+esm');
             const ss = await buildSyntheticStateVector();
@@ -3199,7 +3266,7 @@
             };
             docp.setFillColor(6, 182, 212); docp.rect(0, 0, 210, 22, 'F');
             docp.setTextColor(255, 255, 255); docp.setFont('helvetica', 'bold'); docp.setFontSize(16);
-            docp.text('Apex Hybrid  v6.0  — Relatorio de Treino', 15, 14);
+            docp.text('Apex Hybrid  v6.3  — Relatorio de Treino', 15, 14);
             let y = 30;
             y = line(y, `Atleta: ${userData.name || userData.nickname}  |  Eixo: ${userData.masterAxis || '-'}  |  ${new Date().toLocaleDateString('pt-BR')}`, 11);
             y = line(y + 2, 'Documento de acompanhamento de carga. Nao substitui avaliacao medica ou laudo clinico.', 8, [100, 116, 139]);
@@ -3359,13 +3426,19 @@
         return map;
     }
 
-    window.resetMesocycle = async () => {
+    window.resetMesocycle = () => {
         if (!currentPlan) return;
-        if (!window.confirm('Reiniciar o mesociclo de 4 semanas a partir de hoje?')) return;
+        window.show('modal-reset-meso');
+    };
+    window.confirmResetMesocycle = async () => {
+        window.hide('modal-reset-meso');
+        if (!currentPlan) return;
         currentPlan.mesocycleStart = new Date().toISOString();
+        currentPlan.week0Complete = true;
+        currentPlan.week0SessionsLeft = 0;
         await saveFullState();
         renderDashboard();
-        window.showAlert('Mesociclo', 'Semana 1 — Volume. O motor volta a construir carga.');
+        window.showAlert('Mesociclo', 'Semana 1 — Volume. Histórico e treinos continuam. O motor volta a construir carga.');
     };
 
     window.openTestDayModal = () => {
@@ -3632,7 +3705,7 @@
         e.preventDefault();
         const email = document.getElementById('auth-email').value; const password = document.getElementById('auth-password').value;
         if (isSignupMode && password !== document.getElementById('auth-confirm-password').value) return window.showAlert("Erro", "As senhas não coincidem.");
-        showLoading("Autenticando v5.0...");
+        showLoading("Autenticando...");
         try {
             if (isSignupMode) await createUserWithEmailAndPassword(auth, email, password);
             else await signInWithEmailAndPassword(auth, email, password);
@@ -3671,7 +3744,7 @@
     });
 
     async function loadUserData() {
-        showLoading("Sincronizando v5.0...");
+        showLoading("Sincronizando...");
         try {
             const docSnap = await getDoc(doc(db, "users", currentUser.uid));
             if (docSnap.exists() && docSnap.data().profile) {
@@ -3867,12 +3940,12 @@
     };
 
     async function finishAssessmentAndGeneratePlan() {
-        showLoading("Consolidando Estado Sintético JSON v5.0...", "Gerando plano de precisão fisiológica...");
+        showLoading("Consolidando seu perfil...", "Montando o primeiro microciclo com a I.A. v6.3...");
         const syntheticState = await buildSyntheticStateVector();
         const fcMax = Math.round(208 - (0.7 * parseFloat(userData.age)));
 
         const days = parseInt(userData.days, 10) || 3;
-        const prompt = `Atue como Apex Hybrid Coach v5.2. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%, sexo: ${userData.sex || 'M'}. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${days} dias/sem, ${userData.mins}min. FC_máx: ${fcMax}bpm. FCrep: ${userData.restHeartRate}bpm.
+        const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%, sexo: ${userData.sex || 'M'}. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${days} dias/sem, ${userData.mins}min. FC_máx: ${fcMax}bpm. FCrep: ${userData.restHeartRate}bpm.
         ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}.
         AVALIAÇÃO CALISTENIA: ${JSON.stringify(userData.evalCalisthenics)}.
         AVALIAÇÃO MUSCULAÇÃO: ${JSON.stringify(userData.evalBodybuilding)}.
@@ -3900,7 +3973,7 @@
                 userProfileAnalysis: res.userProfileAnalysis,
                 planExplanation: res.planExplanation,
                 macrocycleSummary: res.macrocycleSummary,
-                coachFeedback: `Bem-vindo(a) ao microciclo v5.2, ${userData.nickname}!`,
+                coachFeedback: `Bem-vindo(a) ao microciclo v6.3, ${userData.nickname}!`,
                 workouts: list,
                 nextWorkoutDate: nwd.toISOString(),
                 isDeload: !!(syntheticState && syntheticState.is_deload),
@@ -4041,10 +4114,10 @@
         const selected = document.querySelector('input[name="new-master-axis"]:checked');
         if(!selected) return window.showAlert("Aviso", "Selecione o novo Eixo Mestre.");
         const newAxis = selected.value; window.hide('modal-change-axis');
-        showLoading("Migrando Eixo Mestre v5.0..."); userData.masterAxis = newAxis;
+        showLoading("Migrando eixo mestre...", "Recalculando o plano com a I.A. v6.3..."); userData.masterAxis = newAxis;
         const syntheticState = await buildSyntheticStateVector();
 
-        const prompt = `Atue como Apex Hybrid Coach v5.0. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
+        const prompt = `Atue como Apex Hybrid Coach v6.3. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
         ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}.
         RECALCULE O PLANO PRINCIPAL MANTENDO O HISTÓRICO. TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4.'workout'. \n ${WORKOUT_RULES}`;
 
@@ -4106,6 +4179,20 @@
     const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
     const chosenModality = document.getElementById('read-stimulus-modality').value;
     const targetModality = chosenModality === 'default' ? (currentPlan.workouts[nwIndex]?.modality || userData.masterAxis) : chosenModality;
+    const master = userData.masterAxis;
+    if (chosenModality !== 'default' && targetModality && targetModality !== master) {
+        const cap = master === 'Corrida' ? 2 : 1;
+        const d = new Date();
+        const mondayOffset = (d.getDay() + 6) % 7;
+        d.setHours(0,0,0,0);
+        d.setDate(d.getDate() - mondayOffset);
+        const wk = d.toISOString().slice(0, 10);
+        if (currentPlan.offAxisWeekKey !== wk) { currentPlan.offAxisWeekKey = wk; currentPlan.offAxisThisWeek = 0; }
+        if ((currentPlan.offAxisThisWeek || 0) >= cap) {
+            return window.showAlert('Teto de eixo', `Esta semana já usou ${cap} treino(s) fora de ${master}. Fica no eixo ou espera a próxima semana.`);
+        }
+        currentPlan.offAxisThisWeek = (currentPlan.offAxisThisWeek || 0) + 1;
+    }
     const readNotes = document.getElementById('read-notes')?.value?.trim() || "";
     
     // Captura rigorosa do tempo customizado ou padrão
@@ -4134,11 +4221,11 @@
 
 // Função blindada de Recalibração Baseada em Prontidão e Tempo Proporcional
 async function recalibrateWorkoutWithReadiness(readiness, modality) {
-    showLoading("Recalibrando Sessão (I.A. v6.0)...", `Ajustando para ${readiness.requestedMinutes} minutos com base na sua energia...`);
+    showLoading("Recalibrando a sessão...", `Ajustando para ${readiness.requestedMinutes} min com a I.A. v6.3...`);
     
     const syntheticState = await buildSyntheticStateVector();
     
-    const prompt = `Atue como Apex Hybrid Coach v6.0. ALUNO: ${userData.nickname}. 
+    const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}. 
     EIXO MESTRE / MODALIDADE DE HOJE: ${modality}.
     TEMPO TOTAL EXIGIDO PELO ALUNO: ${readiness.requestedMinutes} minutos (ESTRICTO).
     ESTADO DE PRONTIDÃO DIÁRIA (READINESS): 
@@ -4397,18 +4484,20 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         const container = document.getElementById('run-targets-container');
         container.innerHTML = '';
 
-        const age = parseFloat(userData.age || 30);
-        const fcMax = Math.round(208 - (0.7 * age));
-
-        const z1Val = [Math.round(fcMax * 0.50), Math.round(fcMax * 0.60)];
-        const z2Val = [Math.round(fcMax * 0.60), Math.round(fcMax * 0.70)];
-        const z3Val = [Math.round(fcMax * 0.70), Math.round(fcMax * 0.80)];
-        const z4Val = [Math.round(fcMax * 0.80), Math.round(fcMax * 0.90)];
-        const z5Val = [Math.round(fcMax * 0.90), fcMax];
+        const fcMax = estimateHrMax();
+        const rhr = currentRestHr();
+        const span = Math.max(1, fcMax - rhr);
+        const karv = (lo, hi) => [Math.round(rhr + lo * span), Math.round(rhr + hi * span)];
+        const z1Val = karv(0.50, 0.60);
+        const z2Val = karv(0.60, 0.70);
+        const z3Val = karv(0.70, 0.80);
+        const z4Val = karv(0.80, 0.90);
+        const z5Val = karv(0.90, 1.00);
 
         let html = `
         <div class="bg-dark-900 border border-slate-800 rounded-3xl p-4 space-y-3">
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Zonas de FC Calculadas (FCmax: ${fcMax} bpm)</h4>
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Zonas Karvonen (FCrep ${rhr} · FCmáx ${fcMax})</h4>
+            <p class="text-[10px] text-slate-500">Mesma régua do arquivo .FIT — % da reserva cardíaca, não só % da máxima.</p>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold">
                 <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z1 (Recuperação): <span class="text-white">${z1Val[0]}-${z1Val[1]} bpm</span></div>
                 <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z2 (Aeróbico): <span class="text-white">${z2Val[0]}-${z2Val[1]} bpm</span></div>
@@ -4454,14 +4543,14 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         if (timerInterval) clearInterval(timerInterval);
 
         const targetMins = nw.estimatedMinutes || userData.mins || 45;
-        currentWorkoutQueue = sanitizeAndBalanceQueue(nw.queue, targetMins);
+        currentWorkoutQueue = sanitizeAndBalanceQueue(expandQueueForTimer(nw.queue), targetMins);
         currentQueueIndex = 0; 
         isPaused = false;
         
         const modalityStr = nw.modality || userData.masterAxis || 'Calistenia';
         const workoutNum = (currentPlan.workouts ? currentPlan.workouts.indexOf(nw) + 1 : 1);
         
-        document.getElementById('timer-workout-name').innerText = `${modalityStr} (Skill Trees v5.0): Treino ${workoutNum}`;
+        document.getElementById('timer-workout-name').innerText = `${modalityStr}: Treino ${workoutNum}`;
         document.getElementById('timer-workout-desc').innerText = nw.focus ? `Foco: ${nw.focus}` : (nw.name || "Sessão de Calistenia Avançada");
         
         document.body.classList.add('no-scroll');
@@ -4628,14 +4717,14 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
 
     window.evaluateWorkoutWithAI = async () => {
         if (selectedPseValue === null) return;
-        showLoading("Avaliando com I.A. v5.0...", "Sintetizando Marcos de Volume e 1RM...");
+        showLoading("Avaliando o treino...", "I.A. v6.3 lendo volume, RIR e o que você escreveu...");
         const syntheticState = await buildSyntheticStateVector();
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         const nextModality = pickNextModality(syntheticState, nw?.modality);
         const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
         const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
 
-        const prompt = `Atue como Apex Hybrid Coach v5.2. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
+        const prompt = `Atue como Apex Hybrid Coach v6.3. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
 ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec').value||'N/A'}. Kcal: ${document.getElementById('pw-kcal').value||'N/A'}.
 SINTOMA / OBSERVAÇÃO PRÉ-TREINO: "${preWorkoutNotes}".
 RELATO SUBJETIVO PÓS-TREINO: "${userFeedbackText}".
@@ -4670,8 +4759,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         const lastMod = currentPlan.workouts.find(w => !w.isCompleted)?.modality;
         const nextModality = pickNextModality(syntheticState, lastMod);
 
-        showLoading("Recalibrando Proposta v5.2...");
-        const prompt = `Atue como Apex Hybrid Coach v5.2. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. Work items com sets/reps/rirTarget/targetGroup. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${WORKOUT_RULES}`;
+        showLoading("Recalibrando a proposta...", "I.A. v6.3 ajustando o próximo treino...");
+        const prompt = `Atue como Apex Hybrid Coach v6.3. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. Work items com sets/reps/rirTarget/targetGroup. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${WORKOUT_RULES}`;
 
         try {
             aiEvaluationResult = await callGemini(prompt);
@@ -4801,7 +4890,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     window.saveCheckin = async () => {
         const w = document.getElementById('checkin-weight').value; const bf = document.getElementById('checkin-bf').value;
         if(!w || !bf) return window.showAlert("Erro", "Preencha peso e % gordura");
-        showLoading("Salvando Check-in v5.2...");
+        showLoading("Salvando check-in...");
         try { 
             userData.weight = w; userData.bf = bf;
             const rhr = document.getElementById('checkin-rhr')?.value;
@@ -5099,10 +5188,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.generateProgressReport = async () => {
-        showLoading("Gerando Relatório Sintético v6.0...");
+        showLoading("Gerando relatório...", "I.A. v6.3 sintetizando volume e recuperação...");
         try {
             const syntheticState = await buildSyntheticStateVector();
-            const prompt = `Atue como Apex Hybrid Coach v6.0. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), ACWR, IFR, 1RM, polarizado 80/20 e dados de relógio se existirem. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
+            const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), ACWR, IFR, 1RM, polarizado 80/20 e dados de relógio se existirem. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
             const res = await callGemini(prompt, 'report');
             document.getElementById('progress-report-content').innerHTML = `<div class="space-y-2 text-xs text-slate-300"><p><strong>Diagnóstico Fisiológico & Marcos de Volume:</strong> ${escapeHtml(res.analysis || "")}</p><p><strong>Previsão de Supercompensação:</strong> ${escapeHtml(res.estimatedTime || "")}</p><p><strong>Próximos Passos (1RM & IFR):</strong> ${escapeHtml(res.nextSteps || "")}</p></div>`;
             hideLoading();
@@ -5135,7 +5224,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
 async function loadChatHistory() {
         try {
             const cont = document.getElementById('chat-messages'); const snap = await getDocs(query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'))); cont.innerHTML = '';
-            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Sou seu Apex Hybrid Coach v5.0. Como posso orientar seus Marcos de Volume (MEV/MAV/MRV), estimativas de 1RM ou IFR hoje?</span></div>`;
+            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Sou seu Apex Hybrid Coach v6.3. Fale do treino — se estava pesado ou leve, posso aplicar no próximo da fila.</span></div>`;
             else snap.forEach(d => { 
                 const m = d.data(); 
                 if (m.role === 'user') cont.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(m.text)}</div></div>`; 
@@ -5149,21 +5238,70 @@ async function loadChatHistory() {
         const inp = document.getElementById('chat-input'); const t = inp ? inp.value.trim() : ''; if(!t) return;
         const c = document.getElementById('chat-messages'); c.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(t)}</div></div>`; inp.value = ''; c.scrollTop = c.scrollHeight;
         try { await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'user', text: t, timestamp: new Date().toISOString() }); } catch(e) {}
-        
+        const intent = chatLoadIntent(t);
+        showLoading("Coach v6.3 pensando...", "Lendo histórico, volume e ACWR...");
         const syntheticState = await buildSyntheticStateVector();
-        const prompt = `Atue como Apex Hybrid Coach v5.2. Aluno: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MSG: "${t}".
+        const prompt = `Atue como Apex Hybrid Coach v6.3. Aluno: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MSG: "${t}".
 Responda em português, usando os marcos de volume e o ACWR reais do JSON. Não invente séries que contradigam MRV/deload.
 ${WORKOUT_RULES}`;
-        try { 
-            const res = await callGemini(prompt, 'chat'); 
-            c.innerHTML += `<div class="flex"><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${escapeHtml(res.reply)}</div></div>`; 
-            c.scrollTop = c.scrollHeight; 
-            await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'model', text: res.reply, timestamp: new Date().toISOString() }); 
-            
-            if (isTtsAutoReadEnabled && typeof window.speakText === 'function') {
-                window.speakText(res.reply);
-            }
-        } catch(e) {}
+        try {
+            const res = await callGemini(prompt, 'chat');
+            hideLoading();
+            c.innerHTML += `<div class="flex"><div class="bg-dark-950 border border-slate-800 p-3.5 rounded-2xl text-xs text-slate-200 max-w-[80%]">${escapeHtml(res.reply)}</div></div>`;
+            if (intent) appendChatApplyCard(c, intent);
+            c.scrollTop = c.scrollHeight;
+            await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'model', text: res.reply, timestamp: new Date().toISOString() });
+            if (isTtsAutoReadEnabled && typeof window.speakText === 'function') window.speakText(res.reply);
+        } catch(e) { hideLoading(); window.showAlert("Chat", e.message || "Falha na I.A."); }
+    };
+
+    function chatLoadIntent(text) {
+        const t = String(text || '').toLowerCase();
+        if (/pesad|difícil|dificil|exager|morrendo|quebra|over|muito forte|estourou/.test(t)) return 'easier';
+        if (/leve demais|muito fácil|muito facil|sobrou energia|rir alto|pouca carga|pouco estímulo|pouco estimulo/.test(t)) return 'harder';
+        return null;
+    }
+
+    function appendChatApplyCard(container, intent) {
+        const wrap = document.createElement('div');
+        wrap.className = 'bg-brand-950/40 border border-brand-500/40 p-3 rounded-2xl text-[11px] text-slate-300';
+        wrap.innerHTML = intent === 'easier'
+            ? '<p class="font-medium mb-2">Aplicar no <strong class="text-white">próximo treino</strong> da fila? Deixa mais conservador (RIR +1, −1 série). Histórico não some.</p>'
+            : '<p class="font-medium mb-2">Aplicar no <strong class="text-white">próximo treino</strong> da fila? Sobe um pouco a intensidade (RIR −1). Histórico não some.</p>';
+        const row = document.createElement('div');
+        row.className = 'flex gap-2';
+        const ok = document.createElement('button');
+        ok.type = 'button';
+        ok.className = 'flex-1 bg-brand-500 text-white font-black py-2 rounded-xl text-[10px] uppercase';
+        ok.textContent = 'Aplicar';
+        ok.onclick = () => window.applyChatToNextWorkout(intent);
+        const no = document.createElement('button');
+        no.type = 'button';
+        no.className = 'flex-1 bg-slate-800 text-slate-300 font-bold py-2 rounded-xl text-[10px] uppercase';
+        no.textContent = 'Só conversa';
+        no.onclick = () => wrap.remove();
+        row.appendChild(ok); row.appendChild(no);
+        wrap.appendChild(row);
+        container.appendChild(wrap);
+    }
+
+    window.applyChatToNextWorkout = async (dir) => {
+        if (!currentPlan || !Array.isArray(currentPlan.workouts)) return window.showAlert('Fila', 'Não há treino pendente.');
+        const nw = currentPlan.workouts.find(w => !w.isCompleted);
+        if (!nw || !Array.isArray(nw.queue)) return window.showAlert('Fila', 'Não há treino pendente.');
+        nw.queue = nw.queue.map(item => {
+            if (item.type !== 'work') return item;
+            let rir = parseInt(item.rirTarget, 10) || 2;
+            let sets = parseInt(item.sets, 10) || 3;
+            if (dir === 'easier') { rir = Math.min(4, rir + 1); sets = Math.max(2, sets - 1); }
+            else { rir = Math.max(1, rir - 1); }
+            return { ...item, rirTarget: rir, sets };
+        });
+        nw._guardApplied = false;
+        applyDeterministicCoachingGuards(nw, lastSyntheticState || {}, { force: true, targetMinutes: nw.estimatedMinutes });
+        await saveFullState();
+        try { renderDashboard(); } catch (e) {}
+        window.showAlert('Próximo treino', dir === 'easier' ? 'Fila mais conservadora (RIR +1, −1 série).' : 'Fila um pouco mais intensa (RIR −1).');
     };
 
     document.getElementById('chat-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') window.sendChatMessage(); });
