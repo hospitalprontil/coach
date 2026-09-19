@@ -2014,6 +2014,11 @@
         const el = document.getElementById(id);
         if (!el) return;
         el.classList.add('hidden');
+        el.classList.remove('flex');
+        if (el.classList.contains('fixed') && el.classList.contains('inset-0')) {
+            el.style.display = 'none';
+            el.style.pointerEvents = 'none';
+        }
     };
     window.show = id => {
         const el = document.getElementById(id);
@@ -2021,6 +2026,8 @@
         el.classList.remove('hidden');
         if (el.classList.contains('flex-col') || (el.classList.contains('fixed') && el.classList.contains('inset-0'))) {
             el.classList.add('flex');
+            el.style.display = 'flex';
+            el.style.pointerEvents = 'auto';
         }
     };
 
@@ -2472,7 +2479,7 @@
         }
         if (!currentPlan.mesocycleStart) {
             currentPlan.mesocycleStart = new Date().toISOString();
-            if (currentUser) { try { saveFullState(); } catch (e) {} }
+            if (currentUser) saveFullState().catch(() => {});
         }
         return currentPlan.mesocycleStart;
     }
@@ -3735,8 +3742,9 @@
 
     window.closeV40NoveltyModal = () => {
         window.hide('modal-v40-novelty');
-        localStorage.setItem(`seen_v62_novelty_${currentUser.uid}`, 'true');
-        checkPostLoginPopupsSequence();
+        try { localStorage.setItem(`seen_v62_novelty_${currentUser.uid}`, 'true'); } catch (e) {}
+        if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
+        else checkPendingWorkoutReminder();
     };
 
     window.skipProactiveCalibration = () => {
@@ -4014,6 +4022,7 @@
 
     function renderDashboard() {
         if (!currentPlan || !currentPlan.workouts) return;
+        try {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         
         document.getElementById('dash-greeting-name').innerText = userData.nickname || "Aluno";
@@ -4102,6 +4111,9 @@
                 }
             }
         }).catch(()=>{});
+        } catch (err) {
+            console.error('renderDashboard', err);
+        }
     }
 
     function renderProfileTab() {
