@@ -912,6 +912,15 @@
         
         <!-- Tab 1: Treinamento -->
         <div id="tab-training" class="space-y-4 animate-fade-in">
+            <div id="dash-whatsnew" class="hidden bg-dark-900 border border-brand-500/40 p-4 rounded-3xl w-full">
+                <div class="flex justify-between items-start gap-3">
+                    <div>
+                        <p class="text-[10px] font-black text-brand-400 uppercase tracking-wider">v6.2 · Semana 0</p>
+                        <p class="text-xs text-slate-300 mt-1 leading-relaxed">Âncoras na triagem · 3 sessões conservadoras · teto de eixo · sem log o peso não sobe · swipe nas abas.</p>
+                    </div>
+                    <button type="button" onclick="window.dismissWhatsnew()" class="shrink-0 w-8 h-8 rounded-xl bg-slate-800 text-slate-300">✕</button>
+                </div>
+            </div>
             <div id="dash-feedback-container" class="hidden bg-purple-900/20 border border-purple-500/30 p-4 rounded-3xl relative overflow-hidden w-full">
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-500"></div>
                 <h3 class="text-xs font-bold text-purple-300 uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-comment-dots"></i> Avaliação do Último Treino</h3>
@@ -2017,14 +2026,15 @@
         const el = document.getElementById(id);
         if (!el) return;
         el.classList.add('hidden');
+        el.style.setProperty('display', 'none', 'important');
     };
     window.show = id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.classList.remove('hidden');
-        if (el.classList.contains('flex-col') || (el.classList.contains('fixed') && el.classList.contains('inset-0'))) {
-            el.classList.add('flex');
-        }
+        const useFlex = el.classList.contains('flex-col') || el.classList.contains('flex') || el.id.startsWith('screen-') || (el.classList.contains('fixed') && el.classList.contains('inset-0'));
+        el.style.setProperty('display', useFlex ? 'flex' : 'block', 'important');
+        if (useFlex) el.classList.add('flex');
     };
 
     let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
@@ -3733,8 +3743,9 @@
                     showScreen('screen-dashboard');
                     try { window.switchTab('training'); } catch (e) {}
                     try { renderDashboard(); } catch (e) { console.error(e); }
+                    buryOverlays();
                     hideLoading();
-                    setTimeout(() => { try { checkPostLoginPopupsSequence(); } catch (e) {} }, 80);
+                    setTimeout(() => { try { checkPostLoginPopupsSequence(); } catch (e) {} }, 120);
                 } else showScreen('screen-step1-id');
             } else { userData = {}; showScreen('screen-step1-id'); }
         } catch (err) {
@@ -3744,18 +3755,43 @@
         }
     }
 
-    function checkPostLoginPopupsSequence() {
-        const seenV62 = localStorage.getItem(`seen_v62_novelty_${currentUser.uid}`);
-        if (!seenV62) window.show('modal-v40-novelty');
-        else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
-        else checkPendingWorkoutReminder();
+    function buryOverlays() {
+        document.querySelectorAll('.fixed.inset-0').forEach(el => {
+            if (el.id === 'screen-dashboard') return;
+            el.classList.add('hidden');
+            el.style.setProperty('display', 'none', 'important');
+        });
+        const dash = document.getElementById('screen-dashboard');
+        if (dash) {
+            dash.classList.remove('hidden');
+            dash.style.setProperty('display', 'flex', 'important');
+            dash.style.setProperty('flex-direction', 'column', 'important');
+            dash.style.setProperty('min-height', '100vh', 'important');
+        }
+        const tab = document.getElementById('tab-training');
+        if (tab) {
+            tab.classList.remove('hidden');
+            tab.style.setProperty('display', 'block', 'important');
+        }
     }
+
+    function checkPostLoginPopupsSequence() {
+        try {
+            if (currentUser && !localStorage.getItem(`seen_v62_novelty_${currentUser.uid}`)) {
+                window.show('dash-whatsnew');
+            }
+        } catch (e) {}
+    }
+
+    window.dismissWhatsnew = () => {
+        window.hide('dash-whatsnew');
+        try { localStorage.setItem(`seen_v62_novelty_${currentUser.uid}`, 'true'); } catch (e) {}
+    };
 
     window.closeV40NoveltyModal = () => {
         window.hide('modal-v40-novelty');
         try { localStorage.setItem(`seen_v62_novelty_${currentUser.uid}`, 'true'); } catch (e) {}
-        if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
-        else checkPendingWorkoutReminder();
+        window.dismissWhatsnew();
     };
 
     window.skipProactiveCalibration = () => {
