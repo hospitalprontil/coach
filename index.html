@@ -15,14 +15,30 @@
     weight, addedLoadKg, reps, rir, targetGroup, trimpScore, zoneDistribution,
     biometricsPending, fc, fcMax, fcRec, kcal, distance, pace, aiFeedback,
     watchMetrics (opcional v6.0: cadence, elevation, fcMin, fileType, hrPoints)
-  Writes destrutivos: SOMENTE na Área de Perigo, após confirmação.
+  REGRAS FIRESTORE (cole no Console → Firestore → Rules). Sem isso a apiKey
+  do cliente não protege nada. Substitua o default aberto por:
+
+    rules_version = '2';
+    service cloud.firestore {
+      match /databases/{database}/documents {
+        match /users/{userId} {
+          allow read, write: if request.auth != null && request.auth.uid == userId;
+          match /{col}/{docId} {
+            allow read, write: if request.auth != null && request.auth.uid == userId;
+          }
+        }
+        match /{document=**} { allow read, write: if false; }
+      }
+    }
+
+  Storage: nenhum bucket é usado por este HTML. Auth: email/senha.
   ============================================================================
 -->
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.0 </title>
+    <title>AI Coach Híbrido v6.0 - Apex Hybrid Fase 4</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -293,7 +309,8 @@
                     • Radar híbrido + tendências de ACWR, TRIMP e pace.<br>
                     • PDF de relatório de treino (não é laudo médico).<br>
                     • Barras MEV/MAV/MRV com feito × plano da semana.<br>
-                    • Print de tela continua como plano B.
+                    • Print de tela continua como plano B.<br>
+                    • Auditoria: FIT session 15/16 (FC), ACWR na data do ponto + TRIMP, guard idempotente, teto 8 MB, 1RM só barra / IFR só calistenia.
                 </p>
             </div>
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
@@ -1719,10 +1736,10 @@
     }
 
     function escapeHtml(text) {
-        const map = { '&': '&', '<': '<', '>': '>', '"': '"', "'": '&#039;' };
-        return String(text ?? '').replace(/[&<>"']/g, m => map[m]);
+        const d = document.createElement('div');
+        d.appendChild(document.createTextNode(String(text ?? '')));
+        return d.innerHTML;
     }
-
     let lastSyntheticState = null;
 
     const VOLUME_LANDMARKS = {
@@ -2124,18 +2141,32 @@
         });
     }
 
-    function calculateACWRFromHistory(historyData) {
+    function sessionLoadUnit(item) {
+        if (!item) return null;
+        const tr = parseFloat(item.trimpScore);
+        if (!isNaN(tr) && tr > 0) return tr;
+        if (item.pse === undefined || item.pse === null || item.pse === '') return null;
+        const pse = parseFloat(item.pse);
+        if (isNaN(pse)) return null;
+        return pse * (parseFloat(item.durationMinutes) || 45);
+    }
+
+    function calculateACWRFromHistory(historyData, asOfDate = null) {
         if (!Array.isArray(historyData) || historyData.length === 0) return { acwr: 1.0, acuteLoad: 0, chronicLoad: 0 };
-        historyData = [...historyData].sort((a, b) => new Date(a.date) - new Date(b.date));
-        const now = new Date();
+        const now = asOfDate ? new Date(asOfDate) : new Date();
         const oneDayMs = 24 * 60 * 60 * 1000;
-        const oldestDate = new Date(historyData[0].date);
+        const eligible = historyData
+            .filter(item => item && item.date && (now - new Date(item.date)) >= -oneDayMs * 0.5)
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
+        if (!eligible.length) return { acwr: 1.0, acuteLoad: 0, chronicLoad: 0 };
+        const oldestDate = new Date(eligible[0].date);
         const daysSinceFirstWorkout = Math.max(1, (now - oldestDate) / oneDayMs);
         const activeWeeks = Math.min(4, Math.max(1, daysSinceFirstWorkout / 7));
         let acuteLoad = 0, chronicSum = 0;
-        historyData.forEach(item => {
+        eligible.forEach(item => {
             const daysDiff = (now - new Date(item.date)) / oneDayMs;
-            const loadUnit = (item.pse || 5) * (item.durationMinutes || 45);
+            const loadUnit = sessionLoadUnit(item);
+            if (loadUnit == null) return;
             if (daysDiff <= 7) acuteLoad += loadUnit;
             if (daysDiff <= 28) chronicSum += loadUnit;
         });
@@ -2266,6 +2297,7 @@
 
     function applyDeterministicCoachingGuards(workout, syntheticState, opts = {}) {
         if (!workout) return workout;
+        if (workout._guardApplied && !opts.force) return workout;
         const ss = syntheticState || lastSyntheticState || {};
         const conflict = ss.mTORC1_AMPK_conflict || {};
         const auto = ss.autonomic_recovery || {};
@@ -2318,7 +2350,7 @@
                 }
                 return { ...item, duration: Math.min(180, Math.round((item.duration || 60) * 1.1)) };
             });
-            workout.name = (workout.name || 'Sessão').replace(/\[MICROCICLO DE DELOAD\]/i, '').trim();
+            workout.name = (workout.name || 'Sessão').replace(/\[MICROCICLO DE DELOAD\]/ig, '').replace(/\[DELOAD\]/ig, '').trim();
             workout.name = `[DELOAD] ${workout.name}`;
         }
 
@@ -2329,6 +2361,7 @@
         const mins = opts.targetMinutes || workout.estimatedMinutes || userData.mins || 45;
         workout.estimatedMinutes = parseInt(mins, 10) || 45;
         workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes);
+        workout._guardApplied = true;
         return workout;
     }
 
@@ -2402,21 +2435,23 @@
             historyData.forEach(h => {
                 if (!h.exerciseLogs || !Array.isArray(h.exerciseLogs)) return;
                 h.exerciseLogs.forEach(log => {
-                    if (!log.name) return;
+                    if (!log.name || log.estimated) return;
                     const exName = log.name.toLowerCase();
                     const added = parseFloat(log.addedLoadKg) || 0;
                     const bar = parseFloat(log.weight) || 0;
-                    let totalLoad = bar + added;
                     const reps = parseInt(log.reps, 10) || 0;
                     const rir = parseInt(log.rir, 10) || 0;
-                    if (totalLoad <= 0 && looksLikeCalisthenics(log.name) && reps > 0) totalLoad = bw + added;
-                    if (totalLoad > 0 && reps > 0) {
+                    if (looksLikeCalisthenics(log.name)) {
+                        if (added > 0) {
+                            const ifr = window.calculateIFR(bw, added);
+                            if (!ifrWeightedMap[exName] || ifr > ifrWeightedMap[exName]) ifrWeightedMap[exName] = ifr;
+                        }
+                        return;
+                    }
+                    const totalLoad = bar + added;
+                    if (bar > 0 && reps > 0) {
                         const e1rm = window.calculateUnified1RM(totalLoad, reps, rir);
                         if (!estimates1RM[exName] || e1rm > estimates1RM[exName]) estimates1RM[exName] = e1rm;
-                    }
-                    if (added > 0) {
-                        const ifr = window.calculateIFR(bw, added);
-                        if (!ifrWeightedMap[exName] || ifr > ifrWeightedMap[exName]) ifrWeightedMap[exName] = ifr;
                     }
                 });
             });
@@ -2749,18 +2784,19 @@
         const extra = {
             fileType: 'fit',
             laps,
-            kcal: session[11] || session[13] || null,
+            kcal: session[11] || null,
             durationMinutes: session[8] ? session[8] / 1000 / 60 : (session[7] ? session[7] / 1000 / 60 : null),
             distanceKm: session[9] != null ? session[9] / 100000 : null,
             elevationGain: session[22] || null,
-            temperatureAvg: session[16] && session[16] < 50 ? session[16] : null,
-            powerAvg: session[20] || session[7] > 1000 ? null : session[20]
+            powerAvg: session[19] || null
         };
-        if (session[14]) samples.forEach(s => { if (!s.hr) s.hr = session[14]; });
+        const avgHr = session[15];
+        const maxHr = session[16];
         const out = finalizeSamples(samples, extra);
-        if (!out.fc && session[14]) out.fc = session[14];
-        if (!out.fcMax && session[15]) out.fcMax = session[15];
-        if (!out.cadenceAvg && session[18]) out.cadenceAvg = session[18];
+        if (!out.fc && avgHr > 30 && avgHr < 230) out.fc = avgHr;
+        if (!out.fcMax && maxHr > 30 && maxHr < 230) out.fcMax = maxHr;
+        if (!out.cadenceAvg && session[17]) out.cadenceAvg = session[17];
+        if (!out.cadenceMax && session[18]) out.cadenceMax = session[18];
         return out;
     }
 
@@ -2876,21 +2912,33 @@
         }
     };
 
+    function compactDefined(obj) {
+        const o = {};
+        Object.entries(obj || {}).forEach(([k, v]) => {
+            if (v === null || v === undefined || v === '') return;
+            if (typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date)) {
+                const c = compactDefined(v);
+                if (Object.keys(c).length) o[k] = c;
+            } else o[k] = v;
+        });
+        return o;
+    }
+
     function watchPayloadFromMetrics(m) {
-        return {
+        const payload = compactDefined({
             fc: m.fc, fcMax: m.fcMax, kcal: m.kcal, distance: m.distance, pace: m.pace,
             durationMinutes: m.durationMinutes, trimpScore: m.trimpScore, zoneDistribution: m.zoneDistribution,
             watchMetrics: {
                 fcMin: m.fcMin, cadenceAvg: m.cadenceAvg, cadenceMax: m.cadenceMax,
                 elevationGain: m.elevationGain, elevationLoss: m.elevationLoss,
                 avgSpeedKmh: m.avgSpeedKmh, maxSpeedKmh: m.maxSpeedKmh,
-                temperatureAvg: m.temperatureAvg, powerAvg: m.powerAvg,
-                laps: m.laps, hrPoints: m.hrPoints, fileType: m.fileType,
-                startTime: m.startTime, caloriesEstimated: true
-            },
-            biometricsPending: false,
-            updatedViaFile: true
-        };
+                powerAvg: m.powerAvg, laps: m.laps, hrPoints: m.hrPoints,
+                fileType: m.fileType, startTime: m.startTime, caloriesEstimated: true
+            }
+        });
+        payload.biometricsPending = false;
+        payload.updatedViaFile = true;
+        return payload;
     }
 
     function renderWatchPreview(m) {
@@ -2922,6 +2970,13 @@
 
     window.confirmWatchImport = async () => {
         if (!window.targetPendingDocId || !window._pendingWatchMetrics) return;
+        const m = window._pendingWatchMetrics;
+        const sessMod = window.targetPendingModality || '';
+        const looksRun = (m.distance || 0) >= 0.4 || (m.hrPoints || 0) > 40;
+        if (sessMod && sessMod !== 'Corrida' && looksRun) {
+            const ok = window.confirm(`Este arquivo parece uma CORRIDA, mas a sessão é "${sessMod}". Gravar aqui mistura zonas no 80/20 da semana. Continuar mesmo assim?`);
+            if (!ok) return;
+        }
         showLoading('Gravando métricas do relógio...');
         try {
             const payload = watchPayloadFromMetrics(window._pendingWatchMetrics);
@@ -2942,8 +2997,15 @@
     window.processWatchFileUpload = async (event) => {
         const file = event.target.files && event.target.files[0];
         if (!file || !window.targetPendingDocId) return;
+        const MAX_WATCH_BYTES = 8 * 1024 * 1024;
         const statusText = document.getElementById('pending-status-text');
         statusText.classList.remove('hidden');
+        if (file.size > MAX_WATCH_BYTES) {
+            statusText.innerText = '❌ Arquivo maior que 8 MB. Exporte um FIT/GPX menor.';
+            statusText.className = 'text-xs text-red-400 font-bold';
+            event.target.value = '';
+            return;
+        }
         statusText.innerText = 'Lendo arquivo do relógio...';
         statusText.className = 'text-xs text-amber-400 font-bold animate-pulse';
         try {
@@ -3703,8 +3765,14 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     function startWorkoutSession(modality) {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         if (!nw) return;
-        const guarded = applyDeterministicCoachingGuards({ ...nw, modality: modality || nw.modality }, lastSyntheticState || {}, { targetMinutes: nw.estimatedMinutes });
-        Object.assign(nw, guarded);
+        if (!(nw._guardApplied && nw.modality === modality)) {
+            const guarded = applyDeterministicCoachingGuards(
+                { ...nw, modality: modality || nw.modality, _guardApplied: false },
+                lastSyntheticState || {},
+                { targetMinutes: nw.estimatedMinutes, force: true }
+            );
+            Object.assign(nw, guarded);
+        }
         nw.modality = modality;
         window._strengthFromCalisthenics = false;
 
@@ -4343,8 +4411,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                 } else {
                     container1RM.innerHTML = keys.map(k => `
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <span class="text-slate-300 font-bold capitalize text-[11px] truncate">${k}</span>
-                            <span class="text-purple-400 font-black text-xs shrink-0">${ests[k]} kg</span>
+                            <span class="text-slate-300 font-bold capitalize text-[11px] truncate">${escapeHtml(k)}</span>
+                            <span class="text-purple-400 font-black text-xs shrink-0">${escapeHtml(ests[k])} kg</span>
                         </div>`).join('');
                 }
             }
@@ -4358,8 +4426,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                 } else {
                     containerIFR.innerHTML = keys.map(k => `
                         <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                            <span class="text-slate-300 font-bold capitalize text-[11px] truncate">${k}</span>
-                            <span class="text-brand-400 font-black text-xs shrink-0">${ifrs[k]} x BW</span>
+                            <span class="text-slate-300 font-bold capitalize text-[11px] truncate">${escapeHtml(k)}</span>
+                            <span class="text-brand-400 font-black text-xs shrink-0">${escapeHtml(ifrs[k])} x BW</span>
                         </div>`).join('');
                 }
             }
@@ -4484,8 +4552,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
 
             const acwrPts = [];
             const sortedH = [...hd].sort((a, b) => new Date(a.date) - new Date(b.date));
-            sortedH.forEach((_, idx) => {
-                acwrPts.push(calculateACWRFromHistory(sortedH.slice(0, idx + 1)).acwr);
+            sortedH.forEach((item, idx) => {
+                acwrPts.push(calculateACWRFromHistory(sortedH.slice(0, idx + 1), item.date).acwr);
             });
             const ctxAcwr = document.getElementById('chart-acwr');
             if (ctxAcwr) {
@@ -4569,14 +4637,14 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         <div>Subida: <strong class="text-slate-200">${(h.watchMetrics && h.watchMetrics.elevationGain) ? h.watchMetrics.elevationGain + ' m' : '--'}</strong></div>
                         <div>Zonas: <strong class="text-green-400">${h.zoneDistribution ? `Z2 ${h.zoneDistribution.z1_z2_minutes||0}′ · Z4 ${h.zoneDistribution.z4_z5_minutes||0}′` : '--'}</strong></div>
                     </div>
-                    <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
+                    <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
                         <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
                     </button>
                     ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">"${escapeHtml(h.userFeedback)}"</p>` : ''}
                 </div>`;
             }).join('');
             listContainer.querySelectorAll('.js-pending-print').forEach(btn => {
-                btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc'), btn.getAttribute('data-wname')));
+                btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc'), btn.getAttribute('data-wname'), btn.getAttribute('data-modality')));
             });
         } catch(e) {}
     }
@@ -4793,8 +4861,9 @@ ${WORKOUT_RULES}`;
 
     window.targetPendingDocId = null;
 
-    window.openUploadPendingModal = (docId, workoutName) => {
+    window.openUploadPendingModal = (docId, workoutName, modality) => {
         window.targetPendingDocId = docId;
+        window.targetPendingModality = modality || '';
         window._pendingWatchMetrics = null;
         document.getElementById('pending-modal-title').innerText = `Relógio: ${workoutName || "Sessão"}`;
         document.getElementById('pending-status-text').classList.add('hidden');
