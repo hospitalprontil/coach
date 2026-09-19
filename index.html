@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  APEX HYBRID v5.2  |  MOTOR DETERMINÍSTICO + FIRESTORE INTACTO
+  APEX HYBRID v6.0  |  FASE 4 — VISUALIZAÇÃO + RELÓGIO + PDF
   ============================================================================
   JUNTAR: BLOCO 1 + BLOCO 2 + BLOCO 3 nesta ordem, em UM único arquivo .html
 
@@ -13,7 +13,8 @@
     users/{uid}/messages  : addDoc  (chat)
   Campos preservados: exerciseLogs, workoutName, modality, pse, durationMinutes,
     weight, addedLoadKg, reps, rir, targetGroup, trimpScore, zoneDistribution,
-    biometricsPending, fc, fcMax, fcRec, kcal, distance, pace, aiFeedback, ...
+    biometricsPending, fc, fcMax, fcRec, kcal, distance, pace, aiFeedback,
+    watchMetrics (opcional v6.0: cadence, elevation, fcMin, fileType, hrPoints)
   Writes destrutivos: SOMENTE na Área de Perigo, após confirmação.
   ============================================================================
 -->
@@ -21,7 +22,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v5.2 - Apex Hybrid (compatível com dados v5.0)</title>
+    <title>AI Coach Híbrido v6.0 </title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -114,7 +115,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v5.0 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.0 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -128,26 +129,24 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v5.2</span>
-                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Motor de Elite</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.0</span>
+                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Fase 4 — Centro de Inteligência</h2>
                 </div>
             </div>
         </div>
 
         <div class="p-5 space-y-3 overflow-y-auto custom-scrollbar">
             <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                O app subiu para o <strong class="text-brand-400">A.I Coach v5.2</strong>. Seu histórico, treinos e conta continuam no mesmo lugar. O que mudou:
+                O app subiu para o <strong class="text-brand-400">A.I Coach v6.0 (Fase 4)</strong>. Conta e histórico continuam no mesmo banco. Agora você vê e exporta o que o motor já calculava:
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-                <div class="flex items-start gap-2.5"><i class="fas fa-shield-alt text-amber-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Deload automático:</strong> se a carga da semana disparou, o volume cai sozinho — não depende da I.A. “lembrar”.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-layer-group text-brand-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Semana inteira:</strong> o plano novo já nasce com todos os seus dias, misturando o eixo mestre com o híbrido.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-heartbeat text-pink-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Corrida pela FC:</strong> zonas leve / limiar / tiros usam o relógio quando houver print; o esforço percebido vira plano B.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-ban text-red-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Perna e tiro não se atropelam:</strong> perna pesada trava sprint; sprint recente trava agachamento pesado.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-dumbbell text-purple-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Ficha de verdade:</strong> séries, reps, RIR e carga sugerida. Descanso de força não é esmagado pelo timer.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-heart-pulse text-brand-300 mt-0.5 shrink-0"></i><span><strong class="text-white">FC de repouso no check-in:</strong> compara com a sua baseline e avisa se o corpo está em alerta.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-file-arrow-up text-amber-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Arquivo do relógio:</strong> .FIT / .GPX / .TCX no lugar do print. FC segundo a segundo, zonas reais, TRIMP, pace, cadência, subida.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-spider text-brand-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Radar híbrido:</strong> força relativa, 1RM, aeróbico, core e equilíbrio 80/20 num gráfico só.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-file-pdf text-red-400 mt-0.5 shrink-0"></i><span><strong class="text-white">PDF de treino:</strong> relatório para o personal/fisio — não é laudo médico.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-chart-line text-purple-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Tendências:</strong> ACWR, TRIMP e pace ao longo das semanas, além das barras MEV/MAV/MRV (feito × plano).</span></div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v5.2 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.0 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -285,7 +284,21 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v5.2 Motor de Elite (mesmo banco v5.0)</span>
+                    <span class="font-black text-brand-400 text-sm">v6.0 Fase 4 — Centro de Inteligência</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Importação de .FIT / .GPX / .TCX (Garmin, Wahoo, Strava, Apple via GPX).<br>
+                    • Zonas e TRIMP pela série de FC, não pela média.<br>
+                    • Radar híbrido + tendências de ACWR, TRIMP e pace.<br>
+                    • PDF de relatório de treino (não é laudo médico).<br>
+                    • Barras MEV/MAV/MRV com feito × plano da semana.<br>
+                    • Print de tela continua como plano B.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-xs">v5.2 Motor de Elite (mesmo banco v5.0)</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -354,15 +367,15 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); this.classList.toggle('tip-open');" onmouseleave="this.classList.remove('tip-open')">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v5.2</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.0</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v5.2</strong>
-                    • Deload e teto de volume no código, não só na I.A.<br>
-                    • Plano da semana inteira (híbrido).<br>
-                    • Corrida por frequência cardíaca.<br>
-                    • Perna e tiro não no mesmo dia.<br>
-                    • Ficha com séries, reps, RIR e %1RM.<br>
-                    • FC de repouso no check-in.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.0 · Fase 4</strong>
+                    • Arquivo do relógio: FIT, GPX ou TCX.<br>
+                    • Zonas reais pela FC segundo a segundo.<br>
+                    • Radar híbrido (6 eixos).<br>
+                    • PDF para o profissional.<br>
+                    • Tendências de ACWR, TRIMP e pace.<br>
+                    • Feito × plano nas barras de volume.<br>
                     <span class="text-slate-500 block mt-1.5">Passe o mouse · toque no selo para fixar</span>
                 </span>
             </span>
@@ -432,7 +445,7 @@
         </div>
         <h2 class="text-2xl font-black text-white">Bem-vindo(a), <span id="welcome-nick-display" class="text-brand-400">Aluno</span>!</h2>
         <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-left bg-dark-950 p-4 rounded-2xl border border-slate-800 font-medium">
-            <p><strong class="text-white">Este é o Apex Hybrid Coach v5.2.</strong></p>
+            <p><strong class="text-white">Este é o Apex Hybrid Coach v6.0.</strong></p>
             <p>Combine <strong class="text-brand-400">Calistenia</strong>, <strong class="text-amber-400">Corrida Autônoma</strong> e <strong class="text-purple-400">Musculação com RIR e Marcos de Volume (MEV/MAV/MRV)</strong>.</p>
             <p>A I.A. gerencia o acúmulo de séries efetivas semanais e calcula $1RM$ unificado por fórmula otimizada.</p>
         </div>
@@ -773,15 +786,14 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                     <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge" onclick="event.stopPropagation(); this.classList.toggle('tip-open');" onmouseleave="this.classList.remove('tip-open')">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-help hover:bg-brand-500/30">v5.2</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-help hover:bg-brand-500/30">v6.0</span>
                         <span class="ver-tip text-[11px] text-slate-300 leading-relaxed normal-case tracking-normal font-medium" style="left: auto; right: 0; transform: none;">
-                            <strong class="text-brand-400 block mb-1.5">Novidades v5.2</strong>
-                            • Deload automático se a carga da semana disparar.<br>
-                            • Semana inteira de treinos híbridos.<br>
-                            • Zonas de corrida pela FC do relógio.<br>
-                            • Interferência perna ↔ tiro nos dois sentidos.<br>
-                            • Séries, RIR e carga sugerida na ficha.<br>
-                            • FC de repouso no check-in (status do corpo).
+                            <strong class="text-brand-400 block mb-1.5">Novidades v6.0 · Fase 4</strong>
+                            • FIT / GPX / TCX do relógio.<br>
+                            • Radar híbrido de capacidades.<br>
+                            • PDF de relatório de treino.<br>
+                            • Tendências ACWR, TRIMP e pace.<br>
+                            • Volume feito × plano da semana.
                         </span>
                     </span>
                 </h1>
@@ -918,12 +930,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v5.2</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.0 · Fase 4</span>
                         <h2 class="text-base font-black text-white">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou (carga, séries, coração, dores). A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta — é isso que mudou no v5.2.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou (carga, séries, coração, dores). A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. Na Fase 4 você <strong class="text-white">vê</strong> isso em gráfico e pode mandar um PDF para o profissional.
                 </p>
             </div>
 
@@ -990,6 +1002,19 @@
                     <li><strong class="text-white">Vocês conversam no chat:</strong> ela lê o mesmo resumo do seu corpo (histórico, 1RM, zonas, dores) e responde em português — sem inventar série que o teto já vetou.</li>
                 </ul>
             </div>
+
+            <div class="glass-panel p-5 rounded-3xl border border-amber-500/40 space-y-3">
+                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-stopwatch"></i></div>
+                    <div>
+                        <h3 class="text-sm font-black text-white">Relógio, radar e PDF (Fase 4)</h3>
+                        <span class="text-[10px] text-amber-400 font-bold">O dado entra certo · você leva para o profissional</span>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">
+                    Depois da corrida, envie o arquivo do relógio (<strong class="text-white">.FIT, .GPX ou .TCX</strong>) na aba Histórico. O app lê tempo, km, pace, FC (média, máx, mín), cadência, subida e — o mais importante — os <strong class="text-white">minutos reais em cada zona</strong>, porque usa a FC segundo a segundo. Print de tela continua se você não tiver o arquivo. Na aba Progresso: teia de aranha do atleta híbrido, linhas de ACWR/TRIMP/pace, e um PDF de relatório de treino (não é exame médico).
+                </p>
+            </div>
         </div>
 
         <!-- Tab 3: Progresso & ACWR -->
@@ -1047,13 +1072,37 @@
                 </div>
             </div>
 
+            <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-bullseye text-brand-400"></i> Radar híbrido (suas 4–8 semanas)</h3>
+                <p class="text-[10px] text-slate-500 mb-2">Cada eixo é 0–100 contra um alvo razoável do próprio atleta — não contra o mundo.</p>
+                <div class="w-full h-56 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-radar"></canvas></div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-3xl border border-amber-500/40 shadow-xl w-full">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3 flex items-center gap-2"><i class="fas fa-wave-square text-amber-400"></i> Tendência ACWR (carga aguda / crônica)</h3>
+                <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-acwr"></canvas></div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-3xl border border-red-500/30 shadow-xl w-full">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3 flex items-center gap-2"><i class="fas fa-heart text-red-400"></i> TRIMP por sessão</h3>
+                <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-trimp"></canvas></div>
+            </div>
+
+            <div class="glass-panel p-4 rounded-3xl border border-brand-500/30 shadow-xl w-full">
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3 flex items-center gap-2"><i class="fas fa-gauge-high text-brand-400"></i> Pace (min/km)</h3>
+                <div class="w-full h-44 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-pace"></canvas></div>
+            </div>
+
             <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full relative overflow-hidden">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-brain text-purple-400"></i> Relatório de Progresso (I.A.)</h3>
-                    <button onclick="window.generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">Gerar Relatório</button>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-brain text-purple-400"></i> Relatório de Progresso</h3>
+                    <div class="flex gap-1.5">
+                        <button onclick="window.generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">Gerar I.A.</button>
+                        <button onclick="window.exportTrainingPdf()" class="bg-red-500/20 hover:bg-red-500/40 text-red-300 border border-red-500/40 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
+                    </div>
                 </div>
                 <div id="progress-report-content" class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                    <p class="text-xs text-slate-400 italic text-center py-2 font-medium">Clique em "Gerar Relatório" para analisar seu progresso v5.0.</p>
+                    <p class="text-xs text-slate-400 italic text-center py-2 font-medium">Gere o parecer da I.A. e/ou baixe o PDF para o profissional.</p>
                 </div>
             </div>
 
@@ -1126,7 +1175,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v5.2 Apex</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.0 Apex</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -1615,13 +1664,19 @@
             </h3>
             <button onclick="window.hide('modal-pending-upload')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
         </div>
-        <p class="text-xs text-slate-300 font-medium">Selecione a foto ou print do smartwatch referente a esta sessão para atualizar suas métricas e o TRIMP.</p>
+        <p class="text-xs text-slate-300 font-medium">Envie o <strong class="text-white">arquivo do relógio</strong> (.FIT Garmin/Wahoo/Coros, .GPX ou .TCX do Strava/Apple). O print de tela continua valendo se você não tiver o arquivo.</p>
 
-        <input type="file" id="pending-file-input" accept="image/*" class="hidden" onchange="window.processPendingPrintUpload(event)">
-        <button type="button" onclick="document.getElementById('pending-file-input').click()" class="w-full bg-amber-500 hover:bg-amber-400 text-dark-950 font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-            <i class="fas fa-file-image"></i> Selecionar Foto / Print
+        <input type="file" id="pending-watch-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.processWatchFileUpload(event)">
+        <button type="button" onclick="document.getElementById('pending-watch-input').click()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
+            <i class="fas fa-file-arrow-up"></i> Arquivo FIT / GPX / TCX
         </button>
 
+        <input type="file" id="pending-file-input" accept="image/*" class="hidden" onchange="window.processPendingPrintUpload(event)">
+        <button type="button" onclick="document.getElementById('pending-file-input').click()" class="w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black py-3 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
+            <i class="fas fa-file-image"></i> Print de tela (plano B)
+        </button>
+
+        <div id="watch-preview" class="hidden text-left"></div>
         <p id="pending-status-text" class="text-xs text-slate-400 font-medium hidden">Aguardando arquivo...</p>
     </div>
 </div>
@@ -2030,10 +2085,12 @@
             snap.forEach(d => historyData.push(d.data()));
             historyData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const volumes = calculateWeeklyVolumeLandmarks(historyData);
+            const planned = (typeof plannedWeeklySets === 'function') ? plannedWeeklySets() : {};
             const labels = { peitoral: 'Peitoral', costas: 'Costas', quadriceps: 'Quadríceps', posterior: 'Posterior', ombros: 'Ombros', bracos: 'Braços', core: 'Core' };
             let html = '';
             Object.keys(labels).forEach(grp => {
                 const count = volumes[grp] || 0;
+                const plan = planned[grp] || 0;
                 const lm = VOLUME_LANDMARKS[grp];
                 const statusText = landmarkStatusFor(grp, count);
                 let statusColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
@@ -2044,19 +2101,21 @@
                 else if (statusText === 'Perto do MRV') { statusColor = 'bg-amber-500/20 text-amber-400 border-amber-500/30'; barColor = 'bg-amber-500'; }
                 else { statusColor = 'bg-red-500/20 text-red-400 border-red-500/30'; barColor = 'bg-red-500'; }
                 const pct = Math.min(100, Math.round((count / Math.max(lm.mrv, 1)) * 100));
+                const planPct = Math.min(100, Math.round((plan / Math.max(lm.mrv, 1)) * 100));
                 html += `
                 <div class="space-y-1">
                     <div class="flex justify-between items-center text-[11px]">
                         <span class="font-bold text-slate-300">${labels[grp]}</span>
                         <div class="flex items-center gap-1.5">
-                            <span class="font-black text-white">${count} séries/sem</span>
+                            <span class="font-black text-white">${count} feitas</span>
+                            <span class="text-[9px] text-slate-500">plano ${plan}</span>
                             <span class="text-[9px] px-1.5 py-0.2 rounded border font-bold ${statusColor}">${statusText}</span>
                         </div>
                     </div>
-                    <div class="w-full h-2 bg-dark-950 border border-slate-800 rounded-full overflow-hidden">
-                        <div class="h-full ${barColor} transition-all duration-500" style="width: ${pct}%"></div>
+                    <div class="w-full h-2 bg-dark-950 border border-slate-800 rounded-full overflow-hidden relative">
+                        <div class="h-full ${barColor} transition-all duration-500 relative z-10" style="width: ${pct}%"></div>
                     </div>
-                    <p class="text-[9px] text-slate-500">MEV ${lm.mev} · MAV ${lm.mavLow}–${lm.mavHigh} · MRV ${lm.mrv}</p>
+                    <p class="text-[9px] text-slate-500">MEV ${lm.mev} · MAV ${lm.mavLow}–${lm.mavHigh} · MRV ${lm.mrv}${plan ? ` · plano da fila ${plan} (${planPct}% do MRV)` : ''}</p>
                 </div>`;
             });
             container.innerHTML = html;
@@ -2413,6 +2472,506 @@
         }
     }
 
+    // ========== FASE 4: PARSER DE RELÓGIO + RADAR + PDF ==========
+    function avg(arr) {
+        const n = arr.filter(v => v != null && !isNaN(v) && isFinite(v));
+        if (!n.length) return null;
+        return n.reduce((a, b) => a + b, 0) / n.length;
+    }
+    function paceFromKmh(kmh) {
+        if (!kmh || kmh <= 0) return null;
+        const minPerKm = 60 / kmh;
+        const m = Math.floor(minPerKm);
+        const s = Math.round((minPerKm - m) * 60);
+        return `${m}:${String(s).padStart(2, '0')}`;
+    }
+    function haversineKm(lat1, lon1, lat2, lon2) {
+        const R = 6371;
+        const dLat = (lat2 - lat1) * Math.PI / 180;
+        const dLon = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+        return 2 * R * Math.asin(Math.min(1, Math.sqrt(a)));
+    }
+
+    function zonesFromHrStream(samples) {
+        let z1 = 0, z3 = 0, z45 = 0;
+        if (!samples.length) return null;
+        for (let i = 1; i < samples.length; i++) {
+            const dtMin = Math.max(0, Math.min(2, (samples[i].t - samples[i - 1].t) / 60000));
+            const hr = samples[i].hr || samples[i - 1].hr;
+            if (!hr || !dtMin) continue;
+            const b = zoneBucketFromFc(hr);
+            if (b === 'z1z2') z1 += dtMin;
+            else if (b === 'z3') z3 += dtMin;
+            else z45 += dtMin;
+        }
+        if (z1 + z3 + z45 <= 0) return null;
+        return { z1_z2_minutes: Math.round(z1 * 10) / 10, z3_minutes: Math.round(z3 * 10) / 10, z4_z5_minutes: Math.round(z45 * 10) / 10, source: 'hr-stream' };
+    }
+
+    function trimpFromHrStream(samples) {
+        const rhr = currentRestHr();
+        const max = estimateHrMax();
+        const b = (userData.sex === 'F') ? 1.67 : 1.92;
+        if (max <= rhr) return null;
+        let t = 0;
+        for (let i = 1; i < samples.length; i++) {
+            const dtMin = Math.max(0, Math.min(2, (samples[i].t - samples[i - 1].t) / 60000));
+            const hr = samples[i].hr || samples[i - 1].hr;
+            if (!hr || hr <= rhr || !dtMin) continue;
+            const d = (hr - rhr) / (max - rhr);
+            t += dtMin * d * Math.exp(b * d);
+        }
+        return t ? Math.round(t) : null;
+    }
+
+    function xmlText(el, names) {
+        if (!el) return null;
+        for (const n of names) {
+            const found = el.getElementsByTagName(n);
+            if (found && found.length && found[0].textContent) return found[0].textContent.trim();
+        }
+        return null;
+    }
+
+    function parseGpxOrTcx(text, kind) {
+        const xml = new DOMParser().parseFromString(text, 'application/xml');
+        if (xml.querySelector('parsererror')) throw new Error('XML inválido');
+        const samples = [];
+        let kcal = null, laps = 0;
+
+        if (kind === 'tcx' || xml.getElementsByTagName('Trackpoint').length) {
+            laps = xml.getElementsByTagName('Lap').length;
+            const cals = xml.getElementsByTagName('Calories');
+            if (cals.length) kcal = parseFloat(cals[0].textContent);
+            [...xml.getElementsByTagName('Trackpoint')].forEach(tp => {
+                const time = xmlText(tp, ['Time']);
+                const hr = parseFloat(xmlText(tp, ['Value']));
+                const distM = parseFloat(xmlText(tp, ['DistanceMeters']));
+                const cad = parseFloat(xmlText(tp, ['RunCadence', 'Cadence']));
+                const alt = parseFloat(xmlText(tp, ['AltitudeMeters']));
+                const spd = parseFloat(xmlText(tp, ['Speed']));
+                const pos = tp.getElementsByTagName('LatitudeDegrees')[0];
+                const lon = tp.getElementsByTagName('LongitudeDegrees')[0];
+                samples.push({
+                    t: time ? new Date(time).getTime() : null,
+                    hr: isNaN(hr) ? null : hr,
+                    distKm: isNaN(distM) ? null : distM / 1000,
+                    cad: isNaN(cad) ? null : cad,
+                    alt: isNaN(alt) ? null : alt,
+                    spdKmh: isNaN(spd) ? null : spd * 3.6,
+                    lat: pos ? parseFloat(pos.textContent) : null,
+                    lon: lon ? parseFloat(lon.textContent) : null
+                });
+            });
+        } else {
+            [...xml.getElementsByTagName('trkpt')].forEach(pt => {
+                const time = pt.getElementsByTagName('time')[0]?.textContent;
+                const ele = parseFloat(pt.getElementsByTagName('ele')[0]?.textContent);
+                let hr = null, cad = null, spd = null;
+                [...pt.getElementsByTagName('*')].forEach(n => {
+                    const tag = (n.tagName || '').toLowerCase();
+                    const v = parseFloat(n.textContent);
+                    if (isNaN(v)) return;
+                    if (tag === 'hr' || tag.endsWith(':hr')) hr = v;
+                    if (tag === 'cad' || tag.endsWith(':cad')) cad = v;
+                    if (tag === 'speed' || tag.endsWith(':speed')) spd = v * (v < 20 ? 3.6 : 1);
+                });
+                samples.push({
+                    t: time ? new Date(time).getTime() : null,
+                    hr, cad,
+                    alt: isNaN(ele) ? null : ele,
+                    spdKmh: spd,
+                    lat: parseFloat(pt.getAttribute('lat')),
+                    lon: parseFloat(pt.getAttribute('lon')),
+                    distKm: null
+                });
+            });
+        }
+        return finalizeSamples(samples, { kcal, laps, fileType: kind });
+    }
+
+    function finalizeSamples(samples, extra = {}) {
+        const timed = samples.filter(s => s.t);
+        timed.sort((a, b) => a.t - b.t);
+        let dist = extra.distanceKm || null;
+        if (!dist) {
+            const withD = timed.filter(s => s.distKm != null);
+            if (withD.length) dist = withD[withD.length - 1].distKm;
+            else {
+                let acc = 0;
+                for (let i = 1; i < timed.length; i++) {
+                    if (timed[i].lat && timed[i - 1].lat) acc += haversineKm(timed[i - 1].lat, timed[i - 1].lon, timed[i].lat, timed[i].lon);
+                }
+                dist = acc > 0.05 ? acc : null;
+            }
+        }
+        const hrs = timed.map(s => s.hr).filter(v => v > 30 && v < 230);
+        const cads = timed.map(s => s.cad).filter(v => v > 20 && v < 250);
+        const alts = timed.map(s => s.alt).filter(v => v != null && !isNaN(v));
+        const spds = timed.map(s => s.spdKmh).filter(v => v > 0 && v < 50);
+        let elevGain = 0, elevLoss = 0;
+        for (let i = 1; i < alts.length; i++) {
+            const d = alts[i] - alts[i - 1];
+            if (d > 0.8) elevGain += d;
+            else if (d < -0.8) elevLoss += Math.abs(d);
+        }
+        const t0 = timed[0]?.t;
+        const t1 = timed[timed.length - 1]?.t;
+        let durMin = extra.durationMinutes;
+        if (!durMin && t0 && t1 && t1 > t0) durMin = (t1 - t0) / 60000;
+        const avgSpd = avg(spds) || (dist && durMin ? (dist / (durMin / 60)) : null);
+        const zoneDist = zonesFromHrStream(timed.filter(s => s.hr)) || (avg(hrs) && durMin ? zoneDistributionFromSession(durMin, avg(hrs), null) : null);
+        const trimp = trimpFromHrStream(timed.filter(s => s.hr)) || (avg(hrs) && durMin ? window.calculateTRIMP(durMin, avg(hrs), currentRestHr(), estimateHrMax()) : null);
+        return {
+            durationMinutes: durMin ? Math.round(durMin * 10) / 10 : null,
+            distance: dist ? Math.round(dist * 100) / 100 : null,
+            pace: paceFromKmh(avgSpd),
+            fc: hrs.length ? Math.round(avg(hrs)) : null,
+            fcMax: hrs.length ? Math.round(Math.max(...hrs)) : null,
+            fcMin: hrs.length ? Math.round(Math.min(...hrs)) : null,
+            kcal: extra.kcal != null && !isNaN(extra.kcal) ? Math.round(extra.kcal) : null,
+            cadenceAvg: cads.length ? Math.round(avg(cads)) : null,
+            cadenceMax: cads.length ? Math.round(Math.max(...cads)) : null,
+            elevationGain: elevGain ? Math.round(elevGain) : (extra.elevationGain || null),
+            elevationLoss: elevLoss ? Math.round(elevLoss) : null,
+            avgSpeedKmh: avgSpd ? Math.round(avgSpd * 10) / 10 : null,
+            maxSpeedKmh: spds.length ? Math.round(Math.max(...spds) * 10) / 10 : null,
+            temperatureAvg: extra.temperatureAvg || null,
+            powerAvg: extra.powerAvg || null,
+            laps: extra.laps || null,
+            hrPoints: hrs.length,
+            trimpScore: trimp,
+            zoneDistribution: zoneDist,
+            fileType: extra.fileType || 'file',
+            startTime: t0 ? new Date(t0).toISOString() : null,
+            caloriesEstimated: true
+        };
+    }
+
+    function parseFitActivity(buffer) {
+        const view = new DataView(buffer);
+        if (view.byteLength < 14) throw new Error('FIT muito curto');
+        const headerSize = view.getUint8(0);
+        const sig = String.fromCharCode(view.getUint8(8), view.getUint8(9), view.getUint8(10), view.getUint8(11));
+        if (sig !== '.FIT') throw new Error('Assinatura FIT inválida');
+        const dataSize = view.getUint32(4, true);
+        let offset = headerSize;
+        const end = Math.min(view.byteLength - 2, headerSize + dataSize);
+        const defs = {};
+        const samples = [];
+        let session = {};
+        let laps = 0;
+        const FIT_EPOCH = 631065600;
+
+        function invalid(base, v) {
+            if (base === 2 || base === 0 || base === 10 || base === 0x0A) return v === 0xFF;
+            if (base === 0x84 || base === 132 || base === 0x8B) return v === 0xFFFF;
+            if (base === 0x86 || base === 134 || base === 0x8C) return v === 0xFFFFFFFF;
+            return false;
+        }
+        function readVal(off, size, base, little) {
+            try {
+                if (size === 1) return view.getUint8(off);
+                if (size === 2) return little ? view.getUint16(off, true) : view.getUint16(off, false);
+                if (size === 4) {
+                    if (base === 0x88) return little ? view.getFloat32(off, true) : view.getFloat32(off, false);
+                    return little ? view.getUint32(off, true) : view.getUint32(off, false);
+                }
+            } catch (e) { return null; }
+            return null;
+        }
+
+        while (offset < end) {
+            const hdr = view.getUint8(offset); offset++;
+            if (hdr & 0x80) {
+                const localC = (hdr >> 5) & 0x03;
+                const defC = defs[localC];
+                if (defC) offset += defC.size;
+                continue;
+            }
+            const local = hdr & 0x0F;
+            if (hdr & 0x40) {
+                offset += 1;
+                const arch = view.getUint8(offset); offset++;
+                const little = arch === 0;
+                const global = little ? view.getUint16(offset, true) : view.getUint16(offset, false); offset += 2;
+                const n = view.getUint8(offset); offset++;
+                const fields = [];
+                let size = 0;
+                for (let i = 0; i < n; i++) {
+                    const num = view.getUint8(offset);
+                    const sz = view.getUint8(offset + 1);
+                    const bt = view.getUint8(offset + 2);
+                    fields.push({ num, sz, bt });
+                    size += sz;
+                    offset += 3;
+                }
+                if (hdr & 0x20) {
+                    const ndev = view.getUint8(offset); offset++;
+                    offset += ndev * 3;
+                }
+                defs[local] = { global, little, fields, size };
+            } else {
+                const def = defs[local];
+                if (!def) break;
+                const rec = {};
+                let p = offset;
+                def.fields.forEach(f => {
+                    const v = readVal(p, f.sz, f.bt, def.little);
+                    p += f.sz;
+                    if (v == null || invalid(f.bt, v)) return;
+                    rec[f.num] = v;
+                });
+                offset += def.size;
+                if (def.global === 20) {
+                    const ts = rec[253] != null ? (rec[253] + FIT_EPOCH) * 1000 : null;
+                    const distRaw = rec[5];
+                    const spdRaw = rec[6] != null ? rec[6] : rec[73];
+                    samples.push({
+                        t: ts,
+                        hr: rec[3] || null,
+                        cad: rec[4] || rec[18] || null,
+                        distKm: distRaw != null ? distRaw / 100000 : null,
+                        spdKmh: spdRaw != null ? (spdRaw / 1000) * 3.6 : null,
+                        alt: rec[2] != null ? rec[2] / 5 - 500 : (rec[78] != null ? rec[78] / 5 - 500 : null),
+                        lat: rec[0] != null ? rec[0] * (180 / 2147483648) : null,
+                        lon: rec[1] != null ? rec[1] * (180 / 2147483648) : null
+                    });
+                } else if (def.global === 18) {
+                    session = rec;
+                } else if (def.global === 19) {
+                    laps++;
+                }
+            }
+        }
+
+        const extra = {
+            fileType: 'fit',
+            laps,
+            kcal: session[11] || session[13] || null,
+            durationMinutes: session[8] ? session[8] / 1000 / 60 : (session[7] ? session[7] / 1000 / 60 : null),
+            distanceKm: session[9] != null ? session[9] / 100000 : null,
+            elevationGain: session[22] || null,
+            temperatureAvg: session[16] && session[16] < 50 ? session[16] : null,
+            powerAvg: session[20] || session[7] > 1000 ? null : session[20]
+        };
+        if (session[14]) samples.forEach(s => { if (!s.hr) s.hr = session[14]; });
+        const out = finalizeSamples(samples, extra);
+        if (!out.fc && session[14]) out.fc = session[14];
+        if (!out.fcMax && session[15]) out.fcMax = session[15];
+        if (!out.cadenceAvg && session[18]) out.cadenceAvg = session[18];
+        return out;
+    }
+
+    async function parseWatchFile(file) {
+        const name = (file.name || '').toLowerCase();
+        if (name.endsWith('.gpx') || file.type.includes('gpx')) {
+            return parseGpxOrTcx(await file.text(), 'gpx');
+        }
+        if (name.endsWith('.tcx') || file.type.includes('xml')) {
+            const txt = await file.text();
+            if (txt.includes('TrainingCenterDatabase') || txt.includes('Trackpoint')) return parseGpxOrTcx(txt, 'tcx');
+            if (txt.includes('<gpx')) return parseGpxOrTcx(txt, 'gpx');
+        }
+        if (name.endsWith('.fit') || name.endsWith('.fit.gz')) {
+            let buf = await file.arrayBuffer();
+            return parseFitActivity(buf);
+        }
+        const txt = await file.text();
+        if (txt.trim().startsWith('<')) {
+            if (txt.includes('gpx')) return parseGpxOrTcx(txt, 'gpx');
+            return parseGpxOrTcx(txt, 'tcx');
+        }
+        try { return parseFitActivity(await file.arrayBuffer()); }
+        catch (e) { throw new Error('Formato não reconhecido. Use .FIT, .GPX, .TCX ou um print.'); }
+    }
+
+    function scale100(v, a, b) {
+        if (v == null || isNaN(v)) return 0;
+        return Math.max(0, Math.min(100, ((v - a) / (b - a)) * 100));
+    }
+
+    function computeHybridRadar(historyData, synthetic) {
+        const ss = synthetic || lastSyntheticState || {};
+        const bw = parseFloat(userData.weight || 70);
+        const ifrs = Object.values(ss.IFR_Weighted_Calisthenics || {});
+        const ifr = ifrs.length ? Math.max(...ifrs) : 1;
+        const rms = Object.values(ss['1RM_Estimates'] || {});
+        const bestRel = rms.length ? Math.max(...rms.map(x => x / bw)) : 0;
+        const trimp = (ss.cardio_polarized_distribution || {}).totalTrimp || 0;
+        const core = (ss.weekly_effective_sets || {}).core || 0;
+        const z = ss.cardio_polarized_distribution || {};
+        const z12 = z.z1z2 || 0;
+        const z45 = z.z4z5 || 0;
+        return {
+            labels: ['Força relativa', 'Carga 1RM', 'Aeróbico', 'Core', 'Base Z1/Z2', 'Intenso Z4/Z5'],
+            values: [
+                Math.round(scale100(ifr, 1.0, 1.8)),
+                Math.round(scale100(bestRel, 0.4, 1.8)),
+                Math.round(scale100(trimp, 0, 600)),
+                Math.round(scale100(core, 0, 12)),
+                Math.round(scale100(z12, 40, 85)),
+                Math.round(z45 <= 20 ? scale100(z45, 0, 20) : Math.max(30, 100 - (z45 - 20) * 2))
+            ]
+        };
+    }
+
+    function pdfSafe(s) {
+        return String(s ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
+
+    window.exportTrainingPdf = async () => {
+        showLoading('Montando relatório PDF v6.0...');
+        try {
+            const { jsPDF } = await import('https://cdn.jsdelivr.net/npm/jspdf@2.5.2/+esm');
+            const ss = await buildSyntheticStateVector();
+            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+            let hd = []; snap.forEach(d => hd.push(d.data()));
+            hd.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const docp = new jsPDF({ unit: 'mm', format: 'a4' });
+            const line = (y, t, s = 11, color = [15, 23, 42]) => {
+                docp.setFont('helvetica', 'normal'); docp.setFontSize(s); docp.setTextColor(...color);
+                const wrapped = docp.splitTextToSize(pdfSafe(t), 180);
+                docp.text(wrapped, 15, y);
+                return y + wrapped.length * (s * 0.42);
+            };
+            docp.setFillColor(6, 182, 212); docp.rect(0, 0, 210, 22, 'F');
+            docp.setTextColor(255, 255, 255); docp.setFont('helvetica', 'bold'); docp.setFontSize(16);
+            docp.text('Apex Hybrid  v6.0  — Relatorio de Treino', 15, 14);
+            let y = 30;
+            y = line(y, `Atleta: ${userData.name || userData.nickname}  |  Eixo: ${userData.masterAxis || '-'}  |  ${new Date().toLocaleDateString('pt-BR')}`, 11);
+            y = line(y + 2, 'Documento de acompanhamento de carga. Nao substitui avaliacao medica ou laudo clinico.', 8, [100, 116, 139]);
+            y = line(y + 4, `ACWR: ${ss.acwr_score}  |  Deload: ${ss.is_deload ? 'SIM' : 'nao'}  |  TRIMP 7d: ${(ss.cardio_polarized_distribution || {}).totalTrimp || 0}`, 11);
+            const z = ss.cardio_polarized_distribution || {};
+            y = line(y + 2, `Cardio 7d: Z1/Z2 ${z.z1z2 || 0}%  ·  Z3 ${z.z3 || 0}%  ·  Z4/Z5 ${z.z4z5 || 0}%`, 11);
+            y = line(y + 4, 'Volume semanal (series efetivas)', 12, [6, 182, 212]);
+            const vol = ss.weekly_effective_sets || {};
+            Object.keys(vol).forEach(k => {
+                y = line(y + 1, `  ${k}: ${vol[k]}  (${(ss.volume_landmarks_status || {})[k] || ''})`, 10);
+            });
+            y = line(y + 4, '1RM estimado (top 8)', 12, [168, 85, 247]);
+            Object.entries(ss['1RM_Estimates'] || {}).slice(0, 8).forEach(([n, v]) => { y = line(y + 1, `  ${n}: ${v} kg`, 10); });
+            y = line(y + 4, 'IFR calistenia (carga extra / peso)', 12, [6, 182, 212]);
+            Object.entries(ss.IFR_Weighted_Calisthenics || {}).slice(0, 6).forEach(([n, v]) => { y = line(y + 1, `  ${n}: ${v}`, 10); });
+            y = line(y + 4, 'Ultimas 8 sessoes', 12, [245, 158, 11]);
+            hd.slice(0, 8).forEach(h => {
+                const wm = h.watchMetrics || {};
+                y = line(y + 1, `${new Date(h.date).toLocaleDateString('pt-BR')} [${h.modality}] ${h.workoutName} | PSE ${h.pse} | FC ${h.fc || '-'} | ${h.distance || '-'} km | TRIMP ${h.trimpScore || '-'} | cad ${wm.cadenceAvg || '-'}`, 8);
+                if (y > 270) { docp.addPage(); y = 20; }
+            });
+            const aiTxt = document.getElementById('progress-report-content')?.innerText || '';
+            if (aiTxt && !aiTxt.includes('Clique em')) {
+                if (y > 220) { docp.addPage(); y = 20; }
+                y = line(y + 6, 'Parecer da I.A. (comentario, nao diagnostico)', 12, [6, 182, 212]);
+                y = line(y + 2, aiTxt.slice(0, 1400), 9);
+            }
+            if (y > 260) { docp.addPage(); y = 20; }
+            line(y + 8, 'Apex Hybrid Coach — mesmos dados do aplicativo (Firebase). Gerado pelo atleta.', 8, [148, 163, 184]);
+            docp.save(`apex-hybrid-${(userData.nickname || 'atleta').replace(/\s+/g, '-')}-${new Date().toISOString().slice(0, 10)}.pdf`);
+            hideLoading();
+        } catch (err) {
+            hideLoading();
+            window.showAlert('PDF', err.message || 'Nao foi possivel gerar o PDF. Verifique a conexao.');
+        }
+    };
+
+    function watchPayloadFromMetrics(m) {
+        return {
+            fc: m.fc, fcMax: m.fcMax, kcal: m.kcal, distance: m.distance, pace: m.pace,
+            durationMinutes: m.durationMinutes, trimpScore: m.trimpScore, zoneDistribution: m.zoneDistribution,
+            watchMetrics: {
+                fcMin: m.fcMin, cadenceAvg: m.cadenceAvg, cadenceMax: m.cadenceMax,
+                elevationGain: m.elevationGain, elevationLoss: m.elevationLoss,
+                avgSpeedKmh: m.avgSpeedKmh, maxSpeedKmh: m.maxSpeedKmh,
+                temperatureAvg: m.temperatureAvg, powerAvg: m.powerAvg,
+                laps: m.laps, hrPoints: m.hrPoints, fileType: m.fileType,
+                startTime: m.startTime, caloriesEstimated: true
+            },
+            biometricsPending: false,
+            updatedViaFile: true
+        };
+    }
+
+    function renderWatchPreview(m) {
+        const box = document.getElementById('watch-preview');
+        if (!box) return;
+        const cell = (l, v) => `<div class="bg-dark-950 rounded-xl p-2 border border-slate-800"><span class="block text-[8px] text-slate-500 uppercase font-bold">${l}</span><strong class="text-white text-[11px]">${v ?? '--'}</strong></div>`;
+        const z = m.zoneDistribution;
+        box.innerHTML = `
+            <p class="text-[10px] text-brand-300 font-bold uppercase mb-2">Arquivo lido · ${escapeHtml((m.fileType || '').toUpperCase())} · ${m.hrPoints || 0} pts de FC</p>
+            <div class="grid grid-cols-3 gap-1.5">${[
+                cell('Tempo', m.durationMinutes ? m.durationMinutes + ' min' : null),
+                cell('Distância', m.distance ? m.distance + ' km' : null),
+                cell('Pace', m.pace),
+                cell('FC méd/máx', (m.fc || '--') + ' / ' + (m.fcMax || '--')),
+                cell('FC mín', m.fcMin),
+                cell('TRIMP', m.trimpScore),
+                cell('kcal*', m.kcal),
+                cell('Cadência', m.cadenceAvg ? m.cadenceAvg + ' spm' : null),
+                cell('Subida', m.elevationGain ? m.elevationGain + ' m' : null),
+                cell('Vel. média', m.avgSpeedKmh ? m.avgSpeedKmh + ' km/h' : null),
+                cell('Z1/Z2', z ? z.z1_z2_minutes + ' min' : null),
+                cell('Z4/Z5', z ? z.z4_z5_minutes + ' min' : null)
+            ].join('')}</div>
+            <p class="text-[9px] text-slate-500 mt-2">*kcal é estimativa do relógio. Zonas usam sua FCrep (Karvonen).</p>
+            <button type="button" onclick="window.confirmWatchImport()" class="w-full mt-3 bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar estas métricas no treino</button>`;
+        box.classList.remove('hidden');
+        window._pendingWatchMetrics = m;
+    }
+
+    window.confirmWatchImport = async () => {
+        if (!window.targetPendingDocId || !window._pendingWatchMetrics) return;
+        showLoading('Gravando métricas do relógio...');
+        try {
+            const payload = watchPayloadFromMetrics(window._pendingWatchMetrics);
+            await setDoc(doc(db, `users/${currentUser.uid}/history`, window.targetPendingDocId), payload, { merge: true });
+            window._pendingWatchMetrics = null;
+            window.hide('modal-pending-upload');
+            hideLoading();
+            await loadHistory();
+            if (typeof renderCharts === 'function') renderCharts();
+            if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
+            window.showAlert('Relógio importado', 'FC, zonas, TRIMP e GPS foram mesclados neste treino. Histórico antigo permanece.');
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Erro', e.message);
+        }
+    };
+
+    window.processWatchFileUpload = async (event) => {
+        const file = event.target.files && event.target.files[0];
+        if (!file || !window.targetPendingDocId) return;
+        const statusText = document.getElementById('pending-status-text');
+        statusText.classList.remove('hidden');
+        statusText.innerText = 'Lendo arquivo do relógio...';
+        statusText.className = 'text-xs text-amber-400 font-bold animate-pulse';
+        try {
+            const metrics = await parseWatchFile(file);
+            if (!metrics.fc && !metrics.distance && !metrics.durationMinutes) throw new Error('Não achei FC, distância nem tempo neste arquivo.');
+            statusText.innerText = 'Arquivo ok. Confira o resumo e salve.';
+            statusText.className = 'text-xs text-green-400 font-bold';
+            renderWatchPreview(metrics);
+        } catch (err) {
+            statusText.innerText = '❌ ' + (err.message || 'Falha ao ler o arquivo');
+            statusText.className = 'text-xs text-red-400 font-bold';
+        }
+        event.target.value = '';
+    };
+
+    function plannedWeeklySets() {
+        const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
+        (currentPlan?.workouts || []).forEach(w => {
+            (w.queue || []).forEach(item => {
+                if (item.type !== 'work') return;
+                const g = (item.targetGroup || categorizeMuscleGroup(item.name) || '').toLowerCase();
+                if (map[g] === undefined) return;
+                map[g] += Math.min(6, Math.max(1, parseInt(item.sets, 10) || 3));
+            });
+        });
+        return map;
+    }
+
     function playBeep(freq = 440, duration = 150, type = 'sine') {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -2672,15 +3231,15 @@
     }
 
     function checkPostLoginPopupsSequence() {
-        const seenV52 = localStorage.getItem(`seen_v52_novelty_${currentUser.uid}`);
-        if (!seenV52) window.show('modal-v40-novelty');
+        const seenV60 = localStorage.getItem(`seen_v60_novelty_${currentUser.uid}`);
+        if (!seenV60) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
         else checkPendingWorkoutReminder();
     }
 
     window.closeV40NoveltyModal = () => {
         window.hide('modal-v40-novelty');
-        localStorage.setItem(`seen_v52_novelty_${currentUser.uid}`, 'true');
+        localStorage.setItem(`seen_v60_novelty_${currentUser.uid}`, 'true');
         checkPostLoginPopupsSequence();
     };
 
@@ -3907,6 +4466,65 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     options: { responsive: true, maintainAspectRatio: false }
                 });
             }
+
+            const ss = (typeof lastSyntheticState !== 'undefined' && lastSyntheticState) ? lastSyntheticState : await buildSyntheticStateVector();
+            const radar = computeHybridRadar(hd, ss);
+            const ctxRadar = document.getElementById('chart-radar');
+            if (ctxRadar) {
+                if (window.chartRadar) window.chartRadar.destroy();
+                window.chartRadar = new Chart(ctxRadar, {
+                    type: 'radar',
+                    data: {
+                        labels: radar.labels,
+                        datasets: [{ label: 'Hoje', data: radar.values, borderColor: '#22d3ee', backgroundColor: 'rgba(34,211,238,0.18)', pointBackgroundColor: '#22d3ee' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(148,163,184,0.2)' }, angleLines: { color: 'rgba(148,163,184,0.2)' }, pointLabels: { color: '#94a3b8', font: { size: 10 } } } }, plugins: { legend: { display: false } } }
+                });
+            }
+
+            const acwrPts = [];
+            const sortedH = [...hd].sort((a, b) => new Date(a.date) - new Date(b.date));
+            sortedH.forEach((_, idx) => {
+                acwrPts.push(calculateACWRFromHistory(sortedH.slice(0, idx + 1)).acwr);
+            });
+            const ctxAcwr = document.getElementById('chart-acwr');
+            if (ctxAcwr) {
+                if (window.chartAcwr) window.chartAcwr.destroy();
+                window.chartAcwr = new Chart(ctxAcwr, {
+                    type: 'line',
+                    data: { labels: historyLabels, datasets: [
+                        { label: 'ACWR', data: acwrPts, borderColor: '#f59e0b', tension: 0.3, fill: false },
+                        { label: 'Teto 1.5', data: historyLabels.map(() => 1.5), borderColor: '#ef4444', borderDash: [5, 5], pointRadius: 0, fill: false }
+                    ]},
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctxTrimp = document.getElementById('chart-trimp');
+            if (ctxTrimp) {
+                if (window.chartTrimp) window.chartTrimp.destroy();
+                window.chartTrimp = new Chart(ctxTrimp, {
+                    type: 'bar',
+                    data: { labels: historyLabels, datasets: [{ label: 'TRIMP', data: hd.map(d => d.trimpScore || null), backgroundColor: 'rgba(239,68,68,0.7)', borderRadius: 6 }] },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const paceNum = hd.map(d => {
+                const p = d.pace;
+                if (!p) return null;
+                const m = String(p).match(/(\d+)[:'](\d+)/);
+                return m ? parseInt(m[1], 10) + parseInt(m[2], 10) / 60 : null;
+            });
+            const ctxPace = document.getElementById('chart-pace');
+            if (ctxPace) {
+                if (window.chartPace) window.chartPace.destroy();
+                window.chartPace = new Chart(ctxPace, {
+                    type: 'line',
+                    data: { labels: historyLabels, datasets: [{ label: 'Pace (min/km)', data: paceNum, borderColor: '#22d3ee', tension: 0.3, fill: false }] },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { reverse: true } } }
+                });
+            }
         } catch(e) {}
     }
 
@@ -3942,22 +4560,23 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     </div>
                     <h4 class="text-sm font-bold text-white">${escapeHtml(h.workoutName || "")}</h4>
                     <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">
-                        <div>PSE: <strong class="text-white">${h.pse}/10</strong></div>
+                        <div>PSE: <strong class="text-white">${h.pse != null ? h.pse + '/10' : '--'}</strong></div>
                         <div>Calorias: <strong class="text-amber-400">${h.kcal ? `${h.kcal} kcal` : '--'}</strong></div>
-                        <div>FC Média/Máx: <strong class="text-pink-400">${h.fc ? `${h.fc}` : '--'} / ${h.fcMax ? `${h.fcMax} bpm` : '--'}</strong></div>
+                        <div>FC méd/máx/mín: <strong class="text-pink-400">${h.fc || '--'} / ${h.fcMax || '--'} / ${(h.watchMetrics && h.watchMetrics.fcMin) || '--'}</strong></div>
                         <div>TRIMP: <strong class="text-red-400">${h.trimpScore ? Math.round(h.trimpScore) : '--'}</strong></div>
                         <div>Corrida: <strong class="text-brand-300">${h.distance ? `${h.distance}km (${h.pace||''})` : '--'}</strong></div>
-                        <div>Carga Aguda: <strong class="text-slate-200">${(h.pse||5)*(h.durationMinutes||45)} u</strong></div>
+                        <div>Cadência: <strong class="text-slate-200">${(h.watchMetrics && h.watchMetrics.cadenceAvg) ? h.watchMetrics.cadenceAvg + ' spm' : '--'}</strong></div>
+                        <div>Subida: <strong class="text-slate-200">${(h.watchMetrics && h.watchMetrics.elevationGain) ? h.watchMetrics.elevationGain + ' m' : '--'}</strong></div>
+                        <div>Zonas: <strong class="text-green-400">${h.zoneDistribution ? `Z2 ${h.zoneDistribution.z1_z2_minutes||0}′ · Z4 ${h.zoneDistribution.z4_z5_minutes||0}′` : '--'}</strong></div>
                     </div>
-                    ${isPending ? `
-                    <button type="button" data-pending-doc="${escapeHtml(h.docId)}" class="js-pending-print w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
-                        <i class="fas fa-upload"></i> Anexar Print do Relógio Agora
-                    </button>` : ''}
+                    <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
+                        <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
+                    </button>
                     ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">"${escapeHtml(h.userFeedback)}"</p>` : ''}
                 </div>`;
             }).join('');
             listContainer.querySelectorAll('.js-pending-print').forEach(btn => {
-                btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc')));
+                btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc'), btn.getAttribute('data-wname')));
             });
         } catch(e) {}
     }
@@ -3972,10 +4591,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.generateProgressReport = async () => {
-        showLoading("Gerando Relatório Sintético v5.0...");
+        showLoading("Gerando Relatório Sintético v6.0...");
         try {
             const syntheticState = await buildSyntheticStateVector();
-            const prompt = `Atue como Apex Hybrid Coach v5.0. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), razões de ACWR, IFR na calistenia e estimativas de 1RM. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
+            const prompt = `Atue como Apex Hybrid Coach v6.0. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), ACWR, IFR, 1RM, polarizado 80/20 e dados de relógio se existirem. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
             const res = await callGemini(prompt, 'report');
             document.getElementById('progress-report-content').innerHTML = `<div class="space-y-2 text-xs text-slate-300"><p><strong>Diagnóstico Fisiológico & Marcos de Volume:</strong> ${escapeHtml(res.analysis || "")}</p><p><strong>Previsão de Supercompensação:</strong> ${escapeHtml(res.estimatedTime || "")}</p><p><strong>Próximos Passos (1RM & IFR):</strong> ${escapeHtml(res.nextSteps || "")}</p></div>`;
             hideLoading();
@@ -4176,8 +4795,11 @@ ${WORKOUT_RULES}`;
 
     window.openUploadPendingModal = (docId, workoutName) => {
         window.targetPendingDocId = docId;
-        document.getElementById('pending-modal-title').innerText = `Print: ${workoutName || "Sessão"}`;
+        window._pendingWatchMetrics = null;
+        document.getElementById('pending-modal-title').innerText = `Relógio: ${workoutName || "Sessão"}`;
         document.getElementById('pending-status-text').classList.add('hidden');
+        const prev = document.getElementById('watch-preview');
+        if (prev) { prev.classList.add('hidden'); prev.innerHTML = ''; }
         window.show('modal-pending-upload');
     };
 
