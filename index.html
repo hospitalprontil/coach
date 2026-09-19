@@ -100,6 +100,10 @@
             border: 1px solid rgba(34,211,238,.4); cursor: pointer;
             vertical-align: middle; line-height: 1; padding: 0;
         }
+        details.faq-item summary { list-style: none; cursor: pointer; }
+        details.faq-item summary::-webkit-details-marker { display: none; }
+        details.faq-item summary:after { content: '+'; color: #67e8f9; font-weight: 900; float: right; }
+        details.faq-item[open] summary:after { content: '–'; }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
@@ -943,6 +947,7 @@
         <button onclick="window.switchTab('calendar')" id="nav-calendar" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
         <button onclick="window.switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         <button onclick="window.switchTab('profile')" id="nav-profile" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-user-circle mr-1"></i> Perfil</button>
+        <button onclick="window.switchTab('faq')" id="nav-faq" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-circle-question mr-1"></i> F.A.Q</button>
     </div>
 
     <!-- Tab Content Container with Mobile Swipe Gesture Listener -->
@@ -1392,10 +1397,73 @@
                 </div>
             </div>
         </div>
+
+        <div id="tab-faq" class="space-y-3 hidden animate-fade-in pb-12">
+            <div class="glass-panel p-5 rounded-3xl border border-brand-500/40">
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.2</span>
+                <h2 class="text-base font-black text-white mt-1">Perguntas frequentes</h2>
+                <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
+            </div>
+
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Como começo o treino de hoje?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Aba Treinamento → <strong class="text-white">Como fazer este treino</strong> (se quiser ler antes) → <strong class="text-white">Iniciar Sessão</strong>. Diga energia, sono, dor e se tem menos minutos. A I.A. redesenha o dia e o motor ainda corta o que passar do limite.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Calistenia: timer ou ficha?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">São as duas na mesma sessão. <strong class="text-white">Timer</strong> = relógio (trabalho / descanso / próximo). Ele conta segundos, não “8 barras”. <strong class="text-white">Ficha</strong> = caderno (reps, extra, RIR). Use o timer para fazer e a ficha para anotar. Só timer, sem anotar: o treino conta, mas a carga não sobe depois.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">No timer é 30s barra, 30s descanso, 30s abdominal. O que eu faço?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Circuito por estações. Enquanto o trabalho corre, faça aquele exercício o tempo todo (o máximo com boa forma, ou segure se for isometria). No descanso, para. No próximo bloco, exercício novo. No fim, anote na ficha um número aproximado.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Carga é o meu peso corporal?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> Carga = barra, halter ou máquina. Na calistenia só com o corpo, deixe 0. <strong class="text-white">Extra</strong> = colete, caneleira, anilha no cinto. Flexão com 10 kg no colete → Extra = 10.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">O que é RIR? Eu que calculo?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Repetições na reserva: quantas você <strong class="text-white">ainda conseguiria</strong> no fim da série. Você sente, o app não calcula. 0 = falha. 1–2 = pesado (alvo). 3 = folga. 4 = fácil demais. O plano já sugere um número; você confirma ou muda o que sentiu.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Como é o treino de musculação?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sem timer da sessão. Cada exercício tem séries: anote carga, reps reais e RIR. Entre séries use o descanso (~90s). No fim, PSE e uma frase de como se sentiu.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">E a corrida? Tem timer?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. O app mostra o <strong class="text-white">roteiro</strong> (blocos e zonas em bpm) para você colocar no Garmin / Strava / Apple Watch. Depois registre o pós-treino e, se puder, envie o arquivo .FIT ou .GPX no Histórico. Print de tela continua como plano B.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Hoje não tenho o tempo todo. Posso enxugar?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim, em Iniciar Sessão. Informe os minutos. A I.A. recorta a sessão; o código ainda impede volume perigoso. Dá para variar o esporte do dia (calistenia / corrida / musculação), com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">“Estava pesado” no chat muda o próximo treino?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">O chat responde com o seu histórico, mas <strong class="text-white">não grava o plano</strong>. Para o próximo treino mudar de verdade, escreva isso na caixa do <strong class="text-white">pós-treino</strong> (ou no readiness do dia seguinte) e toque em Avaliar com o Coach.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Reiniciar ciclo apaga meus treinos?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> Só volta o mesociclo de 4 semanas para a Semana 1. Histórico, cargas e plano ficam. Apagar de verdade é só na Área de Perigo do Perfil (modal vermelho).</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">O que é Semana 0?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">As 3 primeiras sessões de quem acabou a triagem: conservadoras (RIR alto, sem tiro), para o motor aprender seus números. Quem já treinava no app não entra nela automaticamente.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">A I.A. usa o que eu já fiz?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim, se estiver no histórico com carga/reps/RIR (não estimado). O motor sobe ~2,5% quando o RIR ficou baixo, segura se estava fácil, e corta se a semana estourou volume ou ACWR. Sem log, o treino conta como feito e a carga não evolui.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">MEV, MAV, MRV, ACWR, 1RM — preciso decorar?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. Toque no <strong class="text-white">i</strong> ao lado do termo. Em resumo: MEV = mínimo da semana, MAV = faixa boa, MRV = teto. ACWR = se você acelerou demais vs as 4 semanas. 1RM = estimativa do seu máximo, sem testar falha.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Isso substitui médico ou personal?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> É um coach híbrido para treino. Dor aguda, lesão, exame e laudo são com profissional de saúde. O PDF do app é relatório de treino, não exame médico.</p>
+            </details>
+        </div>
     </div>
 </div>
-
-<!-- EXECUTION SCREEN 1: Bodybuilding & Weighted Calisthenics -->
 <div id="screen-bodybuilding-workout" class="fixed inset-0 z-[150] bg-dark-950 hidden flex flex-col overflow-y-auto custom-scrollbar">
     <div class="p-5 max-w-md mx-auto w-full pb-24">
         <div class="flex justify-between items-start mb-4 pb-3 border-b border-slate-800">
@@ -2054,7 +2122,7 @@
         else await requestWakeLock();
     };
 
-    const tabList = ['training', 'analysis', 'howitworks', 'progress', 'calendar', 'chat', 'profile'];
+    const tabList = ['training', 'analysis', 'howitworks', 'progress', 'calendar', 'chat', 'profile', 'faq'];
     let currentTabIndex = 0;
 
     window.$ = id => document.getElementById(id);
