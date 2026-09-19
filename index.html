@@ -2010,24 +2010,34 @@
     let currentTabIndex = 0;
 
     window.$ = id => document.getElementById(id);
+    function isOverlayEl(el) {
+        return el && el.classList.contains('fixed') && el.classList.contains('inset-0');
+    }
     window.hide = id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.classList.add('hidden');
-        el.classList.remove('flex');
-        if (el.classList.contains('fixed') && el.classList.contains('inset-0')) {
+        if (isOverlayEl(el)) {
+            el.classList.remove('flex');
             el.style.display = 'none';
             el.style.pointerEvents = 'none';
+        } else {
+            el.style.removeProperty('display');
+            el.style.removeProperty('pointer-events');
         }
     };
     window.show = id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.classList.remove('hidden');
-        if (el.classList.contains('flex-col') || (el.classList.contains('fixed') && el.classList.contains('inset-0'))) {
+        if (isOverlayEl(el)) {
             el.classList.add('flex');
             el.style.display = 'flex';
             el.style.pointerEvents = 'auto';
+        } else {
+            el.style.removeProperty('display');
+            el.style.removeProperty('pointer-events');
+            if (el.classList.contains('flex-col')) el.classList.add('flex');
         }
     };
 
@@ -3499,7 +3509,13 @@
         setTimeout(() => window.hide('alert-modal'), 300);
     };
 
-    function showLoading(text, sub = "Aguarde...") { document.getElementById('loading-text').innerText = text; document.getElementById('loading-sub').innerText = sub; window.show('loading-overlay'); }
+    function showLoading(text, sub = "Aguarde...") {
+        const t = document.getElementById('loading-text');
+        const s = document.getElementById('loading-sub');
+        if (t) t.innerText = text;
+        if (s) s.innerText = sub;
+        window.show('loading-overlay');
+    }
     function hideLoading() { window.hide('loading-overlay'); }
 
     function showScreen(screenId) {
@@ -3682,6 +3698,14 @@
         try {
             if (isSignupMode) await createUserWithEmailAndPassword(auth, email, password);
             else await signInWithEmailAndPassword(auth, email, password);
+            currentUser = auth.currentUser;
+            if (currentUser) {
+                const emailEl = document.getElementById('dash-user-email');
+                if (emailEl) emailEl.innerText = currentUser.email || '';
+                await loadUserData();
+            } else {
+                hideLoading();
+            }
         } catch (err) {
             hideLoading();
             const map = {
@@ -3707,30 +3731,54 @@
 };
 
     onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            currentUser = user; document.getElementById('dash-user-email').innerText = user.email; updateBadge('firebase', 'ok');
-            await loadUserData();
-        } else {
-            currentUser = null; userData = {}; currentPlan = null;
-            showScreen('screen-auth'); hideLoading();
+        try {
+            if (user) {
+                currentUser = user;
+                const emailEl = document.getElementById('dash-user-email');
+                if (emailEl) emailEl.innerText = user.email || '';
+                updateBadge('firebase', 'ok');
+                await loadUserData();
+            } else {
+                currentUser = null; userData = {}; currentPlan = null;
+                showScreen('screen-auth'); hideLoading();
+            }
+        } catch (err) {
+            hideLoading();
+            window.showAlert("Erro", err.message || "Falha após o login.");
         }
     });
 
+    let loadUserDataPromise = null;
     async function loadUserData() {
-        showLoading("Sincronizando v6.2...");
-        try {
-            const docSnap = await getDoc(doc(db, "users", currentUser.uid));
-            if (docSnap.exists() && docSnap.data().profile) {
-                userData = docSnap.data().profile; 
-                currentPlan = docSnap.data().plan;
-                if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
-                    renderDashboard(); showScreen('screen-dashboard');
-                    window.switchTab('training');
-                    checkPostLoginPopupsSequence();
-                } else showScreen('screen-step1-id');
-            } else { userData = {}; showScreen('screen-step1-id'); }
-            hideLoading();
-        } catch (err) { hideLoading(); window.showAlert("Erro", "Falha de comunicação com o banco."); }
+        if (loadUserDataPromise) return loadUserDataPromise;
+        loadUserDataPromise = (async () => {
+            showLoading("Sincronizando v6.2...");
+            try {
+                if (!currentUser) { showScreen('screen-auth'); return; }
+                let timeoutId;
+                const snapP = getDoc(doc(db, "users", currentUser.uid));
+                const timeoutP = new Promise((_, rej) => { timeoutId = setTimeout(() => rej(new Error("timeout")), 20000); });
+                const docSnap = await Promise.race([snapP, timeoutP]);
+                clearTimeout(timeoutId);
+                if (docSnap.exists() && docSnap.data().profile) {
+                    userData = docSnap.data().profile;
+                    currentPlan = docSnap.data().plan;
+                    if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
+                        renderDashboard();
+                        showScreen('screen-dashboard');
+                        window.switchTab('training');
+                        checkPostLoginPopupsSequence();
+                    } else showScreen('screen-step1-id');
+                } else { userData = {}; showScreen('screen-step1-id'); }
+            } catch (err) {
+                showScreen('screen-auth');
+                window.showAlert("Erro", err.message === 'timeout' ? "O banco demorou demais. Tente de novo." : "Falha de comunicação com o banco.");
+            } finally {
+                hideLoading();
+            }
+        })();
+        try { await loadUserDataPromise; }
+        finally { loadUserDataPromise = null; }
     }
 
     function checkPostLoginPopupsSequence() {
