@@ -92,6 +92,14 @@
             border-top: 1px solid rgba(34,211,238,.35);
         }
         .ver-badge:hover .ver-tip, .ver-badge.tip-open .ver-tip { opacity: 1; visibility: visible; }
+        .info-i {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 15px; height: 15px; border-radius: 999px; flex-shrink: 0;
+            font-size: 10px; font-weight: 900; font-style: italic; font-family: Georgia, serif;
+            background: rgba(34,211,238,.14); color: #67e8f9;
+            border: 1px solid rgba(34,211,238,.4); cursor: pointer;
+            vertical-align: middle; line-height: 1; padding: 0;
+        }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
@@ -141,6 +149,17 @@
             <button type="button" onclick="window.hide('modal-reset-meso')" class="flex-1 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-2xl text-xs uppercase">Cancelar</button>
             <button type="button" onclick="window.confirmResetMesocycle()" class="flex-1 bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Reiniciar ciclo</button>
         </div>
+    </div>
+</div>
+
+<div id="modal-term" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[260] hidden flex items-center justify-center p-4" onclick="if(event.target===this) window.hide('modal-term')">
+    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-5 max-w-sm w-full shadow-2xl mx-auto max-h-[82vh] flex flex-col">
+        <div class="flex justify-between items-start gap-3 mb-3">
+            <h3 id="term-title" class="text-base font-black text-white leading-tight">Ajuda</h3>
+            <button type="button" onclick="window.hide('modal-term')" class="w-8 h-8 rounded-xl bg-slate-800 text-slate-300 shrink-0">✕</button>
+        </div>
+        <div id="term-body" class="text-xs text-slate-300 leading-relaxed font-medium overflow-y-auto custom-scrollbar space-y-2 pr-1"></div>
+        <button type="button" onclick="window.hide('modal-term')" class="mt-4 w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Entendi</button>
     </div>
 </div>
 
@@ -942,6 +961,7 @@
                 <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                 <div class="flex items-center gap-2 mb-1">
                     <span class="text-[10px] bg-amber-500 text-dark-950 font-black px-2 py-0.5 rounded uppercase">MICROCICLO DE DELOAD & PROTEÇÃO ACWR</span>
+                    <button type="button" class="info-i" onclick="window.openTerm('acwr')" aria-label="O que é ACWR">i</button>
                 </div>
                 <p class="text-xs text-amber-200 font-medium leading-relaxed">Detectamos acúmulo de fadiga ou pico de carga aguda (ACWR > 1.5). A I.A. ajustou o volume em 30%-40% para proteger suas articulações.</p>
             </div>
@@ -949,7 +969,10 @@
             <div id="dash-meso-banner" class="bg-dark-900 border border-brand-500/30 p-4 rounded-3xl w-full">
                 <div class="flex items-center justify-between mb-1">
                     <span class="text-[10px] bg-brand-500/20 text-brand-300 font-black px-2 py-0.5 rounded uppercase" id="dash-meso-week">Semana 1/4 · Volume</span>
-                    <button type="button" onclick="window.resetMesocycle()" class="text-[9px] text-slate-500 underline">Reiniciar ciclo</button>
+                    <span class="flex items-center gap-2">
+                        <button type="button" class="info-i" onclick="window.openTerm('meso')" aria-label="O que é mesociclo">i</button>
+                        <button type="button" onclick="window.resetMesocycle()" class="text-[9px] text-slate-500 underline">Reiniciar ciclo</button>
+                    </span>
                 </div>
                 <p id="dash-meso-desc" class="text-xs text-slate-300 font-medium">O motor ajusta séries e RIR conforme a semana do mesociclo.</p>
             </div>
@@ -965,7 +988,8 @@
             <div id="dash-volume-landmarks" class="bg-dark-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                     <span class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2">
-                        <i class="fas fa-layer-group text-brand-400"></i> Volume Muscular Semanal (RP Landmarks)
+                        <i class="fas fa-layer-group text-brand-400"></i> Volume Muscular Semanal
+                        <button type="button" class="info-i" onclick="window.openTerm('mev')" aria-label="O que é MEV MAV MRV">i</button>
                     </span>
                     <span class="text-[9px] bg-brand-500/20 text-brand-300 border border-brand-500/40 px-2 py-0.5 rounded font-bold">Últimos 7 Dias</span>
                 </div>
@@ -983,6 +1007,7 @@
                             <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
                                 <span id="dash-nw-badge" class="bg-brand-500 text-dark-950 text-[10px] font-black uppercase px-2 py-0.5 rounded tracking-wider">PRÓXIMO TREINO: ...</span>
                                 <span id="dash-readiness-badge" class="bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1">⚡ Prontidão: --%</span>
+                                <button type="button" class="info-i" onclick="window.openTerm('prontidao')" aria-label="O que é prontidão">i</button>
                             </div>
                             <h3 id="dash-nw-title" class="text-lg font-black text-white mb-0.5">--</h3>
                             <p id="dash-nw-focus" class="text-xs text-brand-400 font-medium">--</p>
@@ -1013,6 +1038,9 @@
                     </div>
 
                     <div class="flex flex-col gap-2">
+                        <button onclick="window.openHowToWorkout()" class="w-full bg-brand-500/15 hover:bg-brand-500/25 text-brand-300 border border-brand-500/40 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
+                            <i class="fas fa-circle-question mr-1"></i> Como fazer este treino
+                        </button>
                         <button onclick="window.openWorkoutLibraryModal()" class="w-full bg-dark-950 hover:bg-slate-800 text-brand-400 border border-brand-500/30 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
                             <i class="fas fa-book-open mr-1"></i> Ver Exercícios do Dia & Guia
                         </button>
@@ -1142,7 +1170,7 @@
             <!-- ACWR Dashboard Indicator Card -->
             <div class="glass-panel p-4 rounded-3xl border border-amber-500/40 shadow-xl w-full relative overflow-hidden">
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-shield-alt text-amber-400"></i> Índice ACWR Atual</h3>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-shield-alt text-amber-400"></i> Índice ACWR Atual <button type="button" class="info-i" onclick="window.openTerm('acwr')" aria-label="O que é ACWR">i</button></h3>
                     <span id="acwr-score-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl">--</span>
                 </div>
                 <p id="acwr-status-text" class="text-xs text-slate-300 font-medium leading-relaxed">Calculando proporção de carga Aguda / Crônica...</p>
@@ -1160,7 +1188,7 @@
 
             <!-- 1RM Estimates Summary Card -->
             <div class="glass-panel p-4 rounded-3xl border border-purple-500/40 shadow-xl w-full">
-                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-dumbbell text-purple-400"></i> Estimativa de 1RM (Fórmula Unificada)</h3>
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-dumbbell text-purple-400"></i> Estimativa de 1RM <button type="button" class="info-i" onclick="window.openTerm('1rm')" aria-label="O que é 1RM">i</button></h3>
                 <div id="progress-1rm-list" class="grid grid-cols-2 gap-2 text-xs">
                     <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 text-slate-400 font-medium">Aguardando dados...</div>
                 </div>
@@ -1168,7 +1196,7 @@
 
             <!-- Weighted Calisthenics IFR Card -->
             <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
-                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-weight-hanging text-brand-400"></i> Índice de Força Relativa (IFR Weighted)</h3>
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-weight-hanging text-brand-400"></i> Índice de Força Relativa (IFR) <button type="button" class="info-i" onclick="window.openTerm('ifr')" aria-label="O que é IFR">i</button></h3>
                 <div id="progress-ifr-list" class="grid grid-cols-2 gap-2 text-xs">
                     <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800 text-slate-400 font-medium">Aguardando logs de carga extra...</div>
                 </div>
@@ -1177,7 +1205,7 @@
             <!-- FASE 2: Polarized Cardio 80/20 & TRIMP -->
             <div class="glass-panel p-4 rounded-3xl border border-amber-500/40 shadow-xl w-full">
                 <div class="flex justify-between items-center mb-3">
-                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-chart-pie text-amber-400"></i> Cardio Polarizado (80/20)</h3>
+                    <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-chart-pie text-amber-400"></i> Cardio Polarizado (80/20) <button type="button" class="info-i" onclick="window.openTerm('trimp')" aria-label="O que é TRIMP e 80/20">i</button></h3>
                     <span id="trimp-score-badge" class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded">TRIMP/sem: --</span>
                 </div>
                 <div class="w-full h-4 bg-dark-950 rounded-full flex overflow-hidden border border-slate-800 mb-2">
@@ -1665,7 +1693,7 @@
                 </div>
 
                 <div>
-                    <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-center">Esforço Geral (PSE) <span class="text-red-500">*</span></h3>
+                    <h3 class="text-xs font-bold text-white uppercase tracking-wider mb-2 text-center">Esforço Geral (PSE) <span class="text-red-500">*</span> <button type="button" class="info-i" onclick="window.openTerm('pse')" aria-label="O que é PSE">i</button></h3>
                     <div class="flex flex-wrap gap-1 justify-center" id="pse-buttons"></div>
                     <div id="pse-legend" class="text-center text-[11px] font-bold mt-2.5 text-slate-500 uppercase h-4">Selecione o nível de esforço</div>
                 </div>
@@ -3546,6 +3574,73 @@
     }
 
     window.openChangelog = () => window.show('modal-changelog');
+
+    const TERM_HELP = {
+        rir: { t: 'RIR — Repetições na Reserva', b: '<p><strong class="text-white">Quantas você ainda conseguiria</strong> no fim da série. Você sente, o app não calcula.</p><p>0 = falha. 1–2 = pesado (é o alvo da maioria das séries). 3 = sobrou folga. 4 = fácil demais, o próximo treino não sobe carga.</p>' },
+        carga: { t: 'Carga (kg)', b: '<p><strong class="text-white">Não é o seu peso corporal.</strong> É o peso da barra, halter ou máquina.</p><p>Na calistenia só com o corpo, deixe 0 ou vazio.</p>' },
+        extra: { t: 'Carga extra (kg)', b: '<p>Peso <strong class="text-white">colocado em você</strong>: colete, caneleira, anilha no cinto.</p><p>Flexão com 10 kg no colete → Extra = 10. Sem nada → 0. Serve para o IFR (força relativa).</p>' },
+        '1rm': { t: '1RM — Uma repetição máxima', b: '<p>Estimativa de quanto você levantaria <strong class="text-white">uma vez só</strong>, a partir das séries que anotou (fórmulas Epley/Brzycki).</p><p>Não precisa testar o máximo de verdade. O app usa isso para sugerir a carga da próxima ficha.</p>' },
+        ifr: { t: 'IFR — Força relativa', b: '<p>Quanto você move em relação ao <strong class="text-white">seu corpo</strong> (peso corporal + extra no colete).</p><p>É o “1RM da calistenia”. Sem anotar extra, o IFR quase não anda.</p>' },
+        acwr: { t: 'ACWR — Carga aguda / crônica', b: '<p>Compara o que você fez nesta semana com a média das últimas 4.</p><p>Perto de 1,0 = equilíbrio. Acima de 1,5 = pico; o motor corta volume (deload) para proteger articulação.</p>' },
+        mev: { t: 'MEV, MAV e MRV', b: '<p><strong class="text-white">MEV</strong> — mínimo da semana para o músculo crescer.<br><strong class="text-white">MAV</strong> — faixa boa (verde).<br><strong class="text-white">MRV</strong> — teto; passar disso é risco de não recuperar.</p><p>O app conta só série “de verdade” (RIR baixo). Aquecimento não entra.</p>' },
+        trimp: { t: 'TRIMP e 80/20', b: '<p><strong class="text-white">TRIMP</strong> é a “conta” do cardio (tempo × esforço do coração).</p><p><strong class="text-white">80/20</strong>: a maior parte da corrida deve ser fácil (Z1/Z2). Pouco tiro. Se inverter, o motor puxa de volta.</p>' },
+        pse: { t: 'PSE — Esforço percebido', b: '<p>De 1 a 10, <strong class="text-white">como o treino inteiro te pareceu</strong>, não a última série.</p><p>1 = passeio. 5 = trabalho honesto. 8–9 = muito pesado. 10 = não dava mais. Sem isso o Coach não avalia o dia.</p>' },
+        prontidao: { t: 'Prontidão', b: '<p>Nota do dia: energia (1–5) + sono + dor. Não é HRV de relógio.</p><p>Baixa → a I.A. enxuga o treino. Alta → segue o plano. Você informa isso ao tocar em Iniciar Sessão.</p>' },
+        meso: { t: 'Mesociclo (4 semanas)', b: '<p>Semana 1 volume · 2 volume alto · 3 um pouco mais intenso · 4 deload (mais leve de propósito).</p><p><strong class="text-white">Reiniciar ciclo</strong> só volta o ponteiro para a semana 1. Não apaga histórico.</p>' },
+        zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>O cartão e o arquivo do relógio usam sua FCrep (Karvonen). Corra olhando o relógio nesses bpm, não “no feeling” sozinho.</p>' },
+        eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' }
+    };
+
+    window.openTerm = (key) => {
+        const item = TERM_HELP[key];
+        if (!item) return;
+        document.getElementById('term-title').innerText = item.t;
+        document.getElementById('term-body').innerHTML = item.b;
+        window.show('modal-term');
+    };
+
+    window.openHowToWorkout = () => {
+        const nw = currentPlan?.workouts?.find(w => !w.isCompleted);
+        const mod = (nw?.modality || userData.masterAxis || 'Calistenia');
+        document.getElementById('term-title').innerText = 'Como fazer este treino';
+        let html = '';
+        if (mod === 'Corrida') {
+            html = `<p class="text-brand-400 font-black uppercase text-[10px]">Corrida</p>
+            <p>Este cartão é o <strong class="text-white">roteiro para o relógio</strong>, não um timer no celular.</p>
+            <ol class="list-decimal pl-4 space-y-1.5">
+                <li>Toque em <strong class="text-white">Iniciar Sessão</strong> e diga energia, sono, dor e se tem menos tempo hoje.</li>
+                <li>Leia os blocos (ex. 20 min Z2) e as zonas em bpm.</li>
+                <li>Programe isso no Garmin / Strava / Apple Watch e saia para correr.</li>
+                <li>Volte, registre o pós-treino (PSE) e, se puder, envie o arquivo .FIT/.GPX no Histórico.</li>
+            </ol>
+            <p class="text-slate-500">O app não conta sua passada. O relógio conta. O Coach lê o arquivo depois.</p>`;
+        } else if (mod === 'Musculação') {
+            html = `<p class="text-purple-400 font-black uppercase text-[10px]">Musculação</p>
+            <p>Não tem timer da sessão. Cada exercício é uma <strong class="text-white">ficha de séries</strong>.</p>
+            <ol class="list-decimal pl-4 space-y-1.5">
+                <li>Iniciar Sessão → diga como está hoje (pode enxugar o tempo).</li>
+                <li>Para cada série: faça as reps, anote <strong class="text-white">carga</strong> (kg da barra/halter), <strong class="text-white">reps de verdade</strong> e o <strong class="text-white">RIR</strong> que sentiu.</li>
+                <li>Toque em Descanso (cerca de 90s) entre séries.</li>
+                <li>Concluir → PSE e uma frase (“estava pesado”) para o próximo treino nascer certo.</li>
+            </ol>
+            <p class="text-slate-500">Carga ≠ seu peso. Sem anotar, o peso da próxima semana não sobe.</p>`;
+        } else {
+            html = `<p class="text-brand-400 font-black uppercase text-[10px]">Calistenia</p>
+            <p>São <strong class="text-white">duas ferramentas na mesma sessão</strong>, não dois treinos.</p>
+            <p><strong class="text-white">Timer guiado</strong> = o relógio. Trabalho 30s / descanso 30s / próximo exercício. Você só faz. Ele não conta “8 barras” — conta segundos. Nas estações, faça o máximo com boa forma enquanto o tempo corre.</p>
+            <p><strong class="text-white">Ficha</strong> = o caderno. Carga = barra/halter (na calistenia pura deixe 0). Extra = colete. Reps = o que você fez. RIR = quantas ainda daria.</p>
+            <ol class="list-decimal pl-4 space-y-1.5">
+                <li>Iniciar Sessão (energia, sono, dor, tempo).</li>
+                <li>Olhe o alvo na ficha (ex. 3×8 barras).</li>
+                <li>Opcional: <em>Usar Timer Guiado</em> — circule as estações.</li>
+                <li>Volte na ficha, anote o que aconteceu, salve, vá ao pós-treino.</li>
+            </ol>
+            <p class="text-slate-500">Só timer, sem anotar: o treino conta, mas o motor não evolui a carga. Só ficha, sem timer: também vale — você conta as séries.</p>`;
+        }
+        document.getElementById('term-body').innerHTML = html;
+        window.show('modal-term');
+    };
+
     window.toggleDangerAccordion = () => {
         const content = document.getElementById('danger-accordion-content');
         const arrow = document.getElementById('accordion-arrow');
@@ -4376,11 +4471,11 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
                     </div>
                     <div class="grid grid-cols-4 gap-2 items-center">
                         <div>
-                            <span class="text-[8px] text-slate-500 font-bold uppercase block mb-0.5">Carga (kg)</span>
+                            <span class="text-[8px] text-slate-500 font-bold uppercase block mb-0.5">Carga (kg) <button type="button" class="info-i" onclick="window.openTerm('carga')">i</button></span>
                             <input type="number" step="0.5" id="bb-weight-${exIdx}-${s}" value="${prefillLoad}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="Ex: 20" class="w-full bg-dark-900 border border-slate-700 rounded-lg p-1.5 text-center text-xs text-white font-bold outline-none">
                         </div>
                         <div>
-                            <span class="text-[8px] text-amber-400 font-bold uppercase block mb-0.5">+ Extra (kg)</span>
+                            <span class="text-[8px] text-amber-400 font-bold uppercase block mb-0.5">+ Extra <button type="button" class="info-i" onclick="window.openTerm('extra')">i</button></span>
                             <input type="number" step="0.5" id="bb-added-${exIdx}-${s}" value="${prefillAdded}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="0" class="w-full bg-dark-900 border border-amber-500/40 rounded-lg p-1.5 text-center text-xs text-amber-300 font-bold outline-none">
                         </div>
                         <div>
@@ -4388,7 +4483,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
                             <input type="number" id="bb-reps-${exIdx}-${s}" value="${prefillReps}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="8" class="w-full bg-dark-900 border border-slate-700 rounded-lg p-1.5 text-center text-xs text-white font-bold outline-none">
                         </div>
                         <div>
-                            <span class="text-[8px] text-purple-400 font-bold uppercase block mb-0.5">RIR</span>
+                            <span class="text-[8px] text-purple-400 font-bold uppercase block mb-0.5">RIR <button type="button" class="info-i" onclick="window.openTerm('rir')">i</button></span>
                             <select id="bb-rir-${exIdx}-${s}" onchange="window.updateLive1RM(${exIdx}, ${s})" class="w-full bg-dark-900 border border-purple-500/40 rounded-lg p-1.5 text-center text-xs text-purple-300 font-bold outline-none">
                                 <option value="0"${prefillRir==='0'?' selected':''}>0 (Falha)</option>
                                 <option value="1"${prefillRir==='1'?' selected':''}>1</option>
@@ -4496,7 +4591,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
 
         let html = `
         <div class="bg-dark-900 border border-slate-800 rounded-3xl p-4 space-y-3">
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Zonas Karvonen (FCrep ${rhr} · FCmáx ${fcMax})</h4>
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2"><i class="fas fa-heartbeat text-red-500"></i> Zonas Karvonen (FCrep ${rhr} · FCmáx ${fcMax}) <button type="button" class="info-i" onclick="window.openTerm('zonas')">i</button></h4>
             <p class="text-[10px] text-slate-500">Mesma régua do arquivo .FIT — % da reserva cardíaca, não só % da máxima.</p>
             <div class="grid grid-cols-2 gap-2 text-[10px] font-bold">
                 <div class="bg-dark-950 p-2 rounded-xl border border-slate-800 text-slate-400">Z1 (Recuperação): <span class="text-white">${z1Val[0]}-${z1Val[1]} bpm</span></div>
