@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  APEX HYBRID v6.0  |  FASE 4 — VISUALIZAÇÃO + RELÓGIO + PDF
+  APEX HYBRID v6.1  |  CADÊNCIA — PROGRESSÃO + MESOCICLO + TESTE
   ============================================================================
   JUNTAR: BLOCO 1 + BLOCO 2 + BLOCO 3 nesta ordem, em UM único arquivo .html
 
@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.0 - Apex Hybrid Fase 4</title>
+    <title>AI Coach Híbrido v6.1 - Apex Hybrid Cadência</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -131,7 +131,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.0 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.1 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -145,24 +145,25 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.0</span>
-                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Fase 4 — Centro de Inteligência</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.1</span>
+                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Cadência — o mesmo exercício, um pouco mais</h2>
                 </div>
             </div>
         </div>
 
         <div class="p-5 space-y-3 overflow-y-auto custom-scrollbar">
             <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                O app subiu para o <strong class="text-brand-400">A.I Coach v6.0 (Fase 4)</strong>. Conta e histórico continuam no mesmo banco. Agora você vê e exporta o que o motor já calculava:
+                O app subiu para o <strong class="text-brand-400">A.I Coach v6.1</strong>. Histórico intacto. O motor agora <em>progride</em> o que você já fez:
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
-                <div class="flex items-start gap-2.5"><i class="fas fa-file-arrow-up text-amber-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Arquivo do relógio:</strong> .FIT / .GPX / .TCX no lugar do print. FC segundo a segundo, zonas reais, TRIMP, pace, cadência, subida.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-spider text-brand-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Radar híbrido:</strong> força relativa, 1RM, aeróbico, core e equilíbrio 80/20 num gráfico só.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-file-pdf text-red-400 mt-0.5 shrink-0"></i><span><strong class="text-white">PDF de treino:</strong> relatório para o personal/fisio — não é laudo médico.</span></div>
-                <div class="flex items-start gap-2.5"><i class="fas fa-chart-line text-purple-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Tendências:</strong> ACWR, TRIMP e pace ao longo das semanas, além das barras MEV/MAV/MRV (feito × plano).</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-arrow-up text-brand-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Mesmo exercício:</strong> RIR ≤ 2 sobe ~2,5% (ou +1 rep). RIR 0 desce 5%. RIR alto mantém.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-calendar-week text-amber-400 mt-0.5 shrink-0"></i><span><strong class="text-white">4 semanas:</strong> volume → volume alto → intensidade → deload planejado. ACWR continua como freio.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-list-ol text-purple-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Série efetiva:</strong> só RIR ≤ 3 no MEV. Aquecimento (HRR < 60%) não entra no 80/20.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-stopwatch text-pink-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Dia de teste:</strong> 3–5 RM, máximo de calistenia ou 3/5 km a cada ~6 semanas.</span></div>
+                <div class="flex items-start gap-2.5"><i class="fas fa-person-running text-green-400 mt-0.5 shrink-0"></i><span><strong class="text-white">Corrida opcional:</strong> desmarque no perfil se o híbrido for só força.</span></div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v6.0 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.1 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -300,7 +301,20 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.0 Fase 4 — Centro de Inteligência</span>
+                    <span class="font-black text-brand-400 text-sm">v6.1 Cadência — progressão real</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Progressão do mesmo exercício pelo último RIR.<br>
+                    • Mesociclo 4 semanas (volume → intensidade → deload).<br>
+                    • Série efetiva só RIR ≤ 3; aquecimento fora do 80/20.<br>
+                    • Dia de teste 3–5RM / calistenia / 3–5 km.<br>
+                    • Corrida opcional no perfil.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-xs">v6.0 Fase 4 — Centro de Inteligência</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -384,15 +398,14 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); this.classList.toggle('tip-open');" onmouseleave="this.classList.remove('tip-open')">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.0</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.1</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.0 · Fase 4</strong>
-                    • Arquivo do relógio: FIT, GPX ou TCX.<br>
-                    • Zonas reais pela FC segundo a segundo.<br>
-                    • Radar híbrido (6 eixos).<br>
-                    • PDF para o profissional.<br>
-                    • Tendências de ACWR, TRIMP e pace.<br>
-                    • Feito × plano nas barras de volume.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.1 · Cadência</strong>
+                    • Progressão do mesmo exercício (RIR).<br>
+                    • Mesociclo de 4 semanas.<br>
+                    • Série efetiva só com RIR ≤ 3.<br>
+                    • Dia de teste (3–5RM / 3–5 km).<br>
+                    • Corrida opcional no perfil.<br>
                     <span class="text-slate-500 block mt-1.5">Passe o mouse · toque no selo para fixar</span>
                 </span>
             </span>
@@ -462,7 +475,7 @@
         </div>
         <h2 class="text-2xl font-black text-white">Bem-vindo(a), <span id="welcome-nick-display" class="text-brand-400">Aluno</span>!</h2>
         <div class="text-xs text-slate-300 space-y-3 leading-relaxed text-left bg-dark-950 p-4 rounded-2xl border border-slate-800 font-medium">
-            <p><strong class="text-white">Este é o Apex Hybrid Coach v6.0.</strong></p>
+            <p><strong class="text-white">Este é o Apex Hybrid Coach v6.1.</strong></p>
             <p>Combine <strong class="text-brand-400">Calistenia</strong>, <strong class="text-amber-400">Corrida Autônoma</strong> e <strong class="text-purple-400">Musculação com RIR e Marcos de Volume (MEV/MAV/MRV)</strong>.</p>
             <p>A I.A. gerencia o acúmulo de séries efetivas semanais e calcula $1RM$ unificado por fórmula otimizada.</p>
         </div>
@@ -803,14 +816,13 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                     <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge" onclick="event.stopPropagation(); this.classList.toggle('tip-open');" onmouseleave="this.classList.remove('tip-open')">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-help hover:bg-brand-500/30">v6.0</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-help hover:bg-brand-500/30">v6.1</span>
                         <span class="ver-tip text-[11px] text-slate-300 leading-relaxed normal-case tracking-normal font-medium" style="left: auto; right: 0; transform: none;">
-                            <strong class="text-brand-400 block mb-1.5">Novidades v6.0 · Fase 4</strong>
-                            • FIT / GPX / TCX do relógio.<br>
-                            • Radar híbrido de capacidades.<br>
-                            • PDF de relatório de treino.<br>
-                            • Tendências ACWR, TRIMP e pace.<br>
-                            • Volume feito × plano da semana.
+                            <strong class="text-brand-400 block mb-1.5">Novidades v6.1 · Cadência</strong>
+                            • O mesmo exercício sobe se o RIR ficou baixo.<br>
+                            • Mesociclo de 4 semanas com deload planejado.<br>
+                            • Só série dura (RIR ≤ 3) conta no volume.<br>
+                            • Dia de teste a cada ~6 semanas.
                         </span>
                     </span>
                 </h1>
@@ -856,6 +868,21 @@
                     <span class="text-[10px] bg-amber-500 text-dark-950 font-black px-2 py-0.5 rounded uppercase">MICROCICLO DE DELOAD & PROTEÇÃO ACWR</span>
                 </div>
                 <p class="text-xs text-amber-200 font-medium leading-relaxed">Detectamos acúmulo de fadiga ou pico de carga aguda (ACWR > 1.5). A I.A. ajustou o volume em 30%-40% para proteger suas articulações.</p>
+            </div>
+
+            <div id="dash-meso-banner" class="bg-dark-900 border border-brand-500/30 p-4 rounded-3xl w-full">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-[10px] bg-brand-500/20 text-brand-300 font-black px-2 py-0.5 rounded uppercase" id="dash-meso-week">Semana 1/4 · Volume</span>
+                    <button type="button" onclick="window.resetMesocycle()" class="text-[9px] text-slate-500 underline">Reiniciar ciclo</button>
+                </div>
+                <p id="dash-meso-desc" class="text-xs text-slate-300 font-medium">O motor ajusta séries e RIR conforme a semana do mesociclo.</p>
+            </div>
+
+            <div id="dash-test-banner" class="hidden bg-purple-950/40 border border-purple-500/40 p-4 rounded-3xl w-full">
+                <div class="flex items-center justify-between gap-2">
+                    <p class="text-xs text-purple-100 font-medium leading-relaxed">Mais de 6 semanas sem teste. Um 3–5 RM, um máximo de calistenia ou um 3/5 km ancora a carga e o pace.</p>
+                    <button type="button" onclick="window.openTestDayModal()" class="shrink-0 bg-purple-500 text-white text-[10px] font-black px-3 py-2 rounded-xl uppercase">Testar</button>
+                </div>
             </div>
 
             <!-- NEW FASE 1 COMPONENT: Weekly Volume Landmarks Summary -->
@@ -947,12 +974,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.0 · Fase 4</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.1 · Cadência</span>
                         <h2 class="text-base font-black text-white">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou (carga, séries, coração, dores). A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. Na Fase 4 você <strong class="text-white">vê</strong> isso em gráfico e pode mandar um PDF para o profissional.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou (carga, séries, coração, dores). A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. No v6.1 o motor <strong class="text-white">sobe a carga do mesmo exercício</strong> quando o RIR ficou baixo, organiza 4 semanas (volume → intensidade → deload) e pede um dia de teste de vez em quando.
                 </p>
             </div>
 
@@ -1115,6 +1142,7 @@
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-brain text-purple-400"></i> Relatório de Progresso</h3>
                     <div class="flex gap-1.5">
                         <button onclick="window.generateProgressReport()" class="bg-purple-500/20 hover:bg-purple-500/40 text-purple-400 border border-purple-500/50 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors">Gerar I.A.</button>
+                        <button onclick="window.openTestDayModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-[10px] font-bold px-3 py-1.5 rounded-xl">Dia de teste</button>
                         <button onclick="window.exportTrainingPdf()" class="bg-red-500/20 hover:bg-red-500/40 text-red-300 border border-red-500/40 text-[10px] font-bold px-3 py-1.5 rounded-xl transition-colors"><i class="fas fa-file-pdf mr-1"></i>PDF</button>
                     </div>
                 </div>
@@ -1192,7 +1220,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.0 Apex</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.1 Apex</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -1205,6 +1233,10 @@
                         <input type="text" id="prof-nick" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
                     </div>
                     <button onclick="window.saveProfileInfo()" class="w-full bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold py-2.5 rounded-xl transition-colors mt-2">Salvar Nome</button>
+                    <label class="flex items-start gap-2.5 mt-3 bg-dark-950 border border-slate-800 rounded-xl p-3 cursor-pointer">
+                        <input type="checkbox" id="prof-include-running" class="mt-0.5 accent-cyan-400" checked>
+                        <span class="text-[11px] text-slate-300 font-medium">Incluir corrida na semana híbrida. Desmarque se o eixo for só força/calistenia.</span>
+                    </label>
                 </div>
             </div>
 
@@ -1672,6 +1704,36 @@
     </div>
 </div>
 
+<div id="modal-test-day" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[192] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto space-y-3 max-h-[88vh] overflow-y-auto">
+        <div class="flex justify-between items-center">
+            <h3 class="text-sm font-black text-white">Dia de teste</h3>
+            <button onclick="window.hide('modal-test-day')" class="text-slate-400"><i class="fas fa-times"></i></button>
+        </div>
+        <p class="text-[11px] text-slate-400">Não substitui o treino da fila. Atualiza 1RM, IFR ou o pace de Z2. Sem 1RM verdadeiro de risco — use 3 a 5 reps.</p>
+        <label class="text-[10px] text-slate-500 font-bold uppercase block">Tipo</label>
+        <select id="test-type" onchange="window.toggleTestFields()" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <option value="rm35">Musculação · 3–5 RM</option>
+            <option value="calmax">Calistenia · máximo ou IFR</option>
+            <option value="run3k">Corrida · 3 km</option>
+            <option value="run5k">Corrida · 5 km</option>
+        </select>
+        <div id="test-fields-lift" class="space-y-2">
+            <input id="test-ex-name" placeholder="Exercício (ex: Agachamento)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <div class="grid grid-cols-3 gap-2">
+                <input id="test-weight" type="number" step="0.5" placeholder="kg barra" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+                <input id="test-added" type="number" step="0.5" placeholder="+ extra" class="bg-dark-950 border border-amber-500/40 rounded-xl p-2.5 text-xs text-amber-200">
+                <input id="test-reps" type="number" placeholder="reps 3–5" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            </div>
+        </div>
+        <div id="test-fields-run" class="space-y-2 hidden">
+            <input id="test-time-min" type="number" step="0.1" placeholder="Tempo total (min)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <input id="test-fc" type="number" placeholder="FC média (opcional)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+        </div>
+        <button type="button" onclick="window.saveTestDay()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar teste</button>
+    </div>
+</div>
+
 <!-- BLOCO 4: MODAL PARA IMPORTAÇÃO RETROSPECTIVA DE PRINT PENDENTE -->
 <div id="modal-pending-upload" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[190] hidden flex items-center justify-center p-4">
     <div class="bg-dark-900 border border-amber-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl relative overflow-hidden mx-auto">
@@ -1761,8 +1823,12 @@
     5. DELOAD: Se acwr_score > 1.5 o código JÁ corta volume. Não ignore isso. Sessão deve ser [MICROCICLO DE DELOAD].
     6. DOR: substitua o padrão que estressa a articulação de joint_stress_index / readiness.sore.
     7. FILA: cada item work/rest com duration em SEGUNDOS. Itens work DEVEM trazer sets, reps, rirTarget, targetGroup e, se possível, pct1RM ou loadKg.
-    8. HÍBRIDO: eixo mestre ~50-60% da semana; inclua 1 sessão Z2 se o cardio polarizado estiver pobre em Z1/Z2.
-    9. DESCANSO: força 150-180s, hipertrofia 75-120s, skill/isometria 30-45s. NÃO comprima descanso para caber no relógio — o motor ajusta o trabalho.`;
+    8. HÍBRIDO: eixo mestre ~50-60% da semana. Só inclua corrida se include_running !== false.
+    9. DESCANSO: força 150-180s, hipertrofia 75-120s, skill/isometria 30-45s. NÃO comprima descanso para caber no relógio — o motor ajusta o trabalho.
+    10. PROGRESSÃO: use last_lifts. RIR≤2 sobe ~2,5% (ou +1 rep na calistenia); RIR≥4 mantém; RIR 0 desce ~5%. Não invente carga se last_lifts existir.
+    11. MESOCICLO 4 SEMANAS (mesocycle_week): 1 volume (RIR alto, sem Z4); 2 volume alto; 3 intensidade (RIR baixo, 1 estímulo); 4 deload planejado −30% séries, sem tiro. O deload de ACWR continua como freio.
+    12. SÉRIE EFETIVA: só RIR≤3 conta no MEV. Aquecimento (RIR≥5 ou HRR<60%) não entra no 80/20.
+    13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.`;
 
     let currentUser = null;
     let userData = {};
@@ -1987,6 +2053,7 @@
 
     function zoneBucketFromFc(fcAvg) {
         const p = hrReservePct(fcAvg);
+        if (p < 0.60) return 'warmup';
         if (p < 0.70) return 'z1z2';
         if (p < 0.80) return 'z3';
         return 'z4z5';
@@ -1997,11 +2064,13 @@
         if (dur <= 0) return null;
         if (fcAvg && parseFloat(fcAvg) > 0) {
             const b = zoneBucketFromFc(fcAvg);
+            if (b === 'warmup') return null;
             if (b === 'z1z2') return { z1_z2_minutes: dur, z3_minutes: 0, z4_z5_minutes: 0, source: 'hr' };
             if (b === 'z3') return { z1_z2_minutes: 0, z3_minutes: dur, z4_z5_minutes: 0, source: 'hr' };
             return { z1_z2_minutes: 0, z3_minutes: 0, z4_z5_minutes: dur, source: 'hr' };
         }
         const p = parseFloat(pse) || 5;
+        if (p <= 2) return null;
         if (p <= 4) return { z1_z2_minutes: dur, z3_minutes: 0, z4_z5_minutes: 0, source: 'pse' };
         if (p <= 6) return { z1_z2_minutes: 0, z3_minutes: dur, z4_z5_minutes: 0, source: 'pse' };
         return { z1_z2_minutes: 0, z3_minutes: 0, z4_z5_minutes: dur, source: 'pse' };
@@ -2078,13 +2147,14 @@
         historyData.forEach(item => {
             const itemDate = new Date(item.date);
             if ((now - itemDate) > sevenDaysMs) return;
+            if (item.isTestDay) return;
             if (item.exerciseLogs && Array.isArray(item.exerciseLogs)) {
                 item.exerciseLogs.forEach(log => {
                     if (log.estimated) return;
                     const reps = parseInt(log.reps, 10);
                     if (!reps || reps <= 0) return;
                     const rir = (log.rir === undefined || log.rir === null) ? 2 : parseInt(log.rir, 10);
-                    if (rir <= 4) {
+                    if (rir <= 3) {
                         const group = log.targetGroup ? log.targetGroup.toLowerCase() : categorizeMuscleGroup(log.name);
                         if (volumeMap[group] !== undefined) volumeMap[group] += 1;
                     }
@@ -2295,6 +2365,119 @@
         return items;
     }
 
+    function normExName(n) {
+        return String(n || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+    }
+    function roundToPlate(kg, step) {
+        if (kg == null || isNaN(kg) || kg <= 0) return kg;
+        return Math.round(kg / step) * step;
+    }
+    function parsePaceToSec(p) {
+        const m = String(p || '').match(/(\d+)[:'](\d+)/);
+        return m ? parseInt(m[1], 10) * 60 + parseInt(m[2], 10) : null;
+    }
+    function formatPaceSec(s) {
+        if (s == null || isNaN(s) || s <= 0) return null;
+        const m = Math.floor(s / 60);
+        const sec = Math.round(s % 60);
+        return `${m}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function ensureMesocycleStart() {
+        if (!currentPlan) return new Date().toISOString();
+        if (!currentPlan.mesocycleStart) {
+            currentPlan.mesocycleStart = new Date().toISOString();
+            if (currentUser) { try { saveFullState(); } catch (e) {} }
+        }
+        return currentPlan.mesocycleStart;
+    }
+    function getMesocycleState() {
+        const startIso = ensureMesocycleStart();
+        const start = new Date(startIso);
+        const days = Math.max(0, (Date.now() - start.getTime()) / 86400000);
+        const week = (Math.floor(days / 7) % 4) + 1;
+        const table = {
+            1: { name: 'Volume', setsMul: 1, rirDelta: 1, allowZ4: false, desc: 'MAV baixo · RIR mais alto · só Z2' },
+            2: { name: 'Volume alto', setsMul: 1.15, rirDelta: 0, allowZ4: false, desc: 'Mais séries · ainda polarizado' },
+            3: { name: 'Intensidade', setsMul: 0.9, rirDelta: -1, allowZ4: true, desc: 'RIR baixo · um estímulo forte' },
+            4: { name: 'Deload planejado', setsMul: 0.7, rirDelta: 2, allowZ4: false, desc: '−30% séries · sem tiro' }
+        };
+        return { week, start: startIso, ...table[week] };
+    }
+
+    function collectLastLifts(historyData) {
+        const map = {};
+        if (!Array.isArray(historyData)) return map;
+        const sorted = [...historyData].filter(h => !h.isTestDay || h.exerciseLogs).sort((a, b) => new Date(b.date) - new Date(a.date));
+        sorted.forEach(h => {
+            (h.exerciseLogs || []).forEach(log => {
+                if (!log.name || log.estimated) return;
+                const key = normExName(log.name);
+                if (map[key]) return;
+                const reps = parseInt(log.reps, 10) || 0;
+                if (reps <= 0) return;
+                const rir = (log.rir === undefined || log.rir === null) ? 2 : parseInt(log.rir, 10);
+                const bar = parseFloat(log.weight) || 0;
+                const added = parseFloat(log.addedLoadKg) || 0;
+                map[key] = { name: log.name, reps, rir, weight: bar, addedLoadKg: added, date: h.date };
+            });
+        });
+        return map;
+    }
+
+    function progressFromLast(last, isCal) {
+        if (!last) return null;
+        const step = isCal ? 1.25 : 2.5;
+        const baseBar = last.weight || 0;
+        const baseAdd = last.addedLoadKg || 0;
+        const rir = last.rir;
+        let bar = baseBar, add = baseAdd, reps = last.reps, note = 'mantém';
+        if (rir <= 0) {
+            if (isCal && baseBar <= 0) { add = Math.max(0, roundToPlate(baseAdd * 0.95, step)); note = 'RIR 0 → −5% extra'; }
+            else { bar = roundToPlate(baseBar * 0.95, step); note = 'RIR 0 → −5% carga'; }
+        } else if (rir <= 2) {
+            if (isCal && baseBar <= 0 && baseAdd <= 0) {
+                reps = Math.min(20, last.reps + 1);
+                note = 'RIR≤2 → +1 rep';
+            } else if (isCal && baseBar <= 0) {
+                add = roundToPlate(baseAdd * 1.025, step);
+                if (add === baseAdd) add = roundToPlate(baseAdd + step, step);
+                note = 'RIR≤2 → +2,5% extra';
+            } else {
+                bar = roundToPlate(baseBar * 1.025, step);
+                if (bar === baseBar) bar = roundToPlate(baseBar + step, step);
+                note = 'RIR≤2 → +2,5% carga';
+            }
+        } else if (rir >= 4) {
+            note = 'RIR alto → mesma carga';
+        } else {
+            note = 'RIR 3 → mesma carga';
+        }
+        return { loadKg: bar || null, addedLoadKg: add || null, reps, rirTarget: Math.max(1, Math.min(3, rir <= 0 ? 2 : rir)), note };
+    }
+
+    function z2PaceSuggestion(historyData) {
+        if (!Array.isArray(historyData)) return null;
+        const tests = historyData.filter(h => h.isTestDay && (h.testType === 'run5k' || h.testType === 'run3k') && h.pace)
+            .sort((a, b) => new Date(b.date) - new Date(a.date));
+        if (tests.length) {
+            const sec = parsePaceToSec(tests[0].pace);
+            if (sec) return formatPaceSec(sec + (tests[0].testType === 'run3k' ? 90 : 75));
+        }
+        const easyRuns = historyData.filter(h => h.modality === 'Corrida' && h.pace && (h.zoneDistribution?.z4_z5_minutes || 0) < 3)
+            .sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
+        if (easyRuns.length >= 2) return easyRuns[0].pace;
+        return easyRuns[0]?.pace || null;
+    }
+
+    function daysSinceLastTest(historyData) {
+        const tests = (historyData || []).filter(h => h.isTestDay);
+        if (userData.lastTestDate) tests.push({ date: userData.lastTestDate });
+        if (!tests.length) return 999;
+        const latest = tests.reduce((a, b) => new Date(a.date) > new Date(b.date) ? a : b);
+        return Math.floor((Date.now() - new Date(latest.date).getTime()) / 86400000);
+    }
+
     function applyDeterministicCoachingGuards(workout, syntheticState, opts = {}) {
         if (!workout) return workout;
         if (workout._guardApplied && !opts.force) return workout;
@@ -2303,20 +2486,23 @@
         const auto = ss.autonomic_recovery || {};
         const acwr = ss.acwr_score || 1;
         const weekly = ss.weekly_effective_sets || {};
+        const meso = ss.mesocycle || getMesocycleState();
+        const lastLifts = ss.last_lifts || {};
+        const z2pace = ss.z2_pace_suggestion || null;
         workout.queue = Array.isArray(workout.queue) ? workout.queue.map(q => ({ ...q })) : [];
         workout.modality = workout.modality || userData.masterAxis || 'Calistenia';
         const original = workout.queue.slice();
 
-        if (workout.modality === 'Corrida' && conflict.is_high_intensity_run_allowed === false) {
+        if (workout.modality === 'Corrida' && (conflict.is_high_intensity_run_allowed === false || meso.allowZ4 === false)) {
             workout.queue = workout.queue.map(item => {
                 if (item.type !== 'work') return item;
                 const txt = `${item.name} ${item.roundInfo || ''}`.toLowerCase();
                 if (/z4|z5|tiro|sprint|interval|hiit|vo2/.test(txt)) {
-                    return { ...item, name: 'Rodagem Z2 regenerativa', roundInfo: 'Z1/Z2 — motor bloqueou tiro (perna <24h)', duration: item.duration };
+                    return { ...item, name: 'Rodagem Z2 regenerativa', roundInfo: z2pace ? `Z2 · ${z2pace}/km` : 'Z1/Z2 — sem tiro nesta semana', duration: item.duration };
                 }
-                return { ...item, roundInfo: (item.roundInfo || 'Z2') + ' • teto regenerativo' };
+                return { ...item, roundInfo: z2pace ? `Z2 · ${z2pace}/km` : ((item.roundInfo || 'Z2') + (meso.allowZ4 ? '' : ' · teto Z2')) };
             });
-            workout.focus = (workout.focus || 'Corrida') + ' · Z1/Z2 (anti-interferência)';
+            if (!meso.allowZ4) workout.focus = (workout.focus || 'Corrida') + ' · Z1/Z2';
         }
 
         if ((workout.modality === 'Musculação' || workout.modality === 'Calistenia') && conflict.is_heavy_legs_allowed === false) {
@@ -2328,28 +2514,50 @@
             if (filtered.filter(i => i.type === 'work').length >= 2) workout.queue = filtered;
         }
 
+        workout.queue = workout.queue.map(item => {
+            if (item.type !== 'work') return item;
+            let sets = Math.max(2, Math.round((parseInt(item.sets, 10) || 3) * (meso.setsMul || 1)));
+            let rir = Math.max(1, Math.min(4, (parseInt(item.rirTarget, 10) || 2) + (meso.rirDelta || 0)));
+            const isCal = looksLikeCalisthenics(item.name) || workout.modality === 'Calistenia';
+            const last = lastLifts[normExName(item.name)];
+            const prog = progressFromLast(last, isCal);
+            const next = { ...item, sets, rirTarget: rir };
+            if (prog) {
+                if (prog.loadKg) next.loadKg = prog.loadKg;
+                if (prog.addedLoadKg) next.addedLoadKg = prog.addedLoadKg;
+                if (prog.reps) next.reps = prog.reps;
+                next.roundInfo = `${item.roundInfo || ''} · ${prog.note}`.trim();
+            }
+            return next;
+        });
+
         if (workout.modality !== 'Corrida') {
             const filtered = workout.queue.filter(item => {
                 if (item.type !== 'work') return true;
                 const g = (item.targetGroup || categorizeMuscleGroup(item.name) || '').toLowerCase();
                 const lm = VOLUME_LANDMARKS[g];
                 if (!lm) return true;
-                return (weekly[g] || 0) < lm.mrv;
+                const plannedSets = parseInt(item.sets, 10) || 3;
+                return ((weekly[g] || 0) + plannedSets) <= lm.mrv;
             });
             if (filtered.filter(i => i.type === 'work').length >= 2) workout.queue = filtered;
         }
 
-        const isDeload = acwr > 1.5 || auto.ans_status === 'SYMPATHETIC_DOMINANCE';
+        const emergencyDeload = acwr > 1.5 || auto.ans_status === 'SYMPATHETIC_DOMINANCE';
+        const plannedDeload = meso.week === 4;
+        const isDeload = emergencyDeload || plannedDeload;
         workout.isDeloadSession = isDeload;
-        if (isDeload) {
+        if (emergencyDeload && !plannedDeload) {
             workout.queue = workout.queue.map(item => {
                 if (item.type === 'work') {
                     const sets = Math.max(2, Math.round((parseInt(item.sets, 10) || 3) * 0.65));
                     const rir = Math.min(4, (parseInt(item.rirTarget, 10) || 2) + 1);
-                    return { ...item, sets, rirTarget: rir, duration: Math.max(20, Math.round((item.duration || 60) * 0.65)), roundInfo: ((item.roundInfo || '') + ' · deload').trim() };
+                    return { ...item, sets, rirTarget: rir, duration: Math.max(20, Math.round((item.duration || 60) * 0.65)), roundInfo: ((item.roundInfo || '') + ' · deload ACWR').trim() };
                 }
                 return { ...item, duration: Math.min(180, Math.round((item.duration || 60) * 1.1)) };
             });
+        }
+        if (isDeload) {
             workout.name = (workout.name || 'Sessão').replace(/\[MICROCICLO DE DELOAD\]/ig, '').replace(/\[DELOAD\]/ig, '').trim();
             workout.name = `[DELOAD] ${workout.name}`;
         }
@@ -2362,6 +2570,7 @@
         workout.estimatedMinutes = parseInt(mins, 10) || 45;
         workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes);
         workout._guardApplied = true;
+        workout.mesocycleWeek = meso.week;
         return workout;
     }
 
@@ -2372,19 +2581,22 @@
         const conflict = ss.mTORC1_AMPK_conflict || {};
         const cardio = ss.cardio_polarized_distribution || {};
         const acwr = ss.acwr_score || 1;
+        const wantRun = userData.includeRunning !== false;
         if (acwr > 1.5) return master;
-        if ((cardio.z1z2 || 0) < 70 && (counts.Corrida || 0) < 2 && lastModality !== 'Corrida') {
+        if (wantRun && (cardio.z1z2 || 0) < 70 && (counts.Corrida || 0) < 2 && lastModality !== 'Corrida') {
             return 'Corrida';
         }
-        const others = ['Calistenia', 'Musculação', 'Corrida'].filter(m => m !== master);
+        const others = ['Calistenia', 'Musculação', 'Corrida'].filter(m => m !== master && (wantRun || m !== 'Corrida'));
         const masterCount = counts[master] || 0;
         const total = Object.values(counts).reduce((a, b) => a + b, 0) || 0;
         if (total >= 2 && masterCount / Math.max(total, 1) > 0.7 && lastModality === master) {
             let alt = others.sort((a, b) => (counts[a] || 0) - (counts[b] || 0))[0];
             if (alt === 'Musculação' && conflict.is_heavy_legs_allowed === false) alt = 'Calistenia';
+            if (alt === 'Corrida' && !wantRun) alt = 'Calistenia';
             return alt || master;
         }
         if (master === 'Musculação' && conflict.is_heavy_legs_allowed === false) return 'Calistenia';
+        if (master === 'Corrida' && !wantRun) return 'Calistenia';
         return master;
     }
 
@@ -2480,12 +2692,15 @@
             });
             const cardioSplit = calculatePolarizedCardioSplit(historyData);
             const interferenceData = calculateInterferenceAndAutonomicStatus(historyData, userData);
+            const meso = getMesocycleState();
+            const lastLifts = collectLastLifts(historyData);
+            const daysTest = daysSinceLastTest(historyData);
             const syntheticState = {
                 "1RM_Estimates": estimates1RM,
                 "IFR_Weighted_Calisthenics": ifrWeightedMap,
                 "IFR_note": "Razão (BW+carga extra)/BW — progresso de calistenia com peso, não 1RM/massa alométrico.",
                 "acwr_score": acwr,
-                "is_deload": acwr > 1.5,
+                "is_deload": acwr > 1.5 || meso.week === 4,
                 "weekly_effective_sets": weeklyVolumeMap,
                 "volume_landmarks_status": volumeLandmarksStatus,
                 "volume_landmarks_table": VOLUME_LANDMARKS,
@@ -2495,9 +2710,15 @@
                 "autonomic_recovery": interferenceData.autonomic_recovery,
                 "joint_stress_index": jointStressIndex,
                 "master_axis": userData.masterAxis || "Calistenia",
+                "include_running": userData.includeRunning !== false,
                 "body_weight": bw,
                 "bf_percentage": parseFloat(userData.bf || 18),
-                "sex": userData.sex || "M"
+                "sex": userData.sex || "M",
+                "last_lifts": lastLifts,
+                "z2_pace_suggestion": z2PaceSuggestion(historyData),
+                "mesocycle": { week: meso.week, name: meso.name, desc: meso.desc, allowZ4: meso.allowZ4, setsMul: meso.setsMul, rirDelta: meso.rirDelta },
+                "days_since_test": daysTest,
+                "suggest_test_day": daysTest > 42
             };
             lastSyntheticState = syntheticState;
             return syntheticState;
@@ -2536,6 +2757,7 @@
             const hr = samples[i].hr || samples[i - 1].hr;
             if (!hr || !dtMin) continue;
             const b = zoneBucketFromFc(hr);
+            if (b === 'warmup') continue;
             if (b === 'z1z2') z1 += dtMin;
             else if (b === 'z3') z3 += dtMin;
             else z45 += dtMin;
@@ -3034,6 +3256,76 @@
         return map;
     }
 
+    window.resetMesocycle = async () => {
+        if (!currentPlan) return;
+        if (!window.confirm('Reiniciar o mesociclo de 4 semanas a partir de hoje?')) return;
+        currentPlan.mesocycleStart = new Date().toISOString();
+        await saveFullState();
+        renderDashboard();
+        window.showAlert('Mesociclo', 'Semana 1 — Volume. O motor volta a construir carga.');
+    };
+
+    window.openTestDayModal = () => {
+        window.show('modal-test-day');
+        window.toggleTestFields();
+    };
+    window.toggleTestFields = () => {
+        const t = document.getElementById('test-type')?.value;
+        const lift = document.getElementById('test-fields-lift');
+        const run = document.getElementById('test-fields-run');
+        if (!lift || !run) return;
+        if (t === 'run3k' || t === 'run5k') { lift.classList.add('hidden'); run.classList.remove('hidden'); }
+        else { lift.classList.remove('hidden'); run.classList.add('hidden'); }
+    };
+    window.saveTestDay = async () => {
+        if (!currentUser) return;
+        const t = document.getElementById('test-type').value;
+        showLoading('Salvando teste...');
+        try {
+            let payload = {
+                date: new Date().toISOString(),
+                isTestDay: true,
+                testType: t,
+                workoutName: 'Dia de teste',
+                modality: (t === 'run3k' || t === 'run5k') ? 'Corrida' : (t === 'calmax' ? 'Calistenia' : 'Musculação'),
+                pse: 8
+            };
+            if (t === 'run3k' || t === 'run5k') {
+                const mins = parseFloat(document.getElementById('test-time-min').value);
+                const km = t === 'run5k' ? 5 : 3;
+                if (!mins || mins < 8) throw new Error('Informe o tempo total em minutos.');
+                payload.durationMinutes = mins;
+                payload.distance = km;
+                payload.pace = formatPaceSec((mins * 60) / km);
+                payload.fc = parseFloat(document.getElementById('test-fc').value) || null;
+                payload.workoutName = t === 'run5k' ? 'Teste 5 km' : 'Teste 3 km';
+            } else {
+                const name = document.getElementById('test-ex-name').value.trim();
+                const reps = parseInt(document.getElementById('test-reps').value, 10);
+                const bar = parseFloat(document.getElementById('test-weight').value) || 0;
+                const added = parseFloat(document.getElementById('test-added').value) || 0;
+                if (!name || !reps) throw new Error('Preencha exercício e reps.');
+                payload.exerciseLogs = [{ name, targetGroup: categorizeMuscleGroup(name), weight: bar, addedLoadKg: added, reps, rir: 0 }];
+                payload.workoutName = t === 'calmax' ? `Teste calistenia: ${name}` : `Teste 3–5RM: ${name}`;
+            }
+            payload = compactDefined(payload);
+            payload.isTestDay = true;
+            payload.testType = t;
+            await addDoc(collection(db, `users/${currentUser.uid}/history`), payload);
+            userData.lastTestDate = new Date().toISOString();
+            await saveFullState();
+            hideLoading();
+            window.hide('modal-test-day');
+            window.hide('dash-test-banner');
+            if (typeof loadHistory === 'function') loadHistory();
+            if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
+            window.showAlert('Teste salvo', '1RM / IFR / pace de Z2 serão atualizados no próximo treino. A fila da semana permanece.');
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Teste', e.message);
+        }
+    };
+
     function playBeep(freq = 440, duration = 150, type = 'sine') {
         try {
             const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -3293,15 +3585,15 @@
     }
 
     function checkPostLoginPopupsSequence() {
-        const seenV60 = localStorage.getItem(`seen_v60_novelty_${currentUser.uid}`);
-        if (!seenV60) window.show('modal-v40-novelty');
+        const seenV61 = localStorage.getItem(`seen_v61_novelty_${currentUser.uid}`);
+        if (!seenV61) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
         else checkPendingWorkoutReminder();
     }
 
     window.closeV40NoveltyModal = () => {
         window.hide('modal-v40-novelty');
-        localStorage.setItem(`seen_v60_novelty_${currentUser.uid}`, 'true');
+        localStorage.setItem(`seen_v61_novelty_${currentUser.uid}`, 'true');
         checkPostLoginPopupsSequence();
     };
 
@@ -3510,7 +3802,12 @@
         document.getElementById('dash-macro').innerText = currentPlan.macrocycleSummary || "";
         
         if (currentPlan.coachFeedback) { window.show('dash-feedback-container'); document.getElementById('dash-feedback-text').innerText = currentPlan.coachFeedback; }
-        if (currentPlan.isDeload) window.show('dash-deload-banner'); else window.hide('dash-deload-banner');
+        const meso = getMesocycleState();
+        const mesoWeekEl = document.getElementById('dash-meso-week');
+        const mesoDescEl = document.getElementById('dash-meso-desc');
+        if (mesoWeekEl) mesoWeekEl.innerText = `Semana ${meso.week}/4 · ${meso.name}`;
+        if (mesoDescEl) mesoDescEl.innerText = meso.desc;
+        if (currentPlan.isDeload || meso.week === 4) window.show('dash-deload-banner'); else window.hide('dash-deload-banner');
 
         renderVolumeLandmarksUI();
 
@@ -3559,8 +3856,11 @@
 
             const acwrObj = calculateACWRFromHistory(historyData);
             const acwr = acwrObj.acwr || 1;
-            currentPlan.isDeload = acwr > 1.5;
+            currentPlan.isDeload = acwr > 1.5 || getMesocycleState().week === 4;
             if (currentPlan.isDeload) window.show('dash-deload-banner'); else window.hide('dash-deload-banner');
+
+            const daysT = daysSinceLastTest(historyData);
+            if (daysT > 42) window.show('dash-test-banner'); else window.hide('dash-test-banner');
 
             const interference = calculateInterferenceAndAutonomicStatus(historyData, userData);
             const banner = document.getElementById('dash-interference-banner');
@@ -3593,6 +3893,8 @@
         document.getElementById('prof-bf').innerText = userData.bf ? `${userData.bf}%` : '--';
         document.getElementById('prof-rest-hr').innerText = userData.restHeartRate ? `${userData.restHeartRate} bpm` : '--';
         document.getElementById('prof-master-axis-badge').innerText = `Eixo: ${userData.masterAxis || 'Calistenia'}`;
+        const runBox = document.getElementById('prof-include-running');
+        if (runBox) runBox.checked = userData.includeRunning !== false;
     }
 
     window.saveProfileInfo = async () => {
@@ -3600,6 +3902,8 @@
         const nNick = document.getElementById('prof-nick').value.trim();
         if (!nName || !nNick) return window.showAlert("Erro", "Preencha os campos de nome.");
         showLoading("Atualizando..."); userData.name = nName; userData.nickname = nNick;
+        const runBox = document.getElementById('prof-include-running');
+        if (runBox) userData.includeRunning = !!runBox.checked;
         try {
             await saveFullState(); document.getElementById('dash-greeting-name').innerText = userData.nickname;
             hideLoading(); window.showAlert("Sucesso", "Perfil atualizado.");
@@ -3842,6 +4146,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             const est1 = estMap[String(exName).toLowerCase()];
             const pct = parseFloat(exData.pct1RM || 0);
             const prefillLoad = (exData.loadKg != null && exData.loadKg !== '') ? exData.loadKg : (est1 && pct ? Math.round(est1 * pct / 100) : '');
+            const prefillAdded = (exData.addedLoadKg != null && exData.addedLoadKg !== '') ? exData.addedLoadKg : '';
             const prefillReps = exData.reps || '';
             const prefillRir = (exData.rirTarget != null) ? String(exData.rirTarget) : '2';
             const safeName = escapeHtml(exName);
@@ -3862,7 +4167,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
                         </div>
                         <div>
                             <span class="text-[8px] text-amber-400 font-bold uppercase block mb-0.5">+ Extra (kg)</span>
-                            <input type="number" step="0.5" id="bb-added-${exIdx}-${s}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="0" class="w-full bg-dark-900 border border-amber-500/40 rounded-lg p-1.5 text-center text-xs text-amber-300 font-bold outline-none">
+                            <input type="number" step="0.5" id="bb-added-${exIdx}-${s}" value="${prefillAdded}" oninput="window.updateLive1RM(${exIdx}, ${s})" placeholder="0" class="w-full bg-dark-900 border border-amber-500/40 rounded-lg p-1.5 text-center text-xs text-amber-300 font-bold outline-none">
                         </div>
                         <div>
                             <span class="text-[8px] text-slate-500 font-bold uppercase block mb-0.5">Reps</span>
