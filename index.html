@@ -77,6 +77,14 @@
             .swipe-hint { display: block; }
         }
         .swipe-hint { display: none; }
+        #loading-overlay.hidden,
+        [id^="modal-"].hidden,
+        #alert-modal.hidden,
+        [id^="screen-"].hidden { display: none !important; }
+        #loading-overlay:not(.hidden),
+        [id^="modal-"]:not(.hidden),
+        #alert-modal:not(.hidden) { display: flex !important; }
+        [id^="screen-"]:not(.hidden) { display: flex !important; flex-direction: column; }
         .ver-badge { position: relative; display: inline-block; vertical-align: super; cursor: help; }
         .ver-tip {
             position: absolute; left: 50%; transform: translateX(-50%);
@@ -2010,41 +2018,25 @@
     let currentTabIndex = 0;
 
     window.$ = id => document.getElementById(id);
-    function isOverlayEl(el) {
-        return el && el.classList.contains('fixed') && el.classList.contains('inset-0');
-    }
     window.hide = id => {
-        const el = document.getElementById(id);
+        const el = typeof id === 'string' ? document.getElementById(id) : id;
         if (!el) return;
         el.classList.add('hidden');
-        if (isOverlayEl(el)) {
-            el.classList.remove('flex');
-            el.style.display = 'none';
-            el.style.pointerEvents = 'none';
-        } else {
-            el.style.removeProperty('display');
-            el.style.removeProperty('pointer-events');
-        }
+        el.style.removeProperty('display');
+        el.style.removeProperty('pointer-events');
     };
     window.show = id => {
-        const el = document.getElementById(id);
+        const el = typeof id === 'string' ? document.getElementById(id) : id;
         if (!el) return;
         el.classList.remove('hidden');
-        if (isOverlayEl(el)) {
-            el.classList.add('flex');
-            el.style.display = 'flex';
-            el.style.pointerEvents = 'auto';
-        } else {
-            el.style.removeProperty('display');
-            el.style.removeProperty('pointer-events');
-            if (el.classList.contains('flex-col')) el.classList.add('flex');
-        }
+        el.style.removeProperty('display');
+        el.style.removeProperty('pointer-events');
     };
 
     let touchStartX = 0, touchStartY = 0, touchEndX = 0, touchEndY = 0;
 
     function modalAberto() {
-        return !!document.querySelector('.fixed.inset-0.flex:not(.hidden)');
+        return !!document.querySelector('.fixed.inset-0:not(.hidden)');
     }
 
     function setupTabSwipe() {
@@ -3730,18 +3722,22 @@
     window.location.reload();
 };
 
+    let authUserPresent = false;
     onAuthStateChanged(auth, async (user) => {
         try {
             if (user) {
+                authUserPresent = true;
                 currentUser = user;
                 const emailEl = document.getElementById('dash-user-email');
                 if (emailEl) emailEl.innerText = user.email || '';
                 updateBadge('firebase', 'ok');
                 await loadUserData();
-            } else {
-                currentUser = null; userData = {}; currentPlan = null;
-                showScreen('screen-auth'); hideLoading();
+                return;
             }
+            if (authUserPresent && auth.currentUser) return;
+            authUserPresent = false;
+            currentUser = null; userData = {}; currentPlan = null;
+            showScreen('screen-auth'); hideLoading();
         } catch (err) {
             hideLoading();
             window.showAlert("Erro", err.message || "Falha após o login.");
@@ -3764,13 +3760,22 @@
                     userData = docSnap.data().profile;
                     currentPlan = docSnap.data().plan;
                     if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
-                        renderDashboard();
                         showScreen('screen-dashboard');
-                        window.switchTab('training');
-                        checkPostLoginPopupsSequence();
-                    } else showScreen('screen-step1-id');
-                } else { userData = {}; showScreen('screen-step1-id'); }
+                        hideLoading();
+                        try { renderDashboard(); } catch (e) { console.error(e); }
+                        try { window.switchTab('training'); } catch (e) { console.error(e); }
+                        setTimeout(() => { try { checkPostLoginPopupsSequence(); } catch (e) {} }, 50);
+                    } else {
+                        showScreen('screen-step1-id');
+                        hideLoading();
+                    }
+                } else {
+                    userData = {};
+                    showScreen('screen-step1-id');
+                    hideLoading();
+                }
             } catch (err) {
+                hideLoading();
                 showScreen('screen-auth');
                 window.showAlert("Erro", err.message === 'timeout' ? "O banco demorou demais. Tente de novo." : "Falha de comunicação com o banco.");
             } finally {
