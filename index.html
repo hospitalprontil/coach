@@ -117,6 +117,7 @@
         @media (prefers-reduced-motion: reduce) {
             #timer-current-card.cal-pulse, #timer-next-card.cal-pulse-next, #timer-current-card.cal-pulse-next { animation: none; }
         }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
@@ -1056,6 +1057,14 @@
                     </div>
 
                     <div class="flex flex-col gap-2">
+                        <div id="dash-rhr-box" class="bg-dark-950 border border-brand-500/30 rounded-2xl p-3 space-y-2">
+                            <p class="text-[10px] text-brand-300 font-black uppercase tracking-wider">FC ao acordar</p>
+                            <p class="text-[10px] text-slate-400 leading-relaxed">Ainda na cama ou sentado, <strong class="text-slate-200">antes</strong> do café e do treino. Não é obrigatório todo dia — sem isso o card autonômico fica em branco.</p>
+                            <div class="flex gap-2">
+                                <input id="dash-rhr-today" type="number" min="35" max="120" placeholder="bpm" class="flex-1 bg-dark-900 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm text-center outline-none">
+                                <button type="button" onclick="window.saveMorningRhr('dash-rhr-today')" class="bg-brand-500 text-dark-950 font-black text-[10px] uppercase px-3 rounded-xl">Anotar</button>
+                            </div>
+                        </div>
                         <button onclick="window.openHowToWorkout()" class="w-full bg-brand-500/15 hover:bg-brand-500/25 text-brand-300 border border-brand-500/40 rounded-2xl transition-colors font-bold text-xs uppercase tracking-wide py-3">
                             <i class="fas fa-circle-question mr-1"></i> Como fazer este treino
                         </button>
@@ -1202,12 +1211,16 @@
                     </h3>
                     <span id="ans-status-badge" class="bg-slate-800 text-slate-300 border border-slate-700 text-[9px] font-black px-2 py-0.5 rounded">Sem dado</span>
                 </div>
-                <p id="ans-explain" class="text-[10px] text-slate-400 mb-3 font-medium leading-relaxed">Compara a FC ao acordar (check-in) com a da anamnese. Sem o check-in o card fica vazio — não é média automática.</p>
+                <p id="ans-explain" class="text-[10px] text-slate-400 mb-3 font-medium leading-relaxed">FC ao acordar, antes do treino. Anote aqui ou na Home. Vale ~36 h — não precisa todo dia.</p>
                 <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-300 font-medium">
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep anamnese<br><strong id="ans-rhr-base" class="text-white text-sm">--</strong></div>
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep hoje<br><strong id="ans-rhr-today" class="text-white text-sm">--</strong></div>
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">Delta<br><strong id="ans-delta" class="text-white text-sm">--</strong></div>
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">Queda FC 3 min<br><strong id="ans-hrr" class="text-white text-sm">--</strong></div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                    <input id="ans-rhr-input" type="number" min="35" max="120" placeholder="bpm ao acordar" class="flex-1 bg-dark-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm text-center outline-none">
+                    <button type="button" onclick="window.saveMorningRhr('ans-rhr-input')" class="bg-brand-500 text-dark-950 font-black text-[10px] uppercase px-3 rounded-xl">Anotar</button>
                 </div>
             </div>
 
@@ -1231,7 +1244,7 @@
             <div class="glass-panel p-4 rounded-3xl border border-amber-500/40 shadow-xl w-full">
                 <div class="flex justify-between items-center mb-3">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2"><i class="fas fa-chart-pie text-amber-400"></i> Cardio Polarizado (80/20) <button type="button" class="info-i" onclick="window.openTerm('trimp')" aria-label="O que é TRIMP e 80/20">i</button></h3>
-                    <span id="trimp-score-badge" class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded">TRIMP/sem: --</span>
+                    <span id="trimp-score-badge" class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded">TRIMP 7d: --</span>
                 </div>
                 <div class="w-full h-4 bg-dark-950 rounded-full flex overflow-hidden border border-slate-800 mb-2">
                     <div id="bar-z1z2" class="bg-green-500 h-full transition-all" style="width: 0%"></div>
@@ -1756,7 +1769,7 @@
 <div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl mx-auto">
         <div class="flex justify-between items-center mb-5">
-            <h3 class="text-lg font-black text-white">Check-in Semanal & IFR</h3>
+            <h3 class="text-lg font-black text-white">Check-in (peso / FCrep)</h3>
             <button onclick="window.hide('modal-checkin')" class="text-slate-500 hover:text-white text-xl"><i class="fas fa-times"></i></button>
         </div>
         <div class="space-y-4">
@@ -1771,7 +1784,7 @@
             <div>
                 <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">FC de Repouso hoje (bpm)</label>
                 <input type="number" id="checkin-rhr" placeholder="Ex: 58" class="w-full bg-dark-950 border border-brand-500/40 rounded-2xl p-3 text-white text-sm outline-none">
-                <p class="text-[10px] text-slate-500 mt-1">Compara com a FCrep da anamnese para o status autonômico (SNA).</p>
+                <p class="text-[10px] text-slate-500 mt-1">Ao acordar, sentado, antes do café. A mesma FC pode ser anotada na Home. Peso/%BF é semanal; a FCrep é do dia.</p>
             </div>
             <button onclick="window.saveCheckin()" class="w-full bg-brand-500 text-white font-black py-3.5 rounded-2xl text-sm uppercase">Salvar Check-in</button>
         </div>
@@ -2384,6 +2397,22 @@
         return 'outros';
     }
 
+    function normalizeMuscleGroup(raw, name) {
+        const t = String(raw || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
+        const aliases = {
+            peito: 'peitoral', chest: 'peitoral', peitoral: 'peitoral',
+            costas: 'costas', back: 'costas', dorsal: 'costas', lats: 'costas',
+            quadriceps: 'quadriceps', quad: 'quadriceps', quads: 'quadriceps', pernas: 'quadriceps', perna: 'quadriceps',
+            posterior: 'posterior', hamstring: 'posterior', hamstrings: 'posterior', gluteo: 'posterior', gluteos: 'posterior',
+            ombros: 'ombros', ombro: 'ombros', shoulder: 'ombros', deltoide: 'ombros',
+            bracos: 'bracos', braco: 'bracos', biceps: 'bracos', triceps: 'bracos', arm: 'bracos',
+            core: 'core', abdomen: 'core', abdominal: 'core', abs: 'core'
+        };
+        if (VOLUME_LANDMARKS[t]) return t;
+        if (aliases[t]) return aliases[t];
+        return categorizeMuscleGroup(name);
+    }
+
     function calculateWeeklyVolumeLandmarks(historyData) {
         const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
         if (!Array.isArray(historyData) || historyData.length === 0) return volumeMap;
@@ -2397,7 +2426,7 @@
                 item.exerciseLogs.forEach(log => {
                     if (log.estimated) return;
                     if (log.kind === 'prep') return;
-                    const group = log.targetGroup ? log.targetGroup.toLowerCase() : categorizeMuscleGroup(log.name);
+                    const group = normalizeMuscleGroup(log.targetGroup, log.name);
                     if (volumeMap[group] === undefined) return;
                     if (log.kind === 'iso' || log.holdSeconds) {
                         const reserve = (log.secondsReserve !== undefined && log.secondsReserve !== null) ? parseInt(log.secondsReserve, 10) : 99;
@@ -2433,9 +2462,9 @@
                 let statusColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
                 let barColor = 'bg-blue-500';
                 if (statusText === 'Abaixo do MEV') { statusColor = 'bg-slate-700/40 text-slate-400 border-slate-600/40'; barColor = 'bg-slate-500'; }
-                else if (statusText === 'MEV') { statusColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30'; barColor = 'bg-blue-500'; }
+                else if (statusText === 'MEV') { statusColor = 'bg-amber-500/20 text-amber-300 border-amber-500/30'; barColor = 'bg-amber-400'; }
                 else if (statusText === 'MAV (Ideal)') { statusColor = 'bg-green-500/20 text-green-400 border-green-500/30'; barColor = 'bg-green-500'; }
-                else if (statusText === 'Perto do MRV') { statusColor = 'bg-amber-500/20 text-amber-400 border-amber-500/30'; barColor = 'bg-amber-500'; }
+                else if (statusText === 'Perto do MRV') { statusColor = 'bg-orange-500/20 text-orange-400 border-orange-500/30'; barColor = 'bg-orange-500'; }
                 else { statusColor = 'bg-red-500/20 text-red-400 border-red-500/30'; barColor = 'bg-red-500'; }
                 const pct = Math.min(100, Math.round((count / Math.max(lm.mrv, 1)) * 100));
                 const planPct = Math.min(100, Math.round((plan / Math.max(lm.mrv, 1)) * 100));
@@ -2463,12 +2492,11 @@
 
     function sessionLoadUnit(item) {
         if (!item) return null;
-        const tr = parseFloat(item.trimpScore);
-        if (!isNaN(tr) && tr > 0) return tr;
-        if (item.pse === undefined || item.pse === null || item.pse === '') return null;
+        const dur = parseFloat(item.durationMinutes);
+        const mins = (!isNaN(dur) && dur > 0) ? dur : 45;
         const pse = parseFloat(item.pse);
-        if (isNaN(pse)) return null;
-        return pse * (parseFloat(item.durationMinutes) || 45);
+        if (item.pse === undefined || item.pse === null || item.pse === '' || isNaN(pse)) return null;
+        return pse * mins;
     }
 
     function calculateACWRFromHistory(historyData, asOfDate = null) {
@@ -2499,7 +2527,7 @@
         const name = (h.workoutName || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         if (/perna|quadriceps|posterior|agachamento|inferiores|stiff|leg press/.test(name)) return true;
         if (h.exerciseLogs && h.exerciseLogs.some(l => {
-            const grp = (l.targetGroup || categorizeMuscleGroup(l.name) || '').toLowerCase();
+            const grp = normalizeMuscleGroup(l.targetGroup, l.name);
             return grp === 'quadriceps' || grp === 'posterior';
         })) return true;
         return false;
@@ -2538,10 +2566,13 @@
         let currentRhr = rhrBaseline;
         let rhrDelta = 0;
         let hasTodayRhr = false;
-        if (profile.currentRestHeartRate) {
-            currentRhr = parseFloat(profile.currentRestHeartRate);
-            rhrDelta = currentRhr - rhrBaseline;
-            hasTodayRhr = true;
+        if (profile.currentRestHeartRate && profile.lastRestHrDate) {
+            const ageH = (Date.now() - new Date(profile.lastRestHrDate).getTime()) / 3600000;
+            if (ageH >= 0 && ageH <= 36) {
+                currentRhr = parseFloat(profile.currentRestHeartRate);
+                rhrDelta = currentRhr - rhrBaseline;
+                hasTodayRhr = true;
+            }
         }
         let ansStatus = hasTodayRhr ? "BALANCED" : "NO_DATA";
         if (hasTodayRhr && rhrDelta >= 5) ansStatus = "SYMPATHETIC_DOMINANCE";
@@ -2938,7 +2969,7 @@
         if ((workout.modality === 'Musculação' || workout.modality === 'Calistenia') && conflict.is_heavy_legs_allowed === false) {
             const filtered = workout.queue.filter(item => {
                 if (item.type !== 'work') return true;
-                const g = (item.targetGroup || categorizeMuscleGroup(item.name) || '').toLowerCase();
+                const g = normalizeMuscleGroup(item.targetGroup, item.name);
                 return g !== 'quadriceps' && g !== 'posterior';
             });
             if (filtered.filter(i => i.type === 'work').length >= 2) workout.queue = filtered;
@@ -2967,7 +2998,7 @@
         if (workout.modality !== 'Corrida') {
             const filtered = workout.queue.filter(item => {
                 if (item.type !== 'work') return true;
-                const g = (item.targetGroup || categorizeMuscleGroup(item.name) || '').toLowerCase();
+                const g = normalizeMuscleGroup(item.targetGroup, item.name);
                 const lm = VOLUME_LANDMARKS[g];
                 if (!lm) return true;
                 const plannedSets = parseInt(item.sets, 10) || 3;
@@ -3162,6 +3193,8 @@
                 "IFR_Weighted_Calisthenics": ifrWeightedMap,
                 "IFR_note": "Razão (BW+carga extra)/BW — progresso de calistenia com peso, não 1RM/massa alométrico.",
                 "acwr_score": acwr,
+                "acwr_acute": acwrObj ? Math.round(acwrObj.acuteLoad) : 0,
+                "acwr_chronic": acwrObj ? Math.round(acwrObj.chronicLoad) : 0,
                 "is_deload": acwr > 1.5 || meso.week === 4,
                 "weekly_effective_sets": weeklyVolumeMap,
                 "volume_landmarks_status": volumeLandmarksStatus,
@@ -3758,7 +3791,7 @@
         (currentPlan?.workouts || []).forEach(w => {
             (w.queue || []).forEach(item => {
                 if (item.type !== 'work') return;
-                const g = (item.targetGroup || categorizeMuscleGroup(item.name) || '').toLowerCase();
+                const g = normalizeMuscleGroup(item.targetGroup, item.name);
                 if (map[g] === undefined) return;
                 map[g] += Math.min(6, Math.max(1, parseInt(item.sets, 10) || 3));
             });
@@ -3899,7 +3932,7 @@
         pse: { t: 'PSE — Esforço percebido', b: '<p>De 1 a 10, <strong class="text-white">como o treino inteiro te pareceu</strong>, não a última série.</p><p>1 = passeio. 5 = trabalho honesto. 8–9 = muito pesado. 10 = não dava mais. Sem isso o Coach não avalia o dia.</p>' },
         prontidao: { t: 'Prontidão', b: '<p>Nota do dia: energia (1–5) + sono + dor. Não é HRV de relógio.</p><p>Baixa → a I.A. enxuga o treino. Alta → segue o plano. Você informa isso ao tocar em Iniciar Sessão.</p>' },
         meso: { t: 'Mesociclo (4 semanas)', b: '<p>Semana 1 volume · 2 volume alto · 3 um pouco mais intenso · 4 deload (mais leve de propósito).</p><p><strong class="text-white">Reiniciar ciclo</strong> só volta o ponteiro para a semana 1. Não apaga histórico.</p>' },
-        sna: { t: 'Recuperação autonômica', b: '<p>Não é um número mágico. É a <strong class="text-white">FC ao acordar</strong> de hoje versus a FCrep da anamnese.</p><p>Você preenche no <strong class="text-white">check-in</strong> (aba Progresso). Sem isso o card fica em branco.</p><p>+5 bpm vs anamnese = estresse (o motor alivia o treino).<br>−5 bpm = bem recuperado.<br>Queda de FC em 3 min no pós-treino (HRR) também entra: ≥25 bom, <12 o próximo treino fica mais conservador.</p>' },
+        sna: { t: 'Recuperação autonômica', b: '<p>É a <strong class="text-white">FC ao acordar</strong> (ainda sentado, antes do café e do treino), comparada com a FCrep da anamnese.</p><p><strong class="text-white">Não é obrigatório todo dia.</strong> Sem anotar, o card fica em branco. O valor vale cerca de 36 h.</p><p>Melhor momento: manhã de treino, <strong class="text-white">antes</strong> de treinar. Depois do treino a FC ainda está alta e não serve.</p><p>Anote na Home, neste card, ou no check-in. +5 bpm vs anamnese = estresse. −5 = bem recuperado. Queda de FC em 3 min no pós-treino é outro dado (HRR).</p>' },
         zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>O cartão e o arquivo do relógio usam sua FCrep (Karvonen). Corra olhando o relógio nesses bpm, não “no feeling” sozinho.</p>' },
         eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' },
         iso: { t: 'Isometria', b: '<p>Você <strong class="text-white">segura</strong> a posição (prancha, L-sit, hollow). Não tem repetição — o relógio conta os segundos.</p><p>No descanso anote quanto segurou e se ainda aguentaria 0, 2, 5 ou 10+ segundos. Isso substitui o RIR. Série conta no volume se a reserva foi ≤ 5s.</p>' }
@@ -4151,16 +4184,21 @@
         try {
             const docSnap = await getDoc(doc(db, "users", currentUser.uid));
             if (docSnap.exists() && docSnap.data().profile) {
-                userData = docSnap.data().profile; 
+                userData = docSnap.data().profile || {};
                 currentPlan = docSnap.data().plan;
-                if (currentPlan && currentPlan.workouts && currentPlan.workouts.length > 0) {
-                    renderDashboard(); showScreen('screen-dashboard');
-                    window.switchTab('training');
-                    checkPostLoginPopupsSequence();
+                if (currentPlan && Array.isArray(currentPlan.workouts) && currentPlan.workouts.length > 0) {
+                    try { renderDashboard(); } catch (e) {}
+                    showScreen('screen-dashboard');
+                    try { window.switchTab('training'); } catch (e) {}
+                    try { checkPostLoginPopupsSequence(); } catch (e) {}
                 } else showScreen('screen-step1-id');
             } else { userData = {}; showScreen('screen-step1-id'); }
+        } catch (err) {
+            window.showAlert("Erro", "Falha de comunicação com o banco.");
+            showScreen('screen-auth');
+        } finally {
             hideLoading();
-        } catch (err) { hideLoading(); window.showAlert("Erro", "Falha de comunicação com o banco."); }
+        }
     }
 
     function checkPostLoginPopupsSequence() {
@@ -4391,20 +4429,23 @@
         } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
     }
 
-    async function saveFullState() { 
-        await setDoc(doc(db, "users", currentUser.uid), { profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() }, { merge: true }); 
+    async function saveFullState() {
+        if (!currentUser || !currentUser.uid) return;
+        await setDoc(doc(db, "users", currentUser.uid), { profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() }, { merge: true });
     }
 
     function renderDashboard() {
-        if (!currentPlan || !currentPlan.workouts) return;
+        if (!currentPlan || !Array.isArray(currentPlan.workouts)) return;
+        try {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         
-        document.getElementById('dash-greeting-name').innerText = userData.nickname || "Aluno";
-        document.getElementById('dash-profile').innerText = currentPlan.userProfileAnalysis || "";
-        document.getElementById('dash-plan-exp').innerText = currentPlan.planExplanation || "";
-        document.getElementById('dash-macro').innerText = currentPlan.macrocycleSummary || "";
+        document.getElementById('dash-greeting-name') && (document.getElementById('dash-greeting-name').innerText = userData.nickname || "Aluno");
+        const setIf = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+        setIf('dash-profile', currentPlan.userProfileAnalysis || "");
+        setIf('dash-plan-exp', currentPlan.planExplanation || "");
+        setIf('dash-macro', currentPlan.macrocycleSummary || "");
         
-        if (currentPlan.coachFeedback) { window.show('dash-feedback-container'); document.getElementById('dash-feedback-text').innerText = currentPlan.coachFeedback; }
+        if (currentPlan.coachFeedback) { window.show('dash-feedback-container'); const fb = document.getElementById('dash-feedback-text'); if (fb) fb.innerText = currentPlan.coachFeedback; }
         const meso = getMesocycleState();
         const mesoWeekEl = document.getElementById('dash-meso-week');
         const mesoDescEl = document.getElementById('dash-meso-desc');
@@ -4430,18 +4471,18 @@
             }
 
             const readinessBadge = document.getElementById('dash-readiness-badge');
-            if (nw.readiness) {
-                let score = (nw.readiness.energy / 5) * 60;
-                if (nw.readiness.sleep === 'Bom') score += 20; else if (nw.readiness.sleep === 'Regular') score += 10;
-                if (nw.readiness.sore === 'Nenhuma') score += 20; else if (nw.readiness.sore === 'Leve') score += 10;
+            const sourceReady = nw.readiness || [...(currentPlan.workouts || [])].reverse().find(w => w.isCompleted && w.readiness)?.readiness;
+            if (sourceReady && readinessBadge) {
+                let score = (parseFloat(sourceReady.energy) / 5) * 60;
+                if (sourceReady.sleep === 'Bom') score += 20; else if (sourceReady.sleep === 'Regular') score += 10;
+                if (sourceReady.sore === 'Nenhuma') score += 20; else if (sourceReady.sore === 'Leve') score += 10;
                 if (score > 100) score = 100;
-
-                let colorClass = score >= 60 ? 'bg-green-500/20 text-green-400 border-green-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40';
+                const colorClass = score >= 60 ? 'bg-green-500/20 text-green-400 border-green-500/40' : 'bg-amber-500/20 text-amber-400 border-amber-500/40';
                 readinessBadge.className = `text-[10px] font-bold px-2 py-0.5 rounded border ${colorClass}`;
-                readinessBadge.innerText = `⚡ Prontidão: ${score}%`;
-            } else {
+                readinessBadge.innerText = nw.readiness ? `Prontidão: ${Math.round(score)}%` : `Última prontidão: ${Math.round(score)}%`;
+            } else if (readinessBadge) {
                 readinessBadge.className = 'bg-slate-800 text-slate-400 border border-slate-700 text-[10px] font-bold px-2 py-0.5 rounded';
-                readinessBadge.innerText = '⚡ Prontidão: A Calcular';
+                readinessBadge.innerText = 'Prontidão: preencha ao iniciar';
             }
 
             document.getElementById('dash-nw-badge').innerText = `PRÓXIMO TREINO [${nw.modality||userData.masterAxis||'Híbrido'}]: ${dateBadgeText}`;
@@ -4485,6 +4526,7 @@
                 }
             }
         }).catch(()=>{});
+        } catch (e) {}
     }
 
     function renderProfileTab() {
@@ -5326,7 +5368,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
 
         const prompt = `Atue como Apex Hybrid Coach v6.3. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
-ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec').value||'N/A'}. Kcal: ${document.getElementById('pw-kcal').value||'N/A'}.
+ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec')?.value||'N/A'}. Kcal: ${document.getElementById('pw-kcal')?.value||'N/A'}.
 SINTOMA / OBSERVAÇÃO PRÉ-TREINO: "${preWorkoutNotes}".
 RELATO SUBJETIVO PÓS-TREINO: "${userFeedbackText}".
 O PRÓXIMO treino deve ser modalidade ${nextModality} (escolhida pelo motor híbrido, não necessariamente o eixo mestre).
@@ -5519,6 +5561,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             if (bf) userData.bf = bf;
             if (rhr) {
                 userData.currentRestHeartRate = parseFloat(rhr);
+                userData.lastRestHrDate = new Date().toISOString();
                 if (!userData.restHeartRate) userData.restHeartRate = parseFloat(rhr);
             }
             await saveFullState(); 
@@ -5532,6 +5575,36 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
 
+    window.saveMorningRhr = async (inputId) => {
+        const el = document.getElementById(inputId);
+        const v = parseInt(el && el.value, 10);
+        if (!v || v < 35 || v > 120) return window.showAlert('FC ao acordar', 'Digite a FC em bpm (35 a 120), sentado, antes do café.');
+        if (!currentUser) return;
+        showLoading('Salvando FCrep...');
+        try {
+            userData.currentRestHeartRate = v;
+            userData.lastRestHrDate = new Date().toISOString();
+            if (!userData.restHeartRate) userData.restHeartRate = v;
+            await saveFullState();
+            await addDoc(collection(db, `users/${currentUser.uid}/checkins`), {
+                date: new Date().toISOString(),
+                weight: parseFloat(userData.weight) || null,
+                bf: parseFloat(userData.bf) || null,
+                restHeartRate: v
+            });
+            ['dash-rhr-today', 'ans-rhr-input', 'checkin-rhr'].forEach(id => {
+                const n = document.getElementById(id);
+                if (n) n.value = v;
+            });
+            hideLoading();
+            if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
+            if (typeof renderDashboard === 'function') renderDashboard();
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Erro', e.message);
+        }
+    };
+
     async function renderAcwrAnd1RMInfo() {
         if (!currentUser || !currentUser.uid) return;
         try {
@@ -5542,15 +5615,18 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
 
             if (badge && txt) {
                 badge.innerText = `ACWR: ${acwr}`;
+                const acute = syntheticState.acwr_acute != null ? syntheticState.acwr_acute : '';
+                const chronic = syntheticState.acwr_chronic != null ? syntheticState.acwr_chronic : '';
+                const loadHint = (acute !== '' && chronic !== '') ? ` Carga 7d ${acute} vs média 4 sem. ${chronic} (PSE × minutos — o TRIMP do relógio não entra nesta conta).` : '';
                 if (acwr > 1.5) {
                     badge.className = "bg-red-500/20 text-red-400 border border-red-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl animate-pulse";
-                    txt.innerHTML = `<strong class="text-red-400">Pico de Fadiga Detectado!</strong> Carga aguda > 150% da média de 4 semanas. O motor aplica deload nesta sessão (não depende da I.A.).`;
+                    txt.innerHTML = `<strong class="text-red-400">Pico de carga (>1,5).</strong>${loadHint} O motor aplica deload.`;
                 } else if (acwr >= 0.8 && acwr <= 1.3) {
                     badge.className = "bg-green-500/20 text-green-400 border border-green-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl";
-                    txt.innerHTML = `<strong class="text-green-400">Zona Doce de Treino (0.8 - 1.3):</strong> Excelente equilíbrio entre sobrecarga e recuperação.`;
+                    txt.innerHTML = `<strong class="text-green-400">Zona boa (0,8–1,3).</strong>${loadHint}`;
                 } else {
                     badge.className = "bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl";
-                    txt.innerHTML = `<strong class="text-amber-400">Transição de Carga:</strong> Mantenha a constância nos próximos check-ins.`;
+                    txt.innerHTML = `<strong class="text-amber-400">Transição de carga.</strong>${loadHint}`;
                 }
             }
 
@@ -5620,7 +5696,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             // Phase 2: Renderização UI do TRIMP e 80/20
             if (syntheticState["cardio_polarized_distribution"]) {
                 const split = syntheticState["cardio_polarized_distribution"];
-                document.getElementById('trimp-score-badge').innerText = `TRIMP/sem: ${Math.round(split.totalTrimp || 0)}`;
+                document.getElementById('trimp-score-badge').innerText = `TRIMP 7d: ${Math.round(split.totalTrimp || 0)}`;
                 document.getElementById('bar-z1z2').style.width = `${split.z1z2 || 0}%`;
                 document.getElementById('bar-z3').style.width = `${split.z3 || 0}%`;
                 document.getElementById('bar-z4z5').style.width = `${split.z4z5 || 0}%`;
