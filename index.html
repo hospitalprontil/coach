@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
   ============================================================================
-  APEX HYBRID v6.3  |  TIMER SÉRIE A SÉRIE + KARVONEN + CHAT
+  APEX HYBRID v6.4  |  CATÁLOGO FECHADO (SEM ARTES)
   ============================================================================
   JUNTAR: BLOCO 1 + BLOCO 2 + BLOCO 3 nesta ordem, em UM único arquivo .html
 
@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.3 - Timer série a série</title>
+    <title>AI Coach Híbrido v6.4 - Catálogo fechado</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -117,7 +117,7 @@
         @media (prefers-reduced-motion: reduce) {
             #timer-current-card.cal-pulse, #timer-next-card.cal-pulse-next, #timer-current-card.cal-pulse-next { animation: none; }
         }
-        .hidden { display: none !important; }
+        .hidden { display: none !important; pointer-events: none !important; }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
@@ -184,7 +184,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.3 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.4 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -198,8 +198,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div>
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.3</span>
-                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Timer, zonas e chat que aplica</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">ATUALIZAÇÃO A.I COACH v6.4</span>
+                    <h2 class="text-xl font-black text-white tracking-tight mt-1">Catálogo fechado: calistenia, musculação e corrida</h2>
                 </div>
             </div>
         </div>
@@ -210,7 +210,11 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v6.3 · Série a série</strong>
+                    <strong class="text-brand-400">v6.4 · Catálogo fechado</strong>
+                    <p class="text-slate-400 mt-0.5">A I.A. só escolhe exercícios da lista. Calistenia sobe 1 degrau. Musculação unifica o 1RM. Corrida tem 6 tipos de sessão. Sem artes.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v6.3 · Série a série</strong>
                     <p class="text-slate-400 mt-0.5">Timer de calistenia explode série/descanso · zonas Karvonen iguais ao relógio · chat pergunta se aplica no próximo treino.</p>
                 </div>
                 <div>
@@ -221,13 +225,9 @@
                     <strong class="text-slate-200">v6.1 · Cadência</strong>
                     <p class="text-slate-400 mt-0.5">Progressão pelo RIR · meso 4 semanas · série efetiva · dia de teste.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v6.0 · Fase 4</strong>
-                    <p class="text-slate-400 mt-0.5">.FIT/.GPX/.TCX · radar · PDF · barras MEV/MAV/MRV.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v6.3 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.4 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -365,7 +365,19 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.3 Timer, zonas e chat</span>
+                    <span class="font-black text-brand-400 text-sm">v6.4 Catálogo fechado</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • I.A. só escolhe da lista (calistenia / musculação / 6 sessões de corrida).<br>
+                    • Degrau sobe no máximo 1; no padrão, colete antes de exercício novo.<br>
+                    • 1RM unificado por padrão (supino, agachamento, stiff…).<br>
+                    • Dor no ombro/cotovelo/joelho/lombar troca o padrão automaticamente.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v6.3 Timer, zonas e chat</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -487,13 +499,13 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.3</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.4</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.3 · Timer e chat</strong>
-                    • Timer série a série na calistenia.<br>
-                    • Zonas Karvonen iguais ao relógio.<br>
-                    • Chat aplica no próximo treino se você pedir.<br>
-                    • Semana 0 e âncoras continuam.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.4 · Catálogo fechado</strong>
+                    • Calistenia: só a árvore de degraus (sem planche/lever).<br>
+                    • Musculação: mesmo padrão = mesmo 1RM (supino, agachamento…).<br>
+                    • Corrida: 6 tipos (Z2, longão, passadas, Z4, tiros, teste).<br>
+                    • Dor e colete entram antes de exercício novo.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -936,7 +948,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-2">
                     <span>Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.3</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.4</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate max-w-[140px]">...</p>
@@ -1105,12 +1117,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div>
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.3 · Timer e chat</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.4 · Catálogo fechado</span>
                         <h2 class="text-base font-black text-white">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou. A <strong class="text-brand-400">I.A.</strong> escolhe os exercícios e explica o “porquê”. Se a I.A. pedir demais, a matemática corta. Na calistenia o timer é <strong class="text-white">série → descanso → série</strong>, não um bloco só. Na corrida as zonas da tela usam a mesma régua do relógio (Karvonen). No chat, se você disser que estava pesado ou leve, o app pergunta se aplica isso no <strong class="text-white">próximo treino</strong>.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o seu corpo aguentou. A <strong class="text-brand-400">I.A.</strong> escolhe o treino — mas só de uma <strong class="text-white">lista fechada</strong>: não inventa planche, máquina fantasma nem “fartlek sueco”. Se pedir demais, a matemática corta. Na calistenia o timer é <strong class="text-white">série → descanso → série</strong>. Na corrida as zonas usam a mesma régua do relógio (Karvonen).
                 </p>
             </div>
 
@@ -1133,7 +1145,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Você sobe por etapas (flexão inclinada → no chão → mais difícil), como uma árvore de habilidades — não pula etapa. O timer conta <strong class="text-white">uma série por vez</strong> e depois o descanso, separado. Se colocar anilha ou colete, o app registra o IFR. Articulação dolorida? A I.A. troca o exercício; o motor impede volume extra naquela região.
+                    Você sobe por etapas (parede → inclinada → chão → pés elevados). O app <strong class="text-white">não pula degrau</strong>. No movimento padrão, colete/extra vem antes de um exercício novo. Timer: uma série, depois o descanso. Dor no ombro, cotovelo ou joelho troca o padrão sozinho. Planche, lever e muscle-up <strong class="text-white">não entram</strong> nesta versão.
                 </p>
             </div>
 
@@ -1146,7 +1158,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Fôlego de verdade se constrói correndo <strong class="text-white">fácil</strong> na maior parte do tempo e só de vez em quando em tiros. As zonas na tela e no arquivo do relógio usam <strong class="text-white">Karvonen</strong> (sua FCrep). Se você fez perna pesada nas últimas 24 h, <strong class="text-white">tiro fica bloqueado</strong>. O TRIMP da semana entra no próximo ajuste.
+                    Só 6 tipos de sessão: rodagem Z2, longão, Z2 + passadas, intervalado Z4, tiros curtos, teste 3/5 km. A I.A. não inventa o desenho. Z4/Z5 só na semana 3, e o motor apaga o tiro se a perna ainda não recuperou. Pace e zona vêm da matemática (5 km e Karvonen).
                 </p>
             </div>
 
@@ -1159,7 +1171,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Cada músculo tem um “mínimo que funciona”, uma “faixa de ouro” e um “teto perigoso” na semana. O app conta só séries que chegaram perto da falha (RIR). A ficha já vem com séries, reps e carga sugerida a partir do seu máximo estimado. Se um grupo estourou o teto, a série extra <strong class="text-white">não entra</strong>. Depois de um sprint pesado, agachamento pesado também espera.
+                    Os padrões são fixos (agachar, hingear, empurrar, puxar). “Supino reto” e “bench” contam o <strong class="text-white">mesmo 1RM</strong>. A carga sobe pelo RIR. Se um músculo estourou o teto da semana, a série extra não entra. Depois de um sprint pesado, agachamento pesado espera.
                 </p>
             </div>
 
@@ -1362,7 +1374,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.3 Apex</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.4 Apex</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -1481,6 +1493,10 @@
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">O que é Semana 0?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">As 3 primeiras sessões de quem acabou a triagem: conservadoras (RIR alto, sem tiro), para o motor aprender seus números. Quem já treinava no app não entra nela automaticamente.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">A I.A. inventa exercício?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não nesta versão.</strong> Calistenia só a árvore (flexão, barra, dip, agachamento, ponte, prancha…). Musculação só os padrões (supino, agachamento, stiff, remada…). Corrida só 6 tipos de sessão. Se ela sugerir um nome de fora, o código troca pelo item da lista e o grupo muscular já vem certo.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">A I.A. usa o que eu já fiz?</summary>
@@ -1690,7 +1706,7 @@
 </div>
 
 <!-- Readiness Modal -->
-<div id="modal-readiness" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[120] hidden flex flex-col items-center justify-center p-4">
+<div id="modal-readiness" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[165] hidden flex flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-md rounded-3xl p-6 shadow-2xl relative overflow-hidden mx-auto">
         <div class="text-center mb-5">
             <h3 class="text-lg font-black text-white">Como você está hoje?</h3>
@@ -1766,7 +1782,7 @@
 </div>
 
 <!-- Modal Checkin -->
-<div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[80] hidden flex flex-col items-center justify-center p-4">
+<div id="modal-checkin" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[175] hidden flex flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-sm rounded-3xl p-6 shadow-2xl mx-auto">
         <div class="flex justify-between items-center mb-5">
             <h3 class="text-lg font-black text-white">Check-in (peso / FCrep)</h3>
@@ -1792,7 +1808,7 @@
 </div>
 
 <!-- Modal Workout Library -->
-<div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[90] hidden flex flex-col items-center justify-center p-4">
+<div id="modal-workout-library" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[175] hidden flex flex-col items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
         <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
             <div>
@@ -2067,7 +2083,239 @@
         bracos:     { mev: 6,  mavLow: 8,  mavHigh: 14, mrv: 18 },
         core:       { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 }
     };
-    
+
+    const RUN_TEMPLATES = [
+        { id: 'run_z2_easy', name: 'Rodagem Z1/Z2', focus: 'Base aeróbica fácil', svg: 'run_easy', allowZ4: false },
+        { id: 'run_z2_long', name: 'Longão Z2', focus: 'Resistência aeróbica', svg: 'run_long', allowZ4: false },
+        { id: 'run_strides', name: 'Z2 + passadas', focus: 'Técnica solta no final', svg: 'run_easy', allowZ4: false },
+        { id: 'run_z4_vo2', name: 'Intervalado Z4', focus: 'VO2 — só semana 3', svg: 'run_int', allowZ4: true },
+        { id: 'run_z5_short', name: 'Tiros curtos Z5', focus: 'Potência — raro', svg: 'run_int', allowZ4: true },
+        { id: 'run_test', name: 'Teste 3 ou 5 km', focus: 'Âncora de pace', svg: 'run_test', allowZ4: true }
+    ];
+
+    const EX_CATALOG = [
+        { id:'cal_push_wall', family:'push', sport:'Calistenia', group:'peitoral', rung:0, week0:true, unlockReps:10, name:'Flexão na parede', svg:'push_wall', aliases:'flexao na parede|wall push' },
+        { id:'cal_push_incline', family:'push', sport:'Calistenia', group:'peitoral', rung:1, week0:true, unlockReps:10, name:'Flexão inclinada', svg:'push_incline', aliases:'flexao inclinada|incline push' },
+        { id:'cal_push_knee', family:'push', sport:'Calistenia', group:'peitoral', rung:2, week0:true, unlockReps:10, name:'Flexão de joelhos', svg:'push_knee', aliases:'flexao de joelho|knee push' },
+        { id:'cal_push_floor', family:'push', sport:'Calistenia', group:'peitoral', rung:3, week0:true, unlockReps:12, name:'Flexão no chão', svg:'push_floor', aliases:'flexao|flexao no chao|push-up|pushup|push up' },
+        { id:'cal_push_decline', family:'push', sport:'Calistenia', group:'peitoral', rung:4, week0:false, unlockReps:12, name:'Flexão pés elevados', svg:'push_decline', aliases:'flexao pes elevados|decline push|pes no banco' },
+        { id:'cal_push_archer', family:'push', sport:'Calistenia', group:'peitoral', rung:5, week0:false, unlockReps:8, name:'Flexão archer', svg:'push_archer', aliases:'archer push|flexao archer|typewriter' },
+        { id:'cal_diamond', family:'diamond', sport:'Calistenia', group:'bracos', rung:3, week0:true, unlockReps:10, name:'Flexão diamante', svg:'push_floor', aliases:'flexao diamante|diamond push|pegada fechada' },
+        { id:'cal_row_high', family:'pull', sport:'Calistenia', group:'costas', rung:0, week0:true, unlockReps:10, name:'Australiana barra alta', svg:'pull_au', aliases:'australiana alta|inverted row high' },
+        { id:'cal_row_low', family:'pull', sport:'Calistenia', group:'costas', rung:1, week0:true, unlockReps:10, name:'Australiana barra baixa', svg:'pull_au', aliases:'australiana|remada invertida|inverted row' },
+        { id:'cal_pull_neg', family:'pull', sport:'Calistenia', group:'costas', rung:2, week0:true, unlockReps:5, name:'Barra negativa', svg:'pull_neg', aliases:'barra negativa|negative pull' },
+        { id:'cal_pull_up', family:'pull', sport:'Calistenia', group:'costas', rung:3, week0:true, unlockReps:8, name:'Barra pronada', svg:'pull_up', aliases:'barra fixa|barra|pull-up|pullup|pull up|chin up|chin-up|barra supinada' },
+        { id:'cal_pull_ctb', family:'pull', sport:'Calistenia', group:'costas', rung:4, week0:false, unlockReps:6, name:'Barra peito na barra', svg:'pull_ctb', aliases:'chest to bar|peito na barra|ctb' },
+        { id:'cal_dip_bench', family:'dip', sport:'Calistenia', group:'bracos', rung:0, week0:true, unlockReps:10, name:'Dip no banco', svg:'dip_bench', aliases:'dip banco|bench dip' },
+        { id:'cal_dip_para', family:'dip', sport:'Calistenia', group:'bracos', rung:1, week0:true, unlockReps:8, name:'Dip nas paralelas', svg:'dip_para', aliases:'dip|mergulho|paralela|dips' },
+        { id:'cal_pike', family:'pike', sport:'Calistenia', group:'ombros', rung:0, week0:true, unlockReps:8, name:'Pike no chão', svg:'pike', aliases:'pike|flexao pike' },
+        { id:'cal_pike_feet', family:'pike', sport:'Calistenia', group:'ombros', rung:1, week0:false, unlockReps:6, name:'Pike pés elevados', svg:'pike', aliases:'pike elevado|pike pes' },
+        { id:'cal_hspu_wall', family:'pike', sport:'Calistenia', group:'ombros', rung:2, week0:false, unlockReps:5, name:'HSPU na parede', svg:'hspu', aliases:'hspu|handstand push|parada de maos flexao' },
+        { id:'cal_squat', family:'leg', sport:'Calistenia', group:'quadriceps', rung:1, week0:true, unlockReps:12, name:'Agachamento livre', svg:'squat', aliases:'agachamento|squat|air squat' },
+        { id:'cal_lunge', family:'leg', sport:'Calistenia', group:'quadriceps', rung:2, week0:true, unlockReps:10, name:'Afundo', svg:'lunge', aliases:'afundo|lunge|passada' },
+        { id:'cal_bulgarian', family:'leg', sport:'Calistenia', group:'quadriceps', rung:3, week0:false, unlockReps:8, name:'Agachamento búlgaro', svg:'lunge', aliases:'bulgaro|bulgarian split' },
+        { id:'cal_pistol_a', family:'leg', sport:'Calistenia', group:'quadriceps', rung:4, week0:false, unlockReps:5, name:'Pistol assistido', svg:'pistol', aliases:'pistol|agachamento pistola' },
+        { id:'cal_bridge', family:'hinge', sport:'Calistenia', group:'posterior', rung:0, week0:true, unlockReps:12, name:'Ponte de glúteo', svg:'hinge', aliases:'ponte de gluteo|glute bridge|elevacao pelvica' },
+        { id:'cal_thrust1', family:'hinge', sport:'Calistenia', group:'posterior', rung:1, week0:true, unlockReps:8, name:'Hip thrust a 1 perna', svg:'hinge', aliases:'hip thrust|ponte unilateral' },
+        { id:'cal_nordic_a', family:'hinge', sport:'Calistenia', group:'posterior', rung:2, week0:false, unlockReps:5, name:'Nordic assistido', svg:'nordic', aliases:'nordic|nordico|curl nordico' },
+        { id:'cal_plank', family:'core', sport:'Calistenia', group:'core', rung:0, week0:true, unlockReps:0, name:'Prancha', svg:'plank', aliases:'prancha|plank' },
+        { id:'cal_hollow', family:'core', sport:'Calistenia', group:'core', rung:1, week0:true, unlockReps:0, name:'Hollow hold', svg:'hollow', aliases:'hollow|hollow rock|hollow body' },
+        { id:'cal_lsit_tuck', family:'core', sport:'Calistenia', group:'core', rung:2, week0:false, unlockReps:0, name:'L-sit tuck', svg:'lsit', aliases:'l-sit|lsit|l sit' },
+        { id:'cal_hang_knee', family:'core', sport:'Calistenia', group:'core', rung:3, week0:true, unlockReps:8, name:'Elevação de joelhos na barra', svg:'pull_neg', aliases:'elevacao de joelho|hanging knee|toes to bar|t2b' },
+        { id:'gym_goblet', family:'squat', sport:'Musculação', group:'quadriceps', rung:0, week0:true, unlockReps:10, name:'Agachamento goblet', svg:'squat', aliases:'goblet|agachamento goblet|agachamento halter' },
+        { id:'gym_squat', family:'squat', sport:'Musculação', group:'quadriceps', rung:1, week0:true, unlockReps:8, name:'Agachamento barra', svg:'squat', aliases:'agachamento|squat|back squat|hack|leg press|agachamento livre' },
+        { id:'gym_rdl', family:'hinge', sport:'Musculação', group:'posterior', rung:0, week0:true, unlockReps:8, name:'Stiff / RDL', svg:'hinge', aliases:'stiff|rdl|romanian|terra|deadlift|levantamento terra|good morning' },
+        { id:'gym_lunge', family:'lunge', sport:'Musculação', group:'quadriceps', rung:1, week0:true, unlockReps:8, name:'Afundo / búlgaro', svg:'lunge', aliases:'afundo|lunge|bulgaro|passada' },
+        { id:'gym_bench', family:'hpush', sport:'Musculação', group:'peitoral', rung:1, week0:true, unlockReps:8, name:'Supino', svg:'bench', aliases:'supino|bench|crucifixo|crossover|pec deck|voador|flexao halter|press banco' },
+        { id:'gym_ohp', family:'vpush', sport:'Musculação', group:'ombros', rung:1, week0:true, unlockReps:8, name:'Desenvolvimento', svg:'ohp', aliases:'desenvolvimento|overhead|ohp|militar|elevacao lateral|ombro' },
+        { id:'gym_row', family:'hpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, name:'Remada', svg:'row', aliases:'remada|row|serrote|remada curvada|remada baixa' },
+        { id:'gym_pulldown', family:'vpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, name:'Puxada / barra', svg:'pulldown', aliases:'puxada|pulldown|lat|barra fixa|pull-up|pullup' },
+        { id:'gym_arm', family:'arm', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, name:'Rosca / tríceps', svg:'curl', aliases:'rosca|triceps|curl|frances|testa|kickback|paralela|dip' },
+        { id:'gym_core', family:'core', sport:'Musculação', group:'core', rung:0, week0:true, unlockReps:0, name:'Prancha / core', svg:'plank', aliases:'prancha|abdominal|hollow|ab wheel|roda' }
+    ];
+
+    function catalogSvgHtml() { return ''; }
+
+    function findCatalogByName(name, sport) {
+        const n = normExName(name);
+        if (!n) return null;
+        const byId = EX_CATALOG.find(e => e.id === name || e.id === n);
+        if (byId && (!sport || byId.sport === sport)) return byId;
+        const pool = sport ? EX_CATALOG.filter(e => e.sport === sport) : EX_CATALOG;
+        for (const e of pool) {
+            if (normExName(e.name) === n) return e;
+            const aliases = (e.aliases || '').split('|').map(a => normExName(a)).filter(Boolean);
+            if (aliases.includes(n)) return e;
+        }
+        let best = null, bestLen = 0;
+        for (const e of pool) {
+            const aliases = [normExName(e.name), ...(e.aliases || '').split('|').map(a => normExName(a))].filter(Boolean);
+            for (const an of aliases) {
+                if (an.length < 8) continue;
+                if (n.includes(an) || an.includes(n)) {
+                    if (an.length > bestLen) { bestLen = an.length; best = e; }
+                }
+            }
+        }
+        return best;
+    }
+
+    function catalogFamilyDefault(sport, group) {
+        if (sport === 'Corrida') return null;
+        if (sport === 'Calistenia') {
+            return { peitoral:'push', costas:'pull', bracos:'dip', ombros:'pike', quadriceps:'leg', posterior:'hinge', core:'core' }[group] || 'push';
+        }
+        return { peitoral:'hpush', costas:'hpull', ombros:'vpush', quadriceps:'squat', posterior:'hinge', bracos:'arm', core:'core' }[group] || 'squat';
+    }
+
+    const CATALOG_STANDARD_RUNG = { push:3, pull:3, dip:1, pike:0, leg:1, hinge:1, core:1, diamond:3, squat:1, hpush:1, vpush:1, hpull:1, vpull:1, lunge:1, arm:1 };
+
+    function familyBlockedByPain(family, joints) {
+        if (!joints || typeof joints !== 'object') return false;
+        const blob = JSON.stringify(joints).toLowerCase();
+        if (/ombro/.test(blob) && (family === 'pike' || family === 'dip' || family === 'vpush')) return true;
+        if (/cotovelo/.test(blob) && (family === 'pull' || family === 'arm' || family === 'dip' || family === 'vpull')) return true;
+        if (/joelho/.test(blob) && (family === 'leg' || family === 'lunge' || family === 'squat')) return true;
+        if (/lombar/.test(blob) && family === 'hinge') return true;
+        return false;
+    }
+
+    function athleteRungCap(family, sport, joints) {
+        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport).sort((a,b) => a.rung - b.rung);
+        if (!rungs.length) return 0;
+        let cap = rungs[rungs.length - 1].rung;
+        if (typeof isWeek0 === 'function' && isWeek0()) {
+            const w0 = rungs.filter(r => r.week0);
+            if (w0.length) cap = Math.min(cap, w0[w0.length - 1].rung);
+        }
+        const cal = (userData && userData.evalCalisthenics) || {};
+        if (family === 'push') {
+            const m = parseInt(cal.maxPush, 10) || 0;
+            if (m <= 4) cap = Math.min(cap, 2);
+            else if (m <= 12) cap = Math.min(cap, 3);
+            else if (m <= 20) cap = Math.min(cap, 4);
+        }
+        if (family === 'pull') {
+            const m = parseInt(cal.maxPull, 10) || 0;
+            if (m <= 2) cap = Math.min(cap, 1);
+            else if (m <= 7) cap = Math.min(cap, 3);
+            if (familyBlockedByPain('pull', joints)) cap = Math.min(cap, 1);
+        }
+        if (family === 'pike' && (typeof isWeek0 === 'function' && isWeek0())) cap = Math.min(cap, 0);
+        if (familyBlockedByPain(family, joints) && family === 'pike') cap = Math.min(cap, 0);
+        if (familyBlockedByPain(family, joints) && family === 'leg') cap = Math.min(cap, 1);
+        return cap;
+    }
+
+    function pickCatalogForFamily(family, sport, lastLifts, joints) {
+        if (familyBlockedByPain(family, joints)) {
+            const fb = { pike:'push', dip:'push', vpush:'hpush', pull:'pull', vpull:'hpull', arm:'hpush', leg:'hinge', squat:'hinge', lunge:'hinge', hinge:'core' }[family];
+            if (fb && fb !== family) return pickCatalogForFamily(fb, sport, lastLifts, null);
+        }
+        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport).sort((a,b) => a.rung - b.rung);
+        if (!rungs.length) return null;
+        const cap = athleteRungCap(family, sport, joints);
+        let idx = 0;
+        for (let i = 0; i < rungs.length; i++) if (rungs[i].rung <= cap) idx = i;
+        const last = lastLifts && (lastLifts[family] || lastLifts[rungs[idx].id]);
+        if (last) {
+            const lastEntry = findCatalogByName(last.catalogId || last.name, sport);
+            if (lastEntry && lastEntry.family === family) {
+                const li = rungs.findIndex(r => r.id === lastEntry.id);
+                if (li >= 0) idx = li;
+                const rir = parseInt(last.rir, 10);
+                if (!isNaN(rir) && rir <= 0) idx = Math.max(0, idx - 1);
+                else if (!isNaN(rir) && rir <= 2 && (last.reps || 0) >= (lastEntry.unlockReps || 8)) {
+                    const hits = ((currentPlan || {}).catalogHits || {})[family] || 0;
+                    const standard = CATALOG_STANDARD_RUNG[family] ?? 1;
+                    const hasExtra = (parseFloat(last.addedLoadKg) || 0) > 0 || (parseFloat(last.weight) || 0) > 0;
+                    const atOrAboveStandard = rungs[idx].rung >= standard;
+                    if (hits >= 2 && (!atOrAboveStandard || hasExtra || sport === 'Musculação')) {
+                        idx = Math.min(rungs.length - 1, idx + 1);
+                    }
+                }
+            }
+        }
+        while (idx > 0 && rungs[idx].rung > cap) idx--;
+        return rungs[idx];
+    }
+
+    function mapRunTemplate(workout, ss) {
+        const meso = (ss && ss.mesocycle) || (typeof getMesocycleState === 'function' ? getMesocycleState() : {});
+        const blob = `${workout.name || ''} ${workout.focus || ''} ${(workout.queue || []).map(q => q.name).join(' ')}`.toLowerCase();
+        let id = 'run_z2_easy';
+        if (/teste|test day|5 ?km|3 ?km/.test(blob)) id = 'run_test';
+        else if (/z5|tiro curto|200 ?m|sprint/.test(blob)) id = 'run_z5_short';
+        else if (/z4|vo2|4x4|interval|hiit/.test(blob)) id = 'run_z4_vo2';
+        else if (/longao|long run|longo/.test(blob)) id = 'run_z2_long';
+        else if (/stride|passada solta/.test(blob)) id = 'run_strides';
+        const t = RUN_TEMPLATES.find(x => x.id === id) || RUN_TEMPLATES[0];
+        const allowHard = meso.allowZ4 !== false && !(typeof isWeek0 === 'function' && isWeek0());
+        if (t.allowZ4 && !allowHard) return RUN_TEMPLATES[0];
+        return t;
+    }
+
+    function applyCatalogLayer(workout, ss) {
+        if (!workout || !Array.isArray(workout.queue)) return workout;
+        const lastLifts = (ss && ss.last_lifts) || {};
+        const joints = (ss && ss.joint_stress_index) || {};
+        const sport = workout.modality || (userData && userData.masterAxis) || 'Calistenia';
+        if (sport === 'Corrida') {
+            const t = mapRunTemplate(workout, ss);
+            workout.catalogId = t.id;
+            workout.name = t.name;
+            workout.focus = t.focus;
+            workout.queue = workout.queue.map(item => {
+                if (!item || item.type === 'rest') return item;
+                if (exerciseKind(item) === 'prep') return { ...item, catalogId: t.id, family: 'run' };
+                const n = `${item.name} ${item.roundInfo || ''}`.toLowerCase();
+                if (!t.allowZ4 && /z4|z5|tiro|sprint|hiit|vo2/.test(n)) {
+                    return { ...item, name: 'Rodagem Z2', roundInfo: 'template Z2', catalogId: t.id, family: 'run' };
+                }
+                return { ...item, catalogId: t.id, family: 'run' };
+            });
+            return workout;
+        }
+        workout.queue = workout.queue.map(item => {
+            if (!item || item.type === 'rest') return item;
+            if (exerciseKind(item) === 'prep') return item;
+            let entry = findCatalogByName(item.catalogId || item.name, sport) || findCatalogByName(item.name);
+            if (entry && entry.sport !== sport) {
+                const fam = catalogFamilyDefault(sport, entry.group);
+                entry = pickCatalogForFamily(fam, sport, lastLifts, joints) || entry;
+            }
+            if (entry) {
+                const cap = athleteRungCap(entry.family, entry.sport, joints);
+                if (entry.rung > cap || familyBlockedByPain(entry.family, joints)) {
+                    entry = pickCatalogForFamily(entry.family, entry.sport, lastLifts, joints) || entry;
+                }
+            } else {
+                const g = normalizeMuscleGroup(item.targetGroup, item.name);
+                const fam = catalogFamilyDefault(sport, g);
+                entry = pickCatalogForFamily(fam, sport, lastLifts, joints);
+            }
+            if (!entry) return item;
+            return {
+                ...item,
+                catalogId: entry.id,
+                family: entry.family,
+                name: entry.name,
+                targetGroup: entry.group
+            };
+        });
+        return workout;
+    }
+
+    function catalogPromptBlock() {
+        const lines = EX_CATALOG.map(e => `${e.id} | ${e.sport} | ${e.name} | ${e.group} | degrau ${e.rung}`);
+        const runs = RUN_TEMPLATES.map(t => `${t.id} | Corrida | ${t.name}`);
+        return `16. CATÁLOGO FECHADO: use SOMENTE estes ids/nomes. Proibido inventar (planche, lever, muscle-up, HSPU livre, máquina fantasma). Não pule degrau acima da âncora. Extra/colete no mesmo id. Corrida: só os 6 templates.\nCALISTENIA/MUSCULAÇÃO:\n${lines.join('\n')}\nCORRIDA:\n${runs.join('\n')}`;
+    }
+
+    function coachingPromptTail() {
+        return `${WORKOUT_RULES}\n${catalogPromptBlock()}`;
+    }
+
     // WORKOUT_RULES v5.0 APEX HYBRID (FASE 1)
     const WORKOUT_RULES = `REGRA CINESIOLÓGICA & FISIOLÓGICA v5.2 (MOTOR DETERMINÍSTICO):
     1. ANTI-INTERFERÊNCIA (mTORC1 vs AMPK): Se is_high_intensity_run_allowed === false, PROIBIDO tiros/Z4/Z5 — só corrida Z1/Z2. Se is_heavy_legs_allowed === false, NÃO prescreva agachamento/stiff/leg press pesado.
@@ -2084,7 +2332,8 @@
     12. SÉRIE EFETIVA: só RIR≤3 conta no MEV. Aquecimento (RIR≥5 ou HRR<60%) não entra no 80/20.
     13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.
     14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
-    15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.`;
+    15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.
+    16. CATÁLOGO: só exercícios da lista fechada (ids). Sem planche/lever/muscle-up/HSPU livre. Corrida só nos 6 templates. Degrau ≤ âncora.`;
 
     let currentUser = null;
     let userData = {};
@@ -2789,22 +3038,32 @@
         const out = map || {};
         try {
             const cal = userData.evalCalisthenics || {};
-            if ((parseInt(cal.maxPush, 10) || 0) > 0 && !out[normExName('flexao')]) {
+            if ((parseInt(cal.maxPush, 10) || 0) > 0 && !out.push && !out[normExName('flexao')]) {
                 const work = Math.max(5, Math.round(cal.maxPush * 0.6));
-                out[normExName('flexao')] = { name: 'Flexão', reps: work, rir: 3, weight: 0, addedLoadKg: 0, date: 'anchor' };
+                const rec = { name: 'Flexão no chão', reps: work, rir: 3, weight: 0, addedLoadKg: 0, date: 'anchor', family: 'push', catalogId: 'cal_push_floor' };
+                out[normExName('flexao')] = rec;
+                out.push = rec;
+                out.cal_push_floor = rec;
             }
-            if ((parseInt(cal.maxPull, 10) || 0) > 0 && !out[normExName('barra fixa')]) {
+            if ((parseInt(cal.maxPull, 10) || 0) > 0 && !out.pull && !out[normExName('barra fixa')]) {
                 const work = Math.max(3, Math.round(cal.maxPull * 0.6));
-                out[normExName('barra fixa')] = { name: 'Barra Fixa', reps: work, rir: 3, weight: 0, addedLoadKg: 0, date: 'anchor' };
+                const rec = { name: 'Barra pronada', reps: work, rir: 3, weight: 0, addedLoadKg: 0, date: 'anchor', family: 'pull', catalogId: 'cal_pull_up' };
+                out[normExName('barra fixa')] = rec;
+                out.pull = rec;
+                out.cal_pull_up = rec;
             }
             const musc = userData.evalBodybuilding || {};
             if (musc.anchorName && musc.anchorName !== 'nunca' && (parseFloat(musc.anchorKg) || 0) > 0) {
                 const key = normExName(musc.anchorName);
+                const entry = (typeof findCatalogByName === 'function') ? findCatalogByName(musc.anchorName, 'Musculação') : null;
                 if (!out[key]) {
                     const repsA = parseInt(musc.anchorReps, 10) || 5;
                     const est1 = calculateUnified1RM(parseFloat(musc.anchorKg), repsA, 1);
                     const workLoad = roundToPlate((est1 || musc.anchorKg) * 0.72, 2.5);
-                    out[key] = { name: musc.anchorName, reps: 8, rir: 3, weight: workLoad, addedLoadKg: 0, date: 'anchor' };
+                    const rec = { name: musc.anchorName, reps: 8, rir: 3, weight: workLoad, addedLoadKg: 0, date: 'anchor', family: entry?.family, catalogId: entry?.id };
+                    out[key] = rec;
+                    if (entry && !out[entry.family]) out[entry.family] = rec;
+                    if (entry && !out[entry.id]) out[entry.id] = rec;
                 }
             }
         } catch (e) {}
@@ -2848,20 +3107,16 @@
         sorted.forEach(h => {
             (h.exerciseLogs || []).forEach(log => {
                 if (!log.name || log.estimated) return;
-                const key = normExName(log.name);
-                if (map[key]) return;
                 if (log.kind === 'prep') return;
+                const nameKey = normExName(log.name);
+                const entry = (typeof findCatalogByName === 'function') ? findCatalogByName(log.name, h.modality) : null;
+                const put = (rec) => {
+                    if (!map[nameKey]) map[nameKey] = rec;
+                    if (entry && !map[entry.family]) map[entry.family] = rec;
+                    if (entry && !map[entry.id]) map[entry.id] = rec;
+                };
                 if (log.kind === 'iso' || log.holdSeconds) {
-                    map[key] = {
-                        name: log.name, kind: 'iso',
-                        reps: 0,
-                        holdSeconds: parseInt(log.holdSeconds, 10) || 0,
-                        secondsReserve: parseInt(log.secondsReserve, 10) || 0,
-                        rir: parseInt(log.rir, 10) || 2,
-                        weight: 0,
-                        addedLoadKg: parseFloat(log.addedLoadKg) || 0,
-                        date: h.date
-                    };
+                    put({ name: log.name, kind: 'iso', reps: 0, holdSeconds: parseInt(log.holdSeconds, 10) || 0, secondsReserve: parseInt(log.secondsReserve, 10) || 0, rir: parseInt(log.rir, 10) || 2, weight: 0, addedLoadKg: parseFloat(log.addedLoadKg) || 0, date: h.date, catalogId: entry?.id, family: entry?.family });
                     return;
                 }
                 const reps = parseInt(log.reps, 10) || 0;
@@ -2869,10 +3124,26 @@
                 const rir = (log.rir === undefined || log.rir === null) ? 2 : parseInt(log.rir, 10);
                 const bar = parseFloat(log.weight) || 0;
                 const added = parseFloat(log.addedLoadKg) || 0;
-                map[key] = { name: log.name, reps, rir, weight: bar, addedLoadKg: added, date: h.date };
+                put({ name: log.name, reps, rir, weight: bar, addedLoadKg: added, date: h.date, catalogId: entry?.id, family: entry?.family });
             });
         });
         return seedAnchorsIntoLastLifts(map);
+    }
+
+    function bumpCatalogHits(logs, modality) {
+        if (!currentPlan) return;
+        currentPlan.catalogHits = currentPlan.catalogHits || {};
+        (logs || []).forEach(log => {
+            if (!log || log.estimated) return;
+            const entry = findCatalogByName(log.catalogId || log.name, modality);
+            if (!entry) return;
+            const rir = parseInt(log.rir, 10);
+            if (isNaN(rir) || rir >= 4 || rir <= 0) {
+                currentPlan.catalogHits[entry.family] = 0;
+                return;
+            }
+            if (rir <= 2) currentPlan.catalogHits[entry.family] = (currentPlan.catalogHits[entry.family] || 0) + 1;
+        });
     }
 
     function progressFromLast(last, isCal) {
@@ -2952,6 +3223,7 @@
         const z2pace = ss.z2_pace_suggestion || null;
         workout.queue = Array.isArray(workout.queue) ? workout.queue.map(q => ({ ...q })) : [];
         workout.modality = workout.modality || userData.masterAxis || 'Calistenia';
+        try { applyCatalogLayer(workout, ss); } catch (e) {}
         const original = workout.queue.slice();
 
         if (workout.modality === 'Corrida' && (conflict.is_high_intensity_run_allowed === false || meso.allowZ4 === false)) {
@@ -2982,7 +3254,7 @@
             let sets = Math.max(kind === 'iso' ? 1 : 2, Math.round((parseInt(item.sets, 10) || 3) * (meso.setsMul || 1)));
             let rir = Math.max(1, Math.min(4, (parseInt(item.rirTarget, 10) || 2) + (meso.rirDelta || 0)));
             const isCal = looksLikeCalisthenics(item.name) || workout.modality === 'Calistenia';
-            const last = lastLifts[normExName(item.name)];
+            const last = lastLifts[item.catalogId] || lastLifts[item.family] || lastLifts[normExName(item.name)];
             const prog = progressFromLast(last, isCal);
             const next = { ...item, sets, rirTarget: rir };
             if (prog) {
@@ -3634,7 +3906,7 @@
             };
             docp.setFillColor(6, 182, 212); docp.rect(0, 0, 210, 22, 'F');
             docp.setTextColor(255, 255, 255); docp.setFont('helvetica', 'bold'); docp.setFontSize(16);
-            docp.text('Apex Hybrid  v6.3  — Relatorio de Treino', 15, 14);
+            docp.text('Apex Hybrid  v6.4  — Relatorio de Treino', 15, 14);
             let y = 30;
             y = line(y, `Atleta: ${userData.name || userData.nickname}  |  Eixo: ${userData.masterAxis || '-'}  |  ${new Date().toLocaleDateString('pt-BR')}`, 11);
             y = line(y + 2, 'Documento de acompanhamento de carga. Nao substitui avaliacao medica ou laudo clinico.', 8, [100, 116, 139]);
@@ -4089,6 +4361,7 @@
                     loadKg: { type: "number" },
                     pct1RM: { type: "number" },
                     targetGroup: { type: "string" },
+                    catalogId: { type: "string" },
                     restSeconds: { type: "integer" }
                 },
                 required: ["type", "name", "duration"]
@@ -4202,7 +4475,7 @@
     }
 
     function checkPostLoginPopupsSequence() {
-        const seenV61 = localStorage.getItem(`seen_v61_novelty_${currentUser.uid}`);
+        const seenV61 = localStorage.getItem(`seen_v64_novelty_${currentUser.uid}`);
         if (!seenV61) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
         else checkPendingWorkoutReminder();
@@ -4210,7 +4483,7 @@
 
     window.closeV40NoveltyModal = () => {
         window.hide('modal-v40-novelty');
-        localStorage.setItem(`seen_v61_novelty_${currentUser.uid}`, 'true');
+        localStorage.setItem(`seen_v64_novelty_${currentUser.uid}`, 'true');
         checkPostLoginPopupsSequence();
     };
 
@@ -4381,12 +4654,12 @@
     };
 
     async function finishAssessmentAndGeneratePlan() {
-        showLoading("Consolidando seu perfil...", "Montando o primeiro microciclo com a I.A. v6.3...");
+        showLoading("Consolidando seu perfil...", "Montando o primeiro microciclo com a I.A. v6.4...");
         const syntheticState = await buildSyntheticStateVector();
         const fcMax = Math.round(208 - (0.7 * parseFloat(userData.age)));
 
         const days = parseInt(userData.days, 10) || 3;
-        const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%, sexo: ${userData.sex || 'M'}. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${days} dias/sem, ${userData.mins}min. FC_máx: ${fcMax}bpm. FCrep: ${userData.restHeartRate}bpm.
+        const prompt = `Atue como Apex Hybrid Coach v6.4. ALUNO: ${userData.nickname}, ${userData.age}a, ${userData.weight}kg, ${userData.height}cm, BF: ${userData.bf}%, sexo: ${userData.sex || 'M'}. EIXO MESTRE: ${userData.masterAxis}. DISPONIBILIDADE: ${days} dias/sem, ${userData.mins}min. FC_máx: ${fcMax}bpm. FCrep: ${userData.restHeartRate}bpm.
         ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}.
         AVALIAÇÃO CALISTENIA: ${JSON.stringify(userData.evalCalisthenics)}.
         AVALIAÇÃO MUSCULAÇÃO: ${JSON.stringify(userData.evalBodybuilding)}.
@@ -4394,7 +4667,7 @@
         TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary'
         4. MICROCICLO: gere exatamente ${days} sessões no array 'workouts' (eixo mestre ~50-60%, 1 sessão Z2 se fizer sentido, sem dois estímulos de perna/HIIT consecutivos). A PRIMEIRA sessão também em 'workout'.
         Cada item work da queue deve ter sets, reps, rirTarget, targetGroup e pct1RM ou loadKg.
-        \n ${WORKOUT_RULES}`;
+        \n ${coachingPromptTail()}`;
 
         try {
             const res = await callGemini(prompt);
@@ -4414,7 +4687,7 @@
                 userProfileAnalysis: res.userProfileAnalysis,
                 planExplanation: res.planExplanation,
                 macrocycleSummary: res.macrocycleSummary,
-                coachFeedback: `Bem-vindo(a) ao microciclo v6.3, ${userData.nickname}!`,
+                coachFeedback: `Bem-vindo(a) ao microciclo v6.4, ${userData.nickname}!`,
                 workouts: list,
                 nextWorkoutDate: nwd.toISOString(),
                 isDeload: !!(syntheticState && syntheticState.is_deload),
@@ -4559,12 +4832,12 @@
         const selected = document.querySelector('input[name="new-master-axis"]:checked');
         if(!selected) return window.showAlert("Aviso", "Selecione o novo Eixo Mestre.");
         const newAxis = selected.value; window.hide('modal-change-axis');
-        showLoading("Migrando eixo mestre...", "Recalculando o plano com a I.A. v6.3..."); userData.masterAxis = newAxis;
+        showLoading("Migrando eixo mestre...", "Recalculando o plano com a I.A. v6.4..."); userData.masterAxis = newAxis;
         const syntheticState = await buildSyntheticStateVector();
 
-        const prompt = `Atue como Apex Hybrid Coach v6.3. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
+        const prompt = `Atue como Apex Hybrid Coach v6.4. O aluno ${userData.nickname} alterou seu Eixo Mestre para **${newAxis}**.
         ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}.
-        RECALCULE O PLANO PRINCIPAL MANTENDO O HISTÓRICO. TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4.'workout'. \n ${WORKOUT_RULES}`;
+        RECALCULE O PLANO PRINCIPAL MANTENDO O HISTÓRICO. TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4.'workout'. \n ${coachingPromptTail()}`;
 
         try {
             const res = await callGemini(prompt);
@@ -4710,11 +4983,11 @@
 
 // Função blindada de Recalibração Baseada em Prontidão e Tempo Proporcional
 async function recalibrateWorkoutWithReadiness(readiness, modality) {
-    showLoading("Recalibrando a sessão...", `Ajustando para ${readiness.requestedMinutes} min com a I.A. v6.3...`);
+    showLoading("Recalibrando a sessão...", `Ajustando para ${readiness.requestedMinutes} min com a I.A. v6.4...`);
     
     const syntheticState = await buildSyntheticStateVector();
     
-    const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}. 
+    const prompt = `Atue como Apex Hybrid Coach v6.4. ALUNO: ${userData.nickname}. 
     EIXO MESTRE / MODALIDADE DE HOJE: ${modality}.
     TEMPO TOTAL EXIGIDO PELO ALUNO: ${readiness.requestedMinutes} minutos (ESTRICTO).
     ESTADO DE PRONTIDÃO DIÁRIA (READINESS): 
@@ -4729,7 +5002,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     1. INTERPRETAÇÃO DE SINTOMAS: Se houver dor relatada (ex: ombro, joelho, lombar), o motor DEVE substituir ou eliminar exercícios que gerem estresse direto nessa articulação, aplicando a matriz cinesiológica de proteção.
     2. RECALCULO MATEMÁTICO DE TEMPO (OBRIGATÓRIO): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A ${readiness.requestedMinutes} * 60 segundos. Se o aluno pediu menos tempo, enxugue a sessão cortando volume acessório. Se pediu mais tempo, adicione séries e blocos compensatórios respeitando o MAV/MEV.
     3. Retorne estritamente um objeto JSON válido contendo: 'userProfileAnalysis', 'planExplanation', 'macrocycleSummary', 'coachFeedback', e um objeto 'workout' detalhado com nome, focus, modality, estimatedMinutes (${readiness.requestedMinutes}), e a queue balanceada de 'work' e 'rest' (cada work com sets, reps, rirTarget, targetGroup).
-    ${WORKOUT_RULES}`;
+    ${coachingPromptTail()}`;
 
     try {
         const res = await callGemini(prompt, 'workout');
@@ -5361,18 +5634,18 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         if (selectedPseValue === null) return;
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         if (!nw) return window.showAlert('Treino', 'Não achei a sessão atual para avaliar.');
-        showLoading("Avaliando o treino...", "I.A. v6.3 lendo volume, RIR e o que você escreveu...");
+        showLoading("Avaliando o treino...", "I.A. v6.4 lendo volume, RIR e o que você escreveu...");
         const syntheticState = await buildSyntheticStateVector();
         const nextModality = pickNextModality(syntheticState, nw?.modality);
         const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
         const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
 
-        const prompt = `Atue como Apex Hybrid Coach v6.3. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
+        const prompt = `Atue como Apex Hybrid Coach v6.4. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
 ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec')?.value||'N/A'}. Kcal: ${document.getElementById('pw-kcal')?.value||'N/A'}.
 SINTOMA / OBSERVAÇÃO PRÉ-TREINO: "${preWorkoutNotes}".
 RELATO SUBJETIVO PÓS-TREINO: "${userFeedbackText}".
 O PRÓXIMO treino deve ser modalidade ${nextModality} (escolhida pelo motor híbrido, não necessariamente o eixo mestre).
-TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout' (modalidade: ${nextModality}, work items com sets/reps/rirTarget/targetGroup). \n ${WORKOUT_RULES}`;
+TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout' (modalidade: ${nextModality}, work items com sets/reps/rirTarget/targetGroup). \n ${coachingPromptTail()}`;
 
         try {
             aiEvaluationResult = await callGemini(prompt);
@@ -5402,8 +5675,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         const lastMod = currentPlan.workouts.find(w => !w.isCompleted)?.modality;
         const nextModality = pickNextModality(syntheticState, lastMod);
 
-        showLoading("Recalibrando a proposta...", "I.A. v6.3 ajustando o próximo treino...");
-        const prompt = `Atue como Apex Hybrid Coach v6.3. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. Work items com sets/reps/rirTarget/targetGroup. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${WORKOUT_RULES}`;
+        showLoading("Recalibrando a proposta...", "I.A. v6.4 ajustando o próximo treino...");
+        const prompt = `Atue como Apex Hybrid Coach v6.4. RECALIBRE O PRÓXIMO TREINO para ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MODALIDADE: ${nextModality}. NOVO TEMPO: ${timeMins} min. ESTRATÉGIA: ${strategy}. Work items com sets/reps/rirTarget/targetGroup. TAREFAS: 1.'coachFeedback' 2.'suggestedDays' 3.'suggestedMinutes' 4.'workout'. \n ${coachingPromptTail()}`;
 
         try {
             aiEvaluationResult = await callGemini(prompt);
@@ -5444,6 +5717,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             if ((!exerciseLogsCollected || !exerciseLogsCollected.length) && calSessionLogs.length) {
                 exerciseLogsCollected = calSessionLogs.slice();
             }
+            try { bumpCatalogHits(exerciseLogsCollected, currentPlan.workouts[nwIndex].modality); } catch (e) {}
 
             if (exerciseLogsCollected.length === 0 && currentPlan.workouts[nwIndex].queue) {
                 const workItems = currentPlan.workouts[nwIndex].queue.filter(q => q.type === 'work');
@@ -5491,6 +5765,14 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             if (currentPlan.workouts[nwIndex].modality === 'Corrida') {
                 zoneDist = zoneDistributionFromSession(dur, fcAvgVal, selectedPseValue || 5);
             }
+
+            try {
+                const mod = currentPlan.workouts[nwIndex].modality;
+                exerciseLogsCollected = (exerciseLogsCollected || []).map(l => {
+                    const e = findCatalogByName(l.catalogId || l.name, mod);
+                    return e ? { ...l, catalogId: e.id, targetGroup: l.targetGroup || e.group } : l;
+                });
+            } catch (e) {}
 
             try {
                 await addDoc(collection(db, `users/${currentUser.uid}/history`), { 
@@ -5962,10 +6244,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.generateProgressReport = async () => {
-        showLoading("Gerando relatório...", "I.A. v6.3 sintetizando volume e recuperação...");
+        showLoading("Gerando relatório...", "I.A. v6.4 sintetizando volume e recuperação...");
         try {
             const syntheticState = await buildSyntheticStateVector();
-            const prompt = `Atue como Apex Hybrid Coach v6.3. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), ACWR, IFR, 1RM, polarizado 80/20 e dados de relógio se existirem. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
+            const prompt = `Atue como Apex Hybrid Coach v6.4. ALUNO: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Analise Marcos de Volume (MEV/MAV/MRV), ACWR, IFR, 1RM, polarizado 80/20 e dados de relógio se existirem. Gere relatório: 1.'analysis' 2.'estimatedTime' 3.'nextSteps'.`;
             const res = await callGemini(prompt, 'report');
             document.getElementById('progress-report-content').innerHTML = `<div class="space-y-2 text-xs text-slate-300"><p><strong>Diagnóstico Fisiológico & Marcos de Volume:</strong> ${escapeHtml(res.analysis || "")}</p><p><strong>Previsão de Supercompensação:</strong> ${escapeHtml(res.estimatedTime || "")}</p><p><strong>Próximos Passos (1RM & IFR):</strong> ${escapeHtml(res.nextSteps || "")}</p></div>`;
             hideLoading();
@@ -5998,7 +6280,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
 async function loadChatHistory() {
         try {
             const cont = document.getElementById('chat-messages'); const snap = await getDocs(query(collection(db, `users/${currentUser.uid}/messages`), orderBy('timestamp', 'asc'))); cont.innerHTML = '';
-            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Sou seu Apex Hybrid Coach v6.3. Fale do treino — se estava pesado ou leve, posso aplicar no próximo da fila.</span></div>`;
+            if (snap.empty) cont.innerHTML = `<div class="bg-dark-950 p-3.5 rounded-2xl text-xs text-slate-200"><span>Olá! Sou seu Apex Hybrid Coach v6.4. Fale do treino — se estava pesado ou leve, posso aplicar no próximo da fila.</span></div>`;
             else snap.forEach(d => { 
                 const m = d.data(); 
                 if (m.role === 'user') cont.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(m.text)}</div></div>`; 
@@ -6013,11 +6295,11 @@ async function loadChatHistory() {
         const c = document.getElementById('chat-messages'); c.innerHTML += `<div class="flex justify-end"><div class="bg-brand-500 text-dark-950 p-3.5 rounded-2xl text-xs font-bold max-w-[80%]">${escapeHtml(t)}</div></div>`; inp.value = ''; c.scrollTop = c.scrollHeight;
         try { await addDoc(collection(db, `users/${currentUser.uid}/messages`), { role: 'user', text: t, timestamp: new Date().toISOString() }); } catch(e) {}
         const intent = chatLoadIntent(t);
-        showLoading("Coach v6.3 pensando...", "Lendo histórico, volume e ACWR...");
+        showLoading("Coach v6.4 pensando...", "Lendo histórico, volume e ACWR...");
         const syntheticState = await buildSyntheticStateVector();
-        const prompt = `Atue como Apex Hybrid Coach v6.3. Aluno: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MSG: "${t}".
+        const prompt = `Atue como Apex Hybrid Coach v6.4. Aluno: ${userData.nickname}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. MSG: "${t}".
 Responda em português, usando os marcos de volume e o ACWR reais do JSON. Não invente séries que contradigam MRV/deload.
-${WORKOUT_RULES}`;
+${coachingPromptTail()}`;
         try {
             const res = await callGemini(prompt, 'chat');
             hideLoading();
