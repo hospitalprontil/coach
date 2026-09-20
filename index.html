@@ -1411,7 +1411,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Calistenia: timer ou ficha?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">São as duas na mesma sessão. <strong class="text-white">Timer</strong> = relógio (trabalho / descanso / próximo). Ele conta segundos, não “8 barras”. <strong class="text-white">Ficha</strong> = caderno (reps, extra, RIR). Use o timer para fazer e a ficha para anotar. Só timer, sem anotar: o treino conta, mas a carga não sobe depois.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Depois do “como você está hoje”, escolha <strong class="text-white">por tempo</strong> (cronômetro) ou <strong class="text-white">por séries</strong> (“faça 10”). Sempre um exercício por vez. No descanso você anota reps, extra e RIR. A aba Treinamento só mostra o resumo curto (ex. Flexão · 3 séries de 10 com 30s).</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">No timer é 30s barra, 30s descanso, 30s abdominal. O que eu faço?</summary>
@@ -1456,6 +1456,10 @@
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">MEV, MAV, MRV, ACWR, 1RM — preciso decorar?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. Toque no <strong class="text-white">i</strong> ao lado do termo. Em resumo: MEV = mínimo da semana, MAV = faixa boa, MRV = teto. ACWR = se você acelerou demais vs as 4 semanas. 1RM = estimativa do seu máximo, sem testar falha.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Aquecimento, volta à calma e isometria pedem RIR?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não no aquecimento/volta</strong> — só acompanhe o relógio, sem reps nem RIR. <strong class="text-white">Isometria</strong> (prancha, L-sit, hollow) também não tem repetição: o cronômetro manda. No descanso você anota os segundos que segurou e se ainda aguentaria um pouco (isso substitui o RIR).</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Isso substitui médico ou personal?</summary>
@@ -1564,6 +1568,32 @@
                     <span id="timer-current-info" class="text-sm text-brand-300 font-semibold mt-1 break-words line-clamp-2">--</span>
                 </div>
 
+                <div id="timer-log-panel" class="hidden w-full bg-dark-900 border border-amber-500/40 p-4 rounded-2xl space-y-2 z-10">
+                    <p class="text-[10px] text-amber-400 font-black uppercase tracking-wider">Descanso · como foi a série?</p>
+                    <p id="timer-log-ex" class="text-xs text-white font-bold">--</p>
+                    <p id="cal-log-hint" class="text-[10px] text-slate-400 hidden"></p>
+                    <div id="cal-log-fields" class="grid grid-cols-3 gap-2">
+                        <div>
+                            <span id="cal-log-reps-label" class="text-[8px] text-slate-500 font-bold uppercase block mb-0.5">Reps</span>
+                            <input id="cal-log-reps" type="number" min="0" class="w-full bg-dark-950 border border-slate-700 rounded-lg p-2 text-center text-white text-sm font-black outline-none" placeholder="8">
+                        </div>
+                        <div id="cal-log-extra-wrap">
+                            <span class="text-[8px] text-amber-400 font-bold uppercase block mb-0.5">Extra kg</span>
+                            <input id="cal-log-extra" type="number" min="0" step="0.5" class="w-full bg-dark-950 border border-amber-500/40 rounded-lg p-2 text-center text-amber-300 text-sm font-black outline-none" placeholder="0">
+                        </div>
+                        <div id="cal-log-rir-wrap">
+                            <span id="cal-log-rir-label" class="text-[8px] text-purple-400 font-bold uppercase block mb-0.5">RIR</span>
+                            <select id="cal-log-rir" class="w-full bg-dark-950 border border-purple-500/40 rounded-lg p-2 text-center text-purple-300 text-sm font-black outline-none">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="timer-next-card" class="bg-gradient-to-r from-amber-950/60 via-dark-900 to-dark-900 border border-amber-500/40 w-full p-4 rounded-2xl flex flex-col justify-center shadow-md relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                     <span class="text-xs text-amber-400 font-black uppercase tracking-widest mb-1 flex items-center gap-1.5"><i class="fas fa-forward"></i> Próximo Passo Proposto</span>
@@ -1575,8 +1605,27 @@
 
         <div class="p-5 bg-dark-900 border-t border-slate-800 shrink-0 z-20 flex gap-3">
             <button id="btn-pause-resume" onclick="window.toggleTimer()" class="flex-1 h-14 rounded-2xl bg-brand-500 text-white font-black text-lg flex items-center justify-center gap-2 shadow-lg"><i class="fas fa-pause"></i> PAUSAR</button>
+            <button id="btn-cal-done" type="button" onclick="window.completeCalWorkSet()" class="hidden flex-1 h-14 rounded-2xl bg-brand-500 text-white font-black text-sm uppercase flex items-center justify-center gap-2 shadow-lg">Concluí a série</button>
             <button onclick="window.skipExercise()" class="w-14 h-14 rounded-2xl bg-slate-800 text-slate-300 font-black text-lg flex items-center justify-center border border-slate-700 shadow"><i class="fas fa-step-forward"></i></button>
         </div>
+    </div>
+</div>
+
+<div id="modal-cal-mode" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[170] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto">
+        <h3 class="text-lg font-black text-white text-center mb-1">Como você quer treinar hoje?</h3>
+        <p id="cal-mode-exname" class="text-xs text-slate-400 text-center mb-5">Um exercício por vez. Você anota no descanso.</p>
+        <div class="space-y-3">
+            <button type="button" onclick="window.pickCalMode('time')" class="w-full bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/40 text-left p-4 rounded-2xl">
+                <span class="text-sm font-black text-brand-300 block">Por tempo</span>
+                <span class="text-[11px] text-slate-400">Cronômetro de trabalho. Conte as reps. No descanso você anota.</span>
+            </button>
+            <button type="button" onclick="window.pickCalMode('sets')" class="w-full bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/40 text-left p-4 rounded-2xl">
+                <span class="text-sm font-black text-purple-300 block">Por séries</span>
+                <span class="text-[11px] text-slate-400">Ex.: Barras — faça 10. Depois descanso para anotar reps e RIR.</span>
+            </button>
+        </div>
+        <button type="button" onclick="window.hide('modal-cal-mode'); showScreen('screen-dashboard');" class="mt-4 w-full text-[11px] text-slate-500 font-bold py-2">Cancelar</button>
     </div>
 </div>
 
@@ -2011,6 +2060,7 @@
     let isSignupMode = false;
     
     let timerInterval = null, isPaused = false, currentWorkoutQueue = [], currentQueueIndex = 0, timeLeft = 0;
+    let calMode = 'time', calSessionLogs = [], calLastWork = null, calAwaitingDone = false;
     let restTimerInterval = null, restTimeLeft = 0;
     
     let selectedPseValue = null, aiEvaluationResult = null, selectedEnergy = null;
@@ -2325,13 +2375,18 @@
             if (item.exerciseLogs && Array.isArray(item.exerciseLogs)) {
                 item.exerciseLogs.forEach(log => {
                     if (log.estimated) return;
+                    if (log.kind === 'prep') return;
+                    const group = log.targetGroup ? log.targetGroup.toLowerCase() : categorizeMuscleGroup(log.name);
+                    if (volumeMap[group] === undefined) return;
+                    if (log.kind === 'iso' || log.holdSeconds) {
+                        const reserve = (log.secondsReserve !== undefined && log.secondsReserve !== null) ? parseInt(log.secondsReserve, 10) : 99;
+                        if (reserve <= 5) volumeMap[group] += 1;
+                        return;
+                    }
                     const reps = parseInt(log.reps, 10);
                     if (!reps || reps <= 0) return;
                     const rir = (log.rir === undefined || log.rir === null) ? 2 : parseInt(log.rir, 10);
-                    if (rir <= 3) {
-                        const group = log.targetGroup ? log.targetGroup.toLowerCase() : categorizeMuscleGroup(log.name);
-                        if (volumeMap[group] !== undefined) volumeMap[group] += 1;
-                    }
+                    if (rir <= 3) volumeMap[group] += 1;
                 });
             }
         });
@@ -2483,45 +2538,110 @@
 
     function restSecondsForItem(item) {
         if (item && item.restSeconds) return Math.min(240, Math.max(20, parseInt(item.restSeconds, 10)));
+        const kind = exerciseKind(item);
+        if (kind === 'prep') return 20;
         const t = `${item?.roundInfo || ''} ${item?.name || ''}`.toLowerCase();
         if (/forca|1rm|1-5|3x3|5x5|carga alta|força/.test(t)) return 180;
-        if (/skill|isometr|tensao|tut|core|prancha|hollow|l-sit/.test(t)) return 45;
+        if (kind === 'iso' || /skill|isometr|tensao|tut|core|prancha|hollow|l-sit/.test(t)) return 45;
         return 90;
+    }
+
+    function exerciseKind(item) {
+        const blob = `${item?.name || ''} ${item?.roundInfo || ''} ${item?.phase || ''} ${item?.role || ''}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (/aquec|desaquec|volta a calma|volta-a-calma|cooldown|cool down|warm.?up|alongament|mobilidade|mobility|respiracao diafrag/.test(blob)) return 'prep';
+        if (/isometr|prancha|plank|\bhollow\b|l-sit|lsit|front lever hold|back lever hold|handstand hold|wall sit|dead hang|bar hang|tuck hold|superman hold|tensao isometr|estatic/.test(blob)) return 'iso';
+        if (/\bhold\b|\bsegura\b|segure \d/.test(blob) && /prancha|hollow|lever|plank|hang|l-sit|isometr/.test(blob)) return 'iso';
+        return 'dyn';
     }
 
     function expandQueueForTimer(rawQueue) {
         if (!Array.isArray(rawQueue) || !rawQueue.length) return [];
         const out = [];
         rawQueue.forEach((item) => {
-            if (!item) return;
-            if (item.type === 'rest') {
-                out.push({ ...item, type: 'rest', name: item.name || 'Descanso' });
-                return;
+            if (!item || item.type === 'rest') return;
+            const baseName = item.name || 'Exercício';
+            const kind = exerciseKind(item);
+            const nSets = kind === 'prep' ? 1 : Math.min(6, Math.max(1, parseInt(item.sets, 10) || 1));
+            let perSet = 30;
+            if (kind === 'iso') {
+                const d = parseInt(item.duration, 10) || 0;
+                const r = parseInt(item.reps, 10) || 0;
+                if (nSets > 1 && d >= nSets * 12) perSet = Math.max(10, Math.round(d / nSets));
+                else if (d >= 8 && d <= 90) perSet = d;
+                else if (r >= 8 && r <= 90) perSet = r;
+                else perSet = 30;
+            } else if (kind === 'prep') {
+                perSet = Math.max(20, parseInt(item.duration, 10) || 45);
+            } else {
+                let block = parseInt(item.duration, 10) || 30;
+                perSet = (nSets > 1 && block >= nSets * 15) ? Math.max(15, Math.round(block / nSets)) : Math.max(15, block);
             }
-            const nSets = Math.min(6, Math.max(1, parseInt(item.sets, 10) || 1));
-            if (nSets <= 1) {
-                out.push({ ...item, type: 'work' });
-                return;
-            }
-            let block = parseInt(item.duration, 10) || 30;
-            let perSet = block;
-            if (block >= nSets * 15) perSet = Math.max(15, Math.round(block / nSets));
-            const restDur = Math.max(20, Math.min(60, parseInt(item.restSeconds, 10) || 30));
+            const restDur = kind === 'prep' ? 20 : Math.max(20, Math.min(45, parseInt(item.restSeconds, 10) || 30));
+            const targetReps = kind === 'iso' || kind === 'prep' ? 0 : (parseInt(item.reps, 10) || 8);
             for (let s = 1; s <= nSets; s++) {
+                const round = kind === 'prep' ? 'Aquecimento / volta — só o relógio'
+                    : kind === 'iso' ? `Segure ${perSet}s`
+                    : (item.roundInfo || `Alvo ${targetReps} reps`);
                 out.push({
                     ...item,
                     type: 'work',
-                    name: `${item.name || 'Exercício'} · série ${s}/${nSets}`,
+                    name: nSets > 1 ? `${baseName} · série ${s}/${nSets}` : baseName,
                     duration: perSet,
-                    roundInfo: item.roundInfo || `Série ${s} de ${nSets}`,
-                    sets: 1
+                    roundInfo: round,
+                    sets: 1,
+                    reps: targetReps,
+                    _kind: kind,
+                    _baseName: baseName,
+                    _set: s,
+                    _sets: nSets
                 });
-                if (s < nSets) {
-                    out.push({ type: 'rest', name: 'Descanso entre séries', duration: restDur, roundInfo: `${restDur}s` });
-                }
+                out.push({
+                    type: 'rest',
+                    name: 'Descanso',
+                    duration: restDur,
+                    roundInfo: kind === 'prep' ? `${restDur}s` : kind === 'iso' ? `${restDur}s · anote os segundos` : `${restDur}s · anote as reps`,
+                    _kind: kind,
+                    _baseName: baseName,
+                    _set: s,
+                    _sets: nSets,
+                    reps: targetReps,
+                    durationHold: perSet,
+                    targetGroup: item.targetGroup,
+                    rirTarget: item.rirTarget
+                });
             }
         });
         return out;
+    }
+
+    function compactWorkoutSummary(workout) {
+        const works = (workout?.queue || []).filter(q => q.type === 'work');
+        const seen = [];
+        works.forEach(w => {
+            const name = String(w.name || 'Exercício').replace(/\s*·\s*série\s+\d+\s*\/\s*\d+/ig, '').trim();
+            if (seen.some(s => s.name === name)) return;
+            const kind = exerciseKind(w);
+            seen.push({
+                name,
+                kind,
+                sets: kind === 'prep' ? 1 : Math.min(6, Math.max(1, parseInt(w.sets, 10) || 1)),
+                reps: w.reps || '',
+                dur: parseInt(w.duration, 10) || 0,
+                rest: restSecondsForItem(w)
+            });
+        });
+        if (!seen.length) return workout?.focus || 'Sessão do dia';
+        const lines = seen.map(s => {
+            if (s.kind === 'prep') return `${s.name} · aquecimento/volta`;
+            if (s.kind === 'iso') {
+                const hold = (s.dur && s.sets > 1 && s.dur >= s.sets * 12) ? Math.round(s.dur / s.sets) : (s.dur || 30);
+                return `${s.name} · ${s.sets} × ${hold}s`;
+            }
+            const r = s.reps ? ` de ${s.reps}` : '';
+            return `${s.name} · ${s.sets} série${s.sets > 1 ? 's' : ''}${r} com ${s.rest}s de intervalo`;
+        });
+        if (lines.length > 4) return lines.slice(0, 4).join(' · ') + ` · +${lines.length - 4}`;
+        return lines.join(' · ');
     }
 
     function looksLikeCalisthenics(name) {
@@ -2561,11 +2681,14 @@
             rests.forEach(r => { r.duration = Math.max(20, Math.round(r.duration * ratio)); restTotal += r.duration; });
         }
         if (!works.length) return items;
-        let workBudget = Math.max(works.length * 20, targetSecs - restTotal);
-        const workTotal = works.reduce((s, w) => s + (w.duration || 0), 0) || works.length;
+        const scalable = works.filter(w => exerciseKind(w) === 'dyn');
+        const frozenTotal = works.filter(w => exerciseKind(w) !== 'dyn').reduce((s, w) => s + (w.duration || 0), 0);
+        if (!scalable.length) return items;
+        let workBudget = Math.max(scalable.length * 20, targetSecs - restTotal - frozenTotal);
+        const workTotal = scalable.reduce((s, w) => s + (w.duration || 0), 0) || scalable.length;
         let used = 0;
-        works.forEach((w, idx) => {
-            if (idx === works.length - 1) w.duration = Math.max(15, workBudget - used);
+        scalable.forEach((w, idx) => {
+            if (idx === scalable.length - 1) w.duration = Math.max(15, workBudget - used);
             else {
                 w.duration = Math.max(15, Math.round((w.duration / workTotal) * workBudget));
                 used += w.duration;
@@ -2662,6 +2785,20 @@
                 if (!log.name || log.estimated) return;
                 const key = normExName(log.name);
                 if (map[key]) return;
+                if (log.kind === 'prep') return;
+                if (log.kind === 'iso' || log.holdSeconds) {
+                    map[key] = {
+                        name: log.name, kind: 'iso',
+                        reps: 0,
+                        holdSeconds: parseInt(log.holdSeconds, 10) || 0,
+                        secondsReserve: parseInt(log.secondsReserve, 10) || 0,
+                        rir: parseInt(log.rir, 10) || 2,
+                        weight: 0,
+                        addedLoadKg: parseFloat(log.addedLoadKg) || 0,
+                        date: h.date
+                    };
+                    return;
+                }
                 const reps = parseInt(log.reps, 10) || 0;
                 if (reps <= 0) return;
                 const rir = (log.rir === undefined || log.rir === null) ? 2 : parseInt(log.rir, 10);
@@ -2675,6 +2812,14 @@
 
     function progressFromLast(last, isCal) {
         if (!last) return null;
+        if (last.kind === 'iso' || last.holdSeconds) {
+            let hold = parseInt(last.holdSeconds, 10) || 30;
+            const res = (last.secondsReserve !== undefined && last.secondsReserve !== null) ? parseInt(last.secondsReserve, 10) : 5;
+            let note = 'isometria: mantém o tempo';
+            if (res <= 2) { hold = Math.min(90, hold + 5); note = 'isometria no limite → +5s'; }
+            else if (res >= 10) { note = 'isometria fácil → mesmo tempo'; }
+            return { holdSeconds: hold, reps: null, rirTarget: 2, note };
+        }
         const step = isCal ? 1.25 : 2.5;
         const baseBar = last.weight || 0;
         const baseAdd = last.addedLoadKg || 0;
@@ -2767,7 +2912,9 @@
 
         workout.queue = workout.queue.map(item => {
             if (item.type !== 'work') return item;
-            let sets = Math.max(2, Math.round((parseInt(item.sets, 10) || 3) * (meso.setsMul || 1)));
+            const kind = exerciseKind(item);
+            if (kind === 'prep') return { ...item, rirTarget: 4, reps: 0 };
+            let sets = Math.max(kind === 'iso' ? 1 : 2, Math.round((parseInt(item.sets, 10) || 3) * (meso.setsMul || 1)));
             let rir = Math.max(1, Math.min(4, (parseInt(item.rirTarget, 10) || 2) + (meso.rirDelta || 0)));
             const isCal = looksLikeCalisthenics(item.name) || workout.modality === 'Calistenia';
             const last = lastLifts[normExName(item.name)];
@@ -2776,7 +2923,8 @@
             if (prog) {
                 if (prog.loadKg) next.loadKg = prog.loadKg;
                 if (prog.addedLoadKg) next.addedLoadKg = prog.addedLoadKg;
-                if (prog.reps) next.reps = prog.reps;
+                if (prog.holdSeconds) next.duration = prog.holdSeconds;
+                else if (prog.reps) next.reps = prog.reps;
                 next.roundInfo = `${item.roundInfo || ''} · ${prog.note}`.trim();
             }
             return next;
@@ -3644,7 +3792,7 @@
     window.openChangelog = () => window.show('modal-changelog');
 
     const TERM_HELP = {
-        rir: { t: 'RIR — Repetições na Reserva', b: '<p><strong class="text-white">Quantas você ainda conseguiria</strong> no fim da série. Você sente, o app não calcula.</p><p>0 = falha. 1–2 = pesado (é o alvo da maioria das séries). 3 = sobrou folga. 4 = fácil demais, o próximo treino não sobe carga.</p>' },
+        rir: { t: 'RIR — Repetições na Reserva', b: '<p><strong class="text-white">Quantas você ainda conseguiria</strong> no fim da série. Você sente, o app não calcula.</p><p>0 = falha. 1–2 = pesado (é o alvo da maioria das séries). 3 = sobrou folga. 4 = fácil demais, o próximo treino não sobe carga.</p><p>Aquecimento e volta à calma <strong class="text-white">não pedem RIR</strong>. Isometria usa segundos de reserva, não reps.</p>' },
         carga: { t: 'Carga (kg)', b: '<p><strong class="text-white">Não é o seu peso corporal.</strong> É o peso da barra, halter ou máquina.</p><p>Na calistenia só com o corpo, deixe 0 ou vazio.</p>' },
         extra: { t: 'Carga extra (kg)', b: '<p>Peso <strong class="text-white">colocado em você</strong>: colete, caneleira, anilha no cinto.</p><p>Flexão com 10 kg no colete → Extra = 10. Sem nada → 0. Serve para o IFR (força relativa).</p>' },
         '1rm': { t: '1RM — Uma repetição máxima', b: '<p>Estimativa de quanto você levantaria <strong class="text-white">uma vez só</strong>, a partir das séries que anotou (fórmulas Epley/Brzycki).</p><p>Não precisa testar o máximo de verdade. O app usa isso para sugerir a carga da próxima ficha.</p>' },
@@ -3656,7 +3804,8 @@
         prontidao: { t: 'Prontidão', b: '<p>Nota do dia: energia (1–5) + sono + dor. Não é HRV de relógio.</p><p>Baixa → a I.A. enxuga o treino. Alta → segue o plano. Você informa isso ao tocar em Iniciar Sessão.</p>' },
         meso: { t: 'Mesociclo (4 semanas)', b: '<p>Semana 1 volume · 2 volume alto · 3 um pouco mais intenso · 4 deload (mais leve de propósito).</p><p><strong class="text-white">Reiniciar ciclo</strong> só volta o ponteiro para a semana 1. Não apaga histórico.</p>' },
         zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>O cartão e o arquivo do relógio usam sua FCrep (Karvonen). Corra olhando o relógio nesses bpm, não “no feeling” sozinho.</p>' },
-        eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' }
+        eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' },
+        iso: { t: 'Isometria', b: '<p>Você <strong class="text-white">segura</strong> a posição (prancha, L-sit, hollow). Não tem repetição — o relógio conta os segundos.</p><p>No descanso anote quanto segurou e se ainda aguentaria 0, 2, 5 ou 10+ segundos. Isso substitui o RIR. Série conta no volume se a reserva foi ≤ 5s.</p>' }
     };
 
     window.openTerm = (key) => {
@@ -3694,16 +3843,10 @@
             <p class="text-slate-500">Carga ≠ seu peso. Sem anotar, o peso da próxima semana não sobe.</p>`;
         } else {
             html = `<p class="text-brand-400 font-black uppercase text-[10px]">Calistenia</p>
-            <p>São <strong class="text-white">duas ferramentas na mesma sessão</strong>, não dois treinos.</p>
-            <p><strong class="text-white">Timer guiado</strong> = o relógio. Trabalho 30s / descanso 30s / próximo exercício. Você só faz. Ele não conta “8 barras” — conta segundos. Nas estações, faça o máximo com boa forma enquanto o tempo corre.</p>
-            <p><strong class="text-white">Ficha</strong> = o caderno. Carga = barra/halter (na calistenia pura deixe 0). Extra = colete. Reps = o que você fez. RIR = quantas ainda daria.</p>
-            <ol class="list-decimal pl-4 space-y-1.5">
-                <li>Iniciar Sessão (energia, sono, dor, tempo).</li>
-                <li>Olhe o alvo na ficha (ex. 3×8 barras).</li>
-                <li>Opcional: <em>Usar Timer Guiado</em> — circule as estações.</li>
-                <li>Volte na ficha, anote o que aconteceu, salve, vá ao pós-treino.</li>
-            </ol>
-            <p class="text-slate-500">Só timer, sem anotar: o treino conta, mas o motor não evolui a carga. Só ficha, sem timer: também vale — você conta as séries.</p>`;
+            <p>Depois do readiness o app pergunta: <strong class="text-white">por tempo</strong> ou <strong class="text-white">por séries</strong>. Sempre um exercício por vez.</p>
+            <p><strong class="text-white">Por tempo:</strong> cronômetro de trabalho. Conte as reps. No descanso (beep nos últimos 5s) anote reps, extra e RIR.</p>
+            <p><strong class="text-white">Por séries:</strong> a tela mostra “Barras — faça 10”. Quando terminar, toque em Concluí. O descanso é para anotar o que fez.</p>
+            <p class="text-slate-500">Carga extra = colete. RIR = quantas ainda daria (só nas séries de força). Aquecimento/volta: só o relógio. Isometria (prancha, L-sit): segure até o beep e anote os segundos.</p>`;
         }
         document.getElementById('term-body').innerHTML = html;
         window.show('modal-term');
@@ -4209,7 +4352,7 @@
             document.getElementById('dash-nw-focus').innerText = nw.focus || "Geral"; 
             document.getElementById('dash-nw-time').innerText = nw.estimatedMinutes || userData.mins;
             const wks = nw.queue ? nw.queue.filter(q => q.type === 'work') : [];
-            document.getElementById('dash-nw-desc').innerText = `Exercícios: ${wks.map(w => w.name).join(', ')}`;
+            document.getElementById('dash-nw-desc').innerText = compactWorkoutSummary(nw);
         } else window.hide('dash-next-workout');
                 // BLOCO 4B: LÓGICA DO BANNER
         getDocs(collection(db, `users/${currentUser.uid}/history`)).then(snap => {
@@ -4464,8 +4607,10 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             setupRunningWorkoutScreen(nw);
             showScreen('screen-running-workout');
         } else {
-            setupBodybuildingWorkoutScreen(nw, { mode: 'calistenia-pre' });
-            showScreen('screen-bodybuilding-workout');
+            const first = (nw.queue || []).find(q => q.type === 'work');
+            const el = document.getElementById('cal-mode-exname');
+            if (el) el.innerText = first ? `${first.name} · ${first.sets || 3} séries` : 'Um exercício por vez. Você anota no descanso.';
+            window.show('modal-cal-mode');
         }
     }
 
@@ -4622,6 +4767,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         
         restTimerInterval = setInterval(() => {
             restTimeLeft--;
+            if (restTimeLeft <= 5 && restTimeLeft > 0) playBeep(restTimeLeft <= 2 ? 880 : 600, 90, 'sine');
             if (restTimeLeft <= 0) {
                 clearInterval(restTimerInterval);
                 playBeep(800, 300, 'sine');
@@ -4701,27 +4847,86 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         container.innerHTML = html;
     }
 
+    window.pickCalMode = (mode) => {
+        calMode = mode === 'sets' ? 'sets' : 'time';
+        window.hide('modal-cal-mode');
+        const nw = currentPlan.workouts.find(w => !w.isCompleted);
+        if (!nw) return;
+        startCalisthenicsTimerRoutine(nw);
+    };
+
+    function commitCalLogIfAny() {
+        if (!calLastWork) return;
+        const kind = calLastWork._kind || exerciseKind(calLastWork);
+        if (kind === 'prep') { calLastWork = null; return; }
+        const extra = parseFloat(document.getElementById('cal-log-extra')?.value) || 0;
+        const base = calLastWork._baseName || String(calLastWork.name || '').replace(/\s*·\s*série\s+\d+\s*\/\s*\d+/ig, '').trim();
+        if (kind === 'iso') {
+            const held = parseInt(document.getElementById('cal-log-reps')?.value, 10);
+            if (!held || held <= 0) { calLastWork = null; return; }
+            const reserve = parseInt(document.getElementById('cal-log-rir')?.value, 10);
+            const rirMapped = reserve <= 2 ? 0 : reserve <= 5 ? 2 : reserve <= 10 ? 3 : 4;
+            calSessionLogs.push({
+                name: base,
+                targetGroup: calLastWork.targetGroup || categorizeMuscleGroup(base),
+                kind: 'iso',
+                weight: 0,
+                addedLoadKg: extra,
+                reps: 0,
+                holdSeconds: held,
+                secondsReserve: isNaN(reserve) ? 0 : reserve,
+                rir: rirMapped
+            });
+        } else {
+            const reps = parseInt(document.getElementById('cal-log-reps')?.value, 10);
+            if (!reps || reps <= 0) { calLastWork = null; return; }
+            const rir = parseInt(document.getElementById('cal-log-rir')?.value, 10);
+            calSessionLogs.push({
+                name: base,
+                targetGroup: calLastWork.targetGroup || categorizeMuscleGroup(base),
+                kind: 'dyn',
+                weight: 0,
+                addedLoadKg: extra,
+                reps,
+                rir: isNaN(rir) ? 2 : rir
+            });
+        }
+        const repsEl = document.getElementById('cal-log-reps');
+        if (repsEl) repsEl.value = '';
+        calLastWork = null;
+    }
+
     function startCalisthenicsTimerRoutine(nw) {
         if (!nw || !nw.queue) return;
         if (timerInterval) clearInterval(timerInterval);
 
         const targetMins = nw.estimatedMinutes || userData.mins || 45;
-        currentWorkoutQueue = sanitizeAndBalanceQueue(expandQueueForTimer(nw.queue), targetMins);
-        currentQueueIndex = 0; 
+        currentWorkoutQueue = expandQueueForTimer(nw.queue);
+        currentQueueIndex = 0;
         isPaused = false;
-        
+        calSessionLogs = [];
+        calLastWork = null;
+        calAwaitingDone = false;
+
         const modalityStr = nw.modality || userData.masterAxis || 'Calistenia';
         const workoutNum = (currentPlan.workouts ? currentPlan.workouts.indexOf(nw) + 1 : 1);
-        
+
         document.getElementById('timer-workout-name').innerText = `${modalityStr}: Treino ${workoutNum}`;
-        document.getElementById('timer-workout-desc').innerText = nw.focus ? `Foco: ${nw.focus}` : (nw.name || "Sessão de Calistenia Avançada");
-        
+        document.getElementById('timer-workout-desc').innerText = nw.focus ? `Foco: ${nw.focus}` : (nw.name || 'Calistenia');
+
         document.body.classList.add('no-scroll');
         showScreen('screen-timer');
         requestWakeLock();
         loadQueueItem(0);
         timerInterval = setInterval(timerTick, 1000);
     }
+
+    window.completeCalWorkSet = () => {
+        if (!calAwaitingDone) return;
+        calAwaitingDone = false;
+        currentQueueIndex++;
+        loadQueueItem(currentQueueIndex);
+    };
 
     window.confirmAbortWorkout = () => window.show('modal-confirm-abort');
     window.closeConfirmAbort = () => window.hide('modal-confirm-abort');
@@ -4730,8 +4935,11 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     window.abortWorkout = () => { 
         clearInterval(timerInterval);
         if (restTimerInterval) clearInterval(restTimerInterval);
+        calAwaitingDone = false;
         document.body.classList.remove('no-scroll');
         releaseWakeLock();
+        window.hide('modal-cal-mode');
+        window.hide('screen-timer');
         showScreen('screen-dashboard'); 
     };
 
@@ -4742,64 +4950,134 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         else btn.innerHTML = '<i class="fas fa-pause"></i> PAUSAR'; 
     };
 
-    window.skipExercise = () => { 
-        if (currentQueueIndex >= currentWorkoutQueue.length) return; 
-        currentQueueIndex++; 
-        loadQueueItem(currentQueueIndex); 
+    window.skipExercise = () => {
+        if (currentQueueIndex >= currentWorkoutQueue.length) return;
+        commitCalLogIfAny();
+        calAwaitingDone = false;
+        currentQueueIndex++;
+        loadQueueItem(currentQueueIndex);
     };
 
     function loadQueueItem(index) {
+        const logPanel = document.getElementById('timer-log-panel');
+        const doneBtn = document.getElementById('btn-cal-done');
+        const pauseBtn = document.getElementById('btn-pause-resume');
+        if (logPanel) logPanel.classList.add('hidden');
+        if (doneBtn) doneBtn.classList.add('hidden');
+        if (pauseBtn) pauseBtn.classList.remove('hidden');
+        calAwaitingDone = false;
+
         if (index >= currentWorkoutQueue.length) {
-            clearInterval(timerInterval); 
-            document.body.classList.remove('no-scroll'); 
-            playBeep(880, 400, 'square'); 
+            commitCalLogIfAny();
+            clearInterval(timerInterval);
+            document.body.classList.remove('no-scroll');
+            playBeep(880, 400, 'square');
             window.hide('screen-timer');
             releaseWakeLock();
-            const nw = currentPlan?.workouts?.find(w => !w.isCompleted);
-            const mod = (nw?.modality || userData.masterAxis || '').toLowerCase();
-            if (nw && mod !== 'musculação' && mod !== 'musculacao' && mod !== 'corrida') {
-                setupBodybuildingWorkoutScreen(nw, { mode: 'calistenia-post' });
-                showScreen('screen-bodybuilding-workout');
-                return;
-            }
-            openPostWorkout(); 
+            openPostWorkout();
             return;
         }
-        const item = currentWorkoutQueue[index]; 
-        timeLeft = parseInt(item.duration, 10) || 30;
-        
+        const item = currentWorkoutQueue[index];
         const stepBadge = document.getElementById('timer-step-badge');
         if (stepBadge) stepBadge.innerText = `Passo ${index + 1}/${currentWorkoutQueue.length}`;
-        
+
         document.getElementById('timer-current-name').innerText = item.name;
-        document.getElementById('timer-current-info').innerText = item.roundInfo || (item.type === 'rest' ? 'Intervalo de Descanso (ATP-CP)' : 'Execução de Torque / TUT');
-        
+        const ring = document.getElementById('timer-ring');
+        const kind = item._kind || exerciseKind(item);
+        const forceTime = kind === 'iso' || kind === 'prep' || calMode === 'time';
+
+        if (item.type === 'rest') {
+            const prev = currentWorkoutQueue[index - 1];
+            if (prev && prev.type === 'work') calLastWork = prev;
+            const prevKind = (calLastWork && (calLastWork._kind || exerciseKind(calLastWork))) || kind;
+            timeLeft = parseInt(item.duration, 10) || 30;
+            if (ring) ring.style.stroke = '#a855f7';
+            const fields = document.getElementById('cal-log-fields');
+            const hint = document.getElementById('cal-log-hint');
+            const repsLabel = document.getElementById('cal-log-reps-label');
+            const rirLabel = document.getElementById('cal-log-rir-label');
+            const rirSel = document.getElementById('cal-log-rir');
+            const extraWrap = document.getElementById('cal-log-extra-wrap');
+            const rirWrap = document.getElementById('cal-log-rir-wrap');
+            if (prevKind === 'prep') {
+                document.getElementById('timer-current-info').innerText = 'Só respire. Aquecimento/volta não pede reps nem RIR.';
+                if (logPanel) logPanel.classList.add('hidden');
+            } else if (logPanel) {
+                logPanel.classList.remove('hidden');
+                const ex = document.getElementById('timer-log-ex');
+                if (ex) ex.innerText = (calLastWork && (calLastWork._baseName || calLastWork.name)) || 'Série anterior';
+                if (fields) fields.classList.remove('hidden');
+                if (prevKind === 'iso') {
+                    document.getElementById('timer-current-info').innerText = 'Anote quantos segundos segurou. RIR aqui = quanto ainda aguentaria.';
+                    if (hint) { hint.classList.remove('hidden'); hint.innerText = 'Isometria não tem repetição. 0s de reserva = chegou no limite.'; }
+                    if (repsLabel) repsLabel.innerText = 'Segundos';
+                    if (rirLabel) rirLabel.innerText = 'Ainda aguentaria';
+                    if (rirSel) rirSel.innerHTML = '<option value="0">0s (limite)</option><option value="2">2s</option><option value="5" selected>5s</option><option value="10">10s+</option>';
+                    const repsEl = document.getElementById('cal-log-reps');
+                    if (repsEl) repsEl.value = calLastWork?.duration || item.durationHold || 30;
+                    if (extraWrap) extraWrap.classList.remove('hidden');
+                    if (rirWrap) rirWrap.classList.remove('hidden');
+                } else {
+                    document.getElementById('timer-current-info').innerText = 'Anote reps, extra e RIR. O próximo começa quando o tempo zerar.';
+                    if (hint) hint.classList.add('hidden');
+                    if (repsLabel) repsLabel.innerText = 'Reps';
+                    if (rirLabel) rirLabel.innerText = 'RIR';
+                    if (rirSel) rirSel.innerHTML = '<option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option>';
+                    const repsEl = document.getElementById('cal-log-reps');
+                    if (repsEl) repsEl.value = calLastWork?.reps || item.reps || '';
+                    if (rirSel) rirSel.value = String(calLastWork?.rirTarget ?? 2);
+                    if (extraWrap) extraWrap.classList.remove('hidden');
+                    if (rirWrap) rirWrap.classList.remove('hidden');
+                }
+            }
+        } else if (!forceTime) {
+            calAwaitingDone = true;
+            timeLeft = parseInt(item.duration, 10) || 30;
+            const target = item.reps || 8;
+            document.getElementById('timer-time').innerText = String(target);
+            document.getElementById('timer-current-info').innerText = `Faça ${target} reps. Toque em Concluí quando terminar.`;
+            if (doneBtn) doneBtn.classList.remove('hidden');
+            if (pauseBtn) pauseBtn.classList.add('hidden');
+            if (ring) { ring.style.stroke = '#22d3ee'; ring.style.strokeDashoffset = 0; }
+        } else {
+            timeLeft = parseInt(item.duration, 10) || 30;
+            document.getElementById('timer-current-info').innerText = kind === 'iso'
+                ? 'Segure até o beep. Sem contar reps.'
+                : kind === 'prep'
+                    ? 'Aquecimento/volta: só acompanhe o relógio.'
+                    : 'Conte as reps. Você anota no descanso.';
+            if (ring) ring.style.stroke = kind === 'iso' ? '#f59e0b' : '#06b6d4';
+        }
+
         if (index + 1 < currentWorkoutQueue.length) {
             const nextItem = currentWorkoutQueue[index + 1];
             document.getElementById('timer-next-name').innerText = nextItem.name;
             document.getElementById('timer-next-info').innerText = `${nextItem.roundInfo ? nextItem.roundInfo + ' • ' : ''}${nextItem.duration}s`;
         } else {
-            document.getElementById('timer-next-name').innerText = "Última Etapa";
-            document.getElementById('timer-next-info').innerText = "Finalização da Sessão";
+            document.getElementById('timer-next-name').innerText = 'Última etapa';
+            document.getElementById('timer-next-info').innerText = 'Depois: pós-treino';
         }
 
-        updateTimerUI(); 
+        if (!(item.type === 'work' && !forceTime)) {
+            updateTimerUI();
+        }
         updateTotalTimeUI();
     }
 
     function timerTick() {
-        if (isPaused) return; 
-        timeLeft--; 
-        
-        if (timeLeft <= 3 && timeLeft > 0) playBeep(600, 100, 'sine'); 
-        else if (timeLeft === 0) playBeep(800, 200, 'sine');
-        
-        if (timeLeft < 0) { 
-            currentQueueIndex++; 
-            loadQueueItem(currentQueueIndex); 
-        } else { 
-            updateTimerUI(); 
-            updateTotalTimeUI(); 
+        if (isPaused || calAwaitingDone) return;
+        timeLeft--;
+
+        if (timeLeft <= 5 && timeLeft > 0) playBeep(timeLeft <= 2 ? 880 : 600, 90, 'sine');
+        else if (timeLeft === 0) playBeep(800, 220, 'sine');
+
+        if (timeLeft < 0) {
+            if (currentWorkoutQueue[currentQueueIndex]?.type === 'rest') commitCalLogIfAny();
+            currentQueueIndex++;
+            loadQueueItem(currentQueueIndex);
+        } else {
+            updateTimerUI();
+            updateTotalTimeUI();
         }
     }
 
@@ -4961,10 +5239,30 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         if (nwIndex !== -1) {
             currentPlan.workouts[nwIndex].isCompleted = true;
             exerciseLogsCollected = collectExerciseLogsFromDom();
+            if ((!exerciseLogsCollected || !exerciseLogsCollected.length) && calSessionLogs.length) {
+                exerciseLogsCollected = calSessionLogs.slice();
+            }
 
             if (exerciseLogsCollected.length === 0 && currentPlan.workouts[nwIndex].queue) {
                 const workItems = currentPlan.workouts[nwIndex].queue.filter(q => q.type === 'work');
                 workItems.forEach(item => {
+                    const kind = exerciseKind(item);
+                    if (kind === 'prep') return;
+                    if (kind === 'iso') {
+                        exerciseLogsCollected.push({
+                            name: item.name,
+                            targetGroup: item.targetGroup || categorizeMuscleGroup(item.name),
+                            kind: 'iso',
+                            weight: 0,
+                            addedLoadKg: 0,
+                            reps: 0,
+                            holdSeconds: parseInt(item.duration, 10) || 30,
+                            secondsReserve: 10,
+                            rir: 4,
+                            estimated: true
+                        });
+                        return;
+                    }
                     exerciseLogsCollected.push({
                         name: item.name,
                         targetGroup: item.targetGroup || categorizeMuscleGroup(item.name),
