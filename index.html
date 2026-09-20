@@ -1977,7 +1977,7 @@
             </h3>
             <button onclick="window.hide('modal-pending-upload')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
         </div>
-        <p class="text-xs text-slate-300 font-medium">Envie o <strong class="text-white">arquivo do relógio</strong> (.FIT Garmin/Wahoo/Coros, .GPX ou .TCX do Strava/Apple). O print de tela continua valendo se você não tiver o arquivo.</p>
+        <p class="text-xs text-slate-300 font-medium">Envie o <strong class="text-white">arquivo do relógio</strong> (.FIT Zepp/Amazfit, Garmin, Wahoo, Coros; .GPX ou .TCX). Calistenia indoor também vale — o app lê FC e tempo mesmo sem GPS.</p>
 
         <input type="file" id="pending-watch-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.processWatchFileUpload(event)">
         <button type="button" onclick="document.getElementById('pending-watch-input').click()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
@@ -2536,6 +2536,17 @@
         let ansStatus = "BALANCED";
         if (rhrDelta >= 5) ansStatus = "SYMPATHETIC_DOMINANCE";
         else if (rhrDelta <= -5) ansStatus = "PARASYMPATHETIC_DOMINANCE";
+        let lastFcRec = null;
+        if (Array.isArray(historyData) && historyData.length) {
+            const withRec = historyData.filter(h => h.fcRec != null && h.fcRec !== '').sort((a, b) => new Date(b.date) - new Date(a.date));
+            if (withRec[0]) lastFcRec = parseFloat(withRec[0].fcRec);
+        }
+        let recoveryQuality = 'UNKNOWN';
+        if (lastFcRec != null && !isNaN(lastFcRec)) {
+            if (lastFcRec >= 25) recoveryQuality = 'GOOD';
+            else if (lastFcRec >= 12) recoveryQuality = 'OK';
+            else recoveryQuality = 'POOR';
+        }
         return {
             mTORC1_AMPK_conflict: {
                 hours_since_last_leg_workout: hoursSinceLastLegWorkout,
@@ -2545,7 +2556,7 @@
                 is_heavy_legs_allowed: isHeavyLegsAllowed,
                 recommended_spacing_hours: 24
             },
-            autonomic_recovery: { rhr_baseline_bpm: rhrBaseline, current_rhr_bpm: currentRhr, rhr_delta_bpm: rhrDelta, ans_status: ansStatus }
+            autonomic_recovery: { rhr_baseline_bpm: rhrBaseline, current_rhr_bpm: currentRhr, rhr_delta_bpm: rhrDelta, ans_status: ansStatus, last_fc_recovery_3min: lastFcRec, recovery_quality: recoveryQuality }
         };
     }
 
@@ -2993,6 +3004,20 @@
             workout.focus = (workout.focus || '') + ' · Semana 0';
         }
 
+        if (auto.recovery_quality === 'POOR' && meso.week !== 0) {
+            workout.queue = workout.queue.map(item => {
+                if (item.type !== 'work') return item;
+                const next = { ...item, rirTarget: Math.min(4, Math.max(3, (parseInt(item.rirTarget, 10) || 2) + 1)) };
+                const n = `${item.name} ${item.roundInfo || ''}`.toLowerCase();
+                if (workout.modality === 'Corrida' && /z4|z5|tiro|sprint|hiit|vo2/.test(n)) {
+                    return { ...next, name: 'Rodagem Z2 regenerativa', roundInfo: 'Queda de FC baixa · sem tiro' };
+                }
+                next.roundInfo = ((item.roundInfo || '') + ' · queda FC baixa').trim();
+                return next;
+            });
+            workout.focus = (workout.focus || '') + ' · recuperação FC';
+        }
+
         const mins = opts.targetMinutes || workout.estimatedMinutes || userData.mins || 45;
         workout.estimatedMinutes = parseInt(mins, 10) || 45;
         workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes);
@@ -3290,46 +3315,55 @@
                 dist = acc > 0.05 ? acc : null;
             }
         }
+        const hrsAll = samples.map(s => s.hr).filter(v => v > 30 && v < 230);
         const hrs = timed.map(s => s.hr).filter(v => v > 30 && v < 230);
+        const hrList = hrs.length ? hrs : hrsAll;
         const cads = timed.map(s => s.cad).filter(v => v > 20 && v < 250);
         const alts = timed.map(s => s.alt).filter(v => v != null && !isNaN(v));
         const spds = timed.map(s => s.spdKmh).filter(v => v > 0 && v < 50);
         let elevGain = 0, elevLoss = 0;
         for (let i = 1; i < alts.length; i++) {
             const d = alts[i] - alts[i - 1];
-            if (d > 0.8) elevGain += d;
-            else if (d < -0.8) elevLoss += Math.abs(d);
+            if (d > 0.15) elevGain += d;
+            else if (d < -0.15) elevLoss += Math.abs(d);
         }
         const t0 = timed[0]?.t;
         const t1 = timed[timed.length - 1]?.t;
         let durMin = extra.durationMinutes;
         if (!durMin && t0 && t1 && t1 > t0) durMin = (t1 - t0) / 60000;
-        const avgSpd = avg(spds) || (dist && durMin ? (dist / (durMin / 60)) : null);
-        const zoneDist = zonesFromHrStream(timed.filter(s => s.hr)) || (avg(hrs) && durMin ? zoneDistributionFromSession(durMin, avg(hrs), null) : null);
-        const trimp = trimpFromHrStream(timed.filter(s => s.hr)) || (avg(hrs) && durMin ? window.calculateTRIMP(durMin, avg(hrs), currentRestHr(), estimateHrMax()) : null);
+        const sessionSpd = (dist && durMin > 0) ? (dist / (durMin / 60)) : null;
+        const movingSpd = avg(spds.filter(v => v >= 2));
+        const avgSpd = sessionSpd || movingSpd || avg(spds);
+        const zoneDist = zonesFromHrStream(timed.filter(s => s.hr)) || (avg(hrList) && durMin ? zoneDistributionFromSession(durMin, avg(hrList), null) : null);
+        const trimp = trimpFromHrStream(timed.filter(s => s.hr)) || (avg(hrList) && durMin ? window.calculateTRIMP(durMin, avg(hrList), currentRestHr(), estimateHrMax()) : null);
         return {
             durationMinutes: durMin ? Math.round(durMin * 10) / 10 : null,
+            elapsedMinutes: extra.elapsedMinutes ? Math.round(extra.elapsedMinutes * 10) / 10 : null,
             distance: dist ? Math.round(dist * 100) / 100 : null,
             pace: paceFromKmh(avgSpd),
-            fc: hrs.length ? Math.round(avg(hrs)) : null,
-            fcMax: hrs.length ? Math.round(Math.max(...hrs)) : null,
-            fcMin: hrs.length ? Math.round(Math.min(...hrs)) : null,
+            fc: hrList.length ? Math.round(avg(hrList)) : null,
+            fcMax: hrList.length ? Math.round(Math.max(...hrList)) : null,
+            fcMin: hrList.length ? Math.round(Math.min(...hrList)) : (extra.fcMin || null),
             kcal: extra.kcal != null && !isNaN(extra.kcal) ? Math.round(extra.kcal) : null,
             cadenceAvg: cads.length ? Math.round(avg(cads)) : null,
             cadenceMax: cads.length ? Math.round(Math.max(...cads)) : null,
-            elevationGain: elevGain ? Math.round(elevGain) : (extra.elevationGain || null),
-            elevationLoss: elevLoss ? Math.round(elevLoss) : null,
+            elevationGain: extra.elevationGain || (elevGain ? Math.round(elevGain) : null),
+            elevationLoss: extra.elevationLoss || (elevLoss ? Math.round(elevLoss) : null),
             avgSpeedKmh: avgSpd ? Math.round(avgSpd * 10) / 10 : null,
             maxSpeedKmh: spds.length ? Math.round(Math.max(...spds) * 10) / 10 : null,
             temperatureAvg: extra.temperatureAvg || null,
             powerAvg: extra.powerAvg || null,
-            laps: extra.laps || null,
-            hrPoints: hrs.length,
+            laps: extra.laps || extra.splits?.length || null,
+            splits: extra.splits || null,
+            steps: extra.steps || null,
+            trainingEffect: extra.trainingEffect || null,
+            hrPoints: hrList.length,
             trimpScore: trimp,
             zoneDistribution: zoneDist,
             fileType: extra.fileType || 'file',
             startTime: t0 ? new Date(t0).toISOString() : null,
-            caloriesEstimated: true
+            caloriesEstimated: true,
+            indoor: extra.indoor || false
         };
     }
 
@@ -3346,32 +3380,83 @@
         const samples = [];
         let session = {};
         let laps = 0;
+        const splits = [];
+        let lastTs = null;
         const FIT_EPOCH = 631065600;
 
-        function invalid(base, v) {
-            if (base === 2 || base === 0 || base === 10 || base === 0x0A) return v === 0xFF;
-            if (base === 0x84 || base === 132 || base === 0x8B) return v === 0xFFFF;
-            if (base === 0x86 || base === 134 || base === 0x8C) return v === 0xFFFFFFFF;
+        function invalid(size, v) {
+            if (v == null) return true;
+            if (size === 1) return v === 0xFF;
+            if (size === 2) return v === 0xFFFF;
+            if (size === 4) return v === 0xFFFFFFFF;
             return false;
         }
-        function readVal(off, size, base, little) {
+        function readVal(off, size, little) {
             try {
                 if (size === 1) return view.getUint8(off);
-                if (size === 2) return little ? view.getUint16(off, true) : view.getUint16(off, false);
-                if (size === 4) {
-                    if (base === 0x88) return little ? view.getFloat32(off, true) : view.getFloat32(off, false);
-                    return little ? view.getUint32(off, true) : view.getUint32(off, false);
-                }
+                if (size === 2) return view.getUint16(off, little);
+                if (size === 4) return view.getUint32(off, little);
             } catch (e) { return null; }
             return null;
+        }
+        function consumeData(local, forcedTs) {
+            const def = defs[local];
+            if (!def) return false;
+            const rec = {};
+            let p = offset;
+            def.fields.forEach(f => {
+                const v = (f.sz === 1 || f.sz === 2 || f.sz === 4) ? readVal(p, f.sz, def.little) : null;
+                p += f.sz;
+                if (v == null || invalid(f.sz, v)) return;
+                rec[f.num] = v;
+            });
+            offset += def.size;
+            if (rec[253] != null) lastTs = rec[253];
+            else if (forcedTs != null) rec[253] = forcedTs;
+            if (def.global === 20) {
+                const ts = rec[253] != null ? (rec[253] + FIT_EPOCH) * 1000 : null;
+                const distRaw = rec[5];
+                const spdRaw = rec[6] != null ? rec[6] : rec[73];
+                samples.push({
+                    t: ts,
+                    hr: rec[3] || null,
+                    cad: rec[4] || rec[18] || null,
+                    distKm: distRaw != null ? distRaw / 100000 : null,
+                    spdKmh: spdRaw != null ? (spdRaw / 1000) * 3.6 : null,
+                    alt: rec[2] != null ? rec[2] / 5 - 500 : (rec[78] != null ? rec[78] / 5 - 500 : null),
+                    lat: rec[0] != null ? rec[0] * (180 / 2147483648) : null,
+                    lon: rec[1] != null ? rec[1] * (180 / 2147483648) : null
+                });
+            } else if (def.global === 18) {
+                session = rec;
+            } else if (def.global === 19) {
+                laps++;
+                const lapKm = rec[9] != null ? rec[9] / 100000 : null;
+                const lapMin = rec[8] ? rec[8] / 1000 / 60 : null;
+                const lapHr = (rec[16] > 40 && rec[16] < 220) ? rec[16] : ((rec[15] > 40 && rec[15] < 220) ? rec[15] : null);
+                splits.push({
+                    km: lapKm ? Math.round(lapKm * 1000) / 1000 : null,
+                    minutes: lapMin ? Math.round(lapMin * 10) / 10 : null,
+                    pace: (lapKm > 0.05 && lapMin) ? paceFromKmh(lapKm / (lapMin / 60)) : null,
+                    fc: lapHr,
+                    kcal: rec[11] || null
+                });
+            }
+            return true;
         }
 
         while (offset < end) {
             const hdr = view.getUint8(offset); offset++;
             if (hdr & 0x80) {
                 const localC = (hdr >> 5) & 0x03;
-                const defC = defs[localC];
-                if (defC) offset += defC.size;
+                const timeOff = hdr & 0x1F;
+                let ts = lastTs;
+                if (lastTs != null) {
+                    ts = (lastTs & ~0x1F) + timeOff;
+                    if (ts < lastTs) ts += 0x20;
+                    lastTs = ts;
+                }
+                if (!consumeData(localC, ts)) break;
                 continue;
             }
             const local = hdr & 0x0F;
@@ -3393,59 +3478,44 @@
                 }
                 if (hdr & 0x20) {
                     const ndev = view.getUint8(offset); offset++;
-                    offset += ndev * 3;
+                    for (let i = 0; i < ndev; i++) {
+                        size += view.getUint8(offset + 1);
+                        offset += 3;
+                    }
                 }
                 defs[local] = { global, little, fields, size };
-            } else {
-                const def = defs[local];
-                if (!def) break;
-                const rec = {};
-                let p = offset;
-                def.fields.forEach(f => {
-                    const v = readVal(p, f.sz, f.bt, def.little);
-                    p += f.sz;
-                    if (v == null || invalid(f.bt, v)) return;
-                    rec[f.num] = v;
-                });
-                offset += def.size;
-                if (def.global === 20) {
-                    const ts = rec[253] != null ? (rec[253] + FIT_EPOCH) * 1000 : null;
-                    const distRaw = rec[5];
-                    const spdRaw = rec[6] != null ? rec[6] : rec[73];
-                    samples.push({
-                        t: ts,
-                        hr: rec[3] || null,
-                        cad: rec[4] || rec[18] || null,
-                        distKm: distRaw != null ? distRaw / 100000 : null,
-                        spdKmh: spdRaw != null ? (spdRaw / 1000) * 3.6 : null,
-                        alt: rec[2] != null ? rec[2] / 5 - 500 : (rec[78] != null ? rec[78] / 5 - 500 : null),
-                        lat: rec[0] != null ? rec[0] * (180 / 2147483648) : null,
-                        lon: rec[1] != null ? rec[1] * (180 / 2147483648) : null
-                    });
-                } else if (def.global === 18) {
-                    session = rec;
-                } else if (def.global === 19) {
-                    laps++;
-                }
+            } else if (!consumeData(local)) {
+                break;
             }
         }
 
+        const teRaw = session[24];
         const extra = {
             fileType: 'fit',
             laps,
+            splits,
             kcal: session[11] || null,
             durationMinutes: session[8] ? session[8] / 1000 / 60 : (session[7] ? session[7] / 1000 / 60 : null),
+            elapsedMinutes: session[7] ? session[7] / 1000 / 60 : null,
             distanceKm: session[9] != null ? session[9] / 100000 : null,
-            elevationGain: session[22] || null,
-            powerAvg: session[19] || null
+            elevationGain: (session[22] > 0 && session[22] < 8000) ? session[22] : null,
+            elevationLoss: (session[23] > 0 && session[23] < 8000) ? session[23] : null,
+            powerAvg: (session[20] > 0 && session[20] < 2000) ? session[20] : null,
+            steps: (session[10] > 0 && session[10] < 200000) ? session[10] : null,
+            trainingEffect: (teRaw >= 10 && teRaw <= 50) ? Math.round(teRaw) / 10 : ((teRaw > 0 && teRaw <= 5) ? teRaw : null),
+            fcMin: (session[64] > 30 && session[64] < 180) ? session[64] : null,
+            sport: session[5],
+            indoor: session[9] === 0 || session[5] === 4 || session[5] === 10
         };
-        const avgHr = session[15];
-        const maxHr = session[16];
+        const avgHr = session[16] || ((session[15] > 30 && session[15] < 230) ? session[15] : null);
+        const maxHr = session[17] || ((session[16] > 30 && session[16] < 230) ? session[16] : null);
         const out = finalizeSamples(samples, extra);
         if (!out.fc && avgHr > 30 && avgHr < 230) out.fc = avgHr;
         if (!out.fcMax && maxHr > 30 && maxHr < 230) out.fcMax = maxHr;
-        if (!out.cadenceAvg && session[17]) out.cadenceAvg = session[17];
-        if (!out.cadenceMax && session[18]) out.cadenceMax = session[18];
+        if (!out.fcMin && extra.fcMin) out.fcMin = extra.fcMin;
+        if (!out.cadenceAvg && session[18] > 0 && session[18] < 250) out.cadenceAvg = session[18];
+        if (!out.durationMinutes && extra.durationMinutes) out.durationMinutes = Math.round(extra.durationMinutes * 10) / 10;
+        out.indoor = !!extra.indoor;
         return out;
     }
 
@@ -3581,7 +3651,8 @@
                 fcMin: m.fcMin, cadenceAvg: m.cadenceAvg, cadenceMax: m.cadenceMax,
                 elevationGain: m.elevationGain, elevationLoss: m.elevationLoss,
                 avgSpeedKmh: m.avgSpeedKmh, maxSpeedKmh: m.maxSpeedKmh,
-                powerAvg: m.powerAvg, laps: m.laps, hrPoints: m.hrPoints,
+                powerAvg: m.powerAvg, laps: m.laps, splits: m.splits, hrPoints: m.hrPoints,
+                steps: m.steps, trainingEffect: m.trainingEffect, elapsedMinutes: m.elapsedMinutes,
                 fileType: m.fileType, startTime: m.startTime, caloriesEstimated: true
             }
         });
@@ -3607,11 +3678,15 @@
                 cell('kcal*', m.kcal),
                 cell('Cadência', m.cadenceAvg ? m.cadenceAvg + ' spm' : null),
                 cell('Subida', m.elevationGain ? m.elevationGain + ' m' : null),
-                cell('Vel. média', m.avgSpeedKmh ? m.avgSpeedKmh + ' km/h' : null),
+                cell('Descida', m.elevationLoss ? m.elevationLoss + ' m' : null),
+                cell('Passos', m.steps),
+                cell('Training Effect', m.trainingEffect),
+                cell('Voltas', m.laps),
                 cell('Z1/Z2', z ? z.z1_z2_minutes + ' min' : null),
                 cell('Z4/Z5', z ? z.z4_z5_minutes + ' min' : null)
             ].join('')}</div>
-            <p class="text-[9px] text-slate-500 mt-2">*kcal é estimativa do relógio. Zonas usam sua FCrep (Karvonen).</p>
+            <p class="text-[9px] text-slate-500 mt-2">*kcal é estimativa do relógio. Zonas usam sua FCrep (Karvonen). Pace = distância / tempo em movimento (ignora parado).</p>
+            ${Array.isArray(m.splits) && m.splits.filter(s => s.km >= 0.2).length ? `<p class="text-[10px] text-slate-300 mt-2">${m.splits.filter(s => s.km >= 0.2).map((s, i) => `km ${i + 1}: ${s.pace || '--'} · ${s.minutes} min`).join(' · ')}</p>` : ''}
             <button type="button" onclick="window.confirmWatchImport()" class="w-full mt-3 bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar estas métricas no treino</button>`;
         box.classList.remove('hidden');
         window._pendingWatchMetrics = m;
@@ -3621,7 +3696,7 @@
         if (!window.targetPendingDocId || !window._pendingWatchMetrics) return;
         const m = window._pendingWatchMetrics;
         const sessMod = window.targetPendingModality || '';
-        const looksRun = (m.distance || 0) >= 0.4 || (m.hrPoints || 0) > 40;
+        const looksRun = (m.distance || 0) >= 0.4;
         if (sessMod && sessMod !== 'Corrida' && looksRun) {
             const ok = window.confirm(`Este arquivo parece uma CORRIDA, mas a sessão é "${sessMod}". Gravar aqui mistura zonas no 80/20 da semana. Continuar mesmo assim?`);
             if (!ok) return;
