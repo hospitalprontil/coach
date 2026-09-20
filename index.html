@@ -5308,9 +5308,10 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
 
     window.evaluateWorkoutWithAI = async () => {
         if (selectedPseValue === null) return;
+        const nw = currentPlan.workouts.find(w => !w.isCompleted);
+        if (!nw) return window.showAlert('Treino', 'Não achei a sessão atual para avaliar.');
         showLoading("Avaliando o treino...", "I.A. v6.3 lendo volume, RIR e o que você escreveu...");
         const syntheticState = await buildSyntheticStateVector();
-        const nw = currentPlan.workouts.find(w => !w.isCompleted);
         const nextModality = pickNextModality(syntheticState, nw?.modality);
         const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
         const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
@@ -5737,6 +5738,65 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     // BLOCO 3: RENDERIZAÇÃO DO HISTÓRICO COM SUPORTE A SESSÕES PENDENTES DE PRINT
+    function histCell(label, value, strongClass = 'text-white') {
+        if (value == null || value === '' || value === '--') return '';
+        return `<div>${label}: <strong class="${strongClass}">${escapeHtml(String(value))}</strong></div>`;
+    }
+    function avgLogged(arr) {
+        const n = (arr || []).map(v => parseFloat(v)).filter(v => !isNaN(v));
+        if (!n.length) return null;
+        return Math.round((n.reduce((a, b) => a + b, 0) / n.length) * 10) / 10;
+    }
+    function historyCardMetricsHtml(h) {
+        const wm = h.watchMetrics || {};
+        const mod = h.modality || 'Calistenia';
+        const logs = Array.isArray(h.exerciseLogs) ? h.exerciseLogs : [];
+        const fromWatch = !!(h.updatedViaFile || wm.fileType);
+        const rirAvg = avgLogged(logs.map(l => l.rir));
+        const extraMax = logs.reduce((m, l) => Math.max(m, parseFloat(l.addedLoadKg) || 0), 0);
+        const weightMax = logs.reduce((m, l) => Math.max(m, parseFloat(l.weight) || 0), 0);
+        let core = histCell('PSE', h.pse != null ? `${h.pse}/10` : null);
+        if (mod === 'Corrida') {
+            core += histCell('Tempo', h.durationMinutes != null ? `${h.durationMinutes} min` : null, 'text-brand-300');
+            core += histCell('Distância', h.distance ? `${h.distance} km` : null, 'text-brand-300');
+            core += histCell('Pace', h.pace, 'text-brand-300');
+            const kmSplits = Array.isArray(wm.splits) ? wm.splits.filter(s => (s.km || 0) >= 0.2) : [];
+            core += histCell('Voltas', wm.laps || kmSplits.length || null, 'text-amber-300');
+            const gain = wm.elevationGain || h.elevationGain;
+            core += histCell('Subida', gain ? `${gain} m` : null, 'text-green-400');
+        } else {
+            core += histCell('Tempo', h.durationMinutes != null ? `${h.durationMinutes} min` : null, 'text-brand-300');
+            if (logs.length) core += histCell('Séries', logs.length, 'text-brand-300');
+            const uniq = new Set(logs.map(l => l.name).filter(Boolean)).size;
+            if (uniq) core += histCell('Exercícios', uniq);
+            if (rirAvg != null) core += histCell('RIR méd', rirAvg, 'text-purple-300');
+            if (mod !== 'Musculação' && extraMax > 0) core += histCell('Extra máx', `${extraMax} kg`, 'text-amber-300');
+            if (mod === 'Musculação' && weightMax > 0) core += histCell('Carga máx', `${weightMax} kg`, 'text-purple-300');
+        }
+        let watch = '';
+        if (fromWatch || h.fc) {
+            watch += histCell('FC méd', h.fc, 'text-pink-400');
+            watch += histCell('FC máx', h.fcMax, 'text-pink-400');
+            watch += histCell('FC mín', wm.fcMin || h.fcMin, 'text-pink-400');
+            watch += histCell('Decorrido', wm.elapsedMinutes != null ? `${wm.elapsedMinutes} min` : null);
+            if (mod === 'Corrida') {
+                watch += histCell('TRIMP', h.trimpScore ? Math.round(h.trimpScore) : null, 'text-red-400');
+                watch += histCell('Passos', wm.steps);
+                watch += histCell('TE', wm.trainingEffect);
+                watch += histCell('Cadência', wm.cadenceAvg ? `${wm.cadenceAvg} spm` : null);
+                watch += histCell('Descida', wm.elevationLoss ? `${wm.elevationLoss} m` : null);
+                if (h.zoneDistribution) watch += histCell('Z1/Z2', `${h.zoneDistribution.z1_z2_minutes || 0} min`, 'text-green-400');
+            } else {
+                watch += histCell('kcal', h.kcal ? `${h.kcal} kcal` : null, 'text-amber-400');
+                watch += histCell('Queda FC', h.fcRec != null ? `${h.fcRec} bpm` : null, 'text-pink-400');
+            }
+        }
+        const splitLine = (mod === 'Corrida' && Array.isArray(wm.splits))
+            ? wm.splits.filter(s => (s.km || 0) >= 0.2).map((s, i) => `km ${i + 1}: ${s.pace || '--'}`).join(' · ')
+            : '';
+        return { core, watch, splitLine, fromWatch };
+    }
+
     async function loadHistory() {
         if (!currentUser || !currentUser.uid) return;
         try {
@@ -5749,8 +5809,9 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             }); 
             data.sort((a,b) => new Date(b.date) - new Date(a.date)); 
             
-            document.getElementById('cal-count').innerText = `${data.length} Sessões`;
+            document.getElementById('cal-count') && (document.getElementById('cal-count').innerText = `${data.length} Sessões`);
             const listContainer = document.getElementById('calendar-list');
+            if (!listContainer) return;
             
             if (data.length === 0) {
                 listContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6 font-medium">Nenhum treino concluído.</p>`;
@@ -5759,24 +5820,18 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
 
             listContainer.innerHTML = data.map(h => {
                 const isPending = h.biometricsPending === true;
+                const m = historyCardMetricsHtml(h);
                 return `
                 <div class="bg-dark-900 p-4 rounded-3xl border ${isPending ? 'border-amber-500/50' : 'border-slate-800'} space-y-2 relative overflow-hidden">
-                    ${isPending ? `<div class="absolute top-0 right-0 bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">📷 Print Pendente</div>` : ''}
+                    ${isPending ? `<div class="absolute top-0 right-0 bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">📷 Print Pendente</div>` : (m.fromWatch ? `<div class="absolute top-0 right-0 bg-brand-500/20 text-brand-300 border-l border-b border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">Relógio</div>` : '')}
                     <div class="flex justify-between items-center">
                         <span class="text-[9px] font-bold text-slate-500 uppercase">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
-                        <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${h.modality||'Calistenia'}</span>
+                        <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${escapeHtml(h.modality||'Calistenia')}</span>
                     </div>
                     <h4 class="text-sm font-bold text-white">${escapeHtml(h.workoutName || "")}</h4>
-                    <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">
-                        <div>PSE: <strong class="text-white">${h.pse != null ? h.pse + '/10' : '--'}</strong></div>
-                        <div>Calorias: <strong class="text-amber-400">${h.kcal ? `${h.kcal} kcal` : '--'}</strong></div>
-                        <div>FC méd/máx/mín: <strong class="text-pink-400">${h.fc || '--'} / ${h.fcMax || '--'} / ${(h.watchMetrics && h.watchMetrics.fcMin) || '--'}</strong></div>
-                        <div>TRIMP: <strong class="text-red-400">${h.trimpScore ? Math.round(h.trimpScore) : '--'}</strong></div>
-                        <div>Corrida: <strong class="text-brand-300">${h.distance ? `${h.distance}km (${h.pace||''})` : '--'}</strong></div>
-                        <div>Cadência: <strong class="text-slate-200">${(h.watchMetrics && h.watchMetrics.cadenceAvg) ? h.watchMetrics.cadenceAvg + ' spm' : '--'}</strong></div>
-                        <div>Subida: <strong class="text-slate-200">${(h.watchMetrics && h.watchMetrics.elevationGain) ? h.watchMetrics.elevationGain + ' m' : '--'}</strong></div>
-                        <div>Zonas: <strong class="text-green-400">${h.zoneDistribution ? `Z2 ${h.zoneDistribution.z1_z2_minutes||0}′ · Z4 ${h.zoneDistribution.z4_z5_minutes||0}′` : '--'}</strong></div>
-                    </div>
+                    <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.core || '<div class="text-slate-500">Sem métricas</div>'}</div>
+                    ${m.watch ? `<p class="text-[8px] text-brand-400 font-black uppercase tracking-wider">${m.fromWatch ? 'Do relógio' : 'Cardio'}</p><div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.watch}</div>` : ''}
+                    ${m.splitLine ? `<p class="text-[10px] text-amber-200/90">${escapeHtml(m.splitLine)}</p>` : ''}
                     <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
                         <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
                     </button>
@@ -5786,7 +5841,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             listContainer.querySelectorAll('.js-pending-print').forEach(btn => {
                 btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc'), btn.getAttribute('data-wname'), btn.getAttribute('data-modality')));
             });
-        } catch(e) {}
+        } catch(e) {
+            const listContainer = document.getElementById('calendar-list');
+            if (listContainer) listContainer.innerHTML = `<p class="text-xs text-red-400 text-center py-6">Não deu para carregar o histórico.</p>`;
+        }
     }
 
     async function renderProgressEvaluations() {
