@@ -104,6 +104,15 @@
         details.faq-item summary::-webkit-details-marker { display: none; }
         details.faq-item summary:after { content: '+'; color: #67e8f9; font-weight: 900; float: right; }
         details.faq-item[open] summary:after { content: '–'; }
+        @keyframes cal-pulse-soft {
+            0%, 100% { opacity: 1; filter: brightness(1); }
+            50% { opacity: 0.78; filter: brightness(1.18); }
+        }
+        .cal-pulse { animation: cal-pulse-soft 1.15s ease-in-out infinite; }
+        .cal-pulse-next { animation: cal-pulse-soft 0.55s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) {
+            .cal-pulse, .cal-pulse-next { animation: none; }
+        }
     </style>
 </head>
 <body class="bg-dark-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
@@ -1614,15 +1623,15 @@
 <div id="modal-cal-mode" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[170] hidden flex items-center justify-center p-4">
     <div class="bg-dark-900 border border-brand-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto">
         <h3 class="text-lg font-black text-white text-center mb-1">Como você quer treinar hoje?</h3>
-        <p id="cal-mode-exname" class="text-xs text-slate-400 text-center mb-5">Um exercício por vez. Você anota no descanso.</p>
+        <p id="cal-mode-exname" class="text-xs text-slate-400 text-center mb-5">A lista de exercícios é a mesma. Muda só o relógio.</p>
         <div class="space-y-3">
             <button type="button" onclick="window.pickCalMode('time')" class="w-full bg-brand-500/15 hover:bg-brand-500/25 border border-brand-500/40 text-left p-4 rounded-2xl">
                 <span class="text-sm font-black text-brand-300 block">Por tempo</span>
-                <span class="text-[11px] text-slate-400">Cronômetro de trabalho. Conte as reps. No descanso você anota.</span>
+                <span class="text-[11px] text-slate-400">Cronômetro no trabalho e no descanso. Mesmos exercícios, mesmo intervalo.</span>
             </button>
             <button type="button" onclick="window.pickCalMode('sets')" class="w-full bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/40 text-left p-4 rounded-2xl">
                 <span class="text-sm font-black text-purple-300 block">Por séries</span>
-                <span class="text-[11px] text-slate-400">Ex.: Barras — faça 10. Depois descanso para anotar reps e RIR.</span>
+                <span class="text-[11px] text-slate-400">“Faça 10” no trabalho; o descanso usa o mesmo cronômetro. Não entram exercícios a mais.</span>
             </button>
         </div>
         <button type="button" onclick="window.hide('modal-cal-mode'); showScreen('screen-dashboard');" class="mt-4 w-full text-[11px] text-slate-500 font-bold py-2">Cancelar</button>
@@ -4520,10 +4529,54 @@
     }
     
     window.hide('modal-readiness');
-    
-    // Dispara a recalibração profunda baseada no Readiness e no Tempo Matemático
+
+    const pending = nwIndex !== -1 ? currentPlan.workouts[nwIndex] : null;
+    const keepProgrammed = shouldKeepProgrammedWorkout(readinessPayload, pending, targetModality, defaultMins);
+    if (keepProgrammed) {
+        await startProgrammedWorkout(readinessPayload, targetModality);
+        return;
+    }
     await recalibrateWorkoutWithReadiness(readinessPayload, targetModality);
 };
+
+    function shouldKeepProgrammedWorkout(readiness, nw, modality, plannedMins) {
+        if (!nw || !Array.isArray(nw.queue) || !nw.queue.some(q => q.type === 'work')) return false;
+        if ((readiness.energy || 0) < 4) return false;
+        if (readiness.sleep === 'Ruim') return false;
+        if (readiness.sore && readiness.sore !== 'Nenhuma') return false;
+        if ((readiness.notes || '').trim().length >= 12) return false;
+        const asked = parseInt(readiness.requestedMinutes, 10) || 0;
+        const planned = parseInt(plannedMins, 10) || parseInt(nw.estimatedMinutes, 10) || 45;
+        if (asked && Math.abs(asked - planned) > 2) return false;
+        const plannedMod = nw.modality || userData.masterAxis;
+        if (modality && plannedMod && modality !== plannedMod) return false;
+        return true;
+    }
+
+    async function startProgrammedWorkout(readiness, modality) {
+        showLoading('Mantendo o treino programado...', 'Prontidão boa — a I.A. não redesenha a fila. O motor só aplica os tetos.');
+        try {
+            const syntheticState = await buildSyntheticStateVector();
+            const nw = currentPlan.workouts.find(w => !w.isCompleted);
+            if (!nw) { hideLoading(); return; }
+            const guarded = applyDeterministicCoachingGuards(
+                { ...nw, modality: modality || nw.modality, _guardApplied: false },
+                syntheticState,
+                { targetMinutes: readiness.requestedMinutes, force: true }
+            );
+            Object.assign(nw, guarded);
+            nw.readiness = readiness;
+            nw.modality = modality || nw.modality;
+            nw.estimatedMinutes = readiness.requestedMinutes;
+            await saveFullState();
+            renderDashboard();
+            hideLoading();
+            startWorkoutSession(modality);
+        } catch (e) {
+            hideLoading();
+            startWorkoutSession(modality);
+        }
+    }
 
 // Função blindada de Recalibração Baseada em Prontidão e Tempo Proporcional
 async function recalibrateWorkoutWithReadiness(readiness, modality) {
@@ -5062,6 +5115,23 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             updateTimerUI();
         }
         updateTotalTimeUI();
+        updateTimerPulse();
+    }
+
+    function updateTimerPulse() {
+        const cur = document.getElementById('timer-current-card');
+        const nxt = document.getElementById('timer-next-card');
+        if (!cur || !nxt) return;
+        cur.classList.remove('cal-pulse', 'cal-pulse-next');
+        nxt.classList.remove('cal-pulse', 'cal-pulse-next');
+        const hasNext = currentQueueIndex + 1 < currentWorkoutQueue.length;
+        if (calAwaitingDone || isPaused) {
+            cur.classList.add('cal-pulse');
+            return;
+        }
+        if (timeLeft > 5) cur.classList.add('cal-pulse');
+        else if (hasNext) nxt.classList.add('cal-pulse-next');
+        else cur.classList.add('cal-pulse-next');
     }
 
     function timerTick() {
@@ -5078,6 +5148,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         } else {
             updateTimerUI();
             updateTotalTimeUI();
+            updateTimerPulse();
         }
     }
 
