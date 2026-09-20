@@ -1197,11 +1197,18 @@
             <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
                 <div class="flex justify-between items-center mb-2">
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2">
-                        <i class="fas fa-heart-pulse text-brand-400"></i> Recuperação Autonômica
+                        <i class="fas fa-heart-pulse text-brand-400"></i> Recuperação autonômica
+                        <button type="button" class="info-i" onclick="window.openTerm('sna')" aria-label="O que é recuperação autonômica">i</button>
                     </h3>
-                    <span id="ans-status-badge" class="bg-brand-500/20 text-brand-300 border border-brand-500/40 text-[9px] font-black px-2 py-0.5 rounded">SNA: Ativo</span>
+                    <span id="ans-status-badge" class="bg-slate-800 text-slate-300 border border-slate-700 text-[9px] font-black px-2 py-0.5 rounded">Sem dado</span>
                 </div>
-                <p class="text-[10px] text-slate-400 mb-2 font-medium">Controle de Janela mTORC1/AMPK ativo.</p>
+                <p id="ans-explain" class="text-[10px] text-slate-400 mb-3 font-medium leading-relaxed">Compara a FC ao acordar (check-in) com a da anamnese. Sem o check-in o card fica vazio — não é média automática.</p>
+                <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-300 font-medium">
+                    <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep anamnese<br><strong id="ans-rhr-base" class="text-white text-sm">--</strong></div>
+                    <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep hoje<br><strong id="ans-rhr-today" class="text-white text-sm">--</strong></div>
+                    <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">Delta<br><strong id="ans-delta" class="text-white text-sm">--</strong></div>
+                    <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">Queda FC 3 min<br><strong id="ans-hrr" class="text-white text-sm">--</strong></div>
+                </div>
             </div>
 
             <!-- 1RM Estimates Summary Card -->
@@ -1240,7 +1247,7 @@
 
             <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
                 <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-bullseye text-brand-400"></i> Radar híbrido (suas 4–8 semanas)</h3>
-                <p class="text-[10px] text-slate-500 mb-2">Cada eixo é 0–100 contra um alvo razoável do próprio atleta — não contra o mundo.</p>
+                <p class="text-[10px] text-slate-500 mb-2">Força e core = nível vs um alvo. Z1/Z2 e Z4 = <strong class="text-slate-400">% do tempo de cardio nas últimas 4 semanas</strong> (ideal ~80 / ~20). Não é “quanto você sofreu no gráfico”.</p>
                 <div class="w-full h-56 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-radar"></canvas></div>
             </div>
 
@@ -2290,7 +2297,7 @@
 
     function zoneBucketFromFc(fcAvg) {
         const p = hrReservePct(fcAvg);
-        if (p < 0.60) return 'warmup';
+        if (p < 0.45) return 'warmup';
         if (p < 0.70) return 'z1z2';
         if (p < 0.80) return 'z3';
         return 'z4z5';
@@ -2313,14 +2320,14 @@
         return { z1_z2_minutes: 0, z3_minutes: 0, z4_z5_minutes: dur, source: 'pse' };
     }
 
-    function calculatePolarizedCardioSplit(historyData) {
+    function calculatePolarizedCardioSplit(historyData, windowDays = 7) {
         let z1z2 = 0, z3 = 0, z4z5 = 0, totalTrimp = 0;
         if (!Array.isArray(historyData) || historyData.length === 0) return { z1z2: 0, z3: 0, z4z5: 0, totalTrimp: 0 };
         const now = new Date();
-        const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+        const windowMs = Math.max(1, windowDays) * 24 * 60 * 60 * 1000;
         historyData.forEach(item => {
             const itemDate = new Date(item.date);
-            if ((now - itemDate) > sevenDaysMs) return;
+            if ((now - itemDate) > windowMs) return;
             if (item.trimpScore) totalTrimp += item.trimpScore;
             if (item.zoneDistribution) {
                 z1z2 += (item.zoneDistribution.z1_z2_minutes || 0);
@@ -2341,7 +2348,8 @@
             z1z2: Math.round((z1z2 / totalMins) * 100),
             z3: Math.round((z3 / totalMins) * 100),
             z4z5: Math.round((z4z5 / totalMins) * 100),
-            totalTrimp
+            totalTrimp,
+            totalMins: Math.round(totalMins)
         };
     }
 
@@ -2529,13 +2537,15 @@
         const rhrBaseline = parseFloat(profile.restHeartRate || 60);
         let currentRhr = rhrBaseline;
         let rhrDelta = 0;
+        let hasTodayRhr = false;
         if (profile.currentRestHeartRate) {
             currentRhr = parseFloat(profile.currentRestHeartRate);
             rhrDelta = currentRhr - rhrBaseline;
+            hasTodayRhr = true;
         }
-        let ansStatus = "BALANCED";
-        if (rhrDelta >= 5) ansStatus = "SYMPATHETIC_DOMINANCE";
-        else if (rhrDelta <= -5) ansStatus = "PARASYMPATHETIC_DOMINANCE";
+        let ansStatus = hasTodayRhr ? "BALANCED" : "NO_DATA";
+        if (hasTodayRhr && rhrDelta >= 5) ansStatus = "SYMPATHETIC_DOMINANCE";
+        else if (hasTodayRhr && rhrDelta <= -5) ansStatus = "PARASYMPATHETIC_DOMINANCE";
         let lastFcRec = null;
         if (Array.isArray(historyData) && historyData.length) {
             const withRec = historyData.filter(h => h.fcRec != null && h.fcRec !== '').sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -2556,7 +2566,7 @@
                 is_heavy_legs_allowed: isHeavyLegsAllowed,
                 recommended_spacing_hours: 24
             },
-            autonomic_recovery: { rhr_baseline_bpm: rhrBaseline, current_rhr_bpm: currentRhr, rhr_delta_bpm: rhrDelta, ans_status: ansStatus, last_fc_recovery_3min: lastFcRec, recovery_quality: recoveryQuality }
+            autonomic_recovery: { rhr_baseline_bpm: rhrBaseline, current_rhr_bpm: currentRhr, rhr_delta_bpm: rhrDelta, ans_status: ansStatus, has_today_rhr: hasTodayRhr, last_fc_recovery_3min: lastFcRec, recovery_quality: recoveryQuality }
         };
     }
 
@@ -3556,9 +3566,7 @@
         const bestRel = rms.length ? Math.max(...rms.map(x => x / bw)) : 0;
         const trimp = (ss.cardio_polarized_distribution || {}).totalTrimp || 0;
         const core = (ss.weekly_effective_sets || {}).core || 0;
-        const z = ss.cardio_polarized_distribution || {};
-        const z12 = z.z1z2 || 0;
-        const z45 = z.z4z5 || 0;
+        const z = calculatePolarizedCardioSplit(historyData, 28);
         return {
             labels: ['Força relativa', 'Carga 1RM', 'Aeróbico', 'Core', 'Base Z1/Z2', 'Intenso Z4/Z5'],
             values: [
@@ -3566,8 +3574,8 @@
                 Math.round(scale100(bestRel, 0.4, 1.8)),
                 Math.round(scale100(trimp, 0, 600)),
                 Math.round(scale100(core, 0, 12)),
-                Math.round(scale100(z12, 40, 85)),
-                Math.round(z45 <= 20 ? scale100(z45, 0, 20) : Math.max(30, 100 - (z45 - 20) * 2))
+                Math.round(z.z1z2 || 0),
+                Math.round(z.z4z5 || 0)
             ]
         };
     }
@@ -3891,6 +3899,7 @@
         pse: { t: 'PSE — Esforço percebido', b: '<p>De 1 a 10, <strong class="text-white">como o treino inteiro te pareceu</strong>, não a última série.</p><p>1 = passeio. 5 = trabalho honesto. 8–9 = muito pesado. 10 = não dava mais. Sem isso o Coach não avalia o dia.</p>' },
         prontidao: { t: 'Prontidão', b: '<p>Nota do dia: energia (1–5) + sono + dor. Não é HRV de relógio.</p><p>Baixa → a I.A. enxuga o treino. Alta → segue o plano. Você informa isso ao tocar em Iniciar Sessão.</p>' },
         meso: { t: 'Mesociclo (4 semanas)', b: '<p>Semana 1 volume · 2 volume alto · 3 um pouco mais intenso · 4 deload (mais leve de propósito).</p><p><strong class="text-white">Reiniciar ciclo</strong> só volta o ponteiro para a semana 1. Não apaga histórico.</p>' },
+        sna: { t: 'Recuperação autonômica', b: '<p>Não é um número mágico. É a <strong class="text-white">FC ao acordar</strong> de hoje versus a FCrep da anamnese.</p><p>Você preenche no <strong class="text-white">check-in</strong> (aba Progresso). Sem isso o card fica em branco.</p><p>+5 bpm vs anamnese = estresse (o motor alivia o treino).<br>−5 bpm = bem recuperado.<br>Queda de FC em 3 min no pós-treino (HRR) também entra: ≥25 bom, <12 o próximo treino fica mais conservador.</p>' },
         zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>O cartão e o arquivo do relógio usam sua FCrep (Karvonen). Corra olhando o relógio nesses bpm, não “no feeling” sozinho.</p>' },
         eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' },
         iso: { t: 'Isometria', b: '<p>Você <strong class="text-white">segura</strong> a posição (prancha, L-sit, hollow). Não tem repetição — o relógio conta os segundos.</p><p>No descanso anote quanto segurou e se ainda aguentaria 0, 2, 5 ou 10+ segundos. Isso substitui o RIR. Série conta no volume se a reserva foi ≤ 5s.</p>' }
@@ -5500,12 +5509,14 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     }
 
     window.saveCheckin = async () => {
-        const w = document.getElementById('checkin-weight').value; const bf = document.getElementById('checkin-bf').value;
-        if(!w || !bf) return window.showAlert("Erro", "Preencha peso e % gordura");
+        const w = document.getElementById('checkin-weight').value;
+        const bf = document.getElementById('checkin-bf').value;
+        const rhr = document.getElementById('checkin-rhr')?.value;
+        if ((!w || !bf) && !rhr) return window.showAlert("Erro", "Preencha peso e % gordura, ou pelo menos a FC de repouso de hoje.");
         showLoading("Salvando check-in...");
         try { 
-            userData.weight = w; userData.bf = bf;
-            const rhr = document.getElementById('checkin-rhr')?.value;
+            if (w) userData.weight = w;
+            if (bf) userData.bf = bf;
             if (rhr) {
                 userData.currentRestHeartRate = parseFloat(rhr);
                 if (!userData.restHeartRate) userData.restHeartRate = parseFloat(rhr);
@@ -5513,8 +5524,8 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             await saveFullState(); 
             await addDoc(collection(db, `users/${currentUser.uid}/checkins`), {
                 date: new Date().toISOString(),
-                weight: parseFloat(w),
-                bf: parseFloat(bf),
+                weight: w ? parseFloat(w) : (parseFloat(userData.weight) || null),
+                bf: bf ? parseFloat(bf) : (parseFloat(userData.bf) || null),
                 restHeartRate: rhr ? parseFloat(rhr) : null
             }); 
             hideLoading(); window.hide('modal-checkin'); renderCharts(); renderAcwrAnd1RMInfo();
@@ -5574,18 +5585,36 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             }
 
             const ansBadge = document.getElementById('ans-status-badge');
-            if (ansBadge && syntheticState.autonomic_recovery) {
-                const st = syntheticState.autonomic_recovery.ans_status || "BALANCED";
+            const auto = syntheticState.autonomic_recovery || {};
+            if (ansBadge) {
+                const st = auto.ans_status || "NO_DATA";
                 if (st === "SYMPATHETIC_DOMINANCE") {
                     ansBadge.className = "bg-red-500/20 text-red-300 border border-red-500/40 text-[9px] font-black px-2 py-0.5 rounded";
-                    ansBadge.innerText = "SNA: Simpático";
+                    ansBadge.innerText = "Estressado";
                 } else if (st === "PARASYMPATHETIC_DOMINANCE") {
                     ansBadge.className = "bg-green-500/20 text-green-300 border border-green-500/40 text-[9px] font-black px-2 py-0.5 rounded";
-                    ansBadge.innerText = "SNA: Parassimpático";
-                } else {
+                    ansBadge.innerText = "Bem recuperado";
+                } else if (st === "BALANCED") {
                     ansBadge.className = "bg-brand-500/20 text-brand-300 border border-brand-500/40 text-[9px] font-black px-2 py-0.5 rounded";
-                    ansBadge.innerText = "SNA: Equilibrado";
+                    ansBadge.innerText = "Equilibrado";
+                } else {
+                    ansBadge.className = "bg-slate-800 text-slate-300 border border-slate-700 text-[9px] font-black px-2 py-0.5 rounded";
+                    ansBadge.innerText = "Sem check-in";
                 }
+            }
+            const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.innerText = v; };
+            setTxt('ans-rhr-base', auto.rhr_baseline_bpm ? `${auto.rhr_baseline_bpm} bpm` : '--');
+            setTxt('ans-rhr-today', auto.has_today_rhr ? `${auto.current_rhr_bpm} bpm` : 'faça o check-in');
+            setTxt('ans-delta', auto.has_today_rhr ? `${auto.rhr_delta_bpm > 0 ? '+' : ''}${auto.rhr_delta_bpm} bpm` : '--');
+            const hrr = auto.last_fc_recovery_3min;
+            const q = auto.recovery_quality;
+            setTxt('ans-hrr', hrr != null ? `${hrr} bpm${q === 'GOOD' ? ' · boa' : q === 'POOR' ? ' · baixa' : ''}` : 'anote no pós-treino');
+            const expl = document.getElementById('ans-explain');
+            if (expl) {
+                if (!auto.has_today_rhr) expl.innerText = 'Abra o check-in na aba Progresso e anote a FC ao acordar. Sem isso este card não calcula — não é média automática.';
+                else if (auto.ans_status === 'SYMPATHETIC_DOMINANCE') expl.innerText = 'FCrep de hoje está ≥5 bpm acima da anamnese. O motor alivia o próximo treino.';
+                else if (auto.ans_status === 'PARASYMPATHETIC_DOMINANCE') expl.innerText = 'FCrep de hoje está mais baixa que a anamnese. Boa recuperação.';
+                else expl.innerText = 'FCrep de hoje perto da anamnese. Sistema em equilíbrio.';
             }
 
             // Phase 2: Renderização UI do TRIMP e 80/20
