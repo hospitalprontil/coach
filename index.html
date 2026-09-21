@@ -396,7 +396,17 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.6 Aula HIIT</span>
+                    <span class="font-black text-brand-400 text-sm">v6.7 Retoma se fechar o app</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Cronômetro, passo e logs ficam no celular se você fechar o navegador.<br>
+                    • Ao voltar: Continuar (pausado) ou Descartar. Vale 8 horas neste aparelho.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v6.6 Aula HIIT</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -554,12 +564,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.6</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.7</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.6 · Aula HIIT</strong>
-                    • Calistenia: aula HIIT própria 1×/semana (2× na semana 3).<br>
-                    • Burpee / escalador / polichinelo na lista fechada.<br>
-                    • Motor apaga se for semana 0, deload ou eixo corrida.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.7 · Retoma o treino</strong>
+                    • Fechou o navegador no meio? O cronômetro e o passo ficam neste aparelho.<br>
+                    • Ao voltar: Continuar (pausado) ou Descartar. Vale 8 horas.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1002,7 +1011,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.6</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.7</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1429,7 +1438,7 @@
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
                 <div class="flex justify-between items-center mb-4">
                     <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.6 Apex</span>
+                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.7 Apex</span>
                 </div>
                 
                 <div class="space-y-3">
@@ -1596,6 +1605,10 @@
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Posso fazer só HIIT todo dia?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> O teto é 1–2 aulas. O resto da semana é força fácil e, se rolar, corrida Z2. HIIT todo dia estagna força e articula errado. O app recusa o excesso.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Fechei o navegador no meio do treino. Perdi tudo?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não, neste aparelho.</strong> O app guarda o passo, o cronômetro e o que você já anotou. Ao abrir de novo (mesmo login), pergunta se quer continuar. O timer volta <strong class="text-white">pausado</strong>. Vale ~8 h. “Sair sem salvar” no treino apaga esse rascunho. Outro celular não vê — não vai para o Firebase.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Isso substitui médico ou personal?</summary>
@@ -1773,11 +1786,27 @@
         </div>
         <h3 class="text-base font-black text-white">Sair do Treino?</h3>
         <p class="text-xs text-slate-300 font-medium leading-relaxed">
-            Tem certeza que deseja sair? Seu progresso nesta sessão não será salvo.
+        Tem certeza que deseja sair? O app deixa de guardar esta sessão (fechar o navegador no meio do treino ainda pode retomar).
         </p>
         <div class="flex gap-2 pt-2">
             <button onclick="window.closeConfirmAbort()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-2xl text-xs uppercase">Continuar</button>
             <button onclick="window.executeAbortWorkout()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-2xl text-xs uppercase shadow-[0_0_15px_rgba(220,38,38,0.4)]">Sair sem Salvar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal retomar treino interrompido -->
+<div id="modal-resume-session" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[190] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-brand-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl mx-auto">
+        <div class="w-14 h-14 rounded-full bg-brand-500/20 text-brand-400 flex items-center justify-center mx-auto text-2xl border border-brand-500/30">
+            <i class="fas fa-rotate-left"></i>
+        </div>
+        <h3 class="text-base font-black text-white">Treino em andamento</h3>
+        <p id="resume-session-desc" class="text-xs text-slate-300 font-medium leading-relaxed">Você fechou o app no meio da sessão. Podemos voltar exatamente onde parou.</p>
+        <p class="text-[10px] text-slate-500">O cronômetro começa <strong class="text-slate-300">pausado</strong>. Toque em Retomar quando estiver pronto.</p>
+        <div class="flex gap-2 pt-1">
+            <button type="button" onclick="window.discardLiveSession()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-2xl text-xs uppercase">Descartar</button>
+            <button type="button" onclick="window.resumeLiveSessionNow()" class="flex-1 bg-brand-500 hover:bg-brand-400 text-dark-950 font-black py-3 rounded-2xl text-xs uppercase">Continuar</button>
         </div>
     </div>
 </div>
@@ -4713,6 +4742,7 @@
    window.logOut = async () => {
     if (timerInterval) clearInterval(timerInterval);
     if (restTimerInterval) clearInterval(restTimerInterval);
+    try { clearLiveSession(); } catch (e) {}
     
     await releaseWakeLock();
     await signOut(auth);
@@ -4752,6 +4782,7 @@
     }
 
     function checkPostLoginPopupsSequence() {
+        if (typeof window.offerResumeLiveSession === 'function' && window.offerResumeLiveSession()) return;
         const seenV61 = localStorage.getItem(`seen_v66_novelty_${currentUser.uid}`);
         if (!seenV61) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
@@ -5347,6 +5378,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             if (el) el.innerText = first ? `${first.name} · ${first.sets || 3} séries` : 'Um exercício por vez. Você anota no descanso.';
             window.show('modal-cal-mode');
         }
+        captureLiveSession();
     }
 
     window.launchTimerFromStrengthScreen = () => {
@@ -5631,6 +5663,181 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         calLastWork = null;
     }
 
+    const LIVE_SESSION_MAX_MS = 8 * 60 * 60 * 1000;
+
+    function liveSessionKey() {
+        return currentUser && currentUser.uid ? `apex_live_${currentUser.uid}` : null;
+    }
+    function detectLiveScreen() {
+        const vis = (id) => {
+            const el = document.getElementById(id);
+            return !!(el && !el.classList.contains('hidden'));
+        };
+        if (vis('modal-post-workout')) return 'post';
+        if (vis('screen-timer')) return 'timer';
+        if (vis('screen-bodybuilding-workout')) return 'gym';
+        if (vis('screen-running-workout')) return 'run';
+        return null;
+    }
+    function captureGymDraft() {
+        const draft = [];
+        document.querySelectorAll('#bb-exercises-container [data-exname]').forEach((card, exIdx) => {
+            const nSets = parseInt(card.getAttribute('data-sets') || '3', 10);
+            const sets = [];
+            for (let s = 1; s <= nSets; s++) {
+                sets.push({
+                    w: document.getElementById(`bb-weight-${exIdx}-${s}`)?.value || '',
+                    a: document.getElementById(`bb-added-${exIdx}-${s}`)?.value || '',
+                    r: document.getElementById(`bb-reps-${exIdx}-${s}`)?.value || '',
+                    i: document.getElementById(`bb-rir-${exIdx}-${s}`)?.value || ''
+                });
+            }
+            draft.push({ name: card.getAttribute('data-exname'), sets });
+        });
+        return draft;
+    }
+    function applyGymDraft(draft) {
+        if (!Array.isArray(draft)) return;
+        document.querySelectorAll('#bb-exercises-container [data-exname]').forEach((card, exIdx) => {
+            const row = draft[exIdx];
+            if (!row || !Array.isArray(row.sets)) return;
+            row.sets.forEach((st, j) => {
+                const s = j + 1;
+                const w = document.getElementById(`bb-weight-${exIdx}-${s}`);
+                const a = document.getElementById(`bb-added-${exIdx}-${s}`);
+                const r = document.getElementById(`bb-reps-${exIdx}-${s}`);
+                const i = document.getElementById(`bb-rir-${exIdx}-${s}`);
+                if (w && st.w !== undefined) w.value = st.w;
+                if (a && st.a !== undefined) a.value = st.a;
+                if (r && st.r !== undefined) r.value = st.r;
+                if (i && st.i !== undefined) i.value = st.i;
+            });
+        });
+    }
+    function clearLiveSession() {
+        const key = liveSessionKey();
+        if (key) try { localStorage.removeItem(key); } catch (e) {}
+    }
+    function readLiveSession() {
+        const key = liveSessionKey();
+        if (!key) return null;
+        try {
+            const raw = localStorage.getItem(key);
+            if (!raw) return null;
+            const snap = JSON.parse(raw);
+            if (!snap || !snap.updatedAt) return null;
+            if (Date.now() - snap.updatedAt > LIVE_SESSION_MAX_MS) { clearLiveSession(); return null; }
+            return snap;
+        } catch (e) { return null; }
+    }
+    function captureLiveSession() {
+        const key = liveSessionKey();
+        if (!key) return;
+        const screen = detectLiveScreen();
+        if (!screen) return;
+        const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
+        const payload = {
+            v: 1,
+            updatedAt: Date.now(),
+            screen,
+            workoutName: nw ? (nw.name || '') : '',
+            modality: nw ? (nw.modality || '') : '',
+            calMode,
+            index: currentQueueIndex,
+            timeLeft,
+            isPaused,
+            calAwaitingDone,
+            logs: calSessionLogs,
+            queue: screen === 'timer' ? currentWorkoutQueue : null,
+            gymDraft: (screen === 'gym' || screen === 'post') ? captureGymDraft() : null,
+            gymMode: window._strengthFromCalisthenics ? 'calistenia-post' : 'musculacao',
+            restTimeLeft: restTimeLeft || 0,
+            strengthFromCal: !!window._strengthFromCalisthenics
+        };
+        try { localStorage.setItem(key, JSON.stringify(payload)); } catch (e) {}
+    }
+    window.offerResumeLiveSession = () => {
+        const snap = readLiveSession();
+        if (!snap) return false;
+        const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
+        if (!nw) { clearLiveSession(); return false; }
+        if (snap.workoutName && nw.name && snap.workoutName !== nw.name) { clearLiveSession(); return false; }
+        const mins = Math.max(1, Math.round((Date.now() - snap.updatedAt) / 60000));
+        const step = snap.screen === 'timer' && snap.queue
+            ? `Passo ${(snap.index || 0) + 1}/${snap.queue.length}`
+            : (snap.screen === 'gym' ? 'Ficha de séries' : snap.screen === 'run' ? 'Roteiro de corrida' : 'Pós-treino');
+        const clock = snap.screen === 'timer' && snap.timeLeft != null
+            ? ` · ${Math.floor(snap.timeLeft / 60)}:${String(snap.timeLeft % 60).padStart(2, '0')} no relógio`
+            : '';
+        const el = document.getElementById('resume-session-desc');
+        if (el) el.innerText = `Você saiu há ${mins} min no meio de “${nw.name || 'treino'}”. ${step}${clock}.`;
+        window.show('modal-resume-session');
+        return true;
+    };
+    window.discardLiveSession = () => {
+        clearLiveSession();
+        window.hide('modal-resume-session');
+        checkPostLoginPopupsSequence();
+    };
+    window.resumeLiveSessionNow = () => {
+        const snap = readLiveSession();
+        window.hide('modal-resume-session');
+        if (!snap) return;
+        const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
+        calMode = snap.calMode || 'time';
+        calSessionLogs = Array.isArray(snap.logs) ? snap.logs : [];
+        window._strengthFromCalisthenics = !!snap.strengthFromCal;
+        if (snap.screen === 'timer' && Array.isArray(snap.queue) && snap.queue.length) {
+            currentWorkoutQueue = snap.queue;
+            currentQueueIndex = Math.min(Math.max(0, snap.index || 0), snap.queue.length - 1);
+            if (timerInterval) clearInterval(timerInterval);
+            document.body.classList.add('no-scroll');
+            const modalityStr = (nw && nw.modality) || userData.masterAxis || 'Calistenia';
+            document.getElementById('timer-workout-name').innerText = `${modalityStr}: retomado`;
+            document.getElementById('timer-workout-desc').innerText = (nw && (nw.focus || nw.name)) || 'Calistenia';
+            showScreen('screen-timer');
+            loadQueueItem(currentQueueIndex);
+            timeLeft = Math.max(0, parseInt(snap.timeLeft, 10) || timeLeft);
+            calAwaitingDone = !!snap.calAwaitingDone;
+            isPaused = true;
+            const btn = document.getElementById('btn-pause-resume');
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-play"></i> RETOMAR';
+                if (calAwaitingDone) btn.classList.add('hidden');
+                else btn.classList.remove('hidden');
+            }
+            updateTimerUI();
+            updateTotalTimeUI();
+            updateTimerPulse();
+            requestWakeLock();
+            timerInterval = setInterval(timerTick, 1000);
+            return;
+        }
+        if (snap.screen === 'gym' && nw) {
+            setupBodybuildingWorkoutScreen(nw, { mode: snap.gymMode || 'musculacao' });
+            applyGymDraft(snap.gymDraft);
+            showScreen('screen-bodybuilding-workout');
+            if ((snap.restTimeLeft || 0) > 0) window.startRestTimer(snap.restTimeLeft);
+            return;
+        }
+        if (snap.screen === 'run' && nw) {
+            setupRunningWorkoutScreen(nw);
+            showScreen('screen-running-workout');
+            return;
+        }
+        if (snap.screen === 'post') {
+            if (snap.gymDraft && nw) {
+                setupBodybuildingWorkoutScreen(nw, { mode: snap.gymMode || 'musculacao' });
+                applyGymDraft(snap.gymDraft);
+            }
+            openPostWorkout();
+        }
+    };
+    window.addEventListener('pagehide', () => { try { captureLiveSession(); } catch (e) {} });
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) { try { captureLiveSession(); } catch (e) {} }
+    });
+
     function startCalisthenicsTimerRoutine(nw) {
         if (!nw || !nw.queue) return;
         if (timerInterval) clearInterval(timerInterval);
@@ -5654,6 +5861,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         requestWakeLock();
         loadQueueItem(0);
         timerInterval = setInterval(timerTick, 1000);
+        captureLiveSession();
     }
 
     window.completeCalWorkSet = () => {
@@ -5661,6 +5869,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         calAwaitingDone = false;
         currentQueueIndex++;
         loadQueueItem(currentQueueIndex);
+        captureLiveSession();
     };
 
     window.confirmAbortWorkout = () => window.show('modal-confirm-abort');
@@ -5671,6 +5880,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         clearInterval(timerInterval);
         if (restTimerInterval) clearInterval(restTimerInterval);
         calAwaitingDone = false;
+        clearLiveSession();
         document.body.classList.remove('no-scroll');
         releaseWakeLock();
         window.hide('modal-cal-mode');
@@ -5683,6 +5893,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         const btn = document.getElementById('btn-pause-resume'); 
         if (isPaused) btn.innerHTML = '<i class="fas fa-play"></i> RETOMAR'; 
         else btn.innerHTML = '<i class="fas fa-pause"></i> PAUSAR'; 
+        captureLiveSession();
     };
 
     window.skipExercise = () => {
@@ -5691,6 +5902,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         calAwaitingDone = false;
         currentQueueIndex++;
         loadQueueItem(currentQueueIndex);
+        captureLiveSession();
     };
 
     function loadQueueItem(index) {
@@ -5827,10 +6039,12 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             if (currentWorkoutQueue[currentQueueIndex]?.type === 'rest') commitCalLogIfAny();
             currentQueueIndex++;
             loadQueueItem(currentQueueIndex);
+            captureLiveSession();
         } else {
             updateTimerUI();
             updateTotalTimeUI();
             updateTimerPulse();
+            if (timeLeft % 5 === 0) captureLiveSession();
         }
     }
 
@@ -5907,6 +6121,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             };
             cont.appendChild(b);
         });
+        captureLiveSession();
     }
 
     window.evaluateWorkoutWithAI = async () => {
@@ -6108,6 +6323,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         currentPlan.nextWorkoutDate = nextDate.toISOString();
 
         await saveFullState(); hideLoading(); window.hide('modal-post-workout');
+        clearLiveSession();
         renderDashboard(); window.switchTab('training');
         window.showAlert("Treino Concluído!", "Sessão registrada com sucesso e marcos de volume atualizados!");
     }
