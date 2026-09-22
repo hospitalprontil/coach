@@ -1928,14 +1928,15 @@
     <div class="bg-dark-900 border border-slate-800 w-full max-w-md max-h-[85vh] rounded-3xl p-5 shadow-2xl flex flex-col mx-auto">
         <div class="flex justify-between items-center mb-3 pb-3 border-b border-slate-800">
             <div>
-                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Árvores de Progressão & Guia de Exercícios</span>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">Exercícios do dia · YouTube</span>
                 <h3 id="mwl-title" class="text-base font-black text-white">Sessão Atual</h3>
+                <p id="mwl-hint" class="text-[10px] text-slate-400 mt-0.5">Confira a ficha. Tire dúvida no vídeo. Só depois inicie.</p>
             </div>
             <button onclick="window.hide('modal-workout-library')" class="text-slate-400 hover:text-white text-xl"><i class="fas fa-times"></i></button>
         </div>
         <div id="mwl-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1"></div>
         <div class="pt-3 border-t border-slate-800 mt-3">
-            <button onclick="window.hide('modal-workout-library'); window.openReadinessModal();" class="w-full bg-brand-500 text-white font-black py-3.5 rounded-2xl text-xs uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+            <button onclick="window.startFromWorkoutLibrary()" class="w-full bg-brand-500 text-white font-black py-3.5 rounded-2xl text-xs uppercase shadow-[0_0_15px_rgba(6,182,212,0.3)]">
                 Iniciar Treino Agora <i class="fas fa-play ml-1"></i>
             </button>
         </div>
@@ -2605,6 +2606,7 @@
     17. AULA HIIT (peso do corpo): sessão PRÓPRIA, 15–20 min, só ids family=hiit. 1×/semana (2× só se hiit_budget>=2 e mesocycle_week===3). hiit_budget===0 (semana 0, deload, ACWR alto, eixo Corrida, queda de FC): ZERO HIIT. Não misturar burpee no meio de barra/flexão. Burpee completo só se joelho e ombro ok — senão burpee sem salto / polichinelo.`;
 
     let currentUser = null;
+    let lastAuthUid = null;
     let userData = {};
     let currentPlan = null; 
     
@@ -4751,7 +4753,9 @@
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            currentUser = user; document.getElementById('dash-user-email').innerText = user.email; updateBadge('firebase', 'ok');
+            currentUser = user;
+            lastAuthUid = user.uid;
+            document.getElementById('dash-user-email').innerText = user.email; updateBadge('firebase', 'ok');
             await loadUserData();
         } else {
             currentUser = null; userData = {}; currentPlan = null;
@@ -4771,6 +4775,15 @@
                     showScreen('screen-dashboard');
                     try { window.switchTab('training'); } catch (e) {}
                     try { checkPostLoginPopupsSequence(); } catch (e) {}
+                    setTimeout(() => {
+                        try {
+                            const timerEl = document.getElementById('screen-timer');
+                            if (timerEl && !timerEl.classList.contains('hidden')) return;
+                            const gymEl = document.getElementById('screen-bodybuilding-workout');
+                            if (gymEl && !gymEl.classList.contains('hidden')) return;
+                            offerResumeLiveSession();
+                        } catch (e) {}
+                    }, 500);
                 } else showScreen('screen-step1-id');
             } else { userData = {}; showScreen('screen-step1-id'); }
         } catch (err) {
@@ -4782,7 +4795,7 @@
     }
 
     function checkPostLoginPopupsSequence() {
-        if (typeof window.offerResumeLiveSession === 'function' && window.offerResumeLiveSession()) return;
+        if (offerResumeLiveSession()) return;
         const seenV61 = localStorage.getItem(`seen_v66_novelty_${currentUser.uid}`);
         if (!seenV61) window.show('modal-v40-novelty');
         else if (!userData.secondaryCalibrated) window.show('modal-proactive-calibration');
@@ -4806,6 +4819,7 @@
     };
 
     function checkPendingWorkoutReminder() {
+        if (offerResumeLiveSession()) return;
         if (window.hasSeenReminder) return;
         window.hasSeenReminder = true;
 
@@ -5284,10 +5298,10 @@
             await saveFullState();
             renderDashboard();
             hideLoading();
-            startWorkoutSession(modality);
+            revealPreparedWorkout();
         } catch (e) {
             hideLoading();
-            startWorkoutSession(modality);
+            revealPreparedWorkout();
         }
     }
 
@@ -5336,21 +5350,37 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             await saveFullState();
             renderDashboard();
             hideLoading();
-            
-            // Inicia imediatamente a sessão recalibrada
-            startWorkoutSession(modality);
+            revealPreparedWorkout();
         } else {
             throw new Error("A I.A. não retornou um formato de treino válido.");
         }
     } catch (err) {
         hideLoading();
         window.showAlert("Erro na Recalibração", err.message);
-        // Fallback: Se der erro na I.A., inicia o treino com os parâmetros que já estavam salvos
-        startWorkoutSession(modality);
+        revealPreparedWorkout();
     }
 }
 
     window._strengthFromCalisthenics = false;
+    window._sessionArmedAfterPreview = false;
+
+    function revealPreparedWorkout() {
+        window._sessionArmedAfterPreview = true;
+        try { showScreen('screen-dashboard'); } catch (e) {}
+        try { window.switchTab('training'); } catch (e) {}
+        window.openWorkoutLibraryModal();
+    }
+
+    window.startFromWorkoutLibrary = () => {
+        window.hide('modal-workout-library');
+        const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
+        if (window._sessionArmedAfterPreview) {
+            window._sessionArmedAfterPreview = false;
+            startWorkoutSession((nw && nw.modality) || userData.masterAxis);
+            return;
+        }
+        window.openReadinessModal();
+    };
 
     function startWorkoutSession(modality) {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
@@ -5666,7 +5696,8 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     const LIVE_SESSION_MAX_MS = 8 * 60 * 60 * 1000;
 
     function liveSessionKey() {
-        return currentUser && currentUser.uid ? `apex_live_${currentUser.uid}` : null;
+        const uid = (currentUser && currentUser.uid) || lastAuthUid;
+        return uid ? `apex_live_${uid}` : 'apex_live_anon';
     }
     function detectLiveScreen() {
         const vis = (id) => {
@@ -5677,6 +5708,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         if (vis('screen-timer')) return 'timer';
         if (vis('screen-bodybuilding-workout')) return 'gym';
         if (vis('screen-running-workout')) return 'run';
+        if (timerInterval && currentWorkoutQueue && currentWorkoutQueue.length) return 'timer';
         return null;
     }
     function captureGymDraft() {
@@ -5716,28 +5748,35 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     }
     function clearLiveSession() {
         const key = liveSessionKey();
-        if (key) try { localStorage.removeItem(key); } catch (e) {}
+        try { localStorage.removeItem(key); } catch (e) {}
+        try { sessionStorage.removeItem(key); } catch (e) {}
+        try { localStorage.removeItem('apex_live_anon'); sessionStorage.removeItem('apex_live_anon'); } catch (e) {}
     }
     function readLiveSession() {
-        const key = liveSessionKey();
-        if (!key) return null;
-        try {
-            const raw = localStorage.getItem(key);
-            if (!raw) return null;
-            const snap = JSON.parse(raw);
-            if (!snap || !snap.updatedAt) return null;
-            if (Date.now() - snap.updatedAt > LIVE_SESSION_MAX_MS) { clearLiveSession(); return null; }
-            return snap;
-        } catch (e) { return null; }
+        const keys = [liveSessionKey(), 'apex_live_anon'];
+        for (const key of keys) {
+            for (const store of [localStorage, sessionStorage]) {
+                try {
+                    const raw = store.getItem(key);
+                    if (!raw) continue;
+                    const snap = JSON.parse(raw);
+                    if (!snap || !snap.updatedAt) continue;
+                    if (Date.now() - snap.updatedAt > LIVE_SESSION_MAX_MS) continue;
+                    if (Array.isArray(snap.queue) && snap.queue.length) return snap;
+                    if (snap.screen === 'gym' || snap.screen === 'run' || snap.screen === 'post') return snap;
+                } catch (e) {}
+            }
+        }
+        return null;
     }
     function captureLiveSession() {
-        const key = liveSessionKey();
-        if (!key) return;
-        const screen = detectLiveScreen();
+        let screen = detectLiveScreen();
+        if (!screen && timerInterval && currentWorkoutQueue && currentWorkoutQueue.length) screen = 'timer';
         if (!screen) return;
         const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
         const payload = {
-            v: 1,
+            v: 2,
+            uid: (currentUser && currentUser.uid) || lastAuthUid || '',
             updatedAt: Date.now(),
             screen,
             workoutName: nw ? (nw.name || '') : '',
@@ -5748,32 +5787,38 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             isPaused,
             calAwaitingDone,
             logs: calSessionLogs,
-            queue: screen === 'timer' ? currentWorkoutQueue : null,
+            queue: (screen === 'timer' || (currentWorkoutQueue && currentWorkoutQueue.length)) ? currentWorkoutQueue : null,
             gymDraft: (screen === 'gym' || screen === 'post') ? captureGymDraft() : null,
             gymMode: window._strengthFromCalisthenics ? 'calistenia-post' : 'musculacao',
             restTimeLeft: restTimeLeft || 0,
             strengthFromCal: !!window._strengthFromCalisthenics
         };
-        try { localStorage.setItem(key, JSON.stringify(payload)); } catch (e) {}
+        const raw = JSON.stringify(payload);
+        const key = liveSessionKey();
+        try { localStorage.setItem(key, raw); } catch (e) {}
+        try { sessionStorage.setItem(key, raw); } catch (e) {}
+        try { localStorage.setItem('apex_live_anon', raw); } catch (e) {}
     }
-    window.offerResumeLiveSession = () => {
+    function offerResumeLiveSession() {
         const snap = readLiveSession();
         if (!snap) return false;
         const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
-        if (!nw) { clearLiveSession(); return false; }
-        if (snap.workoutName && nw.name && snap.workoutName !== nw.name) { clearLiveSession(); return false; }
+        if (!nw && snap.screen !== 'post') return false;
+        window.hide('modal-pending-reminder');
+        window.hide('modal-v40-novelty');
         const mins = Math.max(1, Math.round((Date.now() - snap.updatedAt) / 60000));
         const step = snap.screen === 'timer' && snap.queue
             ? `Passo ${(snap.index || 0) + 1}/${snap.queue.length}`
             : (snap.screen === 'gym' ? 'Ficha de séries' : snap.screen === 'run' ? 'Roteiro de corrida' : 'Pós-treino');
         const clock = snap.screen === 'timer' && snap.timeLeft != null
-            ? ` · ${Math.floor(snap.timeLeft / 60)}:${String(snap.timeLeft % 60).padStart(2, '0')} no relógio`
+            ? ` · ${Math.floor(Math.max(0, snap.timeLeft) / 60)}:${String(Math.max(0, snap.timeLeft) % 60).padStart(2, '0')} no relógio`
             : '';
         const el = document.getElementById('resume-session-desc');
-        if (el) el.innerText = `Você saiu há ${mins} min no meio de “${nw.name || 'treino'}”. ${step}${clock}.`;
+        if (el) el.innerText = `Você saiu há ${mins} min no meio de “${snap.workoutName || (nw && nw.name) || 'treino'}”. ${step}${clock}.`;
         window.show('modal-resume-session');
         return true;
-    };
+    }
+    window.offerResumeLiveSession = offerResumeLiveSession;
     window.discardLiveSession = () => {
         clearLiveSession();
         window.hide('modal-resume-session');
@@ -5782,19 +5827,20 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     window.resumeLiveSessionNow = () => {
         const snap = readLiveSession();
         window.hide('modal-resume-session');
+        window.hide('modal-pending-reminder');
         if (!snap) return;
         const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
         calMode = snap.calMode || 'time';
         calSessionLogs = Array.isArray(snap.logs) ? snap.logs : [];
         window._strengthFromCalisthenics = !!snap.strengthFromCal;
-        if (snap.screen === 'timer' && Array.isArray(snap.queue) && snap.queue.length) {
+        if ((snap.screen === 'timer' || (Array.isArray(snap.queue) && snap.queue.length)) && Array.isArray(snap.queue) && snap.queue.length) {
             currentWorkoutQueue = snap.queue;
             currentQueueIndex = Math.min(Math.max(0, snap.index || 0), snap.queue.length - 1);
             if (timerInterval) clearInterval(timerInterval);
             document.body.classList.add('no-scroll');
-            const modalityStr = (nw && nw.modality) || userData.masterAxis || 'Calistenia';
+            const modalityStr = snap.modality || (nw && nw.modality) || userData.masterAxis || 'Calistenia';
             document.getElementById('timer-workout-name').innerText = `${modalityStr}: retomado`;
-            document.getElementById('timer-workout-desc').innerText = (nw && (nw.focus || nw.name)) || 'Calistenia';
+            document.getElementById('timer-workout-desc').innerText = (nw && (nw.focus || nw.name)) || snap.workoutName || 'Calistenia';
             showScreen('screen-timer');
             loadQueueItem(currentQueueIndex);
             timeLeft = Math.max(0, parseInt(snap.timeLeft, 10) || timeLeft);
@@ -5806,11 +5852,14 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
                 if (calAwaitingDone) btn.classList.add('hidden');
                 else btn.classList.remove('hidden');
             }
-            updateTimerUI();
+            if (!(currentWorkoutQueue[currentQueueIndex] && currentWorkoutQueue[currentQueueIndex].type === 'work' && calMode === 'sets' && calAwaitingDone)) {
+                updateTimerUI();
+            }
             updateTotalTimeUI();
             updateTimerPulse();
             requestWakeLock();
             timerInterval = setInterval(timerTick, 1000);
+            captureLiveSession();
             return;
         }
         if (snap.screen === 'gym' && nw) {
@@ -5834,6 +5883,8 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         }
     };
     window.addEventListener('pagehide', () => { try { captureLiveSession(); } catch (e) {} });
+    window.addEventListener('beforeunload', () => { try { captureLiveSession(); } catch (e) {} });
+    window.addEventListener('freeze', () => { try { captureLiveSession(); } catch (e) {} });
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) { try { captureLiveSession(); } catch (e) {} }
     });
@@ -6762,18 +6813,31 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         if (!nw || !nw.queue) return;
         const listContainer = document.getElementById('mwl-list'); listContainer.innerHTML = '';
         document.getElementById('mwl-title').innerText = `[${nw.modality||userData.masterAxis}] ${nw.name || "Sessão Atual"}`;
+        const hint = document.getElementById('mwl-hint');
+        if (hint) hint.innerText = window._sessionArmedAfterPreview
+            ? 'Sessão já calibrada. Veja cada exercício, abra o YouTube se tiver dúvida, depois toque em Iniciar.'
+            : 'Confira a ficha. Tire dúvida no vídeo. Só depois inicie.';
         
         const workExercises = nw.queue.filter(q => q.type === 'work');
-        const uniqueExercises = [...new Set(workExercises.map(ex => ex.name))];
+        const unique = [];
+        workExercises.forEach(ex => {
+            if (!unique.some(u => u.name === ex.name)) unique.push(ex);
+        });
         
-        uniqueExercises.forEach((exName) => {
-            const searchStr = encodeURIComponent("como fazer " + exName + " biomecanica fisionutricao");
+        unique.forEach((ex) => {
+            const exName = ex.name || 'Exercício';
+            const sets = ex.sets || '';
+            const reps = ex.reps || '';
+            const dur = ex.duration || '';
+            const meta = [sets ? `${sets} séries` : '', reps ? `${reps} reps` : '', (!reps && dur) ? `${dur}s` : ''].filter(Boolean).join(' · ');
+            const sport = (nw.modality || userData.masterAxis || 'calistenia').toLowerCase();
+            const searchStr = encodeURIComponent(`${exName} ${sport} tutorial como fazer`);
             listContainer.innerHTML += `
             <div class="bg-dark-950 p-4 rounded-2xl border border-slate-800 mb-3">
-                <h3 class="text-white font-bold text-sm mb-1">${escapeHtml(exName)}</h3>
-                <p class="text-[10px] text-slate-400 mb-2">Progressão via alavancas biomecânicas e Marcos de Volume v5.1.</p>
+                <h3 class="text-white font-bold text-sm mb-0.5">${escapeHtml(exName)}</h3>
+                <p class="text-[10px] text-slate-400 mb-2">${escapeHtml(meta || (ex.roundInfo || 'Movimento da sessão'))}</p>
                 <a href="https://www.youtube.com/results?search_query=${searchStr}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-red-600/20 text-red-400 border border-red-500/30 text-[11px] font-bold px-3 py-1.5 rounded-xl">
-                    <i class="fab fa-youtube text-sm"></i> Ver Vídeo Demonstrativo
+                    <i class="fab fa-youtube text-sm"></i> Como fazer no YouTube
                 </a>
             </div>`;
         });
