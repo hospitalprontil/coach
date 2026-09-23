@@ -70,15 +70,11 @@
         .no-scroll { overflow: hidden; }
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .accordion-content {
-            max-height: 0; overflow: hidden;
-            padding: 0 !important; border-top-width: 0;
-            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
-        }
+        .accordion-content { display: none; }
         .accordion-content.expanded {
-            max-height: 3200px; padding: 1.25rem !important;
+            display: block;
+            padding: 1.25rem;
             border-top-width: 1px;
-            transition: max-height 0.4s ease-in-out;
         }
         .swipe-area { touch-action: pan-y; }
         .ver-badge { position: relative; display: inline-block; vertical-align: super; cursor: help; }
@@ -1475,10 +1471,10 @@
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
                         <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v6.8</span>
-                        <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 rotate-180"></i>
+                        <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
-                <div id="profile-data-content" class="accordion-content expanded bg-dark-950 border-t border-slate-800 space-y-3">
+                <div id="profile-data-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-3">
                     <div>
                         <label class="text-[10px] text-slate-400 font-bold uppercase mb-1 block">Nome Completo</label>
                         <input type="text" id="prof-name" class="w-full bg-dark-900 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
@@ -1503,10 +1499,10 @@
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
                         <span id="prof-master-axis-badge" class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-md font-bold">Eixo: --</span>
-                        <i id="profile-metrics-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 rotate-180"></i>
+                        <i id="profile-metrics-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
-                <div id="profile-metrics-content" class="accordion-content expanded bg-dark-950 border-t border-slate-800 space-y-4">
+                <div id="profile-metrics-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-4">
                     <div class="grid grid-cols-2 gap-3 text-xs text-slate-300 font-medium">
                         <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Idade</span> <span id="prof-age">--</span></div>
                         <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Altura</span> <span id="prof-height">--</span></div>
@@ -6923,22 +6919,37 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                 const isPending = h.biometricsPending === true;
                 const m = historyCardMetricsHtml(h);
                 return `
-                <div class="bg-dark-900 p-4 rounded-3xl border ${isPending ? 'border-amber-500/50' : 'border-slate-800'} space-y-2 relative overflow-hidden">
-                    ${isPending ? `<div class="absolute top-0 right-0 bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">📷 Print Pendente</div>` : (m.fromWatch ? `<div class="absolute top-0 right-0 bg-brand-500/20 text-brand-300 border-l border-b border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded-bl uppercase">Relógio</div>` : '')}
-                    <div class="flex justify-between items-start gap-2">
-                        <span class="text-[9px] font-bold text-slate-500 uppercase pt-0.5">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
-                        <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded shrink-0">${escapeHtml(h.modality||'Calistenia')}</span>
-                    </div>
-                    <h4 class="text-sm font-bold text-white leading-snug pr-8">${escapeHtml(h.workoutName || "")}</h4>
-                    <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.core || '<div class="text-slate-500">Sem métricas</div>'}</div>
-                    ${m.watch ? `<p class="text-[8px] text-brand-400 font-black uppercase tracking-wider">${m.fromWatch ? 'Do relógio' : 'Cardio'}</p><div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.watch}</div>` : ''}
-                    ${m.splitLine ? `<p class="text-[10px] text-amber-200/90">${escapeHtml(m.splitLine)}</p>` : ''}
-                    <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5 mt-2">
-                        <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
+                <div class="bg-dark-900 rounded-3xl border ${isPending ? 'border-amber-500/50' : 'border-slate-800'} relative overflow-hidden">
+                    <button type="button" class="js-hist-toggle w-full p-4 text-left">
+                        <div class="flex justify-between items-start gap-2">
+                            <span class="text-[9px] font-bold text-slate-500 uppercase pt-0.5">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
+                            <span class="flex items-center gap-1.5 shrink-0">
+                                ${isPending ? '<span class="bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded uppercase">Print</span>' : (m.fromWatch ? '<span class="bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded uppercase">Relógio</span>' : '')}
+                                <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${escapeHtml(h.modality||'Calistenia')}</span>
+                                <i class="js-hist-arrow fas fa-chevron-down text-slate-500 text-[10px] transition-transform duration-300"></i>
+                            </span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white leading-snug mt-1 pr-2">${escapeHtml(h.workoutName || "Sessão")}</h4>
                     </button>
-                    ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">"${escapeHtml(h.userFeedback)}"</p>` : ''}
+                    <div class="accordion-content hist-body border-t border-slate-800 space-y-2">
+                        <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.core || '<div class="text-slate-500">Sem métricas</div>'}</div>
+                        ${m.watch ? `<p class="text-[8px] text-brand-400 font-black uppercase tracking-wider">${m.fromWatch ? 'Do relógio' : 'Cardio'}</p><div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.watch}</div>` : ''}
+                        ${m.splitLine ? `<p class="text-[10px] text-amber-200/90">${escapeHtml(m.splitLine)}</p>` : ''}
+                        <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5">
+                            <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
+                        </button>
+                        ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">"${escapeHtml(h.userFeedback)}"</p>` : ''}
+                    </div>
                 </div>`;
             }).join('');
+            listContainer.querySelectorAll('.js-hist-toggle').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const body = btn.parentElement && btn.parentElement.querySelector('.hist-body');
+                    const arrow = btn.querySelector('.js-hist-arrow');
+                    if (body) body.classList.toggle('expanded');
+                    if (arrow) arrow.classList.toggle('rotate-180');
+                });
+            });
             listContainer.querySelectorAll('.js-pending-print').forEach(btn => {
                 btn.addEventListener('click', () => window.openUploadPendingModal(btn.getAttribute('data-pending-doc'), btn.getAttribute('data-wname'), btn.getAttribute('data-modality')));
             });
