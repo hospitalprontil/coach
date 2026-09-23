@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.6 - Aula HIIT</title>
+    <title>AI Coach Híbrido v6.8 - Agenda</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -70,8 +70,16 @@
         .no-scroll { overflow: hidden; }
         .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .accordion-content { transition: max-height 0.35s cubic-bezier(0, 1, 0, 1); overflow: hidden; }
-        .accordion-content.expanded { max-height: 1400px; transition: max-height 0.4s ease-in-out; }
+        .accordion-content {
+            max-height: 0; overflow: hidden;
+            padding: 0 !important; border-top-width: 0;
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+        }
+        .accordion-content.expanded {
+            max-height: 3200px; padding: 1.25rem !important;
+            border-top-width: 1px;
+            transition: max-height 0.4s ease-in-out;
+        }
         .swipe-area { touch-action: pan-y; }
         .ver-badge { position: relative; display: inline-block; vertical-align: super; cursor: help; }
         .ver-tip {
@@ -215,7 +223,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.6 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.8 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -229,8 +237,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v6.6</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Aula HIIT</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v6.8</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Agenda do ciclo</h2>
                 </div>
             </div>
         </div>
@@ -241,24 +249,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v6.6 · Aula HIIT</strong>
+                    <strong class="text-brand-400">v6.8 · Agenda</strong>
+                    <p class="text-slate-400 mt-0.5">No Perfil você muda dias da semana e minutos. A I.A. refaz só o que ainda não foi treinado. Histórico fica. Cards do Perfil abrem e fecham.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v6.7 · Retoma</strong>
+                    <p class="text-slate-400 mt-0.5">Fechou o navegador no meio? Cronômetro e passo ficam neste aparelho. Continuar (pausado) ou descartar. Vale 8 horas.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v6.6 · Aula HIIT</strong>
                     <p class="text-slate-400 mt-0.5">Calistenia ganha aula própria 20/40: 1×/semana (2× só na semana 3). Burpee na lista fechada. Motor apaga se for demais.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v6.5 · Fecho da semana</strong>
                     <p class="text-slate-400 mt-0.5">FAQ e Como funciona alinhados · cards sem texto sobreposto · histórico por esporte · .FIT do Zepp.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v6.4 · Catálogo fechado</strong>
-                    <p class="text-slate-400 mt-0.5">A I.A. só escolhe da lista. Calistenia sobe 1 degrau. Musculação unifica o 1RM. Corrida tem 6 tipos de sessão.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v6.3 · Série a série</strong>
-                    <p class="text-slate-400 mt-0.5">Timer explode série/descanso · zonas Karvonen iguais ao relógio · chat aplica no próximo treino.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v6.6 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.8 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -383,6 +391,17 @@
     </div>
 </div>
 
+<div id="modal-agenda" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[175] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-amber-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl mx-auto">
+        <h3 class="text-base font-black text-white mb-2 flex items-center gap-2"><i class="fas fa-calendar-week text-amber-400"></i> Remontar o ciclo?</h3>
+        <p id="agenda-confirm-text" class="text-xs text-slate-300 leading-relaxed mb-4">A I.A. troca os treinos que você ainda não fez. O histórico fica.</p>
+        <div class="flex gap-2">
+            <button type="button" onclick="window.hide('modal-agenda')" class="flex-1 bg-slate-800 text-slate-300 font-bold py-3 rounded-2xl text-xs uppercase">Cancelar</button>
+            <button type="button" onclick="window.confirmRebuildSchedule()" class="flex-1 bg-amber-500 text-dark-950 font-black py-3 rounded-2xl text-xs uppercase">Recalcular</button>
+        </div>
+    </div>
+</div>
+
 <!-- Modal Changelog v5.0 -->
 <div id="modal-changelog" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[250] hidden flex items-center justify-center p-4">
     <div class="bg-dark-900 border border-slate-700 rounded-3xl p-5 max-w-md w-full shadow-2xl relative overflow-hidden mx-auto flex flex-col" style="max-height:calc(100dvh - 24px)">
@@ -396,7 +415,19 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.7 Retoma se fechar o app</span>
+                    <span class="font-black text-brand-400 text-sm">v6.8 Agenda do ciclo</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Perfil: dias por semana e minutos por sessão. A I.A. refaz a fila que ainda não foi feita.<br>
+                    • 2 dias = sessão mais cheia. 5–6 dias = um foco por dia. 20 min corta acessório; 60 min cabe mais, sem estourar o teto.<br>
+                    • Histórico, cargas e eixo ficam. Treino em andamento não é interrompido.<br>
+                    • Dados pessoais, métricas e área de perigo abrem e fecham. Fechado = só o título.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v6.7 Retoma se fechar o app</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -564,11 +595,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.7</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.8</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.7 · Retoma o treino</strong>
-                    • Fechou o navegador no meio? O cronômetro e o passo ficam neste aparelho.<br>
-                    • Ao voltar: Continuar (pausado) ou Descartar. Vale 8 horas.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.8 · Agenda</strong>
+                    • Perfil: mude quantos dias e quantos minutos. A I.A. refaz o ciclo que falta.<br>
+                    • O que já foi treinado fica. Cards do Perfil abrem e fecham.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1011,7 +1042,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.7</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.8</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1180,12 +1211,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div class="min-w-0">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.6</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.8</span>
                         <h2 class="text-base font-black text-white leading-tight">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium mt-3">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o corpo aguentou. A <strong class="text-brand-400">I.A.</strong> monta o dia — só de uma <strong class="text-white">lista fechada</strong>. Se pedir demais, a matemática corta. Esta é a versão de fechamento da semana: catálogo, timer série a série, relógio e os textos (FAQ / Como funciona) batendo com o que o app realmente faz.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o corpo aguentou. A <strong class="text-brand-400">I.A.</strong> monta o dia — só de uma <strong class="text-white">lista fechada</strong>. Se pedir demais, a matemática corta. A agenda (dias e minutos) mora no Perfil: se a vida mudar, o ciclo que ainda não foi feito é refeito.
                 </p>
             </div>
 
@@ -1196,6 +1227,7 @@
                     <li><strong class="text-white">O motor revisa:</strong> semana pesada, perna não recuperou, músculo no teto, exercício fora da lista — o código ajusta.</li>
                     <li><strong class="text-white">Você treina:</strong> calistenia (tempo ou séries, um a um), musculação (ficha de carga) ou corrida (roteiro no relógio).</li>
                     <li><strong class="text-white">Depois:</strong> PSE + frase. Mande o .FIT no Histórico. Calistenia mostra reps/RIR; corrida mostra pace, zonas, subida.</li>
+                    <li><strong class="text-white">Agenda:</strong> no Perfil, “Recalcular o ciclo” troca quantos dias e quantos minutos. 2 dias vira sessão mais cheia; 5 dias vira um foco por dia. O que já foi feito não some. “Hoje só tenho 25 min” continua sendo só o treino de hoje.</li>
                 </ol>
             </div>
 
@@ -1435,64 +1467,103 @@
 
         <!-- Tab 6: Meu Perfil -->
         <div id="tab-profile" class="space-y-4 hidden animate-fade-in pb-12">
-            <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
-                    <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="window.openChangelog()">v6.7 Apex</span>
-                </div>
-                
-                <div class="space-y-3">
+            <div class="glass-panel rounded-3xl border border-slate-800 shadow-xl relative overflow-hidden w-full">
+                <button type="button" onclick="window.toggleAccordion('profile-data-content','profile-data-arrow')" class="w-full p-5 flex justify-between items-center text-left bg-transparent">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-user-edit"></i> Dados Pessoais</span>
+                        <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
+                    </div>
+                    <span class="flex items-center gap-2 shrink-0">
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v6.8</span>
+                        <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 rotate-180"></i>
+                    </span>
+                </button>
+                <div id="profile-data-content" class="accordion-content expanded bg-dark-950 border-t border-slate-800 space-y-3">
                     <div>
                         <label class="text-[10px] text-slate-400 font-bold uppercase mb-1 block">Nome Completo</label>
-                        <input type="text" id="prof-name" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
+                        <input type="text" id="prof-name" class="w-full bg-dark-900 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
                     </div>
                     <div>
                         <label class="text-[10px] text-slate-400 font-bold uppercase mb-1 block">Apelido</label>
-                        <input type="text" id="prof-nick" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
+                        <input type="text" id="prof-nick" class="w-full bg-dark-900 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
                     </div>
                     <button onclick="window.saveProfileInfo()" class="w-full bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold py-2.5 rounded-xl transition-colors mt-2">Salvar Nome</button>
-                    <label class="flex items-start gap-2.5 mt-3 bg-dark-950 border border-slate-800 rounded-xl p-3 cursor-pointer">
+                    <label class="flex items-start gap-2.5 mt-3 bg-dark-900 border border-slate-800 rounded-xl p-3 cursor-pointer">
                         <input type="checkbox" id="prof-include-running" class="mt-0.5 accent-cyan-400" checked>
                         <span class="text-[11px] text-slate-300 font-medium">Incluir corrida na semana híbrida. Desmarque se o eixo for só força/calistenia.</span>
                     </label>
                 </div>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-slate-800 shadow-xl w-full space-y-4">
-                <div class="flex justify-between items-center">
-                    <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-ruler"></i> Métricas & Eixo Mestre</span>
-                    <span id="prof-master-axis-badge" class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-md font-bold">Eixo: --</span>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 text-xs text-slate-300 font-medium">
-                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Idade</span> <span id="prof-age">--</span></div>
-                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Altura</span> <span id="prof-height">--</span></div>
-                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Peso Inicial</span> <span id="prof-weight">--</span></div>
-                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">% BF</span> <span id="prof-bf">--</span></div>
-                    <div class="bg-dark-950 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">FC Repouso</span> <span id="prof-rest-hr">--</span></div>
-                </div>
-
-                <div class="space-y-2 pt-2 border-t border-slate-800">
-                    <button onclick="window.show('modal-change-axis')" class="w-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/50 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
-                        <i class="fas fa-exchange-alt"></i> Alterar Eixo Mestre
-                    </button>
-                    <button onclick="window.reDoOnboardingKeepHistory()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
-                        <i class="fas fa-sync-alt"></i> Refazer Anamnese
-                    </button>
+            <div class="glass-panel rounded-3xl border border-slate-800 shadow-xl w-full overflow-hidden">
+                <button type="button" onclick="window.toggleAccordion('profile-metrics-content','profile-metrics-arrow')" class="w-full p-5 flex justify-between items-center text-left">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-purple-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-ruler"></i> Métricas & Eixo Mestre</span>
+                        <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Corpo, eixo e agenda da semana</p>
+                    </div>
+                    <span class="flex items-center gap-2 shrink-0">
+                        <span id="prof-master-axis-badge" class="text-[10px] bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2 py-0.5 rounded-md font-bold">Eixo: --</span>
+                        <i id="profile-metrics-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 rotate-180"></i>
+                    </span>
+                </button>
+                <div id="profile-metrics-content" class="accordion-content expanded bg-dark-950 border-t border-slate-800 space-y-4">
+                    <div class="grid grid-cols-2 gap-3 text-xs text-slate-300 font-medium">
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Idade</span> <span id="prof-age">--</span></div>
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Altura</span> <span id="prof-height">--</span></div>
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Peso Inicial</span> <span id="prof-weight">--</span></div>
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">% BF</span> <span id="prof-bf">--</span></div>
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">FC Repouso</span> <span id="prof-rest-hr">--</span></div>
+                        <div class="bg-dark-900 p-2.5 rounded-xl border border-slate-800"><span class="block text-[9px] text-slate-500 uppercase font-bold">Agenda atual</span> <span id="prof-agenda-now">--</span></div>
+                    </div>
+                    <div class="space-y-2 pt-1 border-t border-slate-800">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Mudar disponibilidade</p>
+                        <p class="text-[11px] text-slate-400 leading-relaxed">2 dias = treino mais cheio. 5 dias = um foco por dia. 20 min corta acessório; 60 min cabe mais. O histórico não some.</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">Dias / semana</label>
+                                <select id="prof-days" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                                    <option value="2">2 dias</option>
+                                    <option value="3">3 dias</option>
+                                    <option value="4">4 dias</option>
+                                    <option value="5">5 dias</option>
+                                    <option value="6">6 dias</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">Minutos / sessão</label>
+                                <select id="prof-mins" class="w-full bg-dark-900 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                                    <option value="20">20 min</option>
+                                    <option value="30">30 min</option>
+                                    <option value="45">45 min</option>
+                                    <option value="60">60 min</option>
+                                    <option value="75">75 min</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" onclick="window.askRebuildSchedule()" class="w-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-calendar-week"></i> Recalcular o ciclo
+                        </button>
+                    </div>
+                    <div class="space-y-2 pt-2 border-t border-slate-800">
+                        <button onclick="window.show('modal-change-axis')" class="w-full bg-purple-600/20 hover:bg-purple-600/40 text-purple-300 border border-purple-500/50 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-exchange-alt"></i> Alterar Eixo Mestre
+                        </button>
+                        <button onclick="window.reDoOnboardingKeepHistory()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fas fa-sync-alt"></i> Refazer Anamnese
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Danger Zone Accordion -->
             <div class="glass-panel rounded-3xl border border-red-900/30 shadow-xl w-full overflow-hidden">
-                <button onclick="window.toggleDangerAccordion()" class="w-full p-5 flex justify-between items-center text-left bg-dark-900 hover:bg-slate-900 transition-colors">
+                <button type="button" onclick="window.toggleDangerAccordion()" class="w-full p-5 flex justify-between items-center text-left bg-dark-900 hover:bg-slate-900 transition-colors">
                     <div>
                         <span class="text-[10px] text-red-400 font-bold uppercase tracking-widest block flex items-center gap-1.5"><i class="fas fa-radiation"></i> Área de Perigo</span>
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Gerenciamento granular de dados</p>
                     </div>
                     <i id="accordion-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                 </button>
-
-                <div id="danger-accordion-content" class="accordion-content max-h-0 bg-dark-950 p-5 border-t border-red-900/20 space-y-4">
+                <div id="danger-accordion-content" class="accordion-content bg-dark-950 border-t border-red-900/20 space-y-4">
                     <div class="space-y-2.5 text-sm text-slate-300 font-medium">
                         <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-800 cursor-pointer"><input type="checkbox" id="del-history" class="w-4 h-4 accent-red-500"><span class="text-xs">Excluir Histórico de Treinos</span></label>
                         <label class="flex items-center gap-3 p-3 bg-dark-900 rounded-xl border border-slate-800 cursor-pointer"><input type="checkbox" id="del-checkins" class="w-4 h-4 accent-red-500"><span class="text-xs">Excluir Check-ins</span></label>
@@ -1509,7 +1580,7 @@
 
         <div id="tab-faq" class="space-y-3 hidden animate-fade-in pb-12">
             <div class="glass-panel p-5 rounded-3xl border border-brand-500/40">
-                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.6</span>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.8</span>
                 <h2 class="text-base font-black text-white mt-1">Perguntas frequentes</h2>
                 <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
             </div>
@@ -1605,6 +1676,10 @@
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Posso fazer só HIIT todo dia?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> O teto é 1–2 aulas. O resto da semana é força fácil e, se rolar, corrida Z2. HIIT todo dia estagna força e articula errado. O app recusa o excesso.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Mudei os dias da semana ou o tempo. O plano muda?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim, no <strong class="text-white">Perfil → Métricas</strong>: escolha dias e minutos e toque em <strong class="text-white">Recalcular o ciclo</strong>. A I.A. refaz só os treinos que você ainda não fez. 2 dias = sessão mais cheia (vários grupos). 5–6 dias = um foco por dia. 20 min corta acessório; 60–75 min cabe mais, sem estourar o teto. Histórico, cargas e eixo ficam. “Hoje só tenho 25 min” continua na tela de iniciar a sessão — isso não redesenha a semana.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Fechei o navegador no meio do treino. Perdi tudo?</summary>
@@ -4562,11 +4637,15 @@
         window.show('modal-term');
     };
 
-    window.toggleDangerAccordion = () => {
-        const content = document.getElementById('danger-accordion-content');
-        const arrow = document.getElementById('accordion-arrow');
-        content.classList.toggle('expanded'); arrow.classList.toggle('rotate-180');
+    window.toggleAccordion = (contentId, arrowId) => {
+        const content = document.getElementById(contentId);
+        const arrow = document.getElementById(arrowId);
+        if (!content) return;
+        content.classList.toggle('expanded');
+        if (arrow) arrow.classList.toggle('rotate-180');
     };
+
+    window.toggleDangerAccordion = () => window.toggleAccordion('danger-accordion-content', 'accordion-arrow');
 
     window.openDangerConfirm = (actionType) => { window.pendingDangerAction = actionType; window.show('modal-danger-confirm'); };
     window.closeDangerConfirm = () => { window.pendingDangerAction = null; window.hide('modal-danger-confirm'); };
@@ -5135,6 +5214,12 @@
         document.getElementById('prof-bf').innerText = userData.bf ? `${userData.bf}%` : '--';
         document.getElementById('prof-rest-hr').innerText = userData.restHeartRate ? `${userData.restHeartRate} bpm` : '--';
         document.getElementById('prof-master-axis-badge').innerText = `Eixo: ${userData.masterAxis || 'Calistenia'}`;
+        const agendaNow = document.getElementById('prof-agenda-now');
+        if (agendaNow) agendaNow.innerText = `${userData.days || '--'}× · ${userData.mins || '--'} min`;
+        const daysSel = document.getElementById('prof-days');
+        const minsSel = document.getElementById('prof-mins');
+        if (daysSel && userData.days) daysSel.value = String(userData.days);
+        if (minsSel && userData.mins) minsSel.value = String(userData.mins);
         const runBox = document.getElementById('prof-include-running');
         if (runBox) runBox.checked = userData.includeRunning !== false;
     }
@@ -5186,6 +5271,81 @@
     };
 
     window.reDoOnboardingKeepHistory = () => showScreen('screen-step3-biometrics');
+
+    window.askRebuildSchedule = () => {
+        const daysEl = document.getElementById('prof-days');
+        const minsEl = document.getElementById('prof-mins');
+        if (!daysEl || !minsEl) return;
+        const days = daysEl.value;
+        const mins = minsEl.value;
+        if (String(userData.days || '') === String(days) && String(userData.mins || '') === String(mins)) {
+            return window.showAlert('Agenda', 'Esses já são os seus dias e minutos. Nada a recalcular.');
+        }
+        if (timerInterval) {
+            return window.showAlert('Treino aberto', 'Termine ou saia da sessão antes de remontar o ciclo.');
+        }
+        const txt = document.getElementById('agenda-confirm-text');
+        if (txt) txt.innerText = `De ${userData.days || '?'} dias / ${userData.mins || '?'} min para ${days} dias / ${mins} min. A I.A. refaz só o que você ainda não treinou. Histórico, cargas e eixo ficam.`;
+        window._pendingAgenda = { days, mins };
+        window.show('modal-agenda');
+    };
+
+    window.confirmRebuildSchedule = async () => {
+        const pending = window._pendingAgenda;
+        if (!pending) return;
+        window.hide('modal-agenda');
+        window._pendingAgenda = null;
+        userData.days = String(pending.days);
+        userData.mins = String(pending.mins);
+        const days = parseInt(userData.days, 10) || 3;
+        const mins = parseInt(userData.mins, 10) || 45;
+        showLoading('Remontando o ciclo...', `I.A. · ${days} dias × ${mins} min. O histórico não é apagado.`);
+        try {
+            const syntheticState = await buildSyntheticStateVector();
+            const prompt = `Atue como Apex Hybrid Coach v6.8. ALUNO: ${userData.nickname}. EIXO MESTRE: ${userData.masterAxis}.
+AGENDA NOVA (obrigatória): exatamente ${days} sessões ainda não feitas, cada uma com cerca de ${mins} minutos.
+ESTADO SINTÉTICO JSON (histórico, 1RM, ACWR, dores — NÃO ignore): ${JSON.stringify(syntheticState)}.
+REGRAS DE AGENDA:
+- 2 dias/semana: cada sessão mais cheia (empurrar + puxar + perna ou o estímulo principal do eixo). Sem dois HIIT. Sem dois dias de perna pesada.
+- 5 ou 6 dias: um foco por dia. Dá para ter 1 Z2 e no máximo 1 aula HIIT se o teto permitir.
+- ${mins} min ou menos (até 25): só o principal, corte acessório.
+- 60 min ou mais: pode acessório dentro do MAV, nunca estourar MRV.
+TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4. array 'workouts' com exatamente ${days} objetos (e 'workout' = o primeiro).
+Cada work da queue: sets, reps, rirTarget, targetGroup. Soma dos duration ≈ ${mins}*60 segundos.
+${coachingPromptTail()}`;
+            const res = await callGemini(prompt);
+            let list = [];
+            if (Array.isArray(res.workouts) && res.workouts.length) list = res.workouts;
+            else if (res.workout) list = [res.workout];
+            list = list.slice(0, days).map((w, i) => {
+                w = applyDeterministicCoachingGuards(w, syntheticState, { targetMinutes: mins });
+                w.id = `w_${Date.now()}_ag_${i}`;
+                w.isCompleted = false;
+                w.modality = w.modality || userData.masterAxis;
+                w.estimatedMinutes = mins;
+                return w;
+            });
+            if (!list.length) throw new Error('A I.A. não devolveu o ciclo novo.');
+            if (!currentPlan || typeof currentPlan !== 'object') currentPlan = { workouts: [] };
+            const done = (currentPlan.workouts || []).filter(w => w && w.isCompleted);
+            currentPlan.userProfileAnalysis = res.userProfileAnalysis || currentPlan.userProfileAnalysis;
+            currentPlan.planExplanation = res.planExplanation || currentPlan.planExplanation;
+            currentPlan.macrocycleSummary = res.macrocycleSummary || currentPlan.macrocycleSummary;
+            currentPlan.coachFeedback = `Agenda atualizada: ${days}× por semana, ${mins} min.`;
+            currentPlan.workouts = done.concat(list);
+            const nwd = new Date();
+            currentPlan.nextWorkoutDate = nwd.toISOString();
+            await saveFullState();
+            hideLoading();
+            renderDashboard();
+            renderProfileTab();
+            window.switchTab('training');
+            window.showAlert('Ciclo atualizado', `${days} sessões de cerca de ${mins} min. O que você já fez continua no histórico.`);
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Erro I.A.', e.message);
+        }
+    };
 
     window.openReadinessModal = () => {
         window.show('modal-readiness'); selectedEnergy = null;
