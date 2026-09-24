@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v6.8 - Agenda</title>
+    <title>AI Coach Híbrido v6.9 - Histórico e Agenda</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.8 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v6.9 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v6.8</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Agenda do ciclo</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v6.9</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Histórico e Agenda</h2>
                 </div>
             </div>
         </div>
@@ -245,7 +245,11 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v6.8 · Agenda</strong>
+                    <strong class="text-brand-400">v6.9 · Histórico e Agenda</strong>
+                    <p class="text-slate-400 mt-0.5">Calendário do mês: dias feitos e o próximo treino. A fila ainda sem dia fica embaixo. No Histórico: queda de FC, avaliação da I.A., avaliar depois e excluir uma sessão errada — o próximo treino é refeito.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v6.8 · Ciclo no Perfil</strong>
                     <p class="text-slate-400 mt-0.5">No Perfil você muda dias da semana e minutos. A I.A. refaz só o que ainda não foi treinado. Histórico fica. Cards do Perfil abrem e fecham.</p>
                 </div>
                 <div>
@@ -256,13 +260,9 @@
                     <strong class="text-slate-200">v6.6 · Aula HIIT</strong>
                     <p class="text-slate-400 mt-0.5">Calistenia ganha aula própria 20/40: 1×/semana (2× só na semana 3). Burpee na lista fechada. Motor apaga se for demais.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v6.5 · Fecho da semana</strong>
-                    <p class="text-slate-400 mt-0.5">FAQ e Como funciona alinhados · cards sem texto sobreposto · histórico por esporte · .FIT do Zepp.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v6.8 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v6.9 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,21 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v6.8 Agenda do ciclo</span>
+                    <span class="font-black text-brand-400 text-sm">v6.9 Histórico e Agenda</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Aba Agenda: calendário do mês. Verde = já treinou. Azul = próximo treino, com data. Dá para mudar o dia.<br>
+                    • A I.A. não escreve o mês inteiro. O resto do microciclo aparece na fila, sem dia, até virar o próximo.<br>
+                    • Histórico abre fechado. Dentro: métricas, queda de FC (campo curto, entra no gráfico) e a avaliação daquela sessão.<br>
+                    • Sem internet na hora? Botão Avaliar treino. Grava só o texto, não mexe no plano.<br>
+                    • Excluir uma sessão errada tira ela dos gráficos e a I.A. refaz o próximo treino. Os outros já feitos ficam.<br>
+                    • Biblioteca e cronômetro usam a mesma contagem de séries.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v6.8 Agenda do ciclo</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -591,11 +605,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.8</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v6.9</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v6.8 · Agenda</strong>
-                    • Perfil: mude quantos dias e quantos minutos. A I.A. refaz o ciclo que falta.<br>
-                    • O que já foi treinado fica. Cards do Perfil abrem e fecham.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v6.9 · Histórico e Agenda</strong>
+                    • Calendário: dias feitos e o próximo treino. A fila sem dia fica embaixo.<br>
+                    • Histórico: queda de FC, avaliação, avaliar depois e excluir sessão errada.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1038,7 +1052,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.8</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v6.9</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1061,6 +1075,7 @@
         <button onclick="window.switchTab('howitworks')" id="nav-howitworks" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-graduation-cap mr-1"></i> Como Funciona</button>
         <button onclick="window.switchTab('progress')" id="nav-progress" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Progresso & Volume</button>
         <button onclick="window.switchTab('calendar')" id="nav-calendar" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap">Histórico</button>
+        <button onclick="window.switchTab('agenda')" id="nav-agenda" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-calendar-days mr-1"></i> Agenda</button>
         <button onclick="window.switchTab('chat')" id="nav-chat" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-robot mr-1"></i> Chat I.A.</button>
         <button onclick="window.switchTab('profile')" id="nav-profile" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-user-circle mr-1"></i> Perfil</button>
         <button onclick="window.switchTab('faq')" id="nav-faq" class="px-3.5 py-2 rounded-xl text-xs font-bold transition-all bg-slate-900 text-slate-400 border border-slate-800 whitespace-nowrap"><i class="fas fa-circle-question mr-1"></i> F.A.Q</button>
@@ -1207,12 +1222,12 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div class="min-w-0">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.8</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.9</span>
                         <h2 class="text-base font-black text-white leading-tight">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium mt-3">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o corpo aguentou. A <strong class="text-brand-400">I.A.</strong> monta o dia — só de uma <strong class="text-white">lista fechada</strong>. Se pedir demais, a matemática corta. A agenda (dias e minutos) mora no Perfil: se a vida mudar, o ciclo que ainda não foi feito é refeito.
+                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o corpo aguentou. A <strong class="text-brand-400">I.A.</strong> monta o dia — só de uma <strong class="text-white">lista fechada</strong>. Se pedir demais, a matemática corta. Dias e minutos moram no Perfil. A aba <strong class="text-white">Agenda</strong> mostra o mês: o que já foi feito e o próximo treino. Ela não inventa o resto do mês.
                 </p>
             </div>
 
@@ -1222,8 +1237,8 @@
                     <li><strong class="text-white">Antes:</strong> FC ao acordar (opcional) + energia, sono, dor e minutos. Se você está bem e o tempo é o combinado, o motor <strong class="text-white">não chama a I.A.</strong> e usa o treino da fila.</li>
                     <li><strong class="text-white">O motor revisa:</strong> semana pesada, perna não recuperou, músculo no teto, exercício fora da lista — o código ajusta.</li>
                     <li><strong class="text-white">Você treina:</strong> calistenia (tempo ou séries, um a um), musculação (ficha de carga) ou corrida (roteiro no relógio).</li>
-                    <li><strong class="text-white">Depois:</strong> PSE + frase. Mande o .FIT no Histórico. Calistenia mostra reps/RIR; corrida mostra pace, zonas, subida.</li>
-                    <li><strong class="text-white">Agenda:</strong> no Perfil, “Recalcular o ciclo” troca quantos dias e quantos minutos. 2 dias vira sessão mais cheia; 5 dias vira um foco por dia. O que já foi feito não some. “Hoje só tenho 25 min” continua sendo só o treino de hoje.</li>
+                    <li><strong class="text-white">Depois:</strong> PSE + frase. No Histórico ficam as métricas, a queda de FC e a avaliação da I.A. Se a internet falhou, toque em Avaliar treino. Sessão gravada errada pode ser excluída: o próximo treino é refeito.</li>
+                    <li><strong class="text-white">Agenda:</strong> calendário do mês. Só o próximo treino tem data (dá para mudar o dia). O resto da fila aparece sem dia. No Perfil, “Recalcular o ciclo” é outra coisa: muda quantos dias e minutos da semana. 2 dias vira sessão mais cheia; 5 dias vira um foco por dia. O que já foi feito não some.</li>
                 </ol>
             </div>
 
@@ -1443,6 +1458,36 @@
             <div id="calendar-list" class="space-y-3"></div>
         </div>
 
+        <!-- Tab: Agenda -->
+        <div id="tab-agenda" class="space-y-3 hidden animate-fade-in pb-12">
+            <div class="px-1">
+                <h2 class="text-base font-black text-white">Agenda</h2>
+                <p class="text-[10px] text-slate-500 mt-1 leading-relaxed">A I.A. não escreve o mês inteiro. O calendário marca os dias que você já treinou e o próximo treino, que tem data. O resto do microciclo fica na fila, sem dia, até chegar a vez dele.</p>
+            </div>
+            <div class="bg-dark-900 border border-slate-800 rounded-3xl p-3">
+                <div class="flex items-center justify-between mb-2">
+                    <button type="button" id="agenda-prev" class="w-8 h-8 rounded-xl bg-slate-800 text-slate-200 text-sm">‹</button>
+                    <span id="agenda-title" class="text-sm font-black text-white capitalize"></span>
+                    <button type="button" id="agenda-next" class="w-8 h-8 rounded-xl bg-slate-800 text-slate-200 text-sm">›</button>
+                </div>
+                <div class="grid grid-cols-7 gap-1 text-center text-[9px] font-bold text-slate-500 mb-1">
+                    <span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span class="text-amber-400/80">S</span>
+                </div>
+                <div id="agenda-grid" class="grid grid-cols-7 gap-1"></div>
+                <div class="flex flex-wrap gap-3 mt-3 text-[9px] text-slate-400">
+                    <span><i class="fas fa-circle text-emerald-400 text-[7px] mr-1"></i>Feito</span>
+                    <span><i class="fas fa-circle text-brand-400 text-[7px] mr-1"></i>Próximo</span>
+                    <span class="text-slate-500">Toque no dia para ver a lista.</span>
+                </div>
+            </div>
+            <div id="agenda-next-line" class="text-[11px] text-slate-300 px-1"></div>
+            <div id="agenda-list" class="space-y-2"></div>
+            <div>
+                <h3 class="text-[10px] font-black uppercase tracking-wider text-slate-500 px-1 mb-2">Na fila, ainda sem dia</h3>
+                <div id="agenda-queue" class="space-y-2"></div>
+            </div>
+        </div>
+
         <!-- Tab 5: Chat I.A. -->
         <div id="tab-chat" class="space-y-3 hidden animate-fade-in flex flex-col h-[calc(100vh-200px)]">
             <div class="flex items-center justify-between gap-2 px-1 mb-1">
@@ -1470,7 +1515,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v6.8</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v6.9</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1576,11 +1621,27 @@
 
         <div id="tab-faq" class="space-y-3 hidden animate-fade-in pb-12">
             <div class="glass-panel p-5 rounded-3xl border border-brand-500/40">
-                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.8</span>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v6.9</span>
                 <h2 class="text-base font-black text-white mt-1">Perguntas frequentes</h2>
                 <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
             </div>
 
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">O que a aba Agenda mostra?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">O mês. <strong class="text-white">Verde</strong> = dia que você já treinou. <strong class="text-white">Azul</strong> = o próximo treino, que tem data — dá para mudar o dia. A I.A. <strong class="text-white">não escreve o mês inteiro</strong>. Os outros treinos já prontos ficam na lista “sem dia”, até chegar a vez deles. Dias e minutos da semana continuam no Perfil.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Gravei um treino errado. Posso apagar?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Histórico → abra a sessão → <strong class="text-white">Excluir esta sessão</strong>. Ela sai dos gráficos e da conta de carga. A I.A. refaz <strong class="text-white">só o próximo</strong> treino. Os outros já feitos ficam.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">A avaliação não apareceu. E agora?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Abra o treino no Histórico e toque em <strong class="text-white">Avaliar treino</strong>. A I.A. lê aquela sessão e grava o texto ali. O plano não muda. Se a internet falhar de novo, o botão continua.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Onde anoto a queda da FC?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">No Histórico, dentro do card: campo curto <strong class="text-white">Queda FC</strong> e Ok. É a FC ao parar menos a FC 3 minutos depois. O número entra no gráfico de recuperação.</p>
+            </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Como começo o treino de hoje?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Aba Treinamento → <strong class="text-white">Como fazer este treino</strong> (se quiser ler antes) → <strong class="text-white">Iniciar Sessão</strong>. Diga energia, sono, dor e se tem menos minutos. A I.A. redesenha o dia e o motor ainda corta o que passar do limite.</p>
@@ -2812,7 +2873,7 @@
         else await requestWakeLock();
     };
 
-    const tabList = ['training', 'analysis', 'howitworks', 'progress', 'calendar', 'chat', 'profile', 'faq'];
+    const tabList = ['training', 'analysis', 'howitworks', 'progress', 'calendar', 'agenda', 'chat', 'profile', 'faq'];
     let currentTabIndex = 0;
 
     window.$ = id => document.getElementById(id);
@@ -4792,6 +4853,7 @@
         if (tabName === 'training') renderVolumeLandmarksUI();
         if (tabName === 'progress') { setTimeout(renderCharts, 100); renderProgressEvaluations(); renderAcwrAnd1RMInfo(); }
         if (tabName === 'calendar') loadHistory();
+        if (tabName === 'agenda') loadAgenda();
         if (tabName === 'chat') loadChatHistory();
         if (tabName === 'profile') renderProfileTab();
     };
@@ -5006,6 +5068,7 @@
             currentDate.setDate(currentDate.getDate() + 1);
             currentPlan.nextWorkoutDate = currentDate.toISOString();
             await saveFullState(); hideLoading(); renderDashboard();
+            try { renderAgenda(); } catch (e) {}
             window.showAlert("Agenda Atualizada", `Treino adiado para ${currentDate.toLocaleDateString('pt-BR')}.`);
         } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
@@ -5021,6 +5084,7 @@
         try {
             currentPlan.nextWorkoutDate = new Date().toISOString();
             await saveFullState(); hideLoading(); renderDashboard();
+            try { renderAgenda(); } catch (e) {}
             window.showAlert("Sucesso", "Treino definido para HOJE!");
         } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
@@ -5033,6 +5097,7 @@
             const selectedDate = new Date(`${val}T12:00:00`);
             currentPlan.nextWorkoutDate = selectedDate.toISOString();
             await saveFullState(); hideLoading(); renderDashboard();
+            try { renderAgenda(); } catch (e) {}
             window.showAlert("Data Salva", `Treino reagendado para ${selectedDate.toLocaleDateString('pt-BR')}.`);
         } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
@@ -6962,6 +7027,136 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             ? wm.splits.filter(s => (s.km || 0) >= 0.2).map((s, i) => `km ${i + 1}: ${s.pace || '--'}`).join(' · ')
             : '';
         return { core, watch, splitLine, fromWatch };
+    }
+
+    let agendaYear = new Date().getFullYear();
+    let agendaMonth = new Date().getMonth();
+    let agendaPick = '';
+    let agendaHistory = [];
+
+    function agendaKey(value) {
+        const dt = value instanceof Date ? value : new Date(value);
+        if (!dt || isNaN(dt.getTime())) return '';
+        return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0');
+    }
+
+    function agendaPending() {
+        return (currentPlan && Array.isArray(currentPlan.workouts) ? currentPlan.workouts : []).filter(w => w && !w.isCompleted);
+    }
+
+    async function loadAgenda() {
+        const prev = document.getElementById('agenda-prev');
+        const next = document.getElementById('agenda-next');
+        if (prev) prev.onclick = () => window.agendaShift(-1);
+        if (next) next.onclick = () => window.agendaShift(1);
+        if (currentUser && currentUser.uid) {
+            try {
+                const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+                agendaHistory = [];
+                snap.forEach(d => agendaHistory.push(d.data()));
+            } catch (e) {}
+        }
+        renderAgenda();
+    }
+
+    window.agendaShift = (delta) => {
+        agendaMonth += delta;
+        if (agendaMonth < 0) { agendaMonth = 11; agendaYear -= 1; }
+        if (agendaMonth > 11) { agendaMonth = 0; agendaYear += 1; }
+        agendaPick = '';
+        renderAgenda();
+    };
+
+    window.agendaPickDay = (key) => {
+        agendaPick = agendaPick === key ? '' : key;
+        renderAgenda();
+    };
+
+    function renderAgenda() {
+        const title = document.getElementById('agenda-title');
+        const grid = document.getElementById('agenda-grid');
+        const list = document.getElementById('agenda-list');
+        const queueEl = document.getElementById('agenda-queue');
+        const nextLine = document.getElementById('agenda-next-line');
+        if (!grid || !list || !queueEl) return;
+
+        const pending = agendaPending();
+        const nextDate = currentPlan && currentPlan.nextWorkoutDate ? new Date(currentPlan.nextWorkoutDate) : null;
+        const nextKey = nextDate ? agendaKey(nextDate) : '';
+        const todayKey = agendaKey(new Date());
+        if (title) title.textContent = new Date(agendaYear, agendaMonth, 1).toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+        if (nextLine) {
+            nextLine.textContent = (pending[0] && nextDate)
+                ? 'Próximo: ' + nextDate.toLocaleDateString('pt-BR') + ' · ' + (pending[0].modality || '') + ' · ' + (pending[0].name || 'Sessão')
+                : 'Nenhum próximo treino com data.';
+        }
+
+        const byDay = {};
+        agendaHistory.forEach(h => {
+            const key = agendaKey(h.date);
+            if (!key) return;
+            if (!byDay[key]) byDay[key] = [];
+            byDay[key].push({ kind: 'done', name: h.workoutName || 'Sessão', modality: h.modality || '', pse: h.pse });
+        });
+        if (nextKey && pending[0]) {
+            if (!byDay[nextKey]) byDay[nextKey] = [];
+            byDay[nextKey].push({ kind: 'next', name: pending[0].name || 'Sessão', modality: pending[0].modality || '', mins: pending[0].estimatedMinutes || '' });
+        }
+
+        const firstDow = new Date(agendaYear, agendaMonth, 1).getDay();
+        const dim = new Date(agendaYear, agendaMonth + 1, 0).getDate();
+        let cells = '';
+        for (let i = 0; i < firstDow; i++) cells += '<div></div>';
+        for (let day = 1; day <= dim; day++) {
+            const key = agendaYear + '-' + String(agendaMonth + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+            const items = byDay[key] || [];
+            const hasDone = items.some(x => x.kind === 'done');
+            const hasNext = items.some(x => x.kind === 'next');
+            const picked = agendaPick === key;
+            const isToday = key === todayKey;
+            const weekend = new Date(agendaYear, agendaMonth, day).getDay() % 6 === 0;
+            cells += `<button type="button" data-key="${key}" class="agenda-day aspect-square rounded-xl border text-[11px] font-bold flex flex-col items-center justify-center gap-0.5 ${picked ? 'border-brand-400 bg-brand-500/15 text-white' : 'border-slate-800 bg-dark-950 text-slate-200'} ${isToday && !picked ? 'ring-1 ring-brand-400/70' : ''}">
+                <span class="${weekend ? 'text-amber-200/90' : ''}">${day}</span>
+                <span class="flex gap-0.5 h-1.5">${hasDone ? '<i class="fas fa-circle text-emerald-400 text-[5px]"></i>' : ''}${hasNext ? '<i class="fas fa-circle text-brand-400 text-[5px]"></i>' : ''}</span>
+            </button>`;
+        }
+        grid.innerHTML = cells;
+        grid.querySelectorAll('.agenda-day').forEach(btn => {
+            btn.addEventListener('click', () => window.agendaPickDay(btn.getAttribute('data-key')));
+        });
+
+        const monthPrefix = agendaYear + '-' + String(agendaMonth + 1).padStart(2, '0');
+        const keys = Object.keys(byDay).filter(k => k.startsWith(monthPrefix) && (!agendaPick || k === agendaPick)).sort();
+        if (!keys.length) {
+            list.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-3">${agendaPick ? 'Nada neste dia.' : 'Nada neste mês.'}</p>`;
+        } else {
+            list.innerHTML = keys.map(k => byDay[k].map(item => {
+                const label = k.split('-').reverse().join('/');
+                if (item.kind === 'done') {
+                    return `<div class="bg-dark-900 border border-emerald-500/30 rounded-2xl px-3 py-2">
+                        <div class="flex justify-between gap-2"><span class="text-[10px] text-emerald-300 font-bold">${label} · feito</span><span class="text-[9px] text-slate-400">${escapeHtml(item.modality || '')}</span></div>
+                        <p class="text-xs text-white font-bold mt-0.5">${escapeHtml(item.name)}</p>
+                        <p class="text-[10px] text-slate-500">${item.pse != null ? 'PSE ' + escapeHtml(String(item.pse)) + ' · ' : ''}Detalhes e edição no Histórico.</p>
+                    </div>`;
+                }
+                return `<div class="bg-dark-900 border border-brand-500/40 rounded-2xl px-3 py-2">
+                    <div class="flex justify-between gap-2"><span class="text-[10px] text-brand-300 font-bold">${label} · próximo</span><span class="text-[9px] text-slate-400">${escapeHtml(item.modality || '')}${item.mins ? ' · ' + escapeHtml(String(item.mins)) + ' min' : ''}</span></div>
+                    <p class="text-xs text-white font-bold mt-0.5">${escapeHtml(item.name)}</p>
+                    <button type="button" onclick="window.openRescheduleModal()" class="mt-1.5 text-[10px] font-bold text-brand-300 border border-brand-500/40 rounded-lg px-2 py-1">Mudar o dia</button>
+                </div>`;
+            }).join('')).join('');
+        }
+
+        const rest = pending.slice(1);
+        if (!rest.length) {
+            queueEl.innerHTML = `<p class="text-[11px] text-slate-500 px-1">Não há outros treinos escritos. O próximo é gerado quando este termina.</p>`;
+        } else {
+            queueEl.innerHTML = rest.map((w, i) => `<div class="bg-dark-950 border border-slate-800 rounded-2xl px-3 py-2">
+                <div class="flex justify-between gap-2"><span class="text-[10px] text-amber-300 font-bold">${i + 2}º da fila</span><span class="text-[9px] text-slate-400">${escapeHtml(w.modality || '')}${w.estimatedMinutes ? ' · ' + escapeHtml(String(w.estimatedMinutes)) + ' min' : ''}</span></div>
+                <p class="text-xs text-white font-bold mt-0.5">${escapeHtml(w.name || 'Sessão')}</p>
+                <p class="text-[10px] text-slate-500">Sem data. A I.A. revisa quando ele virar o próximo.</p>
+            </div>`).join('');
+        }
     }
 
     async function loadHistory() {
