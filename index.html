@@ -1398,10 +1398,8 @@
             </div>
 
             <div class="glass-panel p-4 rounded-3xl border border-slate-800 shadow-xl w-full">
-                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-3 flex items-center gap-2"><i class="fas fa-comment-dots text-brand-400"></i> Avaliações Recentes</h3>
-                <div id="progress-evaluations-list" class="space-y-3 max-h-56 overflow-y-auto custom-scrollbar pr-1">
-                    <p class="text-xs text-slate-500 text-center py-2 font-medium">Nenhuma avaliação registrada ainda.</p>
-                </div>
+                <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-comment-dots text-brand-400"></i> Avaliações</h3>
+                <p class="text-[11px] text-slate-400 leading-relaxed">A avaliação de cada treino fica no Histórico. Abra a sessão e leia o texto da I.A. junto com as métricas.</p>
             </div>
 
             <!-- Charts Container -->
@@ -1441,7 +1439,7 @@
                 <h2 class="text-base font-black text-white min-w-0">Histórico</h2>
                 <span class="text-[10px] bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-bold border border-slate-700 shrink-0" id="cal-count">0 Sessões</span>
             </div>
-            <p class="text-[10px] text-slate-500 px-1 -mt-1">A caixa rosa de queda de FC fica embaixo do nome. Toque no treino só para ver o resto.</p>
+            <p class="text-[10px] text-slate-500 px-1 -mt-1">Toque no treino para abrir métricas, a queda de FC, a avaliação da I.A. e a opção de excluir.</p>
             <div id="calendar-list" class="space-y-3"></div>
         </div>
 
@@ -1864,6 +1862,22 @@
         <div class="flex gap-2 pt-2">
             <button onclick="window.closeConfirmAbort()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-2xl text-xs uppercase">Continuar</button>
             <button onclick="window.executeAbortWorkout()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-2xl text-xs uppercase shadow-[0_0_15px_rgba(220,38,38,0.4)]">Sair sem Salvar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal excluir sessão do histórico -->
+<div id="modal-delete-history" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-red-500/50 rounded-3xl p-6 max-w-sm w-full text-center space-y-4 shadow-2xl mx-auto">
+        <div class="w-14 h-14 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center mx-auto text-2xl border border-red-500/30">
+            <i class="fas fa-trash"></i>
+        </div>
+        <h3 class="text-base font-black text-white">Excluir esta sessão?</h3>
+        <p id="del-hist-name" class="text-sm font-bold text-white"></p>
+        <p class="text-xs text-slate-300 font-medium leading-relaxed">Ela sai do histórico, dos gráficos e da conta de carga. O próximo treino pendente é refeito pela I.A. sem esses dados. Treinos já feitos continuam.</p>
+        <div class="flex gap-2 pt-2">
+            <button type="button" onclick="window.hide('modal-delete-history')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-2xl text-xs uppercase">Cancelar</button>
+            <button type="button" onclick="window.confirmDeleteHistory()" class="flex-1 bg-red-600 hover:bg-red-500 text-white font-black py-3 rounded-2xl text-xs uppercase">Excluir e recalibrar</button>
         </div>
     </div>
 </div>
@@ -4787,6 +4801,7 @@
         let schema = {};
         if (schemaMode === 'chat') { schema = { type: "object", properties: { reply: { type: "string" } }, required: ["reply"] }; } 
         else if (schemaMode === 'report') { schema = { type: "object", properties: { analysis: { type: "string" }, estimatedTime: { type: "string" }, nextSteps: { type: "string" } }, required: ["analysis", "estimatedTime", "nextSteps"] }; } 
+        else if (schemaMode === 'eval') { schema = { type: "object", properties: { coachFeedback: { type: "string" } }, required: ["coachFeedback"] }; } 
         else {
             const queueItem = {
                 type: "object",
@@ -6973,6 +6988,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             listContainer.innerHTML = data.map(h => {
                 const isPending = h.biometricsPending === true;
                 const m = historyCardMetricsHtml(h);
+                const hasEval = !!(h.aiFeedback && String(h.aiFeedback).trim());
                 return `
                 <div class="bg-dark-900 rounded-3xl border ${isPending ? 'border-amber-500/50' : 'border-slate-800'} relative overflow-hidden">
                     <button type="button" class="js-hist-toggle w-full p-4 text-left">
@@ -6985,26 +7001,29 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                             </span>
                         </div>
                         <h4 class="text-sm font-bold text-white leading-snug mt-1 pr-2">${escapeHtml(h.workoutName || "Sessão")}</h4>
-                        <p class="text-[10px] text-pink-300 mt-1">${h.fcRec != null && h.fcRec !== '' ? 'Queda FC: ' + escapeHtml(String(h.fcRec)) + ' bpm' : 'Queda FC: ainda não anotada'}</p>
                     </button>
-                    <div class="px-4 pb-4">
-                        <div class="bg-dark-950 border border-pink-500/40 rounded-2xl p-2.5">
-                            <span class="text-[8px] text-pink-300 font-black uppercase tracking-wider">Queda da FC em 3 min (bpm)</span>
-                            <div class="flex gap-2 mt-1.5">
-                                <input type="number" min="0" max="80" inputmode="numeric" value="${h.fcRec != null && h.fcRec !== '' ? escapeHtml(String(h.fcRec)) : ''}" data-doc="${escapeHtml(h.docId)}" placeholder="Ex: 35" class="js-fc-rec flex-1 bg-dark-900 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white text-center outline-none">
-                                <button type="button" data-doc="${escapeHtml(h.docId)}" class="js-fc-rec-save shrink-0 bg-pink-500/20 text-pink-200 border border-pink-500/40 text-[10px] font-black px-3 rounded-xl">Salvar</button>
-                            </div>
-                            <p class="text-[9px] text-slate-500 mt-1">FC ao parar menos a FC depois de 3 min. Entra no gráfico de recuperação.</p>
-                        </div>
-                    </div>
                     <div class="accordion-content hist-body border-t border-slate-800 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] text-pink-300 font-bold shrink-0">Queda FC</span>
+                            <input type="number" min="0" max="80" inputmode="numeric" value="${h.fcRec != null && h.fcRec !== '' ? escapeHtml(String(h.fcRec)) : ''}" data-doc="${escapeHtml(h.docId)}" placeholder="bpm" class="js-fc-rec w-16 bg-dark-950 border border-slate-700 rounded-lg px-2 py-1 text-[11px] text-white text-center outline-none">
+                            <button type="button" data-doc="${escapeHtml(h.docId)}" class="js-fc-rec-save shrink-0 bg-pink-500/15 text-pink-200 border border-pink-500/30 text-[10px] font-bold px-2 py-1 rounded-lg">Ok</button>
+                            <span class="text-[9px] text-slate-500 truncate">3 min, em bpm</span>
+                        </div>
                         <div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.core || '<div class="text-slate-500">Sem métricas</div>'}</div>
                         ${m.watch ? `<p class="text-[8px] text-brand-400 font-black uppercase tracking-wider">${m.fromWatch ? 'Do relógio' : 'Cardio'}</p><div class="grid grid-cols-2 gap-2 bg-dark-950 p-2.5 rounded-2xl text-[10px] text-slate-300 font-medium">${m.watch}</div>` : ''}
                         ${m.splitLine ? `<p class="text-[10px] text-amber-200/90">${escapeHtml(m.splitLine)}</p>` : ''}
+                        <div class="bg-dark-950 border border-purple-500/30 rounded-2xl p-2.5">
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <p class="text-[8px] text-purple-300 font-black uppercase tracking-wider">Avaliação da I.A.</p>
+                                ${hasEval ? '' : `<button type="button" data-doc="${escapeHtml(h.docId)}" class="js-hist-eval shrink-0 bg-purple-500/20 text-purple-200 border border-purple-500/40 text-[10px] font-bold px-2 py-1 rounded-lg">Avaliar treino</button>`}
+                            </div>
+                            <p class="text-xs text-slate-300 italic leading-relaxed">${hasEval ? '"' + escapeHtml(h.aiFeedback) + '"' : 'Sem internet na hora. Toque em Avaliar treino.'}</p>
+                        </div>
+                        ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">Você: "${escapeHtml(h.userFeedback)}"</p>` : ''}
                         <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5">
                             <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
                         </button>
-                        ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">"${escapeHtml(h.userFeedback)}"</p>` : ''}
+                        <button type="button" data-doc="${escapeHtml(h.docId)}" data-name="${escapeHtml(h.workoutName || 'Sessão')}" class="js-hist-delete w-full text-red-300 border border-red-500/30 bg-red-500/10 text-[11px] font-bold py-2 rounded-xl">Excluir esta sessão</button>
                     </div>
                 </div>`;
             }).join('');
@@ -7025,6 +7044,12 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     const input = listContainer.querySelector('.js-fc-rec[data-doc="' + id + '"]');
                     window.saveHistoryFcRec(id, input ? input.value : '');
                 });
+            });
+            listContainer.querySelectorAll('.js-hist-delete').forEach(btn => {
+                btn.addEventListener('click', () => window.askDeleteHistory(btn.getAttribute('data-doc'), btn.getAttribute('data-name')));
+            });
+            listContainer.querySelectorAll('.js-hist-eval').forEach(btn => {
+                btn.addEventListener('click', () => window.evaluateMissingHistory(btn.getAttribute('data-doc')));
             });
         } catch(e) {
             const listContainer = document.getElementById('calendar-list');
@@ -7049,13 +7074,107 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
     };
 
     async function renderProgressEvaluations() {
-        try {
-            const l = document.getElementById('progress-evaluations-list'); const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`)); let d = []; snap.forEach(doc => d.push(doc.data()));
-            d = d.filter(x => x.aiFeedback).sort((a,b) => new Date(b.date) - new Date(a.date)); l.innerHTML = '';
-            if(d.length===0) { l.innerHTML = `<p class="text-xs text-slate-500 text-center py-2 font-medium">Nenhuma avaliação.</p>`; return; }
-            d.forEach(h => l.innerHTML += `<div class="bg-dark-950 p-3 rounded-2xl border border-slate-800 mb-2"><span class="text-[9px] font-bold text-slate-500 block mb-1">${escapeHtml(h.workoutName || "")} - ${new Date(h.date).toLocaleDateString('pt-BR')}</span><p class="text-xs text-slate-300 italic font-medium">"${escapeHtml(h.aiFeedback || "")}"</p></div>`);
-        } catch(e) {}
+        const l = document.getElementById('progress-evaluations-list');
+        if (!l) return;
     }
+
+    let pendingHistoryDelete = null;
+
+    window.askDeleteHistory = (docId, name) => {
+        if (!docId) return;
+        pendingHistoryDelete = { docId, name: name || 'Sessão' };
+        const el = document.getElementById('del-hist-name');
+        if (el) el.textContent = pendingHistoryDelete.name;
+        window.show('modal-delete-history');
+    };
+
+    async function rebuildNextAfterHistoryDelete(removedName) {
+        if (!currentPlan || !Array.isArray(currentPlan.workouts)) return { ok: false, reason: 'none' };
+        const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
+        if (nwIndex === -1) return { ok: false, reason: 'none' };
+        const syntheticState = await buildSyntheticStateVector();
+        const nw = currentPlan.workouts[nwIndex];
+        const nextModality = pickNextModality(syntheticState, nw.modality || userData.masterAxis);
+        const mins = parseInt(nw.estimatedMinutes, 10) || parseInt(userData.mins, 10) || 45;
+        const prompt = `Atue como Apex Hybrid Coach v6.6. O aluno ${userData.nickname} APAGOU do histórico a sessão "${removedName}" porque foi gravada errada. Esses dados NÃO existem mais. ESTADO SINTÉTICO JSON (já sem essa sessão): ${JSON.stringify(syntheticState)}. Refaça SOMENTE o próximo treino pendente. Modalidade: ${nextModality}. Tempo: ${mins} min. Não mexa em treinos já concluídos. Work items com sets/reps/rirTarget/targetGroup. TAREFAS: 1.'coachFeedback' 2.'workout' (name, focus, modality ${nextModality}, estimatedMinutes ${mins}, queue). \n ${coachingPromptTail()}`;
+        const res = await callGemini(prompt, 'workout');
+        if (!res || !res.workout) throw new Error('A I.A. não devolveu o próximo treino.');
+        const guarded = applyDeterministicCoachingGuards(res.workout, syntheticState, { targetMinutes: mins });
+        guarded.id = nw.id || ('w_' + Date.now() + '_fix');
+        guarded.isCompleted = false;
+        guarded.modality = nextModality;
+        guarded.estimatedMinutes = mins;
+        currentPlan.workouts[nwIndex] = guarded;
+        if (res.coachFeedback) currentPlan.coachFeedback = res.coachFeedback;
+        await saveFullState();
+        if (typeof renderDashboard === 'function') renderDashboard();
+        return { ok: true, name: guarded.name || 'Próxima sessão', modality: nextModality };
+    }
+
+    window.evaluateMissingHistory = async (docId) => {
+        if (!currentUser || !docId) return;
+        showLoading('Avaliando o treino...', 'I.A. lendo só esta sessão. O plano não muda.');
+        try {
+            const ref = doc(db, `users/${currentUser.uid}/history/${docId}`);
+            const snap = await getDoc(ref);
+            if (!snap.exists()) throw new Error('Sessão não encontrada.');
+            const h = snap.data();
+            if (h.aiFeedback && String(h.aiFeedback).trim()) {
+                hideLoading();
+                await loadHistory();
+                return;
+            }
+            const syntheticState = await buildSyntheticStateVector();
+            const logs = (Array.isArray(h.exerciseLogs) ? h.exerciseLogs : []).slice(0, 30).map(l => ({
+                name: l.name, reps: l.reps, rir: l.rir, weight: l.weight, addedLoadKg: l.addedLoadKg, holdSeconds: l.holdSeconds
+            }));
+            const prompt = `Atue como Apex Hybrid Coach v6.6. Avalie SOMENTE esta sessão JÁ realizada. Não crie treino, não sugira fila, não altere o plano. Aluno: ${userData.nickname}. Sessão: ${h.workoutName || 'Sessão'} [${h.modality || ''}]. Data: ${h.date || ''}. PSE: ${h.pse ?? 'N/A'}/10. Duração: ${h.durationMinutes || 'N/A'} min. FC média: ${h.fc || 'N/A'}. Queda FC 3 min: ${h.fcRec ?? 'N/A'}. Distância: ${h.distance || 'N/A'}. Pace: ${h.pace || 'N/A'}. Relato do aluno: "${h.userFeedback || ''}". Logs: ${JSON.stringify(logs)}. ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. Devolva coachFeedback em português, 4 a 8 frases: o que foi feito, se carga/RIR/ritmo estavam adequados e um ponto para a próxima vez.`;
+            const res = await callGemini(prompt, 'eval');
+            const text = (res && res.coachFeedback ? String(res.coachFeedback) : '').trim();
+            if (!text) throw new Error('A I.A. não devolveu a avaliação.');
+            await updateDoc(ref, { aiFeedback: text });
+            hideLoading();
+            await loadHistory();
+            window.showAlert('Avaliação salva', 'O texto ficou neste treino, no Histórico.');
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Sem avaliação', e.message || 'Sem internet ou a I.A. não respondeu. Tente de novo.');
+        }
+    };
+
+    window.confirmDeleteHistory = async () => {
+        const pending = pendingHistoryDelete;
+        if (!pending || !pending.docId || !currentUser) return;
+        window.hide('modal-delete-history');
+        showLoading('Apagando a sessão...', 'A I.A. refaz o próximo treino sem esses dados.');
+        try {
+            await deleteDoc(doc(db, `users/${currentUser.uid}/history/${pending.docId}`));
+            pendingHistoryDelete = null;
+            let rebuilt = null;
+            try {
+                rebuilt = await rebuildNextAfterHistoryDelete(pending.name);
+            } catch (err) {
+                hideLoading();
+                await loadHistory();
+                if (typeof renderCharts === 'function') renderCharts();
+                if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
+                window.showAlert('Sessão apagada', 'O histórico saiu. O próximo treino não foi refeito agora (' + (err.message || 'falha da I.A.') + '). Na hora de treinar, a prontidão usa o histórico já limpo.');
+                return;
+            }
+            hideLoading();
+            await loadHistory();
+            if (typeof renderCharts === 'function') renderCharts();
+            if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
+            if (rebuilt && rebuilt.ok) {
+                window.showAlert('Sessão apagada', 'O próximo treino foi refeito: [' + rebuilt.modality + '] ' + rebuilt.name + '.');
+            } else {
+                window.showAlert('Sessão apagada', 'Não havia treino pendente para refazer. O histórico e os gráficos já não usam essa sessão.');
+            }
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Erro', e.message || 'Não foi possível excluir.');
+        }
+    };
 
     window.generateProgressReport = async () => {
         showLoading("Gerando relatório...", "I.A. v6.6 sintetizando volume e recuperação...");
