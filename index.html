@@ -1379,7 +1379,7 @@
 
             <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
                 <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-bullseye text-brand-400"></i> Radar híbrido (suas 4–8 semanas)</h3>
-                <p class="text-[10px] text-slate-500 mb-2">Força e core = nível vs um alvo. Z1/Z2 e Z4 = <strong class="text-slate-400">% do tempo de cardio nas últimas 4 semanas</strong> (ideal ~80 / ~20). Não é “quanto você sofreu no gráfico”.</p>
+                <p class="text-[10px] text-slate-500 mb-2">Força relativa sobe com a melhor série de calistenia (ou colete). Carga 1RM só sobe na musculação com barra. Core = séries de core da semana. Z1/Z2 e Z4 = <strong class="text-slate-400">só corrida</strong>, % das últimas 4 semanas. Calistenia não pinta a teia de zona.</p>
                 <div class="w-full h-56 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-radar"></canvas></div>
             </div>
 
@@ -3009,6 +3009,8 @@
         historyData.forEach(item => {
             const itemDate = new Date(item.date);
             if ((now - itemDate) > windowMs) return;
+            const isRun = (item.modality || '') === 'Corrida' || (parseFloat(item.distance) || 0) >= 0.4;
+            if (!isRun) return;
             if (item.trimpScore) totalTrimp += item.trimpScore;
             if (item.zoneDistribution) {
                 z1z2 += (item.zoneDistribution.z1_z2_minutes || 0);
@@ -3048,8 +3050,8 @@
             .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         if (/elevacao pelvica|hip thrust|gluteo|glute bridge|ponte de gluteo/.test(name)) return 'posterior';
         if (/stiff|romanian|terra|deadlift|flexora|posterior|nordic|good morning/.test(name)) return 'posterior';
+        if (/australiana|remada invertida|inverted row|barra pronada|barra supinada|barra negativa|peito na barra|chest to bar|barra fixa|pull.?up|chin.?up|puxada|remada|pulldown|lat |costas|front lever|muscle.?up/.test(name)) return 'costas';
         if (/agachamento|squat|leg press|extensora|quadriceps|afundo|lunge|pistol|bulgaro|sissy/.test(name)) return 'quadriceps';
-        if (/barra fixa|pull.?up|chin.?up|puxada|remada|pulldown|lat |costas|front lever|muscle.?up/.test(name)) return 'costas';
         if (/supino|crossover|crucifixo|peitoral|pec deck|flexao(?! de braco isol)/.test(name) || /\bflexao\b/.test(name) || /push.?up/.test(name)) {
             if (/diamante|cerrada|close.?grip|frances|testa/.test(name)) return 'bracos';
             if (/pike|handstand|hspu|militar/.test(name)) return 'ombros';
@@ -3081,6 +3083,16 @@
         return categorizeMuscleGroup(name);
     }
 
+    function volumeGroupOfLog(log) {
+        if (!log) return 'outros';
+        const rawName = baseExerciseName(log.name || '');
+        if (log.kind === 'prep' || exerciseKind({ name: rawName, roundInfo: log.roundInfo, phase: log.phase }) === 'prep') return 'prep';
+        const entry = findCatalogByName(log.catalogId || rawName) || findCatalogByName(rawName);
+        if (entry) return entry.family === 'hiit' ? 'hiit' : entry.group;
+        if (log.family === 'hiit' || /burpee|polichinelo|escalador|aula hiit/.test(rawName.toLowerCase())) return 'hiit';
+        return normalizeMuscleGroup(log.targetGroup, rawName);
+    }
+
     function calculateWeeklyVolumeLandmarks(historyData) {
         const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
         if (!Array.isArray(historyData) || historyData.length === 0) return volumeMap;
@@ -3094,9 +3106,8 @@
                 item.exerciseLogs.forEach(log => {
                     if (log.estimated) return;
                     if (log.kind === 'prep') return;
-                    if (log.family === 'hiit' || /burpee|polichinelo|escalador|aula hiit/.test((log.name || '').toLowerCase())) return;
-                    const group = normalizeMuscleGroup(log.targetGroup, log.name);
-                    if (volumeMap[group] === undefined) return;
+                    const group = volumeGroupOfLog(log);
+                    if (group === 'prep' || group === 'hiit' || volumeMap[group] === undefined) return;
                     if (log.kind === 'iso' || log.holdSeconds) {
                         const reserve = (log.secondsReserve !== undefined && log.secondsReserve !== null) ? parseInt(log.secondsReserve, 10) : 99;
                         if (reserve <= 5) volumeMap[group] += 1;
@@ -4373,20 +4384,42 @@
         return Math.max(0, Math.min(100, ((v - a) / (b - a)) * 100));
     }
 
+    function bestBodyweightStrength(historyData) {
+        let best = 0;
+        const now = Date.now();
+        const windowMs = 28 * 24 * 60 * 60 * 1000;
+        (historyData || []).forEach(h => {
+            if (!h || !h.date || (now - new Date(h.date)) > windowMs) return;
+            (h.exerciseLogs || []).forEach(log => {
+                if (!log || log.estimated || log.kind === 'prep' || log.kind === 'iso') return;
+                const reps = parseInt(log.reps, 10) || 0;
+                if (reps <= 0) return;
+                const group = volumeGroupOfLog(log);
+                if (group === 'hiit' || group === 'prep' || group === 'core') return;
+                if (!VOLUME_LANDMARKS[group]) return;
+                const added = parseFloat(log.addedLoadKg) || 0;
+                const score = Math.min(100, Math.round((Math.min(reps, 20) / 12) * 70 + (added > 0 ? 30 : 0)));
+                if (score > best) best = score;
+            });
+        });
+        return best;
+    }
+
     function computeHybridRadar(historyData, synthetic) {
         const ss = synthetic || lastSyntheticState || {};
         const bw = parseFloat(userData.weight || 70);
-        const ifrs = Object.values(ss.IFR_Weighted_Calisthenics || {});
-        const ifr = ifrs.length ? Math.max(...ifrs) : 1;
+        const ifrs = Object.values(ss.IFR_Weighted_Calisthenics || {}).filter(n => !isNaN(n));
+        const ifrScore = ifrs.length ? Math.round(scale100(Math.max(...ifrs), 1.0, 1.8)) : 0;
+        const bwScore = bestBodyweightStrength(historyData);
         const rms = Object.values(ss['1RM_Estimates'] || {});
         const bestRel = rms.length ? Math.max(...rms.map(x => x / bw)) : 0;
-        const trimp = (ss.cardio_polarized_distribution || {}).totalTrimp || 0;
-        const core = (ss.weekly_effective_sets || {}).core || 0;
         const z = calculatePolarizedCardioSplit(historyData, 28);
+        const trimp = z.totalTrimp || 0;
+        const core = (ss.weekly_effective_sets || {}).core || 0;
         return {
             labels: ['Força relativa', 'Carga 1RM', 'Aeróbico', 'Core', 'Base Z1/Z2', 'Intenso Z4/Z5'],
             values: [
-                Math.round(scale100(ifr, 1.0, 1.8)),
+                Math.max(ifrScore, bwScore),
                 Math.round(scale100(bestRel, 0.4, 1.8)),
                 Math.round(scale100(trimp, 0, 600)),
                 Math.round(scale100(core, 0, 12)),
@@ -4572,11 +4605,13 @@
     function plannedWeeklySets() {
         const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
         (currentPlan?.workouts || []).forEach(w => {
-            (w.queue || []).forEach(item => {
-                if (item.type !== 'work') return;
-                const g = normalizeMuscleGroup(item.targetGroup, item.name);
+            if (!w || w.isCompleted || isHiitWorkout(w)) return;
+            planWorkItems(w).forEach(item => {
+                const kind = item._kind || exerciseKind(item);
+                if (kind === 'prep' || item.family === 'hiit') return;
+                const g = volumeGroupOfLog(item);
                 if (map[g] === undefined) return;
-                map[g] += Math.min(6, Math.max(1, parseInt(item.sets, 10) || 3));
+                map[g] += Math.min(6, Math.max(1, parseInt(item.sets, 10) || 1));
             });
         });
         return map;
