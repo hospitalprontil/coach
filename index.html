@@ -2392,6 +2392,7 @@
         posterior:  { mev: 6,  mavLow: 10, mavHigh: 16, mrv: 20 },
         ombros:     { mev: 8,  mavLow: 12, mavHigh: 20, mrv: 26 },
         bracos:     { mev: 6,  mavLow: 8,  mavHigh: 14, mrv: 18 },
+        core:       { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 },
         panturrilha: { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 }
     };
 
@@ -3392,6 +3393,7 @@
                 const count = volumes[grp] || 0;
                 const plan = planned[grp] || 0;
                 const lm = VOLUME_LANDMARKS[grp];
+                if (!lm) return;
                 const statusText = landmarkStatusFor(grp, count);
                 let statusColor = 'bg-blue-500/20 text-blue-400 border-blue-500/30';
                 let barColor = 'bg-blue-500';
@@ -4667,6 +4669,7 @@
         const labels = ['Peito', 'Costas', 'Quadríceps', 'Posterior', 'Ombro', 'Braço', 'Core', 'Panturrilha'];
         const data = keys.map(k => {
             const lm = VOLUME_LANDMARKS[k];
+            if (!lm) return 0;
             const mid = (lm.mavLow + lm.mavHigh) / 2;
             return Math.round(Math.min(150, ((volumes[k] || 0) / mid) * 100));
         });
