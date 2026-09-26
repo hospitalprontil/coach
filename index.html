@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.0</title>
+    <title>AI Coach Híbrido v7.2</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.0 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.2 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.0</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Teias e abas</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.2</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Lógica do treino</h2>
                 </div>
             </div>
         </div>
@@ -245,24 +245,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.0 · Teias e abas</strong>
-                    <p class="text-slate-400 mt-0.5">Treinamento abre primeiro, com o próximo treino no topo. Teia de volume junto das barras. Radar híbrido sempre aberto; calistenia, musculação e corrida abrem por baixo.</p>
+                    <strong class="text-brand-400">v7.2 · Lógica do treino</strong>
+                    <p class="text-slate-400 mt-0.5">A aba Como funciona agora explica o treino, sem lista de atualizações. Quem ainda não aguenta a barra fica na remada. Terra não entra na primeira semana.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.1 · Mais exercícios</strong>
+                    <p class="text-slate-400 mt-0.5">Peito, costas, ombro e braço ganham principal e complementares. Elástico no perfil. Dip conta no peito.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.0 · Teias e abas</strong>
+                    <p class="text-slate-400 mt-0.5">Treinamento abre primeiro. Teia de volume junto das barras. Radar híbrido sempre aberto.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v6.9 · Histórico e Agenda</strong>
-                    <p class="text-slate-400 mt-0.5">Calendário do mês: dias feitos e o próximo treino. No Histórico: queda de FC, avaliação, avaliar depois e excluir uma sessão errada.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v6.8 · Ciclo no Perfil</strong>
-                    <p class="text-slate-400 mt-0.5">No Perfil você muda dias da semana e minutos. A I.A. refaz só o que ainda não foi treinado. Histórico fica.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v6.7 · Retoma</strong>
-                    <p class="text-slate-400 mt-0.5">Fechou o navegador no meio? Cronômetro e passo ficam neste aparelho. Continuar (pausado) ou descartar. Vale 8 horas.</p>
+                    <p class="text-slate-400 mt-0.5">Calendário do mês. No Histórico: queda de FC, avaliação e excluir uma sessão errada.</p>
                 </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.0 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.2 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,30 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.0 Teias e abas</span>
+                    <span class="font-black text-brand-400 text-sm">v7.2 Lógica do treino</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • A aba Como funciona explica a lógica, sem histórico de versões.<br>
+                    • Quem não chega na barra faz a remada. O degrau acima do seu não entra.<br>
+                    • Levantamento terra fica fora da primeira semana e fora da dor na lombar.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.1 Mais exercícios</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Um músculo pode ter principal e complementares no mesmo dia. O teto de séries continua valendo.<br>
+                    • Supino, inclinado e crucifixo são exercícios diferentes. O mesmo vale para remada e puxada, rosca e tríceps, agachamento e leg press.<br>
+                    • No Perfil, marque halter, barra, máquina, cabo e elástico. O que não existe não entra no treino.<br>
+                    • Dip conta no peito. Panturrilha entra na barra. Corrida leve pode ter subida curta e um bloco de força.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.0 Teias e abas</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -618,11 +641,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.0</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.2</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.0 · Teias e abas</strong>
-                    • Treinamento abre primeiro. Próximo treino no topo.<br>
-                    • Teia de volume + radar híbrido, com gráfico por esporte.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.2 · Lógica do treino</strong>
+                    • Como funciona explica o treino, sem lista de versões.<br>
+                    • Sem exercício acima do seu degrau. Terra fora da semana 0.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1065,7 +1088,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.0</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.2</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1245,92 +1268,54 @@
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
                     <div class="min-w-0">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v7.0</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach</span>
                         <h2 class="text-base font-black text-white leading-tight">Como o app monta o seu treino</h2>
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium mt-3">
-                    Pense em dois treinadores no mesmo bolso. A <strong class="text-white">matemática</strong> mede o que o corpo aguentou. A <strong class="text-brand-400">I.A.</strong> monta o dia — só de uma <strong class="text-white">lista fechada</strong>. Se pedir demais, a matemática corta. O app abre em Treinamento. A teia de volume mostra se a semana está torta; as barras mostram o número. No Progresso, o radar híbrido fica aberto e cada esporte abre o seu.
+                    O app lê como você está, o que já fez e quanto tempo tem. A partir disso monta o treino do dia. A inteligência artificial sugere. Uma lista fechada e um teto de séries impedem que o treino passe do que o corpo aguenta.
                 </p>
             </div>
 
             <div class="glass-panel p-4 rounded-3xl border border-slate-800 space-y-2.5">
-                <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-route text-brand-400"></i> O ciclo de cada sessão</h3>
+                <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-list-ol text-brand-400"></i> Como o dia é escolhido</h3>
                 <ol class="text-[11px] text-slate-300 space-y-1.5 font-medium leading-relaxed list-decimal pl-4">
-                    <li><strong class="text-white">Antes:</strong> FC ao acordar (opcional) + energia, sono, dor e minutos. Se você está bem e o tempo é o combinado, o motor <strong class="text-white">não chama a I.A.</strong> e usa o treino da fila.</li>
-                    <li><strong class="text-white">O motor revisa:</strong> semana pesada, perna não recuperou, músculo no teto, exercício fora da lista — o código ajusta.</li>
-                    <li><strong class="text-white">Você treina:</strong> calistenia (tempo ou séries, um a um), musculação (ficha de carga) ou corrida (roteiro no relógio).</li>
-                    <li><strong class="text-white">Depois:</strong> PSE + frase. No Histórico ficam as métricas, a queda de FC e a avaliação da I.A. Se a internet falhou, toque em Avaliar treino. Sessão gravada errada pode ser excluída: o próximo treino é refeito.</li>
-                    <li><strong class="text-white">Agenda:</strong> calendário do mês. Só o próximo treino tem data (dá para mudar o dia). O resto da fila aparece sem dia. No Perfil, “Recalcular o ciclo” é outra coisa: muda quantos dias e minutos da semana. 2 dias vira sessão mais cheia; 5 dias vira um foco por dia. O que já foi feito não some.</li>
+                    <li>Você informa energia, sono, dor e os minutos de hoje. A frequência ao acordar é opcional.</li>
+                    <li>Se você está bem e o tempo é o da semana, o app usa o treino que já estava na fila. Não chama a inteligência artificial à toa.</li>
+                    <li>Se você está cansado, dolorido ou com menos tempo, aí sim a inteligência artificial recalcula. O código revisa o resultado antes de mostrar.</li>
+                    <li>Você treina. No fim, anota o esforço. Esse número entra no próximo dia.</li>
                 </ol>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-brand-500/30 space-y-3">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-project-diagram"></i></div>
-                    <div>
-                        <h3 class="text-sm font-black text-white">Calistenia</h3>
-                        <span class="text-[10px] text-brand-400 font-bold">Peso do corpo, progressão e colete</span>
-                    </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Você sobe por etapas (parede → inclinada → chão → pés elevados). O app <strong class="text-white">não pula degrau</strong>. No movimento padrão, colete/extra vem antes de um exercício novo. Timer: uma série, depois o descanso. Dor no ombro, cotovelo ou joelho troca o padrão sozinho. Planche, lever e muscle-up <strong class="text-white">não entram</strong> nesta versão.
-                    <strong class="text-white"> Aula HIIT</strong> (burpee, escalador, polichinelo) é um dia à parte, 15–20 min: 1× por semana, 2× só na semana 3 se você recuperou. Semana 0, deload e eixo corrida: o motor apaga o HIIT. Não mistura com barra/flexão no mesmo treino. Burpee completo só se joelho e ombro estão ok — senão é sem salto.
-                </p>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl border border-amber-500/30 space-y-3">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-running"></i></div>
-                    <div>
-                        <h3 class="text-sm font-black text-white">Corrida</h3>
-                        <span class="text-[10px] text-amber-400 font-bold">A maior parte leve, pouca coisa forte</span>
-                    </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Só 6 tipos de sessão: rodagem Z2, longão, Z2 + passadas, intervalado Z4, tiros curtos, teste 3/5 km. A I.A. não inventa o desenho. Z4/Z5 só na semana 3, e o motor apaga o tiro se a perna ainda não recuperou. Pace e zona vêm da matemática (5 km e Karvonen).
-                </p>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-3">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-dumbbell"></i></div>
-                    <div>
-                        <h3 class="text-sm font-black text-white">Musculação</h3>
-                        <span class="text-[10px] text-purple-400 font-bold">Séries na medida, carga que cresce</span>
-                    </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Os padrões são fixos (agachar, hingear, empurrar, puxar). “Supino reto” e “bench” contam o <strong class="text-white">mesmo 1RM</strong>. A carga sobe pelo RIR. Se um músculo estourou o teto da semana, a série extra não entra. Depois de um sprint pesado, agachamento pesado espera.
-                </p>
-            </div>
-
-            <div class="glass-panel p-5 rounded-3xl border border-brand-500/40 space-y-3">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-brand-500/20 text-brand-400 border border-brand-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-brain"></i></div>
-                    <div>
-                        <h3 class="text-sm font-black text-white">Onde a I.A. entra — e onde não manda</h3>
-                        <span class="text-[10px] text-brand-400 font-bold">Sugere o treino · o motor garante o limite</span>
-                    </div>
-                </div>
-                <ul class="text-xs text-slate-300 space-y-2 font-medium leading-relaxed">
-                    <li><strong class="text-white">A I.A. escolhe o cardápio:</strong> nomes dos exercícios, ordem, o texto de orientação e a variação do dia (energia baixa, ombro doendo, “quero 30 min”).</li>
-                    <li><strong class="text-white">O motor segura o volante:</strong> corta volume se a semana inflou, troca tiro por corrida leve, bloqueia perna pesada após sprint, não deixa músculo passar do teto, preserva o descanso de força.</li>
-                    <li><strong class="text-white">Vocês conversam no chat:</strong> ela lê o mesmo resumo do seu corpo. Se você disser que o treino estava pesado ou leve demais, aparece um botão para <strong class="text-white">aplicar isso no próximo treino</strong> da fila — sem apagar o histórico.</li>
+            <div class="glass-panel p-4 rounded-3xl border border-slate-800 space-y-2.5">
+                <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-dumbbell text-brand-400"></i> Como os exercícios entram</h3>
+                <ul class="text-[11px] text-slate-300 space-y-1.5 font-medium leading-relaxed list-disc pl-4">
+                    <li><strong class="text-white">Principal:</strong> um por padrão. É ele que sobe de dificuldade. Ninguém pula etapa.</li>
+                    <li><strong class="text-white">Complementares:</strong> no mesmo músculo, com outro ângulo. Crucifixo não vira supino. Leg press não vira agachamento.</li>
+                    <li><strong class="text-white">Tempo:</strong> 20 minutos fica no principal. 45 minutos cabe uns três. Uma hora cabe quatro, mais um de braço se o dia for de peito, costas ou ombro.</li>
+                    <li><strong class="text-white">Teto:</strong> se a semana daquele músculo já encheu, o complementar sai. Mais exercício não significa treino infinito.</li>
+                    <li><strong class="text-white">Dor e equipamento:</strong> ombro, cotovelo, joelho ou lombar trocam o padrão. No Perfil você marca halter, barra, máquina, cabo e elástico. O que não existe não aparece.</li>
                 </ul>
             </div>
 
-            <div class="glass-panel p-5 rounded-3xl border border-amber-500/40 space-y-3">
-                <div class="flex items-center gap-3 border-b border-slate-800 pb-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-black shrink-0"><i class="fas fa-stopwatch"></i></div>
-                    <div>
-                        <h3 class="text-sm font-black text-white">Relógio, radar e PDF (Fase 4)</h3>
-                        <span class="text-[10px] text-amber-400 font-bold">O dado entra certo · você leva para o profissional</span>
-                    </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">
-                    Depois do treino, na aba Histórico, envie o arquivo do relógio (<strong class="text-white">.FIT, .GPX ou .TCX</strong> — Garmin, Zepp, Strava). O app lê tempo, km, pace, FC, cadência, subida e os <strong class="text-white">minutos reais em cada zona</strong>. Print de tela continua como plano B. O card do histórico muda com o esporte: calistenia = reps e RIR; corrida = pace, voltas, subida. Na aba Progresso: radar (Z1/Z2 e Z4 em % real, não “inflado”), ACWR, TRIMP e PDF de treino (não é exame médico).
-                </p>
+            <div class="glass-panel p-5 rounded-3xl border border-brand-500/30 space-y-2">
+                <h3 class="text-sm font-black text-white">Calistenia</h3>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Escada de flexão, remada, barra, agachamento, posterior e core. O dip conta no peito. A barra supinada é outro exercício, não a pronada. No timer, cada série anda sozinha, e o descanso também. A aula de HIIT é um dia separado, curta, no máximo uma vez na semana. Semana de adaptação, semana leve e eixo corrida ficam sem HIIT.</p>
+            </div>
+
+            <div class="glass-panel p-5 rounded-3xl border border-amber-500/30 space-y-2">
+                <h3 class="text-sm font-black text-white">Corrida</h3>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">A maior parte é leve. Tiro só aparece na semana forte, e some se a perna não recuperou. A primeira semana é caminhada-corrida. No dia leve pode entrar uma subida curta e, se sobrar tempo, panturrilha, ponte e prancha. Isso não conta como segundo tiro.</p>
+            </div>
+
+            <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-2">
+                <h3 class="text-sm font-black text-white">Musculação</h3>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Cada exercício guarda a própria carga. Supino, inclinado e crucifixo não dividem o mesmo número. Rosca e tríceps também não. A carga sobe quando o esforço sobra, e desce quando a série veio no limite. Agachamento pesado não cola num tiro pesado.</p>
+            </div>
+
+            <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
+                <h3 class="text-sm font-black text-white">Depois do treino</h3>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">O histórico guarda o que você fez. Se o relógio tiver arquivo, o app lê tempo, distância, pace e frequência. A avaliação da inteligência artificial fica na mesma sessão. Se a internet falhar, dá para pedir a avaliação depois. Uma sessão gravada errada pode ser apagada, e o treino seguinte é refeito.</p>
             </div>
         </div>
 
@@ -1553,7 +1538,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.0</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.2</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1571,6 +1556,17 @@
                         <input type="checkbox" id="prof-include-running" class="mt-0.5 accent-cyan-400" checked>
                         <span class="text-[11px] text-slate-300 font-medium">Incluir corrida na semana híbrida. Desmarque se o eixo for só força/calistenia.</span>
                     </label>
+                    <div class="mt-3 bg-dark-900 border border-slate-800 rounded-xl p-3 space-y-2">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">O que você tem para treinar</p>
+                        <p class="text-[10px] text-slate-500 leading-relaxed">O peso do corpo entra sempre. Desmarque o que você não tem. Se nada estiver salvo, o app libera tudo.</p>
+                        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
+                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="dumbbell"> Halter</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="barbell"> Barra</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="machine"> Máquina</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="cable"> Cabo / polia</label>
+                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="band"> Elástico</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1659,11 +1655,15 @@
 
         <div id="tab-faq" class="space-y-3 hidden animate-fade-in pb-12">
             <div class="glass-panel p-5 rounded-3xl border border-brand-500/40">
-                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach v7.0</span>
+                <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider block">A.I Coach</span>
                 <h2 class="text-base font-black text-white mt-1">Perguntas frequentes</h2>
                 <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
             </div>
 
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Por que o peito tem mais de um exercício?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">O principal sobe de degrau. Os outros mudam o ângulo, como inclinado, crucifixo ou dip. Se o tempo for curto, ou se a semana já encheu aquele músculo, o app deixa só o principal. Marque no Perfil o que você tem: halter, barra, máquina, cabo, elástico.</p>
+            </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">A teia de volume substitui as barras?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed"><strong class="text-white">Não.</strong> As duas ficam na aba Treinamento. A teia é o equilíbrio: 100 é o meio da faixa ideal de cada músculo. A barra mostra quantas séries foram e se está abaixo do mínimo, no ideal ou no teto.</p>
@@ -2392,13 +2392,15 @@
         posterior:  { mev: 6,  mavLow: 10, mavHigh: 16, mrv: 20 },
         ombros:     { mev: 8,  mavLow: 12, mavHigh: 20, mrv: 26 },
         bracos:     { mev: 6,  mavLow: 8,  mavHigh: 14, mrv: 18 },
-        core:       { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 }
+        panturrilha: { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 }
     };
 
     const RUN_TEMPLATES = [
         { id: 'run_z2_easy', name: 'Rodagem Z1/Z2', focus: 'Base aeróbica fácil', svg: 'run_easy', allowZ4: false },
         { id: 'run_z2_long', name: 'Longão Z2', focus: 'Resistência aeróbica', svg: 'run_long', allowZ4: false },
         { id: 'run_strides', name: 'Z2 + passadas', focus: 'Técnica solta no final', svg: 'run_easy', allowZ4: false },
+        { id: 'run_hills', name: 'Leve + subidas curtas', focus: 'Força leve, sem tiro', svg: 'run_easy', allowZ4: false },
+        { id: 'run_walk', name: 'Caminhada-corrida', focus: 'Semana 0 e volta', svg: 'run_easy', allowZ4: false },
         { id: 'run_z4_vo2', name: 'Intervalado Z4', focus: 'VO2 — só semana 3', svg: 'run_int', allowZ4: true },
         { id: 'run_z5_short', name: 'Tiros curtos Z5', focus: 'Potência — raro', svg: 'run_int', allowZ4: true },
         { id: 'run_test', name: 'Teste 3 ou 5 km', focus: 'Âncora de pace', svg: 'run_test', allowZ4: true }
@@ -2409,40 +2411,77 @@
         { id:'cal_push_incline', family:'push', sport:'Calistenia', group:'peitoral', rung:1, week0:true, unlockReps:10, name:'Flexão inclinada', svg:'push_incline', aliases:'flexao inclinada|incline push' },
         { id:'cal_push_knee', family:'push', sport:'Calistenia', group:'peitoral', rung:2, week0:true, unlockReps:10, name:'Flexão de joelhos', svg:'push_knee', aliases:'flexao de joelho|knee push' },
         { id:'cal_push_floor', family:'push', sport:'Calistenia', group:'peitoral', rung:3, week0:true, unlockReps:12, name:'Flexão no chão', svg:'push_floor', aliases:'flexao|flexao no chao|push-up|pushup|push up' },
-        { id:'cal_push_decline', family:'push', sport:'Calistenia', group:'peitoral', rung:4, week0:false, unlockReps:12, name:'Flexão pés elevados', svg:'push_decline', aliases:'flexao pes elevados|decline push|pes no banco' },
-        { id:'cal_push_archer', family:'push', sport:'Calistenia', group:'peitoral', rung:5, week0:false, unlockReps:8, name:'Flexão archer', svg:'push_archer', aliases:'archer push|flexao archer|typewriter' },
-        { id:'cal_diamond', family:'diamond', sport:'Calistenia', group:'bracos', rung:3, week0:true, unlockReps:10, name:'Flexão diamante', svg:'push_floor', aliases:'flexao diamante|diamond push|pegada fechada' },
-        { id:'cal_row_high', family:'pull', sport:'Calistenia', group:'costas', rung:0, week0:true, unlockReps:10, name:'Australiana barra alta', svg:'pull_au', aliases:'australiana alta|inverted row high' },
-        { id:'cal_row_low', family:'pull', sport:'Calistenia', group:'costas', rung:1, week0:true, unlockReps:10, name:'Australiana barra baixa', svg:'pull_au', aliases:'australiana|remada invertida|inverted row' },
-        { id:'cal_pull_neg', family:'pull', sport:'Calistenia', group:'costas', rung:2, week0:true, unlockReps:5, name:'Barra negativa', svg:'pull_neg', aliases:'barra negativa|negative pull' },
-        { id:'cal_pull_up', family:'pull', sport:'Calistenia', group:'costas', rung:3, week0:true, unlockReps:8, name:'Barra pronada', svg:'pull_up', aliases:'barra fixa|barra|pull-up|pullup|pull up|chin up|chin-up|barra supinada' },
-        { id:'cal_pull_ctb', family:'pull', sport:'Calistenia', group:'costas', rung:4, week0:false, unlockReps:6, name:'Barra peito na barra', svg:'pull_ctb', aliases:'chest to bar|peito na barra|ctb' },
-        { id:'cal_dip_bench', family:'dip', sport:'Calistenia', group:'bracos', rung:0, week0:true, unlockReps:10, name:'Dip no banco', svg:'dip_bench', aliases:'dip banco|bench dip' },
-        { id:'cal_dip_para', family:'dip', sport:'Calistenia', group:'bracos', rung:1, week0:true, unlockReps:8, name:'Dip nas paralelas', svg:'dip_para', aliases:'dip|mergulho|paralela|dips' },
-        { id:'cal_pike', family:'pike', sport:'Calistenia', group:'ombros', rung:0, week0:true, unlockReps:8, name:'Pike no chão', svg:'pike', aliases:'pike|flexao pike' },
-        { id:'cal_pike_feet', family:'pike', sport:'Calistenia', group:'ombros', rung:1, week0:false, unlockReps:6, name:'Pike pés elevados', svg:'pike', aliases:'pike elevado|pike pes' },
-        { id:'cal_hspu_wall', family:'pike', sport:'Calistenia', group:'ombros', rung:2, week0:false, unlockReps:5, name:'HSPU na parede', svg:'hspu', aliases:'hspu|handstand push|parada de maos flexao' },
-        { id:'cal_squat', family:'leg', sport:'Calistenia', group:'quadriceps', rung:1, week0:true, unlockReps:12, name:'Agachamento livre', svg:'squat', aliases:'agachamento|squat|air squat' },
-        { id:'cal_lunge', family:'leg', sport:'Calistenia', group:'quadriceps', rung:2, week0:true, unlockReps:10, name:'Afundo', svg:'lunge', aliases:'afundo|lunge|passada' },
-        { id:'cal_bulgarian', family:'leg', sport:'Calistenia', group:'quadriceps', rung:3, week0:false, unlockReps:8, name:'Agachamento búlgaro', svg:'lunge', aliases:'bulgaro|bulgarian split' },
-        { id:'cal_pistol_a', family:'leg', sport:'Calistenia', group:'quadriceps', rung:4, week0:false, unlockReps:5, name:'Pistol assistido', svg:'pistol', aliases:'pistol|agachamento pistola' },
-        { id:'cal_bridge', family:'hinge', sport:'Calistenia', group:'posterior', rung:0, week0:true, unlockReps:12, name:'Ponte de glúteo', svg:'hinge', aliases:'ponte de gluteo|glute bridge|elevacao pelvica' },
-        { id:'cal_thrust1', family:'hinge', sport:'Calistenia', group:'posterior', rung:1, week0:true, unlockReps:8, name:'Hip thrust a 1 perna', svg:'hinge', aliases:'hip thrust|ponte unilateral' },
-        { id:'cal_nordic_a', family:'hinge', sport:'Calistenia', group:'posterior', rung:2, week0:false, unlockReps:5, name:'Nordic assistido', svg:'nordic', aliases:'nordic|nordico|curl nordico' },
-        { id:'cal_plank', family:'core', sport:'Calistenia', group:'core', rung:0, week0:true, unlockReps:0, name:'Prancha', svg:'plank', aliases:'prancha|plank' },
-        { id:'cal_hollow', family:'core', sport:'Calistenia', group:'core', rung:1, week0:true, unlockReps:0, name:'Hollow hold', svg:'hollow', aliases:'hollow|hollow rock|hollow body' },
-        { id:'cal_lsit_tuck', family:'core', sport:'Calistenia', group:'core', rung:2, week0:false, unlockReps:0, name:'L-sit tuck', svg:'lsit', aliases:'l-sit|lsit|l sit' },
-        { id:'cal_hang_knee', family:'core', sport:'Calistenia', group:'core', rung:3, week0:true, unlockReps:8, name:'Elevação de joelhos na barra', svg:'pull_neg', aliases:'elevacao de joelho|hanging knee|toes to bar|t2b' },
-        { id:'gym_goblet', family:'squat', sport:'Musculação', group:'quadriceps', rung:0, week0:true, unlockReps:10, name:'Agachamento goblet', svg:'squat', aliases:'goblet|agachamento goblet|agachamento halter' },
-        { id:'gym_squat', family:'squat', sport:'Musculação', group:'quadriceps', rung:1, week0:true, unlockReps:8, name:'Agachamento barra', svg:'squat', aliases:'agachamento|squat|back squat|hack|leg press|agachamento livre' },
-        { id:'gym_rdl', family:'hinge', sport:'Musculação', group:'posterior', rung:0, week0:true, unlockReps:8, name:'Stiff / RDL', svg:'hinge', aliases:'stiff|rdl|romanian|terra|deadlift|levantamento terra|good morning' },
-        { id:'gym_lunge', family:'lunge', sport:'Musculação', group:'quadriceps', rung:1, week0:true, unlockReps:8, name:'Afundo / búlgaro', svg:'lunge', aliases:'afundo|lunge|bulgaro|passada' },
-        { id:'gym_bench', family:'hpush', sport:'Musculação', group:'peitoral', rung:1, week0:true, unlockReps:8, name:'Supino', svg:'bench', aliases:'supino|bench|crucifixo|crossover|pec deck|voador|flexao halter|press banco' },
-        { id:'gym_ohp', family:'vpush', sport:'Musculação', group:'ombros', rung:1, week0:true, unlockReps:8, name:'Desenvolvimento', svg:'ohp', aliases:'desenvolvimento|overhead|ohp|militar|elevacao lateral|ombro' },
-        { id:'gym_row', family:'hpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, name:'Remada', svg:'row', aliases:'remada|row|serrote|remada curvada|remada baixa' },
-        { id:'gym_pulldown', family:'vpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, name:'Puxada / barra', svg:'pulldown', aliases:'puxada|pulldown|lat|barra fixa|pull-up|pullup' },
-        { id:'gym_arm', family:'arm', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, name:'Rosca / tríceps', svg:'curl', aliases:'rosca|triceps|curl|frances|testa|kickback|paralela|dip' },
-        { id:'gym_core', family:'core', sport:'Musculação', group:'core', rung:0, week0:true, unlockReps:0, name:'Prancha / core', svg:'plank', aliases:'prancha|abdominal|hollow|ab wheel|roda' },
+        { id:'cal_push_decline', family:'push', sport:'Calistenia', group:'peitoral', rung:4, week0:false, unlockReps:12, role:'main', equipment:'body', name:'Flexão pés elevados', svg:'push_decline', aliases:'flexao pes elevados|decline push|pes no banco' },
+        { id:'cal_push_archer', family:'push', sport:'Calistenia', group:'peitoral', rung:5, week0:false, unlockReps:8, role:'main', equipment:'body', name:'Flexão archer', svg:'push_archer', aliases:'archer push|flexao archer|typewriter' },
+        { id:'cal_push_wide', family:'push_wide', sport:'Calistenia', group:'peitoral', rung:3, minRung:3, week0:true, unlockReps:10, role:'accessory', parentFamily:'push', equipment:'body', name:'Flexão aberta', svg:'push_floor', aliases:'flexao aberta|wide push|pegada aberta' },
+        { id:'cal_push_pause', family:'push_pause', sport:'Calistenia', group:'peitoral', rung:3, minRung:3, week0:true, unlockReps:8, role:'accessory', parentFamily:'push', equipment:'body', name:'Flexão com pausa', svg:'push_floor', aliases:'flexao com pausa|pause push|flexao pausa' },
+        { id:'cal_diamond', family:'diamond', sport:'Calistenia', group:'bracos', rung:3, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Flexão diamante', svg:'push_floor', aliases:'flexao diamante|diamond push|pegada fechada' },
+        { id:'cal_tri_bench', family:'tri_bench', sport:'Calistenia', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'diamond', equipment:'body', name:'Extensão de tríceps no banco', svg:'dip_bench', aliases:'extensao de triceps|triceps no banco|triceps banco' },
+        { id:'cal_row_high', family:'row', sport:'Calistenia', group:'costas', rung:0, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Australiana barra alta', svg:'pull_au', aliases:'australiana alta|inverted row high|australiana barra alta' },
+        { id:'cal_row_low', family:'row', sport:'Calistenia', group:'costas', rung:1, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Australiana barra baixa', svg:'pull_au', aliases:'australiana|remada invertida|inverted row|australiana barra baixa' },
+        { id:'cal_pull_neg', family:'pull', sport:'Calistenia', group:'costas', rung:2, week0:true, unlockReps:5, role:'main', equipment:'body', name:'Barra negativa', svg:'pull_neg', aliases:'barra negativa|negative pull' },
+        { id:'cal_pull_up', family:'pull', sport:'Calistenia', group:'costas', rung:3, week0:true, unlockReps:8, role:'main', equipment:'body', name:'Barra pronada', svg:'pull_up', aliases:'barra fixa pronada|barra pronada|pull-up|pullup|pull up' },
+        { id:'cal_pull_ctb', family:'pull', sport:'Calistenia', group:'costas', rung:4, week0:false, unlockReps:6, role:'main', equipment:'body', name:'Barra peito na barra', svg:'pull_ctb', aliases:'chest to bar|peito na barra|ctb' },
+        { id:'cal_chin', family:'chin', sport:'Calistenia', group:'costas', rung:3, minRung:2, week0:false, unlockReps:6, role:'accessory', parentFamily:'pull', equipment:'body', name:'Barra supinada', svg:'pull_up', aliases:'barra supinada|chin up|chin-up|chinup|pegada supinada' },
+        { id:'cal_band_row', family:'band_row', sport:'Calistenia', group:'costas', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'row', equipment:'band', name:'Remada com elástico', svg:'row', aliases:'remada com elastico|band row|elastico remada' },
+        { id:'cal_dip_bench', family:'dip', sport:'Calistenia', group:'peitoral', rung:0, minRung:1, week0:true, unlockReps:10, role:'accessory', parentFamily:'push', equipment:'body', name:'Dip no banco', svg:'dip_bench', aliases:'dip banco|bench dip|dip no banco' },
+        { id:'cal_dip_para', family:'dip', sport:'Calistenia', group:'peitoral', rung:1, minRung:3, week0:true, unlockReps:8, role:'accessory', parentFamily:'push', equipment:'body', name:'Dip nas paralelas', svg:'dip_para', aliases:'dip nas paralelas|mergulho|paralela|dips' },
+        { id:'cal_pike', family:'pike', sport:'Calistenia', group:'ombros', rung:0, week0:true, unlockReps:8, role:'main', equipment:'body', name:'Pike no chão', svg:'pike', aliases:'pike|flexao pike|pike no chao' },
+        { id:'cal_pike_feet', family:'pike', sport:'Calistenia', group:'ombros', rung:1, week0:false, unlockReps:6, role:'main', equipment:'body', name:'Pike pés elevados', svg:'pike', aliases:'pike elevado|pike pes|pike pes elevados' },
+        { id:'cal_hspu_wall', family:'pike', sport:'Calistenia', group:'ombros', rung:2, week0:false, unlockReps:5, role:'main', equipment:'body', name:'HSPU na parede', svg:'hspu', aliases:'hspu|handstand push|parada de maos flexao' },
+        { id:'cal_band_lateral', family:'lateral', sport:'Calistenia', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'pike', equipment:'band', name:'Elevação lateral com elástico', svg:'ohp', aliases:'elevacao lateral elastico|lateral band|elastico lateral' },
+        { id:'cal_band_face', family:'rear', sport:'Calistenia', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'pike', equipment:'band', name:'Face pull com elástico', svg:'row', aliases:'face pull elastico|facepull elastico|elastico face pull' },
+        { id:'cal_squat_box', family:'leg', sport:'Calistenia', group:'quadriceps', rung:0, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Agachamento na caixa', svg:'squat', aliases:'agachamento na caixa|box squat|agachamento sentar' },
+        { id:'cal_squat', family:'leg', sport:'Calistenia', group:'quadriceps', rung:1, week0:true, unlockReps:12, role:'main', equipment:'body', name:'Agachamento livre', svg:'squat', aliases:'agachamento livre|air squat|agachamento' },
+        { id:'cal_lunge', family:'leg', sport:'Calistenia', group:'quadriceps', rung:2, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Afundo', svg:'lunge', aliases:'afundo|lunge|passada' },
+        { id:'cal_bulgarian', family:'leg', sport:'Calistenia', group:'quadriceps', rung:3, week0:false, unlockReps:8, role:'main', equipment:'body', name:'Agachamento búlgaro', svg:'lunge', aliases:'bulgaro|bulgarian split|agachamento bulgaro' },
+        { id:'cal_pistol_a', family:'leg', sport:'Calistenia', group:'quadriceps', rung:4, week0:false, unlockReps:5, role:'main', equipment:'body', name:'Pistol assistido', svg:'pistol', aliases:'pistol|agachamento pistola' },
+        { id:'cal_sumo', family:'sumo', sport:'Calistenia', group:'quadriceps', rung:1, minRung:1, week0:true, unlockReps:12, role:'accessory', parentFamily:'leg', equipment:'body', name:'Agachamento sumô', svg:'squat', aliases:'agachamento sumo|sumo squat|sumo' },
+        { id:'cal_wall_sit', family:'wall', sport:'Calistenia', group:'quadriceps', rung:0, minRung:0, week0:true, unlockReps:0, role:'accessory', parentFamily:'leg', equipment:'body', name:'Wall sit', svg:'squat', aliases:'wall sit|agachamento isometria|sentar na parede' },
+        { id:'cal_bridge', family:'hinge', sport:'Calistenia', group:'posterior', rung:0, week0:true, unlockReps:12, role:'main', equipment:'body', name:'Ponte de glúteo', svg:'hinge', aliases:'ponte de gluteo|glute bridge|elevacao pelvica' },
+        { id:'cal_thrust1', family:'hinge', sport:'Calistenia', group:'posterior', rung:1, week0:true, unlockReps:8, role:'main', equipment:'body', name:'Hip thrust a 1 perna', svg:'hinge', aliases:'hip thrust|ponte unilateral' },
+        { id:'cal_nordic_a', family:'hinge', sport:'Calistenia', group:'posterior', rung:2, week0:false, unlockReps:5, role:'main', equipment:'body', name:'Nordic assistido', svg:'nordic', aliases:'nordic|nordico|curl nordico' },
+        { id:'cal_calf', family:'calf', sport:'Calistenia', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'body', name:'Panturrilha em pé', svg:'squat', aliases:'panturrilha|panturrilha em pe|calf raise' },
+        { id:'cal_plank', family:'core', sport:'Calistenia', group:'core', rung:0, week0:true, unlockReps:0, role:'main', equipment:'body', name:'Prancha', svg:'plank', aliases:'prancha|plank' },
+        { id:'cal_hollow', family:'core', sport:'Calistenia', group:'core', rung:1, week0:true, unlockReps:0, role:'main', equipment:'body', name:'Hollow hold', svg:'hollow', aliases:'hollow|hollow rock|hollow body' },
+        { id:'cal_lsit_tuck', family:'core', sport:'Calistenia', group:'core', rung:2, week0:false, unlockReps:0, role:'main', equipment:'body', name:'L-sit tuck', svg:'lsit', aliases:'l-sit|lsit|l sit' },
+        { id:'cal_hang_knee', family:'core', sport:'Calistenia', group:'core', rung:3, week0:true, unlockReps:8, role:'main', equipment:'body', name:'Elevação de joelhos na barra', svg:'pull_neg', aliases:'elevacao de joelho|hanging knee|toes to bar|t2b' },
+        { id:'cal_side_plank', family:'side_plank', sport:'Calistenia', group:'core', rung:0, minRung:0, week0:true, unlockReps:0, role:'accessory', parentFamily:'core', equipment:'body', name:'Prancha lateral', svg:'plank', aliases:'prancha lateral|side plank' },
+        { id:'cal_deadbug', family:'deadbug', sport:'Calistenia', group:'core', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'core', equipment:'body', name:'Dead bug', svg:'hollow', aliases:'dead bug|deadbug|inseto morto' },
+        { id:'gym_goblet', family:'squat', sport:'Musculação', group:'quadriceps', rung:0, week0:true, unlockReps:10, role:'main', equipment:'dumbbell', name:'Agachamento goblet', svg:'squat', aliases:'goblet|agachamento goblet|agachamento halter' },
+        { id:'gym_squat', family:'squat', sport:'Musculação', group:'quadriceps', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Agachamento barra', svg:'squat', aliases:'agachamento barra|back squat|agachamento livre barra' },
+        { id:'gym_legpress', family:'legpress', sport:'Musculação', group:'quadriceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'squat', equipment:'machine', name:'Leg press', svg:'squat', aliases:'leg press|legpress|prensa' },
+        { id:'gym_hack', family:'hack', sport:'Musculação', group:'quadriceps', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'squat', equipment:'machine', name:'Hack', svg:'squat', aliases:'hack|hack squat|agachamento hack' },
+        { id:'gym_ext', family:'ext', sport:'Musculação', group:'quadriceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'squat', equipment:'machine', name:'Cadeira extensora', svg:'squat', aliases:'extensora|cadeira extensora|leg extension' },
+        { id:'gym_lunge', family:'lunge', sport:'Musculação', group:'quadriceps', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'squat', equipment:'dumbbell', name:'Afundo com halter', svg:'lunge', aliases:'afundo com halter|afundo halter|passada com halter' },
+        { id:'gym_rdl', family:'hinge', sport:'Musculação', group:'posterior', rung:0, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Stiff / RDL', svg:'hinge', aliases:'stiff|rdl|romanian|stiff halter' },
+        { id:'gym_deadlift', family:'hinge_dl', sport:'Musculação', group:'posterior', rung:1, week0:false, unlockReps:5, role:'main', equipment:'barbell', name:'Levantamento terra', svg:'hinge', aliases:'levantamento terra|deadlift|terra convencional' },
+        { id:'gym_curl_leg', family:'legcurl', sport:'Musculação', group:'posterior', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hinge', equipment:'machine', name:'Mesa flexora', svg:'hinge', aliases:'mesa flexora|flexora|leg curl' },
+        { id:'gym_hip', family:'hip', sport:'Musculação', group:'posterior', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hinge', equipment:'barbell', name:'Hip thrust com barra', svg:'hinge', aliases:'hip thrust com barra|thrust com barra|elevacao pelvica barra' },
+        { id:'gym_bench', family:'hpush', sport:'Musculação', group:'peitoral', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Supino reto', svg:'bench', aliases:'supino reto|supino barra|bench press|supino' },
+        { id:'gym_incline', family:'incline', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hpush', equipment:'dumbbell', name:'Supino inclinado', svg:'bench', aliases:'supino inclinado|incline press|inclinado halter' },
+        { id:'gym_fly', family:'fly', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpush', equipment:'dumbbell', name:'Crucifixo', svg:'bench', aliases:'crucifixo|pec deck|voador|crossover|crossover cabo' },
+        { id:'gym_ohp', family:'vpush', sport:'Musculação', group:'ombros', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Desenvolvimento', svg:'ohp', aliases:'desenvolvimento|overhead|ohp|militar' },
+        { id:'gym_lateral', family:'lateral', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Elevação lateral', svg:'ohp', aliases:'elevacao lateral|lateral raise|elevacao lateral halter' },
+        { id:'gym_lateral_band', family:'lateral', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'band', name:'Elevação lateral com elástico', svg:'ohp', aliases:'elevacao lateral com elastico|lateral elastico' },
+        { id:'gym_rear', family:'rear', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Crucifixo inverso', svg:'row', aliases:'crucifixo inverso|rear delt|elevacao posterior' },
+        { id:'gym_face', family:'rear', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'cable', name:'Face pull', svg:'row', aliases:'face pull|facepull|puxada face' },
+        { id:'gym_row', family:'hpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Remada curvada', svg:'row', aliases:'remada curvada|remada barra|remada' },
+        { id:'gym_row_db', family:'row_db', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hpull', equipment:'dumbbell', name:'Serrote', svg:'row', aliases:'serrote|remada unilateral|remada halter' },
+        { id:'gym_row_cable', family:'row_cable', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpull', equipment:'cable', name:'Remada no cabo', svg:'row', aliases:'remada no cabo|remada baixa|remada cabo' },
+        { id:'gym_pulldown', family:'vpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, role:'main', equipment:'cable', name:'Puxada', svg:'pulldown', aliases:'puxada|pulldown|puxada frontal' },
+        { id:'gym_pullup', family:'vpull_bw', sport:'Musculação', group:'costas', rung:2, minRung:1, week0:false, unlockReps:6, role:'accessory', parentFamily:'vpull', equipment:'body', name:'Barra pronada', svg:'pull_up', aliases:'barra pronada musculacao|pull-up musculacao' },
+        { id:'gym_arm', family:'curl', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'dumbbell', name:'Rosca direta', svg:'curl', aliases:'rosca direta|rosca|curl|rosca alternada' },
+        { id:'gym_hammer', family:'hammer', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'curl', equipment:'dumbbell', name:'Rosca martelo', svg:'curl', aliases:'rosca martelo|hammer curl|martelo' },
+        { id:'gym_curl_band', family:'curl_band', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'band', name:'Rosca com elástico', svg:'curl', aliases:'rosca com elastico|band curl|rosca elastico' },
+        { id:'gym_skull', family:'tri', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'barbell', name:'Tríceps testa', svg:'curl', aliases:'triceps testa|skull crusher|testa' },
+        { id:'gym_pressdown', family:'pressdown', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'cable', name:'Tríceps na polia', svg:'curl', aliases:'triceps na polia|triceps corda|pressdown|pulley triceps' },
+        { id:'gym_kick', family:'kick', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'dumbbell', name:'Tríceps coice', svg:'curl', aliases:'triceps coice|kickback|coice' },
+        { id:'gym_core', family:'core', sport:'Musculação', group:'core', rung:0, week0:true, unlockReps:0, role:'main', equipment:'body', name:'Prancha', svg:'plank', aliases:'prancha|abdominal na prancha' },
+        { id:'gym_wheel', family:'wheel', sport:'Musculação', group:'core', rung:1, minRung:0, week0:false, unlockReps:8, role:'accessory', parentFamily:'core', equipment:'body', name:'Roda abdominal', svg:'hollow', aliases:'roda abdominal|ab wheel|roda' },
+        { id:'gym_raise', family:'raise', sport:'Musculação', group:'core', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'core', equipment:'body', name:'Elevação de pernas', svg:'hollow', aliases:'elevacao de pernas|leg raise|elevacao de perna' },
+        { id:'gym_calf', family:'calf', sport:'Musculação', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'machine', name:'Panturrilha em pé', svg:'squat', aliases:'panturrilha em pe|panturrilha maquina|calf raise' },
+        { id:'gym_calf_seat', family:'calf_seat', sport:'Musculação', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'machine', name:'Panturrilha sentada', svg:'squat', aliases:'panturrilha sentada|seated calf' },
         { id:'cal_hiit_jack', family:'hiit', sport:'Calistenia', group:'core', rung:0, week0:false, unlockReps:0, name:'Polichinelo', svg:'hiit', aliases:'polichinelo|jumping jack|jumpingjack' },
         { id:'cal_hiit_knees', family:'hiit', sport:'Calistenia', group:'quadriceps', rung:0, week0:false, unlockReps:0, name:'Elevação de joelhos no lugar', svg:'hiit', aliases:'high knees|joelho alto|elevacao de joelhos no lugar' },
         { id:'cal_hiit_climber', family:'hiit', sport:'Calistenia', group:'core', rung:1, week0:false, unlockReps:0, name:'Escalador', svg:'hiit', aliases:'escalador|mountain climber|mountainclimber' },
@@ -2486,25 +2525,180 @@
     function catalogFamilyDefault(sport, group) {
         if (sport === 'Corrida') return null;
         if (sport === 'Calistenia') {
-            return { peitoral:'push', costas:'pull', bracos:'dip', ombros:'pike', quadriceps:'leg', posterior:'hinge', core:'core' }[group] || 'push';
+            return { peitoral:'push', costas:'pull', bracos:'diamond', ombros:'pike', quadriceps:'leg', posterior:'hinge', core:'core', panturrilha:'calf' }[group] || 'push';
         }
-        return { peitoral:'hpush', costas:'hpull', ombros:'vpush', quadriceps:'squat', posterior:'hinge', bracos:'arm', core:'core' }[group] || 'squat';
+        return { peitoral:'hpush', costas:'hpull', ombros:'vpush', quadriceps:'squat', posterior:'hinge', bracos:'curl', core:'core', panturrilha:'calf' }[group] || 'squat';
     }
 
-    const CATALOG_STANDARD_RUNG = { push:3, pull:3, dip:1, pike:0, leg:1, hinge:1, core:1, diamond:3, squat:1, hpush:1, vpush:1, hpull:1, vpull:1, lunge:1, arm:1 };
+    const CATALOG_STANDARD_RUNG = { push:3, pull:3, row:1, dip:1, pike:0, leg:1, hinge:1, core:1, diamond:3, squat:1, hpush:1, vpush:1, hpull:1, vpull:1, lunge:1, curl:1, tri:1, chin:1, calf:0, lateral:1, hinge_dl:1 };
+
+    function equipmentOk(entry) {
+        if (!entry) return false;
+        const need = entry.equipment || 'body';
+        if (need === 'body') return true;
+        const eq = userData && userData.equipment;
+        if (!eq || !eq.length) return true;
+        return eq.includes(need);
+    }
+
+    function entryAllowed(entry, sport, joints) {
+        if (!entry || entry.family === 'hiit') return entry && entry.family === 'hiit';
+        if (sport && entry.sport !== sport) return false;
+        if (!equipmentOk(entry)) return false;
+        if (typeof isWeek0 === 'function' && isWeek0() && entry.week0 === false) return false;
+        const parent = entry.parentFamily || entry.family;
+        if (familyBlockedByPain(parent, joints) || familyBlockedByPain(entry.family, joints)) return false;
+        const cap = athleteRungCap(parent, entry.sport, joints);
+        const rung = entry.role === 'accessory' ? (entry.minRung != null ? entry.minRung : 0) : entry.rung;
+        return rung <= cap;
+    }
+
+    function pickAccessory(group, sport, used, joints, preferFamily) {
+        let pool = EX_CATALOG.filter(e => e.role === 'accessory' && e.sport === sport && e.group === group && !used.has(e.id) && entryAllowed(e, sport, joints));
+        if (preferFamily) {
+            const pref = pool.filter(e => e.family === preferFamily || e.parentFamily === preferFamily);
+            if (pref.length) pool = pref;
+        }
+        return pool[0] || null;
+    }
+
+    function stampCatalogItem(item, entry) {
+        return {
+            ...item,
+            catalogId: entry.id,
+            family: entry.family,
+            role: entry.role || 'main',
+            name: entry.name,
+            targetGroup: entry.group
+        };
+    }
+
+    function pushAccessory(workout, entry) {
+        const item = {
+            type: 'work', name: entry.name, catalogId: entry.id, family: entry.family, role: 'accessory',
+            sets: 3, reps: entry.unlockReps || 10, rirTarget: 3, duration: entry.unlockReps ? 40 : 30,
+            restSeconds: 60, targetGroup: entry.group, roundInfo: 'complementar'
+        };
+        const rest = { type: 'rest', name: 'Descanso', duration: 60 };
+        const q = workout.queue;
+        const idx = q.findIndex(i => i && (i.phase === 'cooldown' || /volta a calma/.test(normExName(i.name || ''))));
+        if (idx < 0) q.push(item, rest);
+        else q.splice(idx, 0, item, rest);
+    }
+
+    function plannedSetsInQueue(workout, group) {
+        return (workout.queue || []).reduce((sum, item) => {
+            if (!item || item.type !== 'work') return sum;
+            const g = item.targetGroup || normalizeMuscleGroup(item.targetGroup, item.name);
+            if (g !== group) return sum;
+            return sum + (parseInt(item.sets, 10) || 3);
+        }, 0);
+    }
+
+    function ensureSessionVariety(workout, ss) {
+        if (!workout || workout.sessionKind === 'hiit' || workout.modality === 'Corrida') return;
+        const sport = workout.modality || 'Calistenia';
+        const joints = (ss && ss.joint_stress_index) || {};
+        const weekly = (ss && ss.weekly_effective_sets) || {};
+        const mins = parseInt(workout.estimatedMinutes || (userData && userData.mins) || 45, 10);
+        const maxWorks = Math.max(3, Math.round(mins / 8));
+        const used = new Set((workout.queue || []).map(q => q && q.catalogId).filter(Boolean));
+        const workCount = () => (workout.queue || []).filter(q => q && q.type === 'work' && exerciseKind(q) !== 'prep').length;
+        const groups = {};
+        (workout.queue || []).forEach(q => {
+            if (!q || q.type !== 'work' || exerciseKind(q) === 'prep' || q.family === 'hiit') return;
+            const g = q.targetGroup || 'outros';
+            if (!VOLUME_LANDMARKS[g]) return;
+            groups[g] = groups[g] || [];
+            groups[g].push(q);
+        });
+        const ranked = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+        const addOne = (group, prefer) => {
+            if (workCount() >= maxWorks) return false;
+            const lm = VOLUME_LANDMARKS[group];
+            const already = (weekly[group] || 0) + plannedSetsInQueue(workout, group);
+            if (lm && already + 3 > lm.mrv) return false;
+            const acc = pickAccessory(group, sport, used, joints, prefer);
+            if (!acc) return false;
+            used.add(acc.id);
+            pushAccessory(workout, acc);
+            groups[group] = groups[group] || [];
+            groups[group].push(acc);
+            return true;
+        };
+        const addMain = (family, group) => {
+            if (workCount() >= maxWorks) return false;
+            const e = pickCatalogForFamily(family, sport, (ss && ss.last_lifts) || {}, joints);
+            if (!e || used.has(e.id)) return false;
+            const lm = VOLUME_LANDMARKS[group];
+            const already = (weekly[group] || 0) + plannedSetsInQueue(workout, group);
+            if (lm && already + 3 > lm.mrv) return false;
+            used.add(e.id);
+            pushAccessory(workout, { ...e, role: 'main' });
+            const stamped = { catalogId: e.id, family: e.family, id: e.id, targetGroup: e.group };
+            groups[group] = groups[group] || [];
+            groups[group].push(stamped);
+            return true;
+        };
+        if ((groups.costas || []).length && (ranked[0] === 'costas' || mins >= 40)) {
+            const hasRow = groups.costas.some(q => q.family === 'row' || q.family === 'hpull');
+            const hasPull = groups.costas.some(q => q.family === 'pull' || q.family === 'vpull');
+            if (!hasRow) addMain(sport === 'Calistenia' ? 'row' : 'hpull', 'costas');
+            if (!hasPull) addMain(sport === 'Calistenia' ? 'pull' : 'vpull', 'costas');
+        }
+        ranked.forEach((g, idx) => {
+            const target = idx === 0 ? (mins >= 50 ? 4 : (mins >= 45 ? 3 : (mins >= 30 ? 2 : 1))) : (mins >= 50 ? 2 : 1);
+            let guard = 0;
+            while ((groups[g] ? new Set(groups[g].map(q => q.catalogId || q.id)).size : 0) < target && guard < 3) {
+                guard++;
+                if (!addOne(g)) break;
+            }
+        });
+        const primary = ranked[0];
+        const friend = { peitoral: 'bracos', costas: 'bracos', ombros: 'bracos' }[primary];
+        const recentChest = (() => {
+            const prev = (currentPlan && currentPlan.workouts || []).filter(w => w && w.isCompleted).slice(-1)[0];
+            if (!prev || !prev.completedAt && !prev.date) return false;
+            const when = new Date(prev.completedAt || prev.date).getTime();
+            if (!when || (Date.now() - when) > 36 * 3600 * 1000) return false;
+            return (prev.queue || []).some(q => (q.targetGroup || '') === 'peitoral');
+        })();
+        if (friend && mins >= 40 && !(groups[friend] || []).length && !familyBlockedByPain('curl', joints) && !familyBlockedByPain('tri', joints)) {
+            addOne(friend, primary === 'peitoral' ? 'tri' : 'curl');
+        }
+        if (ranked.includes('ombros') && recentChest) {
+            workout.queue = workout.queue.filter(q => !(q && q.role === 'accessory' && (q.family === 'vpush' || q.parentFamily === 'vpush') && /desenvolvimento|overhead/.test((q.name || '').toLowerCase())));
+        }
+    }
+
+    function appendRunnerSnack(workout) {
+        if (!workout || workout.modality !== 'Corrida') return;
+        const hard = workout.catalogId === 'run_z4_vo2' || workout.catalogId === 'run_z5_short' || workout.catalogId === 'run_test';
+        const mins = parseInt(workout.estimatedMinutes || (userData && userData.mins) || 30, 10);
+        if (hard || mins < 30 || (typeof isWeek0 === 'function' && isWeek0())) return;
+        const snack = ['cal_calf', 'cal_bridge', 'cal_side_plank'].map(id => EX_CATALOG.find(e => e.id === id)).filter(Boolean);
+        snack.forEach(entry => {
+            workout.queue.push({
+                type: 'work', name: entry.name, catalogId: entry.id, family: 'run_strength', role: 'accessory',
+                sets: 2, reps: entry.unlockReps || 12, rirTarget: 3, duration: 30, restSeconds: 30,
+                targetGroup: entry.group, roundInfo: 'força de corredor'
+            });
+            workout.queue.push({ type: 'rest', name: 'Descanso', duration: 30 });
+        });
+    }
 
     function familyBlockedByPain(family, joints) {
         if (!joints || typeof joints !== 'object') return false;
         const blob = JSON.stringify(joints).toLowerCase();
-        if (/ombro/.test(blob) && (family === 'pike' || family === 'dip' || family === 'vpush')) return true;
-        if (/cotovelo/.test(blob) && (family === 'pull' || family === 'arm' || family === 'dip' || family === 'vpull')) return true;
-        if (/joelho/.test(blob) && (family === 'leg' || family === 'lunge' || family === 'squat')) return true;
-        if (/lombar/.test(blob) && family === 'hinge') return true;
+        if (/ombro/.test(blob) && (family === 'pike' || family === 'dip' || family === 'vpush' || family === 'lateral' || family === 'hspu')) return true;
+        if (/cotovelo/.test(blob) && (family === 'pull' || family === 'chin' || family === 'curl' || family === 'tri' || family === 'diamond' || family === 'dip' || family === 'vpull' || family === 'arm' || family === 'pressdown')) return true;
+        if (/joelho/.test(blob) && (family === 'leg' || family === 'lunge' || family === 'squat' || family === 'ext' || family === 'hack')) return true;
+        if (/lombar/.test(blob) && (family === 'hinge' || family === 'hinge_dl' || family === 'hip')) return true;
         return false;
     }
 
     function athleteRungCap(family, sport, joints) {
-        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport).sort((a,b) => a.rung - b.rung);
+        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport && e.role !== 'accessory' && equipmentOk(e)).sort((a,b) => a.rung - b.rung);
         if (!rungs.length) return 0;
         let cap = rungs[rungs.length - 1].rung;
         if (typeof isWeek0 === 'function' && isWeek0()) {
@@ -2535,16 +2729,26 @@
             const fb = { pike:'push', dip:'push', vpush:'hpush', pull:'pull', vpull:'hpull', arm:'hpush', leg:'hinge', squat:'hinge', lunge:'hinge', hinge:'core' }[family];
             if (fb && fb !== family) return pickCatalogForFamily(fb, sport, lastLifts, null);
         }
-        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport).sort((a,b) => a.rung - b.rung);
+        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport && e.role !== 'accessory' && equipmentOk(e)).sort((a,b) => a.rung - b.rung);
         if (!rungs.length) return null;
         const cap = athleteRungCap(family, sport, joints);
+        let ladder = rungs.filter(r => r.rung <= cap);
+        if (typeof isWeek0 === 'function' && isWeek0()) {
+            const w0 = ladder.filter(r => r.week0 !== false);
+            ladder = w0;
+        }
+        if (!ladder.length) {
+            if (family === 'pull') return pickCatalogForFamily('row', sport, lastLifts, joints);
+            if (family === 'hinge_dl') return pickCatalogForFamily('hinge', sport, lastLifts, joints);
+            return null;
+        }
         let idx = 0;
-        for (let i = 0; i < rungs.length; i++) if (rungs[i].rung <= cap) idx = i;
-        const last = lastLifts && (lastLifts[family] || lastLifts[rungs[idx].id]);
+        for (let i = 0; i < ladder.length; i++) if (ladder[i].rung <= cap) idx = i;
+        const last = lastLifts && (lastLifts[family] || lastLifts[ladder[idx].id]);
         if (last) {
             const lastEntry = findCatalogByName(last.catalogId || last.name, sport);
             if (lastEntry && lastEntry.family === family) {
-                const li = rungs.findIndex(r => r.id === lastEntry.id);
+                const li = ladder.findIndex(r => r.id === lastEntry.id);
                 if (li >= 0) idx = li;
                 const rir = parseInt(last.rir, 10);
                 if (!isNaN(rir) && rir <= 0) idx = Math.max(0, idx - 1);
@@ -2552,15 +2756,15 @@
                     const hits = ((currentPlan || {}).catalogHits || {})[family] || 0;
                     const standard = CATALOG_STANDARD_RUNG[family] ?? 1;
                     const hasExtra = (parseFloat(last.addedLoadKg) || 0) > 0 || (parseFloat(last.weight) || 0) > 0;
-                    const atOrAboveStandard = rungs[idx].rung >= standard;
+                    const atOrAboveStandard = ladder[idx].rung >= standard;
                     if (hits >= 2 && (!atOrAboveStandard || hasExtra || sport === 'Musculação')) {
-                        idx = Math.min(rungs.length - 1, idx + 1);
+                        idx = Math.min(ladder.length - 1, idx + 1);
                     }
                 }
             }
         }
-        while (idx > 0 && rungs[idx].rung > cap) idx--;
-        return rungs[idx];
+        while (idx > 0 && ladder[idx].rung > cap) idx--;
+        return ladder[idx];
     }
 
     function mapRunTemplate(workout, ss) {
@@ -2571,10 +2775,13 @@
         else if (/z5|tiro curto|200 ?m|sprint/.test(blob)) id = 'run_z5_short';
         else if (/z4|vo2|4x4|interval|hiit/.test(blob)) id = 'run_z4_vo2';
         else if (/longao|long run|longo/.test(blob)) id = 'run_z2_long';
+        else if (/subida|hill/.test(blob)) id = 'run_hills';
+        else if (/caminhada/.test(blob)) id = 'run_walk';
         else if (/stride|passada solta/.test(blob)) id = 'run_strides';
         const t = RUN_TEMPLATES.find(x => x.id === id) || RUN_TEMPLATES[0];
         const allowHard = meso.allowZ4 !== false && !(typeof isWeek0 === 'function' && isWeek0());
-        if (t.allowZ4 && !allowHard) return RUN_TEMPLATES[0];
+        if ((typeof isWeek0 === 'function' && isWeek0()) && !t.allowZ4) return RUN_TEMPLATES.find(x => x.id === 'run_walk') || t;
+        if (t.allowZ4 && !allowHard) return RUN_TEMPLATES.find(x => x.id === 'run_z2_easy') || RUN_TEMPLATES[0];
         return t;
     }
 
@@ -2724,6 +2931,7 @@
                 }
                 return { ...item, catalogId: t.id, family: 'run' };
             });
+            appendRunnerSnack(workout);
             return workout;
         }
         if (workout.modality === 'Calistenia' && isHiitWorkout(workout)) {
@@ -2735,36 +2943,37 @@
             applyHiitTemplate(workout, ss);
             return workout;
         }
+        const usedIds = new Set();
+        const usedFamilies = new Set();
         workout.queue = workout.queue.map(item => {
             if (!item || item.type === 'rest') return item;
             if (exerciseKind(item) === 'prep') return item;
-            let entry = findCatalogByName(item.catalogId || item.name, sport) || findCatalogByName(item.name);
-            if (entry && entry.sport !== sport) {
-                const fam = catalogFamilyDefault(sport, entry.group);
-                entry = pickCatalogForFamily(fam, sport, lastLifts, joints) || entry;
+            let entry = findCatalogByName(item.catalogId || item.name, sport) || findCatalogByName(item.name, sport);
+            if (entry && !entryAllowed(entry, sport, joints)) {
+                const parent = entry.parentFamily || entry.family;
+                entry = entry.role === 'accessory'
+                    ? pickAccessory(entry.group, sport, usedIds, joints, parent)
+                    : pickCatalogForFamily(parent, sport, lastLifts, joints);
             }
-            if (entry) {
-                const cap = athleteRungCap(entry.family, entry.sport, joints);
-                if (entry.rung > cap || familyBlockedByPain(entry.family, joints)) {
-                    entry = pickCatalogForFamily(entry.family, entry.sport, lastLifts, joints) || entry;
-                }
-            } else {
+            if (!entry) {
                 const g = normalizeMuscleGroup(item.targetGroup, item.name);
                 const fam = catalogFamilyDefault(sport, g);
-                entry = pickCatalogForFamily(fam, sport, lastLifts, joints);
+                if (fam && usedFamilies.has(fam)) entry = pickAccessory(g, sport, usedIds, joints);
+                else entry = (fam && pickCatalogForFamily(fam, sport, lastLifts, joints)) || pickAccessory(g, sport, usedIds, joints);
             }
+            if (entry && entry.family !== 'hiit' && !entryAllowed(entry, sport, joints)) entry = null;
             if (!entry) return item;
-            if (entry.family === 'hiit') {
-                return { ...item, catalogId: entry.id, family: 'hiit', name: entry.name, targetGroup: entry.group };
+            if (usedIds.has(entry.id)) {
+                const alt = pickAccessory(entry.group, sport, usedIds, joints, entry.parentFamily || entry.family);
+                if (!alt) return null;
+                entry = alt;
             }
-            return {
-                ...item,
-                catalogId: entry.id,
-                family: entry.family,
-                name: entry.name,
-                targetGroup: entry.group
-            };
-        });
+            usedIds.add(entry.id);
+            if ((entry.role || 'main') !== 'accessory') usedFamilies.add(entry.family);
+            if (entry.family === 'hiit') return { ...item, catalogId: entry.id, family: 'hiit', name: entry.name, targetGroup: entry.group };
+            return stampCatalogItem(item, entry);
+        }).filter(Boolean);
+        ensureSessionVariety(workout, ss);
         return workout;
     }
 
@@ -2772,7 +2981,7 @@
         const lines = EX_CATALOG.map(e => `${e.id} | ${e.sport} | ${e.name} | ${e.group} | degrau ${e.rung}${e.family === 'hiit' ? ' | HIIT' : ''}`);
         const runs = RUN_TEMPLATES.map(t => `${t.id} | Corrida | ${t.name}`);
         const hiits = HIIT_TEMPLATES.map(t => `${t.id} | Calistenia HIIT | ${t.name}`);
-        return `16. CATÁLOGO FECHADO: use SOMENTE estes ids/nomes. Proibido inventar (planche, lever, muscle-up, HSPU livre, máquina fantasma). Não pule degrau acima da âncora. Extra/colete no mesmo id. Corrida: só os 6 templates. HIIT: sessão própria (Aula HIIT), só family hiit, respeite hiit_budget.\nCALISTENIA/MUSCULAÇÃO:\n${lines.join('\n')}\nCORRIDA:\n${runs.join('\n')}\nAULA HIIT:\n${hiits.join('\n')}`;
+        return `16. CATÁLOGO FECHADO: use SOMENTE estes ids. 1 principal por padrão e 2 a 3 complementares do mesmo músculo. Não junte supino, crucifixo e inclinado no mesmo nome. Não pule degrau. Sem planche, lever, muscle-up ou HSPU livre. Corrida: só os templates. HIIT: sessão própria.\nCALISTENIA/MUSCULAÇÃO:\n${lines.join('\n')}\nCORRIDA:\n${runs.join('\n')}\nAULA HIIT:\n${hiits.join('\n')}`;
     }
 
     function coachingPromptTail() {
@@ -2796,7 +3005,7 @@
     13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.
     14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
     15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.
-    16. CATÁLOGO: só exercícios da lista fechada (ids). Sem planche/lever/muscle-up/HSPU livre. Corrida só nos 6 templates. Degrau ≤ âncora.
+    16. CATÁLOGO: 1 principal por padrão e complementares com id próprio (supino ≠ crucifixo ≠ inclinado; pronada ≠ supinada; leg press ≠ agachamento). Sem planche/lever/muscle-up/HSPU livre. O código corta se passar do MRV.
     17. AULA HIIT (peso do corpo): sessão PRÓPRIA, 15–20 min, só ids family=hiit. 1×/semana (2× só se hiit_budget>=2 e mesocycle_week===3). hiit_budget===0 (semana 0, deload, ACWR alto, eixo Corrida, queda de FC): ZERO HIIT. Não misturar burpee no meio de barra/flexão. Burpee completo só se joelho e ombro ok — senão burpee sem salto / polichinelo.`;
 
     let currentUser = null;
@@ -3094,6 +3303,7 @@
     function categorizeMuscleGroup(exerciseName) {
         const name = (exerciseName || '').toLowerCase()
             .normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        if (/panturrilha|calf raise|gemeo/.test(name)) return 'panturrilha';
         if (/elevacao pelvica|hip thrust|gluteo|glute bridge|ponte de gluteo/.test(name)) return 'posterior';
         if (/stiff|romanian|terra|deadlift|flexora|posterior|nordic|good morning/.test(name)) return 'posterior';
         if (/australiana|remada invertida|inverted row|barra pronada|barra supinada|barra negativa|peito na barra|chest to bar|barra fixa|pull.?up|chin.?up|puxada|remada|pulldown|lat |costas|front lever|muscle.?up/.test(name)) return 'costas';
@@ -3103,10 +3313,7 @@
             if (/pike|handstand|hspu|militar/.test(name)) return 'ombros';
             return 'peitoral';
         }
-        if (/\bdip\b|paralela/.test(name)) {
-            if (/peito|inclinad|chest/.test(name)) return 'peitoral';
-            return 'bracos';
-        }
+        if (/\bdip\b|paralela/.test(name)) return 'peitoral';
         if (/desenvolvimento|elevacao lateral|elevacao frontal|ombro|deltoide|face pull|crucifixo inverso/.test(name)) return 'ombros';
         if (/rosca|triceps|bicep|bochecha|braco|skull|kickback|frances/.test(name)) return 'bracos';
         if (/prancha|hollow|abdominal|l-sit|lsit|core|dragon flag|crunch|wheel/.test(name)) return 'core';
@@ -3122,7 +3329,8 @@
             posterior: 'posterior', hamstring: 'posterior', hamstrings: 'posterior', gluteo: 'posterior', gluteos: 'posterior',
             ombros: 'ombros', ombro: 'ombros', shoulder: 'ombros', deltoide: 'ombros',
             bracos: 'bracos', braco: 'bracos', biceps: 'bracos', triceps: 'bracos', arm: 'bracos',
-            core: 'core', abdomen: 'core', abdominal: 'core', abs: 'core'
+            core: 'core', abdomen: 'core', abdominal: 'core', abs: 'core',
+            panturrilha: 'panturrilha', calf: 'panturrilha', gemeos: 'panturrilha'
         };
         if (VOLUME_LANDMARKS[t]) return t;
         if (aliases[t]) return aliases[t];
@@ -3140,7 +3348,7 @@
     }
 
     function calculateWeeklyVolumeLandmarks(historyData) {
-        const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
+        const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0, panturrilha: 0 };
         if (!Array.isArray(historyData) || historyData.length === 0) return volumeMap;
         const now = new Date();
         const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
@@ -3178,7 +3386,7 @@
             historyData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const volumes = calculateWeeklyVolumeLandmarks(historyData);
             const planned = (typeof plannedWeeklySets === 'function') ? plannedWeeklySets() : {};
-            const labels = { peitoral: 'Peitoral', costas: 'Costas', quadriceps: 'Quadríceps', posterior: 'Posterior', ombros: 'Ombros', bracos: 'Braços', core: 'Core' };
+            const labels = { peitoral: 'Peitoral', costas: 'Costas', quadriceps: 'Quadríceps', posterior: 'Posterior', ombros: 'Ombros', bracos: 'Braços', core: 'Core', panturrilha: 'Panturrilha' };
             let html = '';
             Object.keys(labels).forEach(grp => {
                 const count = volumes[grp] || 0;
@@ -3682,7 +3890,7 @@
         (logs || []).forEach(log => {
             if (!log || log.estimated) return;
             const entry = findCatalogByName(log.catalogId || log.name, modality);
-            if (!entry) return;
+            if (!entry || entry.role === 'accessory') return;
             const rir = parseInt(log.rir, 10);
             if (isNaN(rir) || rir >= 4 || rir <= 0) {
                 currentPlan.catalogHits[entry.family] = 0;
@@ -3862,7 +4070,7 @@
                 if (item.type !== 'work') return item;
                 const next = { ...item, rirTarget: Math.max(3, parseInt(item.rirTarget, 10) || 3) };
                 const n = `${item.name} ${item.roundInfo || ''}`.toLowerCase();
-                if (/planche|muscle.?up|handstand|front lever|pistol|sprint|hiit|z4|z5|vo2|burpee/.test(n)) {
+                if (/planche|muscle.?up|handstand|front lever|pistol|sprint|hiit|z4|z5|vo2|burpee|nordic|archer|levantamento terra|deadlift/.test(n)) {
                     if (workout.modality === 'Corrida') return { ...next, name: 'Caminhada / trote Z2', roundInfo: 'Z2 calibração' };
                     if (workout.modality === 'Musculação') return { ...next, name: 'Agachamento goblet leve', roundInfo: 'Semana 0 · técnica' };
                     return { ...next, name: 'Flexão inclinada', roundInfo: 'Semana 0 · calibração' };
@@ -4455,8 +4663,8 @@
     function renderMavRadar(volumes) {
         const ctx = document.getElementById('chart-mev');
         if (!ctx || typeof Chart === 'undefined') return;
-        const keys = ['peitoral', 'costas', 'quadriceps', 'posterior', 'ombros', 'bracos', 'core'];
-        const labels = ['Peito', 'Costas', 'Quadríceps', 'Posterior', 'Ombro', 'Braço', 'Core'];
+        const keys = ['peitoral', 'costas', 'quadriceps', 'posterior', 'ombros', 'bracos', 'core', 'panturrilha'];
+        const labels = ['Peito', 'Costas', 'Quadríceps', 'Posterior', 'Ombro', 'Braço', 'Core', 'Panturrilha'];
         const data = keys.map(k => {
             const lm = VOLUME_LANDMARKS[k];
             const mid = (lm.mavLow + lm.mavHigh) / 2;
@@ -4767,7 +4975,7 @@
     };
 
     function plannedWeeklySets() {
-        const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0 };
+        const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0, panturrilha: 0 };
         (currentPlan?.workouts || []).forEach(w => {
             if (!w || w.isCompleted || isHiitWorkout(w)) return;
             planWorkItems(w).forEach(item => {
@@ -5562,6 +5770,10 @@
         if (minsSel && userData.mins) minsSel.value = String(userData.mins);
         const runBox = document.getElementById('prof-include-running');
         if (runBox) runBox.checked = userData.includeRunning !== false;
+        const eq = userData.equipment;
+        document.querySelectorAll('.prof-eq').forEach(box => {
+            box.checked = !eq || !eq.length ? true : eq.includes(box.value);
+        });
     }
 
     window.saveProfileInfo = async () => {
@@ -5571,6 +5783,11 @@
         showLoading("Atualizando..."); userData.name = nName; userData.nickname = nNick;
         const runBox = document.getElementById('prof-include-running');
         if (runBox) userData.includeRunning = !!runBox.checked;
+        const eqBoxes = [...document.querySelectorAll('.prof-eq')];
+        if (eqBoxes.length) {
+            const picked = eqBoxes.filter(b => b.checked).map(b => b.value);
+            userData.equipment = picked.length === eqBoxes.length ? null : picked;
+        }
         try {
             await saveFullState(); document.getElementById('dash-greeting-name').innerText = userData.nickname;
             hideLoading(); window.showAlert("Sucesso", "Perfil atualizado.");
