@@ -1604,12 +1604,22 @@
                         <input type="checkbox" id="prof-include-running" class="mt-0.5 accent-cyan-400" checked>
                         <span class="text-[11px] text-slate-300 font-medium">Incluir corrida na semana híbrida. Desmarque se o eixo for só força/calistenia.</span>
                     </label>
-                    <div class="mt-3 bg-dark-900 border border-slate-800 rounded-xl p-3 space-y-2">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Onde você treina musculação</p>
-                        <p class="text-[10px] text-slate-500 leading-relaxed">Até 4 lugares. Casa pode ser só halter e elástico. O prédio, só máquina. O clube, tudo. Com mais de um, o app pergunta onde você está antes do treino.</p>
-                        <div id="prof-places" class="space-y-2"></div>
-                        <button type="button" onclick="window.addGymPlace('prof-places')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[10px] font-bold py-2 rounded-xl">Adicionar lugar</button>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl border border-slate-800 shadow-xl w-full overflow-hidden">
+                <button type="button" onclick="window.toggleAccordion('profile-places-content','profile-places-arrow')" class="w-full p-5 flex justify-between items-center text-left">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-purple-300 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-location-dot"></i> Lugares de treino</span>
+                        <p id="prof-places-summary" class="text-[11px] text-slate-400 mt-0.5 font-medium">Nenhum lugar salvo</p>
                     </div>
+                    <i id="profile-places-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div id="profile-places-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-3">
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Até 4 lugares. Casa pode ser só halter e elástico. O prédio, só máquina. O clube, tudo. Toque em Salvar lugares para gravar.</p>
+                    <div id="prof-places" class="space-y-2"></div>
+                    <button type="button" onclick="window.addGymPlace('prof-places')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[10px] font-bold py-2.5 rounded-xl">Adicionar lugar</button>
+                    <button type="button" onclick="window.saveGymPlaces()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-xl text-[11px] uppercase tracking-wide">Salvar lugares</button>
                 </div>
             </div>
 
@@ -5913,6 +5923,7 @@
         const list = gymPlaces();
         if (!list.length) {
             box.innerHTML = '<p class="text-[11px] text-slate-500">Nenhum lugar. A musculação libera todos os aparelhos até você cadastrar.</p>';
+            paintPlacesSummary();
             return;
         }
         box.innerHTML = list.map(p => `
@@ -5928,6 +5939,29 @@
         box.querySelectorAll('[data-place-remove]').forEach(btn => {
             btn.onclick = () => window.removeGymPlace(btn.getAttribute('data-place-remove'), rootId);
         });
+        if (rootId === 'prof-places') {
+            const mark = () => {
+                userData.gymPlaces = readGymPlacesFromDom(box);
+                window._placesDirty = true;
+                paintPlacesSummary();
+            };
+            box.querySelectorAll('[data-place-name]').forEach(el => el.addEventListener('input', mark));
+            box.querySelectorAll('[data-place-eq]').forEach(el => el.addEventListener('change', mark));
+        }
+        paintPlacesSummary();
+    }
+
+    function paintPlacesSummary() {
+        const el = document.getElementById('prof-places-summary');
+        if (!el) return;
+        if (window._placesDirty) {
+            el.innerText = 'Alteração ainda não salva';
+            return;
+        }
+        const list = gymPlaces();
+        if (!list.length) el.innerText = 'Nenhum lugar salvo';
+        else if (list.length === 1) el.innerText = list[0].name;
+        else el.innerText = list.length + ' lugares salvos';
     }
 
     function readGymPlacesFromDom(box) {
@@ -5947,13 +5981,33 @@
         if (list.some(p => !p.name)) return window.showAlert('Falta o nome', 'Dê um nome ao lugar antes de adicionar outro.');
         list.push({ id: 'p' + Date.now(), name: 'Novo lugar', equipment: ['dumbbell', 'band'] });
         userData.gymPlaces = list;
+        if ((box && box.id) === 'prof-places') window._placesDirty = true;
         renderGymPlacesEditor(box);
     };
 
     window.removeGymPlace = (id, rootId) => {
         const box = document.getElementById(rootId || 'prof-places');
         userData.gymPlaces = readGymPlacesFromDom(box).filter(p => p.id !== id);
+        if ((box && box.id) === 'prof-places') window._placesDirty = true;
         renderGymPlacesEditor(box);
+    };
+
+    window.saveGymPlaces = async () => {
+        const places = readGymPlacesFromDom(document.getElementById('prof-places'));
+        if (places.some(p => !p.name)) return window.showAlert('Falta o nome', 'Todo lugar precisa de um nome. Toque em Tirar se não for usar.');
+        userData.gymPlaces = places.filter(p => p.name);
+        userData.equipment = null;
+        showLoading('Salvando lugares...');
+        try {
+            await saveFullState();
+            window._placesDirty = false;
+            paintPlacesSummary();
+            hideLoading();
+            window.showAlert('Lugares salvos', userData.gymPlaces.length ? 'O treino de musculação vai usar só o que esses lugares têm.' : 'Nenhum lugar cadastrado. A musculação libera todos os aparelhos.');
+        } catch (e) {
+            hideLoading();
+            window.showAlert('Erro', e.message);
+        }
     };
 
     window.saveProfileInfo = async () => {
@@ -5969,6 +6023,8 @@
         userData.equipment = null;
         try {
             await saveFullState(); document.getElementById('dash-greeting-name').innerText = userData.nickname;
+            window._placesDirty = false;
+            paintPlacesSummary();
             hideLoading(); window.showAlert("Sucesso", "Perfil atualizado.");
         } catch(e) { hideLoading(); window.showAlert("Erro", e.message); }
     };
