@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.2</title>
+    <title>AI Coach Híbrido v7.5</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.2 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.5 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.2</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Lógica do treino</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.5</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Lugar na anamnese</h2>
                 </div>
             </div>
         </div>
@@ -245,24 +245,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.2 · Lógica do treino</strong>
-                    <p class="text-slate-400 mt-0.5">A aba Como funciona agora explica o treino, sem lista de atualizações. Quem ainda não aguenta a barra fica na remada. Terra não entra na primeira semana.</p>
+                    <strong class="text-brand-400">v7.5 · Lugar na anamnese</strong>
+                    <p class="text-slate-400 mt-0.5">Quem se cadastra informa casa, prédio ou clube antes de escolher o eixo. O Perfil continua editando.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v7.1 · Mais exercícios</strong>
-                    <p class="text-slate-400 mt-0.5">Peito, costas, ombro e braço ganham principal e complementares. Elástico no perfil. Dip conta no peito.</p>
+                    <strong class="text-slate-200">v7.4 · Lugares de treino</strong>
+                    <p class="text-slate-400 mt-0.5">Cada lugar guarda o que tem. Com mais de um, a musculação pergunta onde você vai.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v7.0 · Teias e abas</strong>
-                    <p class="text-slate-400 mt-0.5">Treinamento abre primeiro. Teia de volume junto das barras. Radar híbrido sempre aberto.</p>
+                    <strong class="text-slate-200">v7.3 · Máquina ou peso livre</strong>
+                    <p class="text-slate-400 mt-0.5">Ombro, peito, costas, braço e perna fecham série na máquina e no peso livre.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v6.9 · Histórico e Agenda</strong>
-                    <p class="text-slate-400 mt-0.5">Calendário do mês. No Histórico: queda de FC, avaliação e excluir uma sessão errada.</p>
+                    <strong class="text-slate-200">v7.2 · Lógica do treino</strong>
+                    <p class="text-slate-400 mt-0.5">A aba Como funciona explica o treino. Quem ainda não aguenta a barra fica na remada.</p>
                 </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.2 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.5 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,40 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.2 Lógica do treino</span>
+                    <span class="font-black text-brand-400 text-sm">v7.5 Lugar na anamnese</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Depois da corrida e antes do eixo, o cadastro pede os lugares de musculação.<br>
+                    • Dá para pular e cadastrar depois no Perfil.<br>
+                    • O primeiro plano já respeita o que aquele lugar tem.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.4 Lugares de treino</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • No Perfil, até 4 lugares. Cada um marca halter, barra, máquina, cabo e elástico.<br>
+                    • Um lugar só: o app usa ele sem perguntar. Dois ou mais: pergunta antes da musculação.<br>
+                    • Casa com halter não recebe supino com barra.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.3 Máquina ou peso livre</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Antes de cada musculação: barra e halter, só máquina e cabo, ou misto.<br>
+                    • Ombro ganhou desenvolvimento com halter, frontal, e os aparelhos de desenvolvimento, lateral e posterior.<br>
+                    • Peito, costas, braço e perna também fecham a série só na máquina.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.2 Lógica do treino</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -641,11 +674,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.2</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.5</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.2 · Lógica do treino</strong>
-                    • Como funciona explica o treino, sem lista de versões.<br>
-                    • Sem exercício acima do seu degrau. Terra fora da semana 0.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.5 · Lugar na anamnese</strong>
+                    • O cadastro novo pede casa, prédio ou clube.<br>
+                    • O Perfil continua editando esses lugares.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1030,9 +1063,24 @@
         </div>
 
         <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-4 rounded-2xl transition-all shadow-[0_0_20px_rgba(245,158,11,0.3)] text-sm uppercase tracking-wide">
-            Escolher Eixo Mestre <i class="fas fa-arrow-right ml-1"></i>
+            Escolher o lugar <i class="fas fa-arrow-right ml-1"></i>
         </button>
     </form>
+</div>
+
+<div id="screen-step-places" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center animate-fade-in">
+    <div class="mb-4 text-center">
+        <span class="text-[10px] text-purple-300 font-bold uppercase tracking-widest block">Antes do eixo</span>
+        <h2 class="text-xl font-black text-white">Onde você treina musculação?</h2>
+        <p class="text-xs text-slate-400 font-medium mt-1">Casa, academia do prédio, clube. Até 4. Dá para mudar depois no Perfil.</p>
+    </div>
+    <div class="glass-panel p-5 rounded-3xl shadow-xl border border-purple-500/30 space-y-3 w-full">
+        <p class="text-[11px] text-slate-400 leading-relaxed">Marque só o que existe naquele lugar. Halter em casa não libera barra. Máquina no prédio não libera halter. Se não faz musculação, pode pular.</p>
+        <div id="onboard-places" class="space-y-2"></div>
+        <button type="button" onclick="window.addGymPlace('onboard-places')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[10px] font-bold py-2.5 rounded-xl">Adicionar lugar</button>
+    </div>
+    <button type="button" onclick="window.finishOnboardPlaces()" class="w-full mt-4 bg-purple-500 hover:bg-purple-400 text-white font-black py-4 rounded-2xl text-sm uppercase tracking-wide">Continuar para o eixo</button>
+    <button type="button" onclick="window.skipOnboardPlaces()" class="w-full mt-2 text-slate-400 text-[11px] font-bold py-2">Agora não. Cadastro no Perfil.</button>
 </div>
 
 <!-- Onboarding Step 7: Master Axis Selection -->
@@ -1088,7 +1136,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.2</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.5</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1310,7 +1358,7 @@
 
             <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-2">
                 <h3 class="text-sm font-black text-white">Musculação</h3>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">Cada exercício guarda a própria carga. Supino, inclinado e crucifixo não dividem o mesmo número. Rosca e tríceps também não. A carga sobe quando o esforço sobra, e desce quando a série veio no limite. Agachamento pesado não cola num tiro pesado.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Na primeira anamnese, e de novo no Perfil, você cadastra os lugares: casa, prédio, clube. Cada um guarda o que tem lá. Com mais de um, o app pergunta onde você vai treinar e monta a série só com isso. Cada exercício guarda a própria carga. Supino, inclinado e crucifixo não dividem o mesmo número. Agachamento pesado não cola num tiro pesado.</p>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
@@ -1538,7 +1586,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.2</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.5</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1551,21 +1599,16 @@
                         <label class="text-[10px] text-slate-400 font-bold uppercase mb-1 block">Apelido</label>
                         <input type="text" id="prof-nick" class="w-full bg-dark-900 border border-slate-700 rounded-xl p-2.5 text-white text-xs focus:border-brand-500 outline-none">
                     </div>
-                    <button onclick="window.saveProfileInfo()" class="w-full bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold py-2.5 rounded-xl transition-colors mt-2">Salvar Nome</button>
+                    <button onclick="window.saveProfileInfo()" class="w-full bg-brand-500/20 hover:bg-brand-500/40 text-brand-400 border border-brand-500/50 text-[10px] font-bold py-2.5 rounded-xl transition-colors mt-2">Salvar perfil</button>
                     <label class="flex items-start gap-2.5 mt-3 bg-dark-900 border border-slate-800 rounded-xl p-3 cursor-pointer">
                         <input type="checkbox" id="prof-include-running" class="mt-0.5 accent-cyan-400" checked>
                         <span class="text-[11px] text-slate-300 font-medium">Incluir corrida na semana híbrida. Desmarque se o eixo for só força/calistenia.</span>
                     </label>
                     <div class="mt-3 bg-dark-900 border border-slate-800 rounded-xl p-3 space-y-2">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">O que você tem para treinar</p>
-                        <p class="text-[10px] text-slate-500 leading-relaxed">O peso do corpo entra sempre. Desmarque o que você não tem. Se nada estiver salvo, o app libera tudo.</p>
-                        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-300">
-                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="dumbbell"> Halter</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="barbell"> Barra</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="machine"> Máquina</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="cable"> Cabo / polia</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="prof-eq accent-cyan-400" value="band"> Elástico</label>
-                        </div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Onde você treina musculação</p>
+                        <p class="text-[10px] text-slate-500 leading-relaxed">Até 4 lugares. Casa pode ser só halter e elástico. O prédio, só máquina. O clube, tudo. Com mais de um, o app pergunta onde você está antes do treino.</p>
+                        <div id="prof-places" class="space-y-2"></div>
+                        <button type="button" onclick="window.addGymPlace('prof-places')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-[10px] font-bold py-2 rounded-xl">Adicionar lugar</button>
                     </div>
                 </div>
             </div>
@@ -1661,8 +1704,12 @@
             </div>
 
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">E se a academia de hoje só tiver máquina?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Na anamnese inicial, e também no Perfil, cadastre o lugar e marque só máquina e cabo. Se houver mais de um lugar, o app pergunta qual é o de hoje. Casa com halter não recebe supino com barra.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Por que o peito tem mais de um exercício?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">O principal sobe de degrau. Os outros mudam o ângulo, como inclinado, crucifixo ou dip. Se o tempo for curto, ou se a semana já encheu aquele músculo, o app deixa só o principal. Marque no Perfil o que você tem: halter, barra, máquina, cabo, elástico.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">O principal sobe de degrau. Os outros mudam o ângulo, como inclinado, crucifixo ou dip. Se o tempo for curto, ou se a semana já encheu aquele músculo, o app deixa só o principal. O lugar do dia tira o aparelho que não existe lá.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">A teia de volume substitui as barras?</summary>
@@ -2002,6 +2049,17 @@
             <button type="button" onclick="window.discardLiveSession()" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 rounded-2xl text-xs uppercase">Descartar</button>
             <button type="button" onclick="window.resumeLiveSessionNow()" class="flex-1 bg-brand-500 hover:bg-brand-400 text-dark-950 font-black py-3 rounded-2xl text-xs uppercase">Continuar</button>
         </div>
+    </div>
+</div>
+
+<!-- Equipamento do dia — musculação -->
+<div id="modal-gym-gear" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[190] hidden flex items-center justify-center p-4">
+    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-6 max-w-md w-full shadow-2xl mx-auto">
+        <span class="text-[10px] text-purple-300 font-bold uppercase tracking-wider">Musculação de hoje</span>
+        <h3 class="text-lg font-black text-white mt-1">Onde você vai treinar?</h3>
+        <p class="text-xs text-slate-400 mt-2 leading-relaxed">O treino usa só o que esse lugar tem. O peso do corpo entra sempre.</p>
+        <div id="gym-place-list" class="space-y-2 mt-4"></div>
+        <button type="button" onclick="window.hide('modal-gym-gear')" class="w-full text-slate-400 text-[11px] font-bold py-2 mt-2">Cancelar</button>
     </div>
 </div>
 
@@ -2461,8 +2519,16 @@
         { id:'gym_hip', family:'hip', sport:'Musculação', group:'posterior', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hinge', equipment:'barbell', name:'Hip thrust com barra', svg:'hinge', aliases:'hip thrust com barra|thrust com barra|elevacao pelvica barra' },
         { id:'gym_bench', family:'hpush', sport:'Musculação', group:'peitoral', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Supino reto', svg:'bench', aliases:'supino reto|supino barra|bench press|supino' },
         { id:'gym_incline', family:'incline', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hpush', equipment:'dumbbell', name:'Supino inclinado', svg:'bench', aliases:'supino inclinado|incline press|inclinado halter' },
-        { id:'gym_fly', family:'fly', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpush', equipment:'dumbbell', name:'Crucifixo', svg:'bench', aliases:'crucifixo|pec deck|voador|crossover|crossover cabo' },
+        { id:'gym_fly', family:'fly', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpush', equipment:'dumbbell', name:'Crucifixo', svg:'bench', aliases:'crucifixo|crossover|crossover cabo' },
+        { id:'gym_chest_machine', family:'chest_machine', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpush', equipment:'machine', name:'Supino na máquina', svg:'bench', aliases:'supino maquina|chest press|supino aparelho|supino no aparelho' },
+        { id:'gym_incline_machine', family:'incline_machine', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpush', equipment:'machine', name:'Supino inclinado na máquina', svg:'bench', aliases:'supino inclinado maquina|inclinado no aparelho|incline machine' },
+        { id:'gym_pecdeck', family:'pecdeck', sport:'Musculação', group:'peitoral', rung:1, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hpush', equipment:'machine', name:'Peck deck', svg:'bench', aliases:'peck deck|pec deck|voador maquina|voador' },
         { id:'gym_ohp', family:'vpush', sport:'Musculação', group:'ombros', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Desenvolvimento', svg:'ohp', aliases:'desenvolvimento|overhead|ohp|militar' },
+        { id:'gym_ohp_db', family:'ohp_db', sport:'Musculação', group:'ombros', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Desenvolvimento com halter', svg:'ohp', aliases:'desenvolvimento com halter|desenvolvimento halter|ohp halter' },
+        { id:'gym_front', family:'front', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Elevação frontal', svg:'ohp', aliases:'elevacao frontal|front raise|elevacao frontal halter' },
+        { id:'gym_ohp_machine', family:'ohp_machine', sport:'Musculação', group:'ombros', rung:1, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'vpush', equipment:'machine', name:'Desenvolvimento na máquina', svg:'ohp', aliases:'desenvolvimento maquina|shoulder press|desenvolvimento no aparelho' },
+        { id:'gym_lateral_machine', family:'lat_machine', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'machine', name:'Elevação lateral na máquina', svg:'ohp', aliases:'elevacao lateral maquina|lateral na maquina' },
+        { id:'gym_rear_machine', family:'rear_machine', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'machine', name:'Posterior na máquina', svg:'row', aliases:'crucifixo inverso maquina|posterior de ombro|peck deck inverso' },
         { id:'gym_lateral', family:'lateral', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Elevação lateral', svg:'ohp', aliases:'elevacao lateral|lateral raise|elevacao lateral halter' },
         { id:'gym_lateral_band', family:'lateral', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'band', name:'Elevação lateral com elástico', svg:'ohp', aliases:'elevacao lateral com elastico|lateral elastico' },
         { id:'gym_rear', family:'rear', sport:'Musculação', group:'ombros', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpush', equipment:'dumbbell', name:'Crucifixo inverso', svg:'row', aliases:'crucifixo inverso|rear delt|elevacao posterior' },
@@ -2470,18 +2536,24 @@
         { id:'gym_row', family:'hpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, role:'main', equipment:'barbell', name:'Remada curvada', svg:'row', aliases:'remada curvada|remada barra|remada' },
         { id:'gym_row_db', family:'row_db', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'hpull', equipment:'dumbbell', name:'Serrote', svg:'row', aliases:'serrote|remada unilateral|remada halter' },
         { id:'gym_row_cable', family:'row_cable', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpull', equipment:'cable', name:'Remada no cabo', svg:'row', aliases:'remada no cabo|remada baixa|remada cabo' },
+        { id:'gym_row_machine', family:'row_machine', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'hpull', equipment:'machine', name:'Remada na máquina', svg:'row', aliases:'remada maquina|remada sentada|remada aparelho' },
         { id:'gym_pulldown', family:'vpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, role:'main', equipment:'cable', name:'Puxada', svg:'pulldown', aliases:'puxada|pulldown|puxada frontal' },
         { id:'gym_pullup', family:'vpull_bw', sport:'Musculação', group:'costas', rung:2, minRung:1, week0:false, unlockReps:6, role:'accessory', parentFamily:'vpull', equipment:'body', name:'Barra pronada', svg:'pull_up', aliases:'barra pronada musculacao|pull-up musculacao' },
+        { id:'gym_band_pulldown', family:'band_pulldown', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpull', equipment:'band', name:'Puxada com elástico', svg:'pulldown', aliases:'puxada com elastico|pulldown elastico|elastico puxada' },
         { id:'gym_arm', family:'curl', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'dumbbell', name:'Rosca direta', svg:'curl', aliases:'rosca direta|rosca|curl|rosca alternada' },
         { id:'gym_hammer', family:'hammer', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'curl', equipment:'dumbbell', name:'Rosca martelo', svg:'curl', aliases:'rosca martelo|hammer curl|martelo' },
         { id:'gym_curl_band', family:'curl_band', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'band', name:'Rosca com elástico', svg:'curl', aliases:'rosca com elastico|band curl|rosca elastico' },
+        { id:'gym_curl_cable', family:'curl_cable', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'cable', name:'Rosca na polia', svg:'curl', aliases:'rosca na polia|rosca cabo|rosca pulley' },
+        { id:'gym_curl_machine', family:'curl_machine', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'machine', name:'Rosca na máquina', svg:'curl', aliases:'rosca na maquina|rosca aparelho|rosca scott maquina' },
         { id:'gym_skull', family:'tri', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'barbell', name:'Tríceps testa', svg:'curl', aliases:'triceps testa|skull crusher|testa' },
         { id:'gym_pressdown', family:'pressdown', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'cable', name:'Tríceps na polia', svg:'curl', aliases:'triceps na polia|triceps corda|pressdown|pulley triceps' },
         { id:'gym_kick', family:'kick', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'dumbbell', name:'Tríceps coice', svg:'curl', aliases:'triceps coice|kickback|coice' },
+        { id:'gym_tri_machine', family:'tri_machine', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'machine', name:'Tríceps na máquina', svg:'curl', aliases:'triceps na maquina|triceps aparelho|extensao de triceps maquina' },
         { id:'gym_core', family:'core', sport:'Musculação', group:'core', rung:0, week0:true, unlockReps:0, role:'main', equipment:'body', name:'Prancha', svg:'plank', aliases:'prancha|abdominal na prancha' },
         { id:'gym_wheel', family:'wheel', sport:'Musculação', group:'core', rung:1, minRung:0, week0:false, unlockReps:8, role:'accessory', parentFamily:'core', equipment:'body', name:'Roda abdominal', svg:'hollow', aliases:'roda abdominal|ab wheel|roda' },
         { id:'gym_raise', family:'raise', sport:'Musculação', group:'core', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'core', equipment:'body', name:'Elevação de pernas', svg:'hollow', aliases:'elevacao de pernas|leg raise|elevacao de perna' },
         { id:'gym_calf', family:'calf', sport:'Musculação', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'machine', name:'Panturrilha em pé', svg:'squat', aliases:'panturrilha em pe|panturrilha maquina|calf raise' },
+        { id:'gym_calf_db', family:'calf_db', sport:'Musculação', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'dumbbell', name:'Panturrilha com halter', svg:'squat', aliases:'panturrilha com halter|panturrilha halter|calf raise halter' },
         { id:'gym_calf_seat', family:'calf_seat', sport:'Musculação', group:'panturrilha', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'hinge', equipment:'machine', name:'Panturrilha sentada', svg:'squat', aliases:'panturrilha sentada|seated calf' },
         { id:'cal_hiit_jack', family:'hiit', sport:'Calistenia', group:'core', rung:0, week0:false, unlockReps:0, name:'Polichinelo', svg:'hiit', aliases:'polichinelo|jumping jack|jumpingjack' },
         { id:'cal_hiit_knees', family:'hiit', sport:'Calistenia', group:'quadriceps', rung:0, week0:false, unlockReps:0, name:'Elevação de joelhos no lugar', svg:'hiit', aliases:'high knees|joelho alto|elevacao de joelhos no lugar' },
@@ -2533,13 +2605,60 @@
 
     const CATALOG_STANDARD_RUNG = { push:3, pull:3, row:1, dip:1, pike:0, leg:1, hinge:1, core:1, diamond:3, squat:1, hpush:1, vpush:1, hpull:1, vpull:1, lunge:1, curl:1, tri:1, chin:1, calf:0, lateral:1, hinge_dl:1 };
 
+    const GYM_EQ_KEYS = ['dumbbell', 'barbell', 'machine', 'cable', 'band'];
+    const GYM_EQ_LABEL = { dumbbell: 'Halter', barbell: 'Barra', machine: 'Máquina', cable: 'Cabo', band: 'Elástico' };
+
+    function gymPlaces() {
+        const raw = Array.isArray(userData && userData.gymPlaces) ? userData.gymPlaces : [];
+        const clean = raw.map(p => ({
+            id: String(p && p.id || '').replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 24),
+            name: String(p && p.name || '').trim().slice(0, 40),
+            equipment: GYM_EQ_KEYS.filter(k => (p && p.equipment || []).includes(k))
+        })).filter(p => p.id && p.name).slice(0, 4);
+        if (clean.length) return clean;
+        const legacy = userData && userData.equipment;
+        if (Array.isArray(legacy) && legacy.length && legacy.length < GYM_EQ_KEYS.length) {
+            return [{ id: 'legacy', name: 'Meu local', equipment: GYM_EQ_KEYS.filter(k => legacy.includes(k)) }];
+        }
+        return [];
+    }
+
+    function activeGymPlace() {
+        if (!window._gymPlaceId) return null;
+        return gymPlaces().find(p => p.id === window._gymPlaceId) || null;
+    }
+
     function equipmentOk(entry) {
         if (!entry) return false;
         const need = entry.equipment || 'body';
         if (need === 'body') return true;
+        const place = activeGymPlace();
+        if (place) return place.equipment.includes(need);
+        if (window._gymPlaceReady) return true;
+        const places = gymPlaces();
+        if (places.length === 1) return places[0].equipment.includes(need);
         const eq = userData && userData.equipment;
-        if (!eq || !eq.length) return true;
+        if (places.length || !eq || !eq.length) return true;
         return eq.includes(need);
+    }
+
+    function pickGearFallback(family, sport) {
+        let pool = EX_CATALOG.filter(e => e.sport === sport && e.role === 'accessory' && equipmentOk(e) && (e.parentFamily === family || e.family === family));
+        if (typeof isWeek0 === 'function' && isWeek0()) {
+            const w0 = pool.filter(e => e.week0 !== false);
+            if (w0.length) pool = w0;
+        }
+        if (!pool.length) return null;
+        const eq = (activeGymPlace() || gymPlaces()[0] || {}).equipment || [];
+        const free = eq.includes('barbell') || eq.includes('dumbbell');
+        const mach = eq.includes('machine') || eq.includes('cable');
+        const rank = (e) => {
+            if (mach && !free) return e.equipment === 'machine' ? 0 : (e.equipment === 'cable' ? 1 : 2);
+            if (free && !mach) return e.equipment === 'dumbbell' ? 0 : (e.equipment === 'barbell' ? 1 : 2);
+            return 0;
+        };
+        pool.sort((a, b) => rank(a) - rank(b));
+        return pool[0];
     }
 
     function entryAllowed(entry, sport, joints) {
@@ -2731,7 +2850,7 @@
             if (fb && fb !== family) return pickCatalogForFamily(fb, sport, lastLifts, null);
         }
         const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport && e.role !== 'accessory' && equipmentOk(e)).sort((a,b) => a.rung - b.rung);
-        if (!rungs.length) return null;
+        if (!rungs.length) return pickGearFallback(family, sport);
         const cap = athleteRungCap(family, sport, joints);
         let ladder = rungs.filter(r => r.rung <= cap);
         if (typeof isWeek0 === 'function' && isWeek0()) {
@@ -2741,7 +2860,7 @@
         if (!ladder.length) {
             if (family === 'pull') return pickCatalogForFamily('row', sport, lastLifts, joints);
             if (family === 'hinge_dl') return pickCatalogForFamily('hinge', sport, lastLifts, joints);
-            return null;
+            return pickGearFallback(family, sport);
         }
         let idx = 0;
         for (let i = 0; i < ladder.length; i++) if (ladder[i].rung <= cap) idx = i;
@@ -5096,7 +5215,7 @@
     function hideLoading() { window.hide('loading-overlay'); }
 
     function showScreen(screenId) {
-        ['screen-auth', 'screen-step1-id', 'screen-step2-welcome', 'screen-step3-biometrics', 'screen-step4-calisthenics', 'screen-step5-bodybuilding', 'screen-step6-running', 'screen-step7-axis', 'screen-dashboard', 'screen-bodybuilding-workout', 'screen-running-workout', 'screen-timer'].forEach(window.hide);
+        ['screen-auth', 'screen-step1-id', 'screen-step2-welcome', 'screen-step3-biometrics', 'screen-step4-calisthenics', 'screen-step5-bodybuilding', 'screen-step6-running', 'screen-step-places', 'screen-step7-axis', 'screen-dashboard', 'screen-bodybuilding-workout', 'screen-running-workout', 'screen-timer'].forEach(window.hide);
         window.show(screenId);
     }
 
@@ -5589,8 +5708,18 @@
             text: document.getElementById('run-text').value.trim()
         };
         if (dontRun) userData.includeRunning = false;
-        showScreen('screen-step7-axis');
+        showScreen('screen-step-places');
+        renderGymPlacesEditor(document.getElementById('onboard-places'));
     });
+
+    window.finishOnboardPlaces = () => {
+        const places = readGymPlacesFromDom(document.getElementById('onboard-places'));
+        if (places.some(p => !p.name)) return window.showAlert('Falta o nome', 'Todo lugar precisa de um nome, ou toque em Tirar.');
+        userData.gymPlaces = places.filter(p => p.name);
+        userData.equipment = null;
+        showScreen('screen-step7-axis');
+    };
+    window.skipOnboardPlaces = () => showScreen('screen-step7-axis');
 
     window.selectMasterAxis = async (axis) => {
         userData.masterAxis = axis; userData.secondaryCalibrated = true;
@@ -5608,6 +5737,7 @@
         AVALIAÇÃO CALISTENIA: ${JSON.stringify(userData.evalCalisthenics)}.
         AVALIAÇÃO MUSCULAÇÃO: ${JSON.stringify(userData.evalBodybuilding)}.
         AVALIAÇÃO CORRIDA: ${JSON.stringify(userData.evalRunning)}.
+        LOCAIS DE MUSCULAÇÃO: ${JSON.stringify(gymPlaces())}. Use só o equipamento desses lugares nas sessões de musculação. Sem lugar cadastrado, pode usar o catálogo.
         TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary'
         4. MICROCICLO: gere exatamente ${days} sessões no array 'workouts' (eixo mestre ~50-60%, 1 sessão Z2 se fizer sentido, sem dois estímulos de perna/HIIT consecutivos). A PRIMEIRA sessão também em 'workout'.
         Cada item work da queue deve ter sets, reps, rirTarget, targetGroup e pct1RM ou loadKg.
@@ -5773,11 +5903,58 @@
         if (minsSel && userData.mins) minsSel.value = String(userData.mins);
         const runBox = document.getElementById('prof-include-running');
         if (runBox) runBox.checked = userData.includeRunning !== false;
-        const eq = userData.equipment;
-        document.querySelectorAll('.prof-eq').forEach(box => {
-            box.checked = !eq || !eq.length ? true : eq.includes(box.value);
+        renderGymPlacesEditor();
+    }
+
+    function renderGymPlacesEditor(box) {
+        if (!box || !box.querySelectorAll) box = document.getElementById('prof-places');
+        if (!box) return;
+        const rootId = box.id || 'prof-places';
+        const list = gymPlaces();
+        if (!list.length) {
+            box.innerHTML = '<p class="text-[11px] text-slate-500">Nenhum lugar. A musculação libera todos os aparelhos até você cadastrar.</p>';
+            return;
+        }
+        box.innerHTML = list.map(p => `
+            <div data-place-card data-place-id="${p.id}" class="border border-slate-800 rounded-xl p-2.5 space-y-2">
+                <div class="flex gap-2">
+                    <input data-place-name value="${escapeHtml(p.name)}" maxlength="40" class="flex-1 bg-dark-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs text-white" placeholder="Nome do lugar">
+                    <button type="button" data-place-remove="${p.id}" class="text-red-400 text-[10px] font-bold px-2">Tirar</button>
+                </div>
+                <div class="grid grid-cols-2 gap-1.5 text-[11px] text-slate-300">
+                    ${GYM_EQ_KEYS.map(k => `<label class="flex items-center gap-2"><input type="checkbox" data-place-eq value="${k}" ${p.equipment.includes(k) ? 'checked' : ''} class="accent-cyan-400"> ${GYM_EQ_LABEL[k]}</label>`).join('')}
+                </div>
+            </div>`).join('');
+        box.querySelectorAll('[data-place-remove]').forEach(btn => {
+            btn.onclick = () => window.removeGymPlace(btn.getAttribute('data-place-remove'), rootId);
         });
     }
+
+    function readGymPlacesFromDom(box) {
+        const scope = (box && box.querySelectorAll) ? box : document.getElementById('prof-places');
+        if (!scope) return [];
+        return [...scope.querySelectorAll('[data-place-card]')].map(card => ({
+            id: card.getAttribute('data-place-id') || ('p' + Date.now()),
+            name: (card.querySelector('[data-place-name]')?.value || '').trim().slice(0, 40),
+            equipment: [...card.querySelectorAll('[data-place-eq]:checked')].map(b => b.value).filter(k => GYM_EQ_KEYS.includes(k))
+        })).slice(0, 4);
+    }
+
+    window.addGymPlace = (rootId) => {
+        const box = document.getElementById(rootId || 'prof-places');
+        const list = readGymPlacesFromDom(box);
+        if (list.length >= 4) return window.showAlert('Limite', 'Dá para cadastrar até 4 lugares.');
+        if (list.some(p => !p.name)) return window.showAlert('Falta o nome', 'Dê um nome ao lugar antes de adicionar outro.');
+        list.push({ id: 'p' + Date.now(), name: 'Novo lugar', equipment: ['dumbbell', 'band'] });
+        userData.gymPlaces = list;
+        renderGymPlacesEditor(box);
+    };
+
+    window.removeGymPlace = (id, rootId) => {
+        const box = document.getElementById(rootId || 'prof-places');
+        userData.gymPlaces = readGymPlacesFromDom(box).filter(p => p.id !== id);
+        renderGymPlacesEditor(box);
+    };
 
     window.saveProfileInfo = async () => {
         const nName = document.getElementById('prof-name').value.trim();
@@ -5786,11 +5963,10 @@
         showLoading("Atualizando..."); userData.name = nName; userData.nickname = nNick;
         const runBox = document.getElementById('prof-include-running');
         if (runBox) userData.includeRunning = !!runBox.checked;
-        const eqBoxes = [...document.querySelectorAll('.prof-eq')];
-        if (eqBoxes.length) {
-            const picked = eqBoxes.filter(b => b.checked).map(b => b.value);
-            userData.equipment = picked.length === eqBoxes.length ? null : picked;
-        }
+        const places = readGymPlacesFromDom(document.getElementById('prof-places'));
+        if (places.some(p => !p.name)) { hideLoading(); return window.showAlert('Falta o nome', 'Todo lugar precisa de um nome. Toque em Tirar se não for usar.'); }
+        userData.gymPlaces = places.filter(p => p.name);
+        userData.equipment = null;
         try {
             await saveFullState(); document.getElementById('dash-greeting-name').innerText = userData.nickname;
             hideLoading(); window.showAlert("Sucesso", "Perfil atualizado.");
@@ -5979,12 +6155,62 @@ ${coachingPromptTail()}`;
 
     const pending = nwIndex !== -1 ? currentPlan.workouts[nwIndex] : null;
     const keepProgrammed = shouldKeepProgrammedWorkout(readinessPayload, pending, targetModality, defaultMins);
-    if (keepProgrammed) {
-        await startProgrammedWorkout(readinessPayload, targetModality);
+    const goTrain = async () => {
+        if (keepProgrammed) await startProgrammedWorkout(readinessPayload, targetModality);
+        else await recalibrateWorkoutWithReadiness(readinessPayload, targetModality);
+    };
+    if (targetModality === 'Musculação') {
+        window._gymPlaceReady = false;
+        window._gymPlaceId = null;
+        window._gymGear = null;
+        askGymPlaceThen(goTrain);
         return;
     }
-    await recalibrateWorkoutWithReadiness(readinessPayload, targetModality);
+    await goTrain();
 };
+
+    function applyGymPlace(id) {
+        const place = gymPlaces().find(p => p.id === id) || null;
+        window._gymPlaceId = place ? place.id : null;
+        window._gymGear = place ? ('place:' + place.id) : 'all';
+        window._gymPlaceReady = true;
+    }
+
+    function gymPlaceNote() {
+        const place = activeGymPlace();
+        if (!place) return 'LOCAL DE HOJE: não cadastrado. Pode usar barra, halter, máquina, cabo e elástico.';
+        const names = place.equipment.map(k => GYM_EQ_LABEL[k] || k);
+        const has = names.length ? names.join(', ') : 'só peso do corpo';
+        return `LOCAL DE HOJE: ${place.name}. SÓ PODE USAR: ${has}. Não prescreva aparelho fora dessa lista.`;
+    }
+
+    function askGymPlaceThen(done) {
+        const places = gymPlaces();
+        window._gymGearContinue = done;
+        if (places.length <= 1) {
+            applyGymPlace(places[0] ? places[0].id : null);
+            const next = window._gymGearContinue;
+            window._gymGearContinue = null;
+            if (typeof next === 'function') next();
+            return;
+        }
+        const box = document.getElementById('gym-place-list');
+        if (box) {
+            box.innerHTML = places.map(p => {
+                const bits = p.equipment.length ? p.equipment.map(k => GYM_EQ_LABEL[k]).join(' · ') : 'só peso do corpo';
+                return `<button type="button" onclick="window.chooseGymPlace('${p.id}')" class="w-full text-left bg-dark-950 hover:bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3"><span class="block text-sm font-black text-white">${escapeHtml(p.name)}</span><span class="block text-[11px] text-slate-400 mt-0.5">${bits}</span></button>`;
+            }).join('');
+        }
+        window.show('modal-gym-gear');
+    }
+
+    window.chooseGymPlace = (id) => {
+        applyGymPlace(id);
+        window.hide('modal-gym-gear');
+        const next = window._gymGearContinue;
+        window._gymGearContinue = null;
+        if (typeof next === 'function') next();
+    };
 
     function shouldKeepProgrammedWorkout(readiness, nw, modality, plannedMins) {
         if (!nw || !Array.isArray(nw.queue) || !nw.queue.some(q => q.type === 'work')) return false;
@@ -6015,6 +6241,7 @@ ${coachingPromptTail()}`;
             nw.readiness = readiness;
             nw.modality = modality || nw.modality;
             nw.estimatedMinutes = readiness.requestedMinutes;
+            if ((modality || nw.modality) === 'Musculação') nw._gymGearApplied = window._gymGear || 'mixed';
             await saveFullState();
             renderDashboard();
             hideLoading();
@@ -6031,8 +6258,10 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     
     const syntheticState = await buildSyntheticStateVector();
     
+    const gearNote = modality === 'Musculação' ? gymPlaceNote() : '';
     const prompt = `Atue como Apex Hybrid Coach v6.6. ALUNO: ${userData.nickname}. 
     EIXO MESTRE / MODALIDADE DE HOJE: ${modality}.
+    ${gearNote}
     TEMPO TOTAL EXIGIDO PELO ALUNO: ${readiness.requestedMinutes} minutos (ESTRICTO).
     ESTADO DE PRONTIDÃO DIÁRIA (READINESS): 
     - Energia (1-5): ${readiness.energy}/5
@@ -6057,6 +6286,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             res.workout.modality = modality;
             res.workout.estimatedMinutes = readiness.requestedMinutes;
             res.workout.readiness = readiness;
+            if (modality === 'Musculação') res.workout._gymGearApplied = window._gymGear || 'mixed';
             
             // Substitui o treino pendente atual pelo treino recalibrado
             const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
@@ -6105,13 +6335,19 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     function startWorkoutSession(modality) {
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         if (!nw) return;
-        if (!(nw._guardApplied && nw.modality === modality)) {
+        if (modality === 'Musculação' && !window._gymPlaceReady) {
+            askGymPlaceThen(() => startWorkoutSession(modality));
+            return;
+        }
+        const gearChanged = modality === 'Musculação' && nw._gymGearApplied !== window._gymGear;
+        if (!(nw._guardApplied && nw.modality === modality) || gearChanged) {
             const guarded = applyDeterministicCoachingGuards(
                 { ...nw, modality: modality || nw.modality, _guardApplied: false },
                 lastSyntheticState || {},
                 { targetMinutes: nw.estimatedMinutes, force: true }
             );
             Object.assign(nw, guarded);
+            if (modality === 'Musculação') nw._gymGearApplied = window._gymGear;
         }
         nw.modality = modality;
         window._strengthFromCalisthenics = false;
