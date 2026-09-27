@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.9</title>
+    <title>AI Coach Híbrido v7.10</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.9 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.10 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.9</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Corrida com intuito</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.10</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Card do treino completo</h2>
                 </div>
             </div>
         </div>
@@ -245,8 +245,12 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.9 · Corrida com intuito</strong>
-                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova. O código escolhe se o dia é leve, longo, ritmo, intervalo ou teste.</p>
+                    <strong class="text-brand-400">v7.10 · Card do treino completo</strong>
+                    <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios. O card cresce. Dentro da sessão, cada série continua separada.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.9 · Corrida com intuito</strong>
+                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova. O código escolhe o papel de cada corrida.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.8 · Travas da musculação</strong>
@@ -256,13 +260,9 @@
                     <strong class="text-slate-200">v7.7 · O dia é seu</strong>
                     <p class="text-slate-400 mt-0.5">Em cada dia: só exercício, exercício e corrida, ou só corrida.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v7.6 · Semana sua ou da IA</strong>
-                    <p class="text-slate-400 mt-0.5">A IA monta os dias, ou você marca a semana e o ABC/ABCD.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.9 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.10 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.9 Corrida com intuito</span>
+                    <span class="font-black text-brand-400 text-sm">v7.10 Card do treino completo</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • O card do treino do dia lista todos os exercícios.<br>
+                    • Cada um aparece uma vez, com séries e intervalo.<br>
+                    • Ao iniciar, as séries continuam uma por uma.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.9 Corrida com intuito</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -718,11 +729,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.9</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.10</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.9 · Corrida com intuito</strong>
-                    • Condicionamento, pace ou prova.<br>
-                    • O código escolhe o papel de cada corrida.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.10 · Card do treino</strong>
+                    • A lista do dia mostra todos os exercícios.<br>
+                    • O card cresce. Não corta em quatro linhas.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1243,7 +1254,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.9</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.10</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1354,7 +1365,7 @@
                             <span class="text-[8px] text-slate-500 font-bold uppercase mt-0.5">Min</span>
                         </div>
                     </div>
-                    <p id="dash-nw-desc" class="text-xs text-slate-400 mb-4 leading-relaxed font-medium">...</p>
+                    <p id="dash-nw-desc" class="text-xs text-slate-300 mb-4 leading-relaxed font-medium whitespace-pre-line break-words">...</p>
                     
                     <!-- Scheduling Controls -->
                     <div class="flex gap-2 mb-3 bg-dark-950 p-2 rounded-2xl border border-slate-800">
@@ -1428,7 +1439,7 @@
                     </div>
                 </div>
                 <p class="text-xs text-slate-300 leading-relaxed font-medium mt-3">
-                    O app lê como você está, o que já fez e quanto tempo tem. A partir disso monta o treino do dia. A inteligência artificial sugere. Uma lista fechada e um teto de séries impedem que o treino passe do que o corpo aguenta.
+                    O app lê como você está, o que já fez e quanto tempo tem. A partir disso monta o treino do dia. A inteligência artificial sugere. Uma lista fechada e um teto de séries impedem que o treino passe do que o corpo aguenta. No card, cada exercício aparece uma vez, com as séries e o intervalo, e a lista inteira fica visível. Dentro do treino, cada série anda sozinha.
                 </p>
             </div>
 
@@ -1694,7 +1705,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.9</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.10</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1871,6 +1882,10 @@
                 <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
             </div>
 
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">O card do treino do dia não mostra todos os exercícios?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Mostra. Cada exercício entra uma vez, com as séries e o descanso. A lista cresce com o treino. Ao iniciar, as mesmas séries aparecem uma por uma, com o relógio. Se faltar algum nome lá dentro e não no card, o treino salvo está incompleto. Se estiver só no card que parecia curto, era o corte antigo de quatro linhas.</p>
+            </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">A corrida é sempre a mesma?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. No Perfil, em Intuito da corrida, você escolhe condicionamento, baixar o pace ou uma prova. O app marca o papel do dia: leve, longo, ritmo, intervalo ou teste. Se a prova estiver perto demais, ou o dia for curto, não entra treino forte. O gráfico não muda por causa do nome: ele usa a frequência e o tempo que você correu.</p>
@@ -3982,6 +3997,16 @@
     }
 
     function compactWorkoutSummary(workout) {
+        const queue = Array.isArray(workout?.queue) ? workout.queue : [];
+        if ((workout?.modality || '') === 'Corrida') {
+            const works = queue.filter(q => q && q.type !== 'rest');
+            if (!works.length) return workout?.focus || 'Sessão de corrida';
+            return works.map(w => {
+                const secs = parseInt(w.duration, 10) || 0;
+                const time = secs >= 90 ? Math.round(secs / 60) + ' min' : (secs ? secs + 's' : '');
+                return [w.name, w.roundInfo, time].filter(Boolean).join(' · ');
+            }).join('\n');
+        }
         const seen = planWorkItems(workout).map(w => ({
             name: w.name,
             kind: w._kind || exerciseKind(w),
@@ -3996,14 +4021,12 @@
             const w = seen.find(s => s.kind !== 'prep');
             return `Aula HIIT · ${workN} rounds de ${w ? (w.dur || 20) : 20}s / ${w ? (w.rest || 40) : 40}s`;
         }
-        const lines = seen.map(s => {
-            if (s.kind === 'prep') return `${s.name} · aquecimento/volta`;
+        return seen.map(s => {
+            if (s.kind === 'prep') return `${s.name} · aquecimento ou volta`;
             if (s.kind === 'iso') return `${s.name} · ${s.sets} × ${s.dur || 30}s`;
             const r = s.reps ? ` de ${s.reps}` : '';
-            return `${s.name} · ${s.sets} série${s.sets > 1 ? 's' : ''}${r} com ${s.rest}s de intervalo`;
-        });
-        if (lines.length > 4) return lines.slice(0, 4).join(' · ') + ` · +${lines.length - 4}`;
-        return lines.join(' · ');
+            return `${s.name} · ${s.sets} série${s.sets > 1 ? 's' : ''}${r} · ${s.rest}s de intervalo`;
+        }).join('\n');
     }
 
     function looksLikeCalisthenics(name) {
