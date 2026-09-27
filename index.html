@@ -4362,17 +4362,29 @@
         return slots;
     }
 
+    function packWeekSlots(slots) {
+        const src = Array.isArray(slots) ? slots : [];
+        const out = [];
+        for (let i = 0; i < 7; i++) {
+            const day = src[i];
+            const list = Array.isArray(day) ? day : ((day && (day.mods || day.slots)) || []);
+            const clean = [];
+            list.forEach(m => {
+                if ((m === 'Calistenia' || m === 'Musculação' || m === 'Corrida') && clean.indexOf(m) < 0) clean.push(m);
+            });
+            if (clean.indexOf('Calistenia') >= 0 && clean.indexOf('Musculação') >= 0) {
+                out.push({ mods: clean.filter(m => m !== 'Calistenia').slice(0, 2) });
+            } else {
+                out.push({ mods: clean.slice(0, 2) });
+            }
+        }
+        return out;
+    }
+
     function weekSlots() {
         const raw = userData && userData.weekSlots;
         if (!Array.isArray(raw) || raw.length !== 7) return defaultWeekSlots();
-        const allowed = { Calistenia: 1, 'Musculação': 1, Corrida: 1 };
-        return raw.map(day => {
-            const list = Array.isArray(day) ? day : [];
-            const clean = [];
-            list.forEach(m => { if (allowed[m] && clean.indexOf(m) < 0) clean.push(m); });
-            if (clean.indexOf('Calistenia') >= 0 && clean.indexOf('Musculação') >= 0) return clean.filter(m => m !== 'Calistenia');
-            return clean.slice(0, 2);
-        });
+        return packWeekSlots(raw).map(day => day.mods.slice());
     }
 
     function gymLetterCount() {
@@ -6130,7 +6142,7 @@
         const check = validateWeek(read.slots, read.split);
         if (!check.ok) return window.showAlert('Semana', check.error);
         userData.scheduleMode = 'custom';
-        userData.weekSlots = read.slots;
+        userData.weekSlots = packWeekSlots(read.slots);
         userData.gymSplit = check.split;
         userData.gymStart = GYM_STARTS[read.start] ? read.start : 'peitoral';
         userData.gymLetterCursor = 0;
@@ -6195,9 +6207,31 @@
         } catch (err) { hideLoading(); window.showAlert("Erro I.A.", err.message); }
     }
 
+    function firestoreSafe(value) {
+        if (value === undefined) return null;
+        if (value === null || typeof value === 'string' || typeof value === 'boolean') return value;
+        if (typeof value === 'number') return isFinite(value) ? value : null;
+        if (value instanceof Date) return value.toISOString();
+        if (Array.isArray(value)) {
+            return value.map(item => Array.isArray(item) ? { mods: firestoreSafe(item) } : firestoreSafe(item));
+        }
+        if (typeof value === 'object') {
+            const out = {};
+            Object.keys(value).forEach(k => {
+                const v = value[k];
+                if (typeof v === 'function' || typeof v === 'undefined') return;
+                out[k] = firestoreSafe(v);
+            });
+            return out;
+        }
+        return null;
+    }
+
     async function saveFullState() {
         if (!currentUser || !currentUser.uid) return;
-        await setDoc(doc(db, "users", currentUser.uid), { profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() }, { merge: true });
+        if (userData && Array.isArray(userData.weekSlots)) userData.weekSlots = packWeekSlots(userData.weekSlots);
+        const payload = firestoreSafe({ profile: userData, plan: currentPlan, updatedAt: new Date().toISOString() });
+        await setDoc(doc(db, "users", currentUser.uid), payload, { merge: true });
     }
 
     function renderDashboard() {
@@ -6540,7 +6574,7 @@
         const customMode = pending.mode === 'custom';
         if (customMode) {
             userData.scheduleMode = 'custom';
-            userData.weekSlots = pending.slots;
+            userData.weekSlots = packWeekSlots(pending.slots);
             userData.gymSplit = pending.split;
             userData.gymStart = pending.start;
             userData.days = String(pending.sessions);
