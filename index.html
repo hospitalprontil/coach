@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.7</title>
+    <title>AI Coach Híbrido v7.9</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.7 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.9 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.7</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">O dia é seu</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.9</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Corrida com intuito</h2>
                 </div>
             </div>
         </div>
@@ -245,24 +245,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.7 · O dia é seu</strong>
-                    <p class="text-slate-400 mt-0.5">Em cada dia: só exercício, exercício e corrida, ou só corrida. Você escolhe calistenia ou musculação. Salva no Perfil.</p>
+                    <strong class="text-brand-400">v7.9 · Corrida com intuito</strong>
+                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova. O código escolhe se o dia é leve, longo, ritmo, intervalo ou teste.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.8 · Travas da musculação</strong>
+                    <p class="text-slate-400 mt-0.5">O mesmo músculo não fica em dias seguidos. A segunda vez leva metade das séries.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.7 · O dia é seu</strong>
+                    <p class="text-slate-400 mt-0.5">Em cada dia: só exercício, exercício e corrida, ou só corrida.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.6 · Semana sua ou da IA</strong>
                     <p class="text-slate-400 mt-0.5">A IA monta os dias, ou você marca a semana e o ABC/ABCD.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v7.5 · Lugar na anamnese</strong>
-                    <p class="text-slate-400 mt-0.5">O cadastro pede casa, prédio ou clube. O Perfil continua editando.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v7.4 · Lugares de treino</strong>
-                    <p class="text-slate-400 mt-0.5">Cada lugar guarda o que tem. Com mais de um, a musculação pergunta onde você vai.</p>
-                </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.7 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.9 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,29 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.7 O dia é seu</span>
+                    <span class="font-black text-brand-400 text-sm">v7.9 Corrida com intuito</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Condicionamento, baixar o pace ou prova com data.<br>
+                    • O dia pode ser rodagem, longo, ritmo, intervalo ou teste.<br>
+                    • Prazo curto ou dia curto não recebe treino forte. O gráfico de zona não muda de regra.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.8 Travas da musculação</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • O mesmo foco não fica em dois dias seguidos.<br>
+                    • A segunda vez na semana leva metade das séries.<br>
+                    • Sem dia de descanso, não entra tiro, aula intensa nem série no limite.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.7 O dia é seu</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -696,11 +718,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.7</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.9</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.7 · O dia é seu</strong>
-                    • Só exercício, exercício e corrida, ou só corrida.<br>
-                    • Calistenia ou musculação, e salva no Perfil.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.9 · Corrida com intuito</strong>
+                    • Condicionamento, pace ou prova.<br>
+                    • O código escolhe o papel de cada corrida.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1090,6 +1112,32 @@
     </form>
 </div>
 
+<div id="screen-step-run-intent" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center animate-fade-in">
+    <div class="mb-4 text-center">
+        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest block">Corrida</span>
+        <h2 class="text-xl font-black text-white">O que você quer com a corrida?</h2>
+        <p class="text-xs text-slate-400 font-medium mt-1">Dá para mudar depois no Perfil. O histórico não some.</p>
+    </div>
+    <div class="glass-panel p-4 rounded-3xl border border-amber-500/30 w-full space-y-3">
+        <select id="ob-run-intent" onchange="window.syncRunIntentFields('ob')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+            <option value="base">Condicionamento</option>
+            <option value="pace">Baixar o pace</option>
+            <option value="race">Fazer uma prova</option>
+        </select>
+        <div id="ob-run-extra" class="hidden space-y-2">
+            <select id="ob-run-distance" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                <option value="5k">5 km</option>
+                <option value="10k">10 km</option>
+                <option value="21k">Meia</option>
+                <option value="42k">Maratona</option>
+            </select>
+            <input id="ob-run-date" type="date" class="hidden w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+        </div>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Condicionamento fica leve. Baixar o pace mede 5 ou 10 km, sem data. Prova pede o dia. Se o prazo ou os minutos não cabem, o app não coloca tiro.</p>
+    </div>
+    <button type="button" onclick="window.finishOnboardRun()" class="w-full mt-4 bg-amber-500 hover:bg-amber-400 text-white font-black py-4 rounded-2xl text-sm uppercase">Continuar</button>
+</div>
+
 <div id="screen-step-places" class="w-full max-w-md p-4 hidden mx-auto flex flex-col items-center animate-fade-in">
     <div class="mb-4 text-center">
         <span class="text-[10px] text-purple-300 font-bold uppercase tracking-widest block">Antes do eixo</span>
@@ -1195,7 +1243,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.7</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.9</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1388,7 +1436,7 @@
                 <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-list-ol text-brand-400"></i> Como o dia é escolhido</h3>
                 <ol class="text-[11px] text-slate-300 space-y-1.5 font-medium leading-relaxed list-decimal pl-4">
                     <li>Você informa energia, sono, dor e os minutos de hoje. A frequência ao acordar é opcional.</li>
-                    <li>A semana pode ser da inteligência artificial, ou sua. Em cada dia: descanso, só exercício, exercício e corrida, ou só corrida. No exercício, calistenia ou musculação. Na musculação, ABC ou ABCD, e o primeiro treino é peito, costas, perna, ombro ou corpo inteiro.</li>
+                    <li>A semana pode ser da inteligência artificial, ou sua. Em cada dia: descanso, só exercício, exercício e corrida, ou só corrida. O mesmo músculo não fica em dias seguidos. A segunda vez na semana leva metade das séries. Sem descanso, a semana sai mais leve.</li>
                     <li>Se você está bem e o tempo é o da semana, o app usa o treino que já estava na fila. Não chama a inteligência artificial à toa.</li>
                     <li>Se você está cansado, dolorido ou com menos tempo, aí sim a inteligência artificial recalcula. O código revisa o resultado antes de mostrar.</li>
                     <li>Você treina. No fim, anota o esforço. Esse número entra no próximo dia.</li>
@@ -1413,7 +1461,7 @@
 
             <div class="glass-panel p-5 rounded-3xl border border-amber-500/30 space-y-2">
                 <h3 class="text-sm font-black text-white">Corrida</h3>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">A maior parte é leve. Tiro só aparece na semana forte, e some se a perna não recuperou. A primeira semana é caminhada-corrida. No dia leve pode entrar uma subida curta e, se sobrar tempo, panturrilha, ponte e prancha. Isso não conta como segundo tiro.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Você escolhe o intuito: condicionamento, baixar o pace ou uma prova com data. O código decide se o dia é rodagem, longo, ritmo, intervalo ou teste. A inteligência artificial só escreve dentro disso. Tiro não entra em dia leve, no dia da força, no dia seguinte à perna, nem quando o prazo ou os minutos não cabem. O gráfico de zona continua lendo a frequência do que você correu, não o nome do treino.</p>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-2">
@@ -1646,7 +1694,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.7</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.9</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1702,6 +1750,34 @@
                         <div id="prof-week"></div>
                     </div>
                     <button type="button" onclick="window.saveWeekSchedule()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3 rounded-xl text-[11px] uppercase tracking-wide">Salvar semana</button>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-3xl border border-slate-800 shadow-xl w-full overflow-hidden">
+                <button type="button" onclick="window.toggleAccordion('profile-run-content','profile-run-arrow')" class="w-full p-5 flex justify-between items-center text-left">
+                    <div class="min-w-0">
+                        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-widest flex items-center gap-1.5"><i class="fas fa-flag"></i> Intuito da corrida</span>
+                        <p id="prof-run-summary" class="text-[11px] text-slate-400 mt-0.5 font-medium">Condicionamento</p>
+                    </div>
+                    <i id="profile-run-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 shrink-0"></i>
+                </button>
+                <div id="profile-run-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-3">
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Condicionamento, baixar o pace ou uma prova. Salvar refaz só o que você ainda não correu.</p>
+                    <select id="prof-run-intent" onchange="window.syncRunIntentFields('prof')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                        <option value="base">Condicionamento</option>
+                        <option value="pace">Baixar o pace</option>
+                        <option value="race">Fazer uma prova</option>
+                    </select>
+                    <div id="prof-run-extra" class="hidden space-y-2">
+                        <select id="prof-run-distance" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                            <option value="5k">5 km</option>
+                            <option value="10k">10 km</option>
+                            <option value="21k">Meia</option>
+                            <option value="42k">Maratona</option>
+                        </select>
+                        <input id="prof-run-date" type="date" class="hidden w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2.5 text-xs text-white font-bold">
+                    </div>
+                    <button type="button" onclick="window.saveRunIntent()" class="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-3 rounded-xl text-[11px] uppercase">Salvar corrida</button>
                 </div>
             </div>
 
@@ -1796,8 +1872,12 @@
             </div>
 
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">A corrida é sempre a mesma?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. No Perfil, em Intuito da corrida, você escolhe condicionamento, baixar o pace ou uma prova. O app marca o papel do dia: leve, longo, ritmo, intervalo ou teste. Se a prova estiver perto demais, ou o dia for curto, não entra treino forte. O gráfico não muda por causa do nome: ele usa a frequência e o tempo que você correu.</p>
+            </details>
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Posso escolher os dias da semana?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. Em cada dia você escolhe descanso, só exercício, exercício e corrida, ou só corrida. No exercício, calistenia ou musculação. Toque em Salvar semana. ABC ou ABCD define o foco. O app continua escolhendo o exercício.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. O mesmo músculo não fica em dias seguidos, e a segunda vez na semana leva metade das séries. Sem dia de descanso, não entra tiro nem série no limite. Toque em Salvar semana.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">E se a academia de hoje só tiver máquina?</summary>
@@ -2554,6 +2634,7 @@
         { id: 'run_z2_easy', name: 'Rodagem Z1/Z2', focus: 'Base aeróbica fácil', svg: 'run_easy', allowZ4: false },
         { id: 'run_z2_long', name: 'Longão Z2', focus: 'Resistência aeróbica', svg: 'run_long', allowZ4: false },
         { id: 'run_strides', name: 'Z2 + passadas', focus: 'Técnica solta no final', svg: 'run_easy', allowZ4: false },
+        { id: 'run_tempo', name: 'Ritmo constante', focus: 'Limiar, sem tiro curto', svg: 'run_int', allowZ4: false },
         { id: 'run_hills', name: 'Leve + subidas curtas', focus: 'Força leve, sem tiro', svg: 'run_easy', allowZ4: false },
         { id: 'run_walk', name: 'Caminhada-corrida', focus: 'Semana 0 e volta', svg: 'run_easy', allowZ4: false },
         { id: 'run_z4_vo2', name: 'Intervalado Z4', focus: 'VO2 — só semana 3', svg: 'run_int', allowZ4: true },
@@ -2889,7 +2970,7 @@
 
     function appendRunnerSnack(workout) {
         if (!workout || workout.modality !== 'Corrida') return;
-        const hard = workout.catalogId === 'run_z4_vo2' || workout.catalogId === 'run_z5_short' || workout.catalogId === 'run_test';
+        const hard = workout.runRole === 'tempo' || workout.runRole === 'interval' || workout.runRole === 'test' || workout.catalogId === 'run_z4_vo2' || workout.catalogId === 'run_z5_short' || workout.catalogId === 'run_test' || workout.catalogId === 'run_tempo';
         const mins = parseInt(workout.estimatedMinutes || (userData && userData.mins) || 30, 10);
         if (hard || mins < 30 || (typeof isWeek0 === 'function' && isWeek0())) return;
         const snack = ['cal_calf', 'cal_bridge', 'cal_side_plank'].map(id => EX_CATALOG.find(e => e.id === id)).filter(Boolean);
@@ -2987,7 +3068,10 @@
         const meso = (ss && ss.mesocycle) || (typeof getMesocycleState === 'function' ? getMesocycleState() : {});
         const blob = `${workout.name || ''} ${workout.focus || ''} ${(workout.queue || []).map(q => q.name).join(' ')}`.toLowerCase();
         let id = 'run_z2_easy';
-        if (/teste|test day|5 ?km|3 ?km/.test(blob)) id = 'run_test';
+        const roleId = { easy: 'run_z2_easy', long: 'run_z2_long', strides: 'run_strides', tempo: 'run_tempo', interval: 'run_z4_vo2', test: 'run_test', walk: 'run_walk', race: 'run_z2_easy' };
+        if (workout.easyOnly || workout.softenWeek) id = workout.runRole === 'long' && !workout.easyOnly ? 'run_z2_long' : 'run_z2_easy';
+        else if (workout.runRole && roleId[workout.runRole]) id = roleId[workout.runRole];
+        else if (/teste|test day|5 ?km|3 ?km/.test(blob)) id = 'run_test';
         else if (/z5|tiro curto|200 ?m|sprint/.test(blob)) id = 'run_z5_short';
         else if (/z4|vo2|4x4|interval|hiit/.test(blob)) id = 'run_z4_vo2';
         else if (/longao|long run|longo/.test(blob)) id = 'run_z2_long';
@@ -3039,7 +3123,7 @@
             if ((h.modality || '') !== 'Corrida') return false;
             const blob = `${h.workoutName || ''}`.toLowerCase();
             const z = (h.zoneDistribution && (h.zoneDistribution.z4_z5_minutes || h.zoneDistribution.z4z5)) || 0;
-            return /z4|z5|tiro|interval|vo2/.test(blob) || z >= 6;
+            return /z4|z5|tiro|interval|vo2|ritmo/.test(blob) || z >= 6 || h.runRole === 'tempo' || h.runRole === 'interval' || h.runRole === 'test';
         }).length;
     }
     function hiitWeeklyBudget(ss) {
@@ -3222,7 +3306,8 @@
     14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
     15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.
     16. CATÁLOGO: 1 principal por padrão e complementares com id próprio (supino ≠ crucifixo ≠ inclinado; pronada ≠ supinada; leg press ≠ agachamento). Sem planche/lever/muscle-up/HSPU livre. O código corta se passar do MRV.
-    17. AULA HIIT (peso do corpo): sessão PRÓPRIA, 15–20 min, só ids family=hiit. 1×/semana (2× só se hiit_budget>=2 e mesocycle_week===3). hiit_budget===0 (semana 0, deload, ACWR alto, eixo Corrida, queda de FC): ZERO HIIT. Não misturar burpee no meio de barra/flexão. Burpee completo só se joelho e ombro ok — senão burpee sem salto / polichinelo.`;
+    17. AULA HIIT (peso do corpo): sessão PRÓPRIA, 15–20 min, só ids family=hiit. 1×/semana (2× só se hiit_budget>=2 e mesocycle_week===3). hiit_budget===0 (semana 0, deload, ACWR alto, eixo Corrida, queda de FC): ZERO HIIT. Não misturar burpee no meio de barra/flexão. Burpee completo só se joelho e ombro ok — senão burpee sem salto / polichinelo.
+    18. TRAVA DE MUSCULAÇÃO: o mesmo foco no máximo 2× na semana e nunca em dias seguidos. A segunda vez leva metade das séries. Corpo inteiro no máximo 2×. Semana sem descanso: RIR mínimo 3, sem HIIT e sem Z4.`;
 
     let currentUser = null;
     let lastAuthUid = null;
@@ -4194,6 +4279,11 @@
         const z2pace = ss.z2_pace_suggestion || null;
         workout.queue = Array.isArray(workout.queue) ? workout.queue.map(q => ({ ...q })) : [];
         workout.modality = workout.modality || userData.masterAxis || 'Calistenia';
+        const soften = !!(workout.softenWeek || (customActive() && userData.weekSoften));
+        if (soften && workout.modality === 'Corrida') workout.easyOnly = true;
+        if ((soften || workout.noHiit) && workout.modality === 'Calistenia' && isHiitWorkout(workout)) {
+            try { convertHiitToStrength(workout, ss); } catch (e) {}
+        }
         try { applyCatalogLayer(workout, ss); } catch (e) {}
         if (workout.modality === 'Calistenia' && isHiitWorkout(workout) && hiitWeeklyBudget(ss) <= 0) {
             try { convertHiitToStrength(workout, ss); } catch (e) {}
@@ -4239,6 +4329,11 @@
             if (kind === 'prep') return { ...item, rirTarget: 4, reps: 0 };
             let sets = Math.max(kind === 'iso' ? 1 : 2, Math.round((parseInt(item.sets, 10) || 3) * (meso.setsMul || 1)));
             let rir = Math.max(1, Math.min(4, (parseInt(item.rirTarget, 10) || 2) + (meso.rirDelta || 0)));
+            if (workout.halfVolume && workout.modality === 'Musculação') {
+                sets = Math.max(kind === 'iso' ? 1 : 2, Math.round(sets * 0.5));
+                rir = Math.min(4, rir + 1);
+            }
+            if (soften) rir = Math.max(3, rir);
             const isCal = looksLikeCalisthenics(item.name) || workout.modality === 'Calistenia';
             if (item.family === 'hiit' || workout.sessionKind === 'hiit') {
                 return { ...item, rirTarget: 4, sets: 1 };
@@ -4404,27 +4499,233 @@
         return row.groups;
     }
 
+    function mondayKey(date) {
+        const c = new Date(date);
+        c.setHours(12, 0, 0, 0);
+        c.setDate(c.getDate() - mondayIndex(c));
+        return c.toISOString().slice(0, 10);
+    }
+
+    function focusPool() {
+        const start = (userData && userData.gymStart) || 'peitoral';
+        if (start === 'full') return ['full', 'peitoral', 'costas', 'pernas', 'ombros'];
+        const i0 = START_ROTATION.indexOf(start);
+        const ordered = i0 >= 0 ? START_ROTATION.slice(i0).concat(START_ROTATION.slice(0, i0)) : START_ROTATION.slice();
+        return ordered.slice(0, gymLetterCount());
+    }
+
+    function pickLockedFocus(preferred, counts, lastKey, adjacent) {
+        const order = focusPool();
+        const startAt = Math.max(0, order.indexOf(preferred));
+        const rotated = order.slice(startAt).concat(order.slice(0, startAt));
+        const open = rotated.filter(key => (counts[key] || 0) < 2 && !(adjacent && key === lastKey));
+        if (open.length) return open[0];
+        const fallback = order.slice().sort((a, b) => (counts[a] || 0) - (counts[b] || 0));
+        return fallback.find(key => !(adjacent && key === lastKey)) || fallback[0] || preferred;
+    }
+
+    function inferGymFocus(workout) {
+        if (workout && workout.focusKey && GYM_STARTS[workout.focusKey]) return workout.focusKey;
+        const counts = {};
+        (workout && workout.queue || []).forEach(item => {
+            if (!item || item.type === 'rest') return;
+            const g = normalizeMuscleGroup(item.targetGroup, item.name);
+            let key = null;
+            if (g === 'peitoral' || g === 'bracos') key = 'peitoral';
+            else if (g === 'costas') key = 'costas';
+            else if (g === 'quadriceps' || g === 'posterior' || g === 'panturrilha') key = 'pernas';
+            else if (g === 'ombros' || g === 'core') key = 'ombros';
+            if (key) counts[key] = (counts[key] || 0) + 1;
+        });
+        const keys = Object.keys(counts);
+        if (keys.length >= 3) return 'full';
+        keys.sort((a, b) => counts[b] - counts[a]);
+        return keys[0] || null;
+    }
+
+    function stampAutoStrengthLocks(list) {
+        const counts = {};
+        let last = null;
+        (list || []).forEach(w => {
+            if (!w || w.modality !== 'Musculação') return;
+            const key = inferGymFocus(w) || 'full';
+            const used = counts[key] || 0;
+            if (used >= 1 || key === last) w.halfVolume = true;
+            counts[key] = used + 1;
+            last = key;
+            w.focusKey = w.focusKey || key;
+        });
+        return list;
+    }
+
+    function stampAutoRunRoles(list) {
+        const runs = (list || []).filter(w => w && w.modality === 'Corrida');
+        if (!runs.length) return list;
+        const phase = runPhase(new Date());
+        let qualityUsed = hardAlreadyThisWeek(new Date());
+        const free = runs.filter(w => !w.easyOnly && !w.softenWeek);
+        const longOne = (free.length ? free : runs).slice(-1)[0];
+        runs.forEach(w => {
+            if (typeof isWeek0 === 'function' && isWeek0()) { w.runRole = 'walk'; return; }
+            if (w.easyOnly || w.softenWeek || phase === 'post') { w.runRole = 'easy'; return; }
+            if (phase === 'sharpen') { w.runRole = (!qualityUsed && w !== longOne) ? 'strides' : 'easy'; qualityUsed = true; return; }
+            if (w === longOne) { w.runRole = 'long'; return; }
+            if (!qualityUsed) { w.runRole = qualityRole(phase); qualityUsed = true; return; }
+            w.runRole = 'easy';
+        });
+        return list;
+    }
+
+    function isoDay(date) {
+        const c = new Date(date);
+        c.setHours(12, 0, 0, 0);
+        return c.toISOString().slice(0, 10);
+    }
+
+    function weeksToRace(date) {
+        if (!userData || !userData.raceDate) return null;
+        const race = new Date(String(userData.raceDate).slice(0, 10) + 'T12:00:00');
+        const d = new Date(date || Date.now());
+        d.setHours(12, 0, 0, 0);
+        return (race - d) / 864e5 / 7;
+    }
+
+    function runPhase(date) {
+        const intent = (userData && userData.runIntent) || 'base';
+        if (intent !== 'pace' && intent !== 'race') return 'base';
+        if (userData && userData.runFinishOnly) return 'base';
+        if (intent === 'pace') {
+            const start = userData.paceBlockStart ? new Date(userData.paceBlockStart) : new Date();
+            const w = Math.max(0, Math.floor((new Date(date || Date.now()) - start) / (7 * 864e5)));
+            if (w === 5 || w === 11) return 'test';
+            if (w < 4) return 'pace_base';
+            if (w < 8) return 'pace_tempo';
+            return 'pace_interval';
+        }
+        const w = weeksToRace(date || new Date());
+        if (w === null || w < -1) return 'base';
+        if (w < 0) return 'post';
+        const dist = userData.runDistance || '5k';
+        const specStart = { '5k': 6, '10k': 7, '21k': 8, '42k': 10 }[dist] || 6;
+        if (w <= 2) return 'sharpen';
+        if (w <= specStart) return 'specific';
+        return 'base';
+    }
+
+    function hardAlreadyThisWeek(date) {
+        if (!userData || !userData.lastHardRun) return false;
+        return mondayKey(new Date(userData.lastHardRun)) === mondayKey(date || new Date());
+    }
+
+    function roleForRunDay(date, forcedEasy) {
+        if (!userData || userData.includeRunning === false) return 'easy';
+        if (typeof isWeek0 === 'function' && isWeek0()) return 'walk';
+        const day = isoDay(date);
+        if (userData.raceDate && String(userData.raceDate).slice(0, 10) === day) return 'race';
+        if (userData.raceDate) {
+            const prev = new Date(String(userData.raceDate).slice(0, 10) + 'T12:00:00');
+            prev.setDate(prev.getDate() - 1);
+            if (isoDay(prev) === day) return 'easy';
+        }
+        if (forcedEasy || (userData && userData.weekSoften)) return 'easy';
+        const phase = runPhase(date);
+        if (phase === 'post') return 'easy';
+        const slots = weekSlots();
+        const dow = mondayIndex(date);
+        const runs = [];
+        slots.forEach((slot, i) => { if (slot.indexOf('Corrida') >= 0) runs.push(i); });
+        const unpaired = runs.filter(i => slotList(slots[i]).indexOf('Musculação') < 0 && slots[i].indexOf('Calistenia') < 0);
+        const longDay = (unpaired.length ? unpaired : runs).slice(-1)[0];
+        const qualityDay = runs.filter(i => i !== longDay && slots[i].indexOf('Musculação') < 0 && slots[i].indexOf('Calistenia') < 0)[0];
+        if (phase === 'sharpen') {
+            if ((weeksToRace(date) || 0) < 1.4) return 'easy';
+            return dow === qualityDay ? 'strides' : 'easy';
+        }
+        if (runs.length && dow === longDay) return 'long';
+        if (qualityDay == null || (runs.length && dow !== qualityDay)) {
+            if (!runs.length && !forcedEasy) return qualityRole(phase);
+            return 'easy';
+        }
+        if (hardAlreadyThisWeek(date)) return 'easy';
+        return qualityRole(phase);
+    }
+
+    function slotList(day) { return Array.isArray(day) ? day : []; }
+
+    function qualityRole(phase) {
+        const dist = (userData && userData.runDistance) || '5k';
+        if (userData && userData.lastRunTest && (Date.now() - new Date(userData.lastRunTest)) > 42 * 864e5 && phase !== 'base' && phase !== 'pace_base' && phase !== 'sharpen' && phase !== 'post') return 'test';
+        if (phase === 'test') return 'test';
+        if (phase === 'pace_interval') return 'interval';
+        if (phase === 'specific' && dist === '5k') return 'interval';
+        if (phase === 'pace_tempo' || phase === 'specific') return 'tempo';
+        if (phase === 'base' || phase === 'pace_base' || phase === 'sharpen') return 'strides';
+        return 'easy';
+    }
+
+    function runRoleLine(role) {
+        const lines = {
+            easy: 'PAPEL: rodagem Z1/Z2. Sem tiro.',
+            long: 'PAPEL: longo, só Z1/Z2. Sem tiro.',
+            strides: 'PAPEL: rodagem leve com 4 a 6 passadas curtas no final. Sem série de tiro.',
+            tempo: 'PAPEL: ritmo constante. Não faça tiro de 200 m.',
+            interval: 'PAPEL: intervalado curto, um único treino forte.',
+            test: 'PAPEL: teste de 3 ou 5 km, no lugar do treino forte.',
+            walk: 'PAPEL: caminhada-corrida. Semana de adaptação.',
+            race: 'PAPEL: dia de prova. Não prescreva série. Só um lembrete curto.'
+        };
+        return lines[role] || lines.easy;
+    }
+
+    function runIntentPrompt() {
+        const intent = (userData && userData.runIntent) || 'base';
+        const names = { base: 'condicionamento', pace: 'baixar o pace', race: 'prova' };
+        return `INTENÇÃO DE CORRIDA: ${names[intent] || 'condicionamento'}. Fase: ${runPhase(new Date())}. Distância: ${(userData && userData.runDistance) || 'nenhuma'}. Prova: ${(userData && userData.raceDate) || 'sem data'}. ${userData && userData.runFinishOnly ? 'MINUTOS CURTOS OU PRAZO CURTO: só rodagem, sem treino forte.' : ''} O papel de cada corrida já vem no pedido. Não troque.`
+    }
+
     function sessionsAhead(startDate, limit, cursor) {
         const slots = weekSlots();
+        const soften = !slots.some(day => !day.length);
         const out = [];
         let letter = Number(cursor) || 0;
-        const letters = gymLetterCount();
+        const countsByWeek = {};
+        let lastKey = null;
+        let lastDay = null;
         const origin = new Date(startDate || Date.now());
         origin.setHours(12, 0, 0, 0);
         for (let i = 0; i < 21 && out.length < limit; i++) {
             const d = new Date(origin);
             d.setDate(origin.getDate() + i);
             const daySlots = slots[mondayIndex(d)] || [];
+            const weekKey = mondayKey(d);
+            if (!countsByWeek[weekKey]) countsByWeek[weekKey] = {};
+            const counts = countsByWeek[weekKey];
+            const afterLegs = lastKey === 'pernas' && lastDay !== null && (i - lastDay) <= 1;
             daySlots.forEach(mod => {
                 if (out.length >= limit) return;
-                const spec = { modality: mod, weekday: mondayIndex(d), easyOnly: mod === 'Corrida' && daySlots.indexOf('Musculação') >= 0 };
+                const spec = {
+                    modality: mod,
+                    weekday: mondayIndex(d),
+                    easyOnly: mod === 'Corrida' && (daySlots.indexOf('Musculação') >= 0 || afterLegs || soften),
+                    softenWeek: soften,
+                    noHiit: soften || (mod === 'Calistenia' && afterLegs)
+                };
                 if (mod === 'Musculação') {
-                    const key = focusKeyForLetter(letter);
-                    spec.gymLetter = 'ABCD'[letter % letters];
+                    const preferred = focusKeyForLetter(letter);
+                    const adjacent = lastKey && lastDay !== null && (i - lastDay) <= 1;
+                    const key = pickLockedFocus(preferred, counts, lastKey, adjacent);
+                    const used = counts[key] || 0;
                     spec.focusKey = key;
                     spec.groups = groupsForFocus(key);
+                    spec.halfVolume = used >= 1;
+                    spec.heavyLegs = key === 'pernas';
+                    spec.gymLetter = key === 'full' ? 'CI' : 'ABCD'[Math.max(0, START_ROTATION.indexOf(key)) % 4];
+                    counts[key] = used + 1;
+                    lastKey = key;
+                    lastDay = i;
                     letter += 1;
                 }
+                if (mod === 'Corrida') spec.runRole = roleForRunDay(d, !!spec.easyOnly);
                 out.push(spec);
             });
         }
@@ -4438,23 +4739,33 @@
         workout.gymGroups = spec.groups || null;
         workout.focusKey = spec.focusKey || null;
         workout.easyOnly = !!spec.easyOnly;
+        workout.halfVolume = !!spec.halfVolume;
+        workout.softenWeek = !!spec.softenWeek;
+        workout.noHiit = !!spec.noHiit;
+        workout.runRole = spec.runRole || null;
+        if (spec.runRole) workout.focus = runRoleLine(spec.runRole).replace('PAPEL: ', '');
         if (spec.gymLetter) {
             const label = (GYM_STARTS[spec.focusKey] || {}).label || '';
-            workout.focus = `Dia ${spec.gymLetter} · ${label}`;
-        } else if (spec.easyOnly) {
-            workout.focus = 'Rodagem leve, no mesmo dia da força';
+            workout.focus = `Dia ${spec.gymLetter} · ${label}${spec.halfVolume ? ' · metade' : ''}`;
+        } else if (spec.easyOnly && !spec.runRole) {
+            workout.focus = 'Rodagem leve';
         }
         return workout;
     }
 
     function specNote(spec) {
         if (!spec) return '';
+        const bits = [];
         if (spec.modality === 'Musculação' && spec.gymLetter) {
             const groups = spec.groups ? spec.groups.join(', ') : 'corpo inteiro';
-            return `DIA ${spec.gymLetter} DE MUSCULAÇÃO. SOMENTE estes grupos: ${groups}. Não coloque outro grupo.`;
+            bits.push(`DIA ${spec.gymLetter} DE MUSCULAÇÃO. SOMENTE estes grupos: ${groups}. Não coloque outro grupo.`);
+            if (spec.halfVolume) bits.push('SEGUNDA VEZ DESTE FOCO NA SEMANA: metade das séries e RIR mais alto.');
         }
-        if (spec.easyOnly) return 'CORRIDA DE HOJE: só Z1/Z2, curta. É o segundo treino do dia, junto da força.';
-        return '';
+        if (spec.easyOnly) bits.push('CORRIDA DE HOJE: só Z1/Z2, curta.');
+        if (spec.modality === 'Corrida' && spec.runRole) bits.push(runRoleLine(spec.runRole));
+        if (spec.noHiit && spec.modality === 'Calistenia') bits.push('SEM AULA HIIT neste dia.');
+        if (spec.softenWeek) bits.push('SEMANA SEM DESCANSO: RIR mínimo 3, sem HIIT e sem Z4.');
+        return bits.join(' ');
     }
 
     function customPlanNote(startDate, limit) {
@@ -4463,7 +4774,7 @@
         const lines = specs.map((s, i) => {
             const day = WEEKDAY_LABELS[s.weekday];
             if (s.modality === 'Musculação') return `${i + 1}. ${day}: Musculação dia ${s.gymLetter}. ${specNote(s)}`;
-            if (s.easyOnly) return `${i + 1}. ${day}: Corrida leve Z1/Z2.`;
+            if (s.modality === 'Corrida') return `${i + 1}. ${day}: Corrida. ${specNote(s)}`;
             return `${i + 1}. ${day}: ${s.modality}.`;
         });
         return {
@@ -4528,7 +4839,7 @@
                     </select>
                 </div>
             </div>
-            <p class="text-[10px] text-slate-500 leading-relaxed">Em cada dia: só o exercício, exercício e corrida, ou só corrida. No exercício, você escolhe calistenia ou musculação. A corrida junto da força sai leve.</p>`;
+            <p class="text-[10px] text-slate-500 leading-relaxed">O mesmo músculo não repete em dias seguidos. A segunda vez na semana leva metade das séries. Sem dia de descanso, a semana inteira sai mais leve.</p>`;
     }
 
     window.syncWeekRow = (rootId, index) => {
@@ -4567,8 +4878,9 @@
             warnings.push('ABCD pede 4 dias de musculação. A série ficou ABC.');
         }
         if (gymDays > 0 && gymDays < 3) warnings.push('Com menos de 3 dias de musculação, o ABC termina na semana seguinte.');
-        if (!slots.some(d => !d.length)) warnings.push('Não há dia de descanso. Se a recuperação cair, o motor alivia mesmo assim.');
-        return { ok: true, split: useSplit, warnings, sessions };
+        if (!slots.some(d => !d.length)) warnings.push('Não há dia de descanso. A semana sai mais leve: sem tiro, sem aula intensa e sem série no limite.');
+        if (gymDays >= 2) warnings.push('O mesmo músculo não fica em dias seguidos. A segunda vez na semana leva metade das séries.');
+        return { ok: true, split: useSplit, warnings, sessions, soften: !slots.some(d => !d.length) };
     }
 
     function weekSummaryText() {
@@ -5602,7 +5914,7 @@
     function hideLoading() { window.hide('loading-overlay'); }
 
     function showScreen(screenId) {
-        ['screen-auth', 'screen-step1-id', 'screen-step2-welcome', 'screen-step3-biometrics', 'screen-step4-calisthenics', 'screen-step5-bodybuilding', 'screen-step6-running', 'screen-step-places', 'screen-step7-axis', 'screen-step-schedule', 'screen-dashboard', 'screen-bodybuilding-workout', 'screen-running-workout', 'screen-timer'].forEach(window.hide);
+        ['screen-auth', 'screen-step1-id', 'screen-step2-welcome', 'screen-step3-biometrics', 'screen-step4-calisthenics', 'screen-step5-bodybuilding', 'screen-step6-running', 'screen-step-run-intent', 'screen-step-places', 'screen-step7-axis', 'screen-step-schedule', 'screen-dashboard', 'screen-bodybuilding-workout', 'screen-running-workout', 'screen-timer'].forEach(window.hide);
         window.show(screenId);
     }
 
@@ -6094,10 +6406,123 @@
             doesNotRun: !!dontRun,
             text: document.getElementById('run-text').value.trim()
         };
-        if (dontRun) userData.includeRunning = false;
+        if (dontRun) {
+            userData.includeRunning = false;
+            userData.runIntent = 'base';
+            showScreen('screen-step-places');
+            renderGymPlacesEditor(document.getElementById('onboard-places'));
+            return;
+        }
+        userData.includeRunning = true;
+        showScreen('screen-step-run-intent');
+    });
+
+    function applyRunChoice(intent, distance, date) {
+        const mins = parseInt(userData.mins, 10) || 45;
+        const mode = intent === 'pace' || intent === 'race' ? intent : 'base';
+        userData.runIntent = mode;
+        userData.runDistance = mode === 'base' ? null : (distance || '5k');
+        userData.raceDate = mode === 'race' ? String(date || '').slice(0, 10) : null;
+        userData.runFinishOnly = false;
+        if (mode === 'pace') {
+            if (!userData.paceBlockStart) userData.paceBlockStart = new Date().toISOString();
+            if (userData.runDistance === '21k' || userData.runDistance === '42k') userData.runDistance = '10k';
+            return [];
+        }
+        userData.paceBlockStart = null;
+        if (mode !== 'race') return [];
+        const minW = { '5k': 8, '10k': 10, '21k': 12, '42k': 16 }[userData.runDistance] || 8;
+        const need = { '5k': 30, '10k': 40, '21k': 60, '42k': 75 }[userData.runDistance] || 30;
+        const w = weeksToRace(new Date());
+        const warns = [];
+        if (w !== null && w < minW) {
+            userData.runFinishOnly = true;
+            warns.push('O prazo é curto para buscar tempo. A prova fica para terminar, só com rodagem.');
+        }
+        if (mins < need) {
+            userData.runFinishOnly = true;
+            warns.push('Os minutos de cada dia não cabem o longo dessa distância. Sem treino forte.');
+        }
+        return warns;
+    }
+
+    function paintRunSummary() {
+        const el = document.getElementById('prof-run-summary');
+        if (!el || !userData) return;
+        const intent = userData.runIntent || 'base';
+        if (intent === 'pace') el.innerText = 'Pace · ' + (userData.runDistance || '5k');
+        else if (intent === 'race') el.innerText = 'Prova · ' + (userData.runDistance || '5k') + (userData.raceDate ? ' · ' + String(userData.raceDate).slice(0, 10).split('-').reverse().join('/') : '') + (userData.runFinishOnly ? ' · só terminar' : '');
+        else el.innerText = 'Condicionamento';
+    }
+
+    function fillRunEditor() {
+        const intent = (userData && userData.runIntent) || 'base';
+        const sel = document.getElementById('prof-run-intent');
+        if (sel) sel.value = intent;
+        const dist = document.getElementById('prof-run-distance');
+        if (dist && userData && userData.runDistance) dist.value = userData.runDistance;
+        const date = document.getElementById('prof-run-date');
+        if (date && userData && userData.raceDate) date.value = String(userData.raceDate).slice(0, 10);
+        window.syncRunIntentFields('prof');
+        paintRunSummary();
+    }
+
+    window.syncRunIntentFields = (prefix) => {
+        const intent = document.getElementById(prefix + '-run-intent')?.value || 'base';
+        const extra = document.getElementById(prefix + '-run-extra');
+        const date = document.getElementById(prefix + '-run-date');
+        const dist = document.getElementById(prefix + '-run-distance');
+        if (extra) extra.classList.toggle('hidden', intent === 'base');
+        if (date) date.classList.toggle('hidden', intent !== 'race');
+        if (dist) {
+            Array.from(dist.options).forEach(opt => {
+                opt.hidden = intent === 'pace' && (opt.value === '21k' || opt.value === '42k');
+            });
+            if (intent === 'pace' && (dist.value === '21k' || dist.value === '42k')) dist.value = '5k';
+        }
+    };
+
+    window.finishOnboardRun = () => {
+        const intent = document.getElementById('ob-run-intent')?.value || 'base';
+        const distance = document.getElementById('ob-run-distance')?.value || '5k';
+        const date = document.getElementById('ob-run-date')?.value || '';
+        if (intent === 'race' && !date) return window.showAlert('Prova', 'Escolha o dia da prova.');
+        if (intent === 'race' && new Date(date + 'T12:00:00') < new Date()) return window.showAlert('Prova', 'A data precisa ser daqui para a frente.');
+        const warns = applyRunChoice(intent, distance, date);
+        if (warns.length) window.showAlert('Corrida', warns.join(' '));
         showScreen('screen-step-places');
         renderGymPlacesEditor(document.getElementById('onboard-places'));
-    });
+    };
+
+    window.saveRunIntent = () => {
+        if (timerInterval) return window.showAlert('Treino aberto', 'Termine ou saia da sessão antes de mudar a corrida.');
+        const intent = document.getElementById('prof-run-intent')?.value || 'base';
+        const distance = document.getElementById('prof-run-distance')?.value || '5k';
+        const date = document.getElementById('prof-run-date')?.value || '';
+        if (intent === 'race' && !date) return window.showAlert('Prova', 'Escolha o dia da prova.');
+        if (intent === 'race' && new Date(date + 'T12:00:00') < new Date()) return window.showAlert('Prova', 'A data precisa ser daqui para a frente.');
+        const warns = applyRunChoice(intent, distance, date);
+        paintRunSummary();
+        if (!currentPlan || !Array.isArray(currentPlan.workouts)) {
+            saveFullState();
+            return window.showAlert('Corrida', 'Intuito salvo.' + (warns.length ? ' ' + warns.join(' ') : ''));
+        }
+        const txt = document.getElementById('agenda-confirm-text');
+        if (customActive()) {
+            const slots = weekSlots();
+            window._pendingAgenda = {
+                mode: 'custom',
+                slots: slots,
+                split: userData.gymSplit === 'ABCD' ? 'ABCD' : 'ABC',
+                start: userData.gymStart || 'peitoral',
+                sessions: slots.reduce((n, d) => n + d.length, 0)
+            };
+        } else {
+            window._pendingAgenda = { mode: 'auto', days: userData.days, mins: userData.mins };
+        }
+        if (txt) txt.innerText = 'O papel das corridas muda. A I.A. refaz só o que você ainda não fez. O histórico fica.' + (warns.length ? ' ' + warns.join(' ') : '');
+        window.show('modal-agenda');
+    };
 
     window.finishOnboardPlaces = () => {
         const places = readGymPlacesFromDom(document.getElementById('onboard-places'));
@@ -6130,6 +6555,7 @@
     window.startAutoPlan = () => {
         userData.scheduleMode = 'auto';
         userData.weekSlots = null;
+        userData.weekSoften = false;
         const days = document.getElementById('sched-days');
         const mins = document.getElementById('sched-mins');
         if (days) userData.days = days.value;
@@ -6146,6 +6572,7 @@
         userData.gymSplit = check.split;
         userData.gymStart = GYM_STARTS[read.start] ? read.start : 'peitoral';
         userData.gymLetterCursor = 0;
+        userData.weekSoften = !!check.soften;
         userData.days = String(check.sessions);
         window._weekWarn = check.warnings.join(' ');
         finishAssessmentAndGeneratePlan();
@@ -6171,6 +6598,7 @@
         TAREFAS: 1. 'userProfileAnalysis' 2. 'planExplanation' 3. 'macrocycleSummary'
         ${shape}
         Cada item work da queue deve ter sets, reps, rirTarget, targetGroup e pct1RM ou loadKg.
+        ${runIntentPrompt()}
         \n ${coachingPromptTail()}`;
 
         try {
@@ -6178,6 +6606,10 @@
             let list = [];
             if (Array.isArray(res.workouts) && res.workouts.length) list = res.workouts;
             else if (res.workout) list = [res.workout];
+            if (!custom) {
+                stampAutoStrengthLocks(list);
+                stampAutoRunRoles(list);
+            }
             list = list.slice(0, sessionCount).map((w, i) => {
                 if (custom && custom.specs[i]) applySpec(w, custom.specs[i]);
                 w = applyDeterministicCoachingGuards(w, syntheticState, { targetMinutes: userData.mins });
@@ -6358,6 +6790,7 @@
         if (runBox) runBox.checked = userData.includeRunning !== false;
         renderGymPlacesEditor();
         paintWeekSummary();
+        fillRunEditor();
         window.setProfileScheduleMode(customActive() ? 'custom' : 'auto');
     }
 
@@ -6578,9 +7011,11 @@
             userData.gymSplit = pending.split;
             userData.gymStart = pending.start;
             userData.days = String(pending.sessions);
+            userData.weekSoften = !(pending.slots || []).some(day => !day || !day.length);
         } else {
             userData.scheduleMode = 'auto';
             userData.weekSlots = null;
+            userData.weekSoften = false;
             userData.days = String(pending.days);
             userData.mins = String(pending.mins);
         }
@@ -6605,11 +7040,16 @@ ESTADO SINTÉTICO JSON (histórico, 1RM, ACWR, dores — NÃO ignore): ${JSON.st
 LOCAIS DE MUSCULAÇÃO: ${JSON.stringify(gymPlaces())}.
 TAREFAS: 1.'userProfileAnalysis' 2.'planExplanation' 3.'macrocycleSummary' 4. array 'workouts' com exatamente ${sessionCount} objetos (e 'workout' = o primeiro).
 Cada work da queue: sets, reps, rirTarget, targetGroup. Soma dos duration ≈ ${mins}*60 segundos.
+${runIntentPrompt()}
 ${coachingPromptTail()}`;
             const res = await callGemini(prompt);
             let list = [];
             if (Array.isArray(res.workouts) && res.workouts.length) list = res.workouts;
             else if (res.workout) list = [res.workout];
+            if (!custom) {
+                stampAutoStrengthLocks(list);
+                stampAutoRunRoles(list);
+            }
             list = list.slice(0, sessionCount).map((w, i) => {
                 if (custom && custom.specs[i]) applySpec(w, custom.specs[i]);
                 w = applyDeterministicCoachingGuards(w, syntheticState, { targetMinutes: mins });
@@ -6847,8 +7287,11 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
                 res.workout.gymGroups = prev.gymGroups || null;
                 res.workout.gymLetter = prev.gymLetter || null;
                 res.workout.focusKey = prev.focusKey || null;
+                res.workout.halfVolume = !!prev.halfVolume;
+                res.workout.softenWeek = !!prev.softenWeek;
             }
-            if (modality === 'Corrida' && prev && prev.easyOnly) res.workout.easyOnly = true;
+            if (modality === 'Corrida' && prev && (prev.easyOnly || prev.softenWeek)) res.workout.easyOnly = true;
+            if (modality === 'Calistenia' && prev && (prev.noHiit || prev.softenWeek)) res.workout.noHiit = true;
             res.workout = applyDeterministicCoachingGuards(res.workout, syntheticState, { targetMinutes: readiness.requestedMinutes });
             res.workout.id = `w_${Date.now()}_recal`;
             res.workout.isCompleted = false;
@@ -7853,6 +8296,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     workoutName: currentPlan.workouts[nwIndex].name, 
                     modality: currentPlan.workouts[nwIndex].modality || userData.masterAxis,
                     sessionKind: currentPlan.workouts[nwIndex].sessionKind || (isHiitWorkout(currentPlan.workouts[nwIndex]) ? 'hiit' : null),
+                    runRole: currentPlan.workouts[nwIndex].runRole || null,
                     pse: selectedPseValue, 
                     durationMinutes: dur,
                     exerciseLogs: exerciseLogsCollected,
@@ -7867,6 +8311,11 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                     userFeedback: getTextInputValue('pw-user-feedback') || null,
                     aiFeedback: aiEvaluationResult?.coachFeedback||"" 
                 });
+                const doneRun = currentPlan.workouts[nwIndex];
+                if (doneRun && doneRun.modality === 'Corrida' && (doneRun.runRole === 'tempo' || doneRun.runRole === 'interval' || doneRun.runRole === 'test')) {
+                    userData.lastHardRun = new Date().toISOString();
+                }
+                if (doneRun && doneRun.runRole === 'test') userData.lastRunTest = new Date().toISOString();
             } catch(e) {
                 hideLoading();
                 window.showAlert("Erro ao salvar histórico", e.message || "O treino não foi gravado no banco. Tente de novo.");
@@ -8349,6 +8798,11 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             if (!byDay[nextKey]) byDay[nextKey] = [];
             byDay[nextKey].push({ kind: 'next', name: pending[0].name || 'Sessão', modality: pending[0].modality || '', mins: pending[0].estimatedMinutes || '' });
         }
+        if (userData && userData.raceDate) {
+            const raceKey = String(userData.raceDate).slice(0, 10);
+            if (!byDay[raceKey]) byDay[raceKey] = [];
+            if (!byDay[raceKey].some(x => x.kind === 'race')) byDay[raceKey].push({ kind: 'race', name: 'Prova ' + (userData.runDistance || ''), modality: 'Corrida' });
+        }
 
         const firstDow = new Date(agendaYear, agendaMonth, 1).getDay();
         const dim = new Date(agendaYear, agendaMonth + 1, 0).getDate();
@@ -8359,12 +8813,13 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             const items = byDay[key] || [];
             const hasDone = items.some(x => x.kind === 'done');
             const hasNext = items.some(x => x.kind === 'next');
+            const isRace = items.some(x => x.kind === 'race');
             const picked = agendaPick === key;
             const isToday = key === todayKey;
             const weekend = new Date(agendaYear, agendaMonth, day).getDay() % 6 === 0;
-            cells += `<button type="button" data-key="${key}" class="agenda-day aspect-square rounded-xl border text-[11px] font-bold flex flex-col items-center justify-center gap-0.5 ${picked ? 'border-brand-400 bg-brand-500/15 text-white' : 'border-slate-800 bg-dark-950 text-slate-200'} ${isToday && !picked ? 'ring-1 ring-brand-400/70' : ''}">
+            cells += `<button type="button" data-key="${key}" class="agenda-day aspect-square rounded-xl border text-[11px] font-bold flex flex-col items-center justify-center gap-0.5 ${picked ? 'border-brand-400 bg-brand-500/15 text-white' : 'border-slate-800 bg-dark-950 text-slate-200'} ${isToday && !picked ? 'ring-1 ring-brand-400/70' : ''} ${isRace ? 'ring-1 ring-amber-400/80' : ''}">
                 <span class="${weekend ? 'text-amber-200/90' : ''}">${day}</span>
-                <span class="flex gap-0.5 h-1.5">${hasDone ? '<i class="fas fa-circle text-emerald-400 text-[5px]"></i>' : ''}${hasNext ? '<i class="fas fa-circle text-brand-400 text-[5px]"></i>' : ''}</span>
+                <span class="flex gap-0.5 h-1.5">${hasDone ? '<i class="fas fa-circle text-emerald-400 text-[5px]"></i>' : ''}${hasNext ? '<i class="fas fa-circle text-brand-400 text-[5px]"></i>' : ''}${isRace ? '<i class="fas fa-flag text-amber-400 text-[6px]"></i>' : ''}</span>
             </button>`;
         }
         grid.innerHTML = cells;
@@ -8379,6 +8834,13 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
         } else {
             list.innerHTML = keys.map(k => byDay[k].map(item => {
                 const label = k.split('-').reverse().join('/');
+                if (item.kind === 'race') {
+                    return `<div class="bg-dark-900 border border-amber-500/40 rounded-2xl px-3 py-2">
+                        <div class="flex justify-between gap-2"><span class="text-[10px] text-amber-300 font-bold">${label} · prova</span><span class="text-[9px] text-slate-400">Corrida</span></div>
+                        <p class="text-xs text-white font-bold mt-0.5">${escapeHtml(item.name)}</p>
+                        <p class="text-[10px] text-slate-500">Não é um treino. A véspera fica leve.</p>
+                    </div>`;
+                }
                 if (item.kind === 'done') {
                     return `<div class="bg-dark-900 border border-emerald-500/30 rounded-2xl px-3 py-2">
                         <div class="flex justify-between gap-2"><span class="text-[10px] text-emerald-300 font-bold">${label} · feito</span><span class="text-[9px] text-slate-400">${escapeHtml(item.modality || '')}</span></div>
