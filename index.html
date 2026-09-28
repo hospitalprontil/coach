@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.13</title>
+    <title>AI Coach Híbrido v7.14</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.13 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.14 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -232,8 +232,8 @@
                     <i class="fas fa-robot text-2xl"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.13</span>
-                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Dia de teste com um exercício</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.14</span>
+                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Teste no seu degrau</h2>
                 </div>
             </div>
         </div>
@@ -244,27 +244,27 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.13 · Dia de teste</strong>
-                    <p class="text-slate-400 mt-0.5">O app escolhe um exercício fresco e explica a série. Isometria é por tempo.</p>
+                    <strong class="text-brand-400">v7.14 · Teste no seu degrau</strong>
+                    <p class="text-slate-400 mt-0.5">Dois exercícios que você já faz. Sem parada de mão para quem nunca treinou.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.13 · Dia de teste</strong>
+                    <p class="text-slate-400 mt-0.5">Um exercício fresco, com o modo de fazer. Isometria é por tempo.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.12 · Tríceps e bíceps</strong>
-                    <p class="text-slate-400 mt-0.5">O volume separa os dois. Peito termina com um tríceps.</p>
+                    <p class="text-slate-400 mt-0.5">O volume separa os dois.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.11 · Descanso igual ao timer</strong>
-                    <p class="text-slate-400 mt-0.5">Na calistenia, o card mostra o mesmo descanso do relógio.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v7.10 · Card do treino completo</strong>
-                    <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios.</p>
+                    <p class="text-slate-400 mt-0.5">O card da calistenia mostra o mesmo descanso do relógio.</p>
                 </div>
             </div>
             </div>
         </div>
         <div class="p-5 pt-0 shrink-0">
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.13 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.14 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -413,7 +413,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.13 Dia de teste</span>
+                    <span class="font-black text-brand-400 text-sm">v7.14 Teste no seu degrau</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • O teste oferece dois exercícios que você já pratica.<br>
+                    • Sem histórico de ombro, não entra parada de mão.<br>
+                    • Você escolhe um. A série que vale continua sendo uma.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.13 Dia de teste</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -764,11 +775,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.13</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.14</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.13 · Teste</strong>
-                    • Um exercício fresco, com o modo de fazer.<br>
-                    • Isometria é por tempo.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.14 · Teste</strong>
+                    • Dois exercícios do seu degrau, você escolhe um.<br>
+                    • Sem parada de mão se você nunca fez.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1289,7 +1300,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.13</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.14</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1740,7 +1751,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.13</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.14</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -3146,6 +3157,7 @@
             }
         }
         while (idx > 0 && ladder[idx].rung > cap) idx--;
+        if (!last && (family === 'pike' || (sport === 'Calistenia' && family === 'leg'))) idx = 0;
         return ladder[idx];
     }
 
@@ -5957,19 +5969,41 @@
         return groups;
     }
 
+    function testCurrentEntry(family, sport, lifts, joints) {
+        if (familyBlockedByPain(family, joints)) return null;
+        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport && e.role !== 'accessory' && equipmentOk(e)).sort((a, b) => a.rung - b.rung);
+        if (!rungs.length) return null;
+        const known = lifts && lifts[family];
+        if (known) {
+            const entry = findCatalogByName(known.catalogId || known.name, sport);
+            if (entry && entry.family === family && equipmentOk(entry)) return entry;
+        }
+        if (family === 'pike' || family === 'leg' || family === 'core') return null;
+        const cap = athleteRungCap(family, sport, joints);
+        let ladder = rungs.filter(r => r.rung <= cap);
+        if (typeof isWeek0 === 'function' && isWeek0()) ladder = ladder.filter(r => r.week0 !== false);
+        if (!ladder.length) return null;
+        if (sport === 'Calistenia') {
+            let idx = 0;
+            for (let i = 0; i < ladder.length; i++) if (ladder[i].rung <= cap) idx = i;
+            return ladder[idx];
+        }
+        return ladder[0];
+    }
+
     function testOffersFor(kind) {
         const tired = testFatigueGroups();
         const sport = kind === 'rm35' ? 'Musculação' : 'Calistenia';
         const menu = kind === 'rm35'
             ? [{ family: 'hpush', block: ['peitoral', 'triceps'] }, { family: 'hpull', block: ['costas', 'biceps'] }, { family: 'squat', block: ['quadriceps', 'posterior'] }]
-            : [{ family: 'push', block: ['peitoral', 'triceps'] }, { family: 'row', block: ['costas', 'biceps'] }, { family: 'pike', block: ['ombros'] }, { family: 'leg', block: ['quadriceps', 'posterior'] }, { family: 'core', block: ['core'] }];
+            : [{ family: 'push', block: ['peitoral', 'triceps'] }, { family: 'row', block: ['costas', 'biceps'] }, { family: 'pike', block: ['ombros'] }, { family: 'leg', block: ['quadriceps', 'posterior'] }];
         const joints = (lastSyntheticState && lastSyntheticState.joint_stress_index) || {};
         const lifts = (lastSyntheticState && lastSyntheticState.last_lifts) || {};
         const out = [];
         menu.forEach(row => {
-            if (out.length >= 3) return;
+            if (out.length >= 2) return;
             if (row.block.some(g => tired.has(g))) return;
-            const entry = pickCatalogForFamily(row.family, sport, lifts, joints);
+            const entry = testCurrentEntry(row.family, sport, lifts, joints);
             if (!entry || out.some(e => e.id === entry.id)) return;
             out.push(entry);
         });
@@ -6015,7 +6049,7 @@
                 ? 'Trote de 8 a 10 minutos. Depois os quilômetros no ritmo mais forte que você segura até o fim. Um teste só. Isso substitui o tiro da semana.'
                 : (t === 'rm35'
                     ? 'Um levantamento só, do músculo que você não treinou nas últimas 48 horas. Não é uma série inteira no máximo.'
-                    : 'Um exercício só, do que está fresco. Se hoje foi perna, o app oferece flexão ou australiana. Isometria, se aparecer, é por tempo.');
+                    : 'Escolha um dos dois. São exercícios que você já pratica, no seu degrau. Se hoje foi perna, flexão e australiana. Sem exercício novo.');
         }
         if (isRun) { offers.innerHTML = ''; if (cue) cue.innerText = ''; return; }
         const list = testOffersFor(t);
