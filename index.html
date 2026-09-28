@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.10</title>
+    <title>AI Coach Híbrido v7.11</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.10 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.11 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -233,8 +233,8 @@
                     <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.10</span>
-                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Card do treino completo</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.11</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Descanso igual ao timer</h2>
                 </div>
             </div>
         </div>
@@ -245,24 +245,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.10 · Card do treino completo</strong>
-                    <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios. O card cresce. Dentro da sessão, cada série continua separada.</p>
+                    <strong class="text-brand-400">v7.11 · Descanso igual ao timer</strong>
+                    <p class="text-slate-400 mt-0.5">Na calistenia, o card mostra o mesmo descanso que o relógio conta. Musculação continua em 90 segundos.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.10 · Card do treino completo</strong>
+                    <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios. O card cresce.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.9 · Corrida com intuito</strong>
-                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova. O código escolhe o papel de cada corrida.</p>
+                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.8 · Travas da musculação</strong>
-                    <p class="text-slate-400 mt-0.5">O mesmo músculo não fica em dias seguidos. A segunda vez leva metade das séries.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v7.7 · O dia é seu</strong>
-                    <p class="text-slate-400 mt-0.5">Em cada dia: só exercício, exercício e corrida, ou só corrida.</p>
+                    <p class="text-slate-400 mt-0.5">O mesmo músculo não fica em dias seguidos.</p>
                 </div>
             </div>
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.10 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.11 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -411,7 +411,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.10 Card do treino completo</span>
+                    <span class="font-black text-brand-400 text-sm">v7.11 Descanso igual ao timer</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Calistenia: o card e o relógio usam o mesmo descanso.<br>
+                    • Sem número vindo da I.A., são 30 segundos.<br>
+                    • Musculação continua com descanso de hipertrofia, em geral 90 segundos.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.10 Card do treino completo</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -729,11 +740,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.10</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.11</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.10 · Card do treino</strong>
-                    • A lista do dia mostra todos os exercícios.<br>
-                    • O card cresce. Não corta em quatro linhas.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.11 · Descanso</strong>
+                    • O card da calistenia mostra o mesmo intervalo do timer.<br>
+                    • Musculação segue em 90 segundos.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1254,7 +1265,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.10</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.11</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1705,7 +1716,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.10</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.11</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -3863,6 +3874,13 @@
         return 90;
     }
 
+    function timerRestSeconds(item) {
+        const kind = (item && item._kind) || exerciseKind(item);
+        if (kind === 'prep') return 20;
+        const asked = parseInt(item && item.restSeconds, 10);
+        return Math.max(20, Math.min(45, asked || 30));
+    }
+
     function exerciseKind(item) {
         const blob = `${item?.name || ''} ${item?.roundInfo || ''} ${item?.phase || ''} ${item?.role || ''}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         if (/aquec|desaquec|volta a calma|volta-a-calma|cooldown|cool down|warm.?up|alongament|mobilidade|mobility|respiracao diafrag/.test(blob)) return 'prep';
@@ -3958,7 +3976,7 @@
                 const block = parseInt(item.duration, 10) || 30;
                 perSet = (nSets > 1 && block >= nSets * 15) ? Math.max(15, Math.round(block / nSets)) : Math.max(15, block);
             }
-            const restDur = kind === 'prep' ? 20 : Math.max(20, Math.min(45, parseInt(item.restSeconds, 10) || 30));
+            const restDur = timerRestSeconds(item);
             const targetReps = kind === 'iso' || kind === 'prep' ? 0 : (parseInt(item.reps, 10) || 8);
             for (let s = 1; s <= nSets; s++) {
                 const round = kind === 'prep' ? 'Aquecimento / volta — só o relógio'
@@ -4013,7 +4031,7 @@
             sets: Math.min(6, Math.max(1, parseInt(w.sets, 10) || 1)),
             reps: w.reps || '',
             dur: parseInt(w.duration, 10) || 0,
-            rest: restSecondsForItem(w)
+            rest: ((workout?.modality || '') === 'Musculação') ? restSecondsForItem(w) : timerRestSeconds(w)
         }));
         if (!seen.length) return workout?.focus || 'Sessão do dia';
         if (isHiitWorkout(workout)) {
@@ -7449,7 +7467,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             const targetInfo = (exData._kind || exerciseKind(exData)) === 'iso'
                 ? `${nSets} × ${exData.duration || 30}s`
                 : `${nSets} séries${exData.reps ? ' × ' + exData.reps : ''}`;
-            const restSec = restSecondsForItem(exData);
+            const restSec = mode === 'musculacao' ? restSecondsForItem(exData) : timerRestSeconds(exData);
             const estMap = lastSyntheticState && lastSyntheticState["1RM_Estimates"] ? lastSyntheticState["1RM_Estimates"] : {};
             const est1 = estMap[String(exName).toLowerCase()];
             const pct = parseFloat(exData.pct1RM || 0);
