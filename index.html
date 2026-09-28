@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.12</title>
+    <title>AI Coach Híbrido v7.13</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.12 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.13 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -232,8 +232,8 @@
                     <i class="fas fa-robot text-2xl"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.12</span>
-                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Tríceps e bíceps separados</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.13</span>
+                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Dia de teste com um exercício</h2>
                 </div>
             </div>
         </div>
@@ -244,8 +244,12 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.12 · Tríceps e bíceps</strong>
-                    <p class="text-slate-400 mt-0.5">O volume separa os dois. Peito termina com um tríceps. Costas, com um bíceps. Supino não reparte porcentagem.</p>
+                    <strong class="text-brand-400">v7.13 · Dia de teste</strong>
+                    <p class="text-slate-400 mt-0.5">O app escolhe um exercício fresco e explica a série. Isometria é por tempo.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.12 · Tríceps e bíceps</strong>
+                    <p class="text-slate-400 mt-0.5">O volume separa os dois. Peito termina com um tríceps.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.11 · Descanso igual ao timer</strong>
@@ -255,16 +259,12 @@
                     <strong class="text-slate-200">v7.10 · Card do treino completo</strong>
                     <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v7.9 · Corrida com intuito</strong>
-                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova.</p>
-                </div>
             </div>
             </div>
         </div>
         <div class="p-5 pt-0 shrink-0">
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.12 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.13 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -413,7 +413,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.12 Tríceps e bíceps</span>
+                    <span class="font-black text-brand-400 text-sm">v7.13 Dia de teste</span>
+                    <span class="text-[9px] text-slate-500">Set 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • O app sugere um exercício que você não fez nas últimas 48 horas.<br>
+                    • Uma série só. Isometria pede segundos, não repetições.<br>
+                    • Corrida de teste não entra no dia da perna.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.12 Tríceps e bíceps</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -753,11 +764,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.12</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.13</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.12 · Braços</strong>
-                    • Tríceps e bíceps têm barra e ponta próprias.<br>
-                    • Peito não divide série com o tríceps.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.13 · Teste</strong>
+                    • Um exercício fresco, com o modo de fazer.<br>
+                    • Isometria é por tempo.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1278,7 +1289,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.12</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.13</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1348,7 +1359,7 @@
 
             <div id="dash-test-banner" class="hidden bg-purple-950/40 border border-purple-500/40 p-4 rounded-3xl w-full">
                 <div class="flex items-center justify-between gap-2">
-                    <p class="text-xs text-purple-100 font-medium leading-relaxed">Mais de 6 semanas sem teste. Um 3–5 RM, um máximo de calistenia ou um 3/5 km ancora a carga e o pace.</p>
+                    <p class="text-xs text-purple-100 font-medium leading-relaxed">Mais de 6 semanas sem teste. Um exercício fresco, uma série. Isometria é por tempo.</p>
                     <button type="button" onclick="window.openTestDayModal()" class="shrink-0 bg-purple-500 text-white text-[10px] font-black px-3 py-2 rounded-xl uppercase">Testar</button>
                 </div>
             </div>
@@ -1729,7 +1740,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.12</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.13</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1906,6 +1917,10 @@
                 <p class="text-xs text-slate-400 mt-2 leading-relaxed">Toque na pergunta para abrir. Os <span class="info-i" style="pointer-events:none">i</span> nas outras abas também explicam os termos.</p>
             </div>
 
+            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
+                <summary class="text-xs font-black text-white pr-6">Como é o dia de teste?</summary>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Um exercício só, escolhido pelo app entre os que estão frescos. Se hoje foi perna, ele oferece flexão ou australiana, não agachamento. A série que vale é uma. Isometria é por tempo: anote os segundos, não as repetições. Corrida de teste não entra no mesmo dia da perna.</p>
+            </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">O supino conta para o tríceps?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. A série inteira vai para o peito. Tríceps só sobe com exercício de tríceps: dip no banco, diamante, testa, polia. Bíceps sobe com rosca ou australiana supinada. O que já foi gravado como braço continua na barra Braço (já feito) por sete dias.</p>
@@ -2563,32 +2578,40 @@
 </div>
 
 <div id="modal-test-day" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[192] hidden flex items-center justify-center p-4">
-    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto space-y-3 max-h-[88vh] overflow-y-auto">
-        <div class="flex justify-between items-center">
+    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-5 max-w-sm w-full shadow-2xl mx-auto space-y-3 max-h-[88vh] overflow-y-auto">
+        <div class="flex justify-between items-center gap-2">
             <h3 class="text-sm font-black text-white">Dia de teste</h3>
-            <button onclick="window.hide('modal-test-day')" class="text-slate-400"><i class="fas fa-times"></i></button>
+            <button type="button" onclick="window.hide('modal-test-day')" class="text-slate-400"><i class="fas fa-times"></i></button>
         </div>
-        <p class="text-[11px] text-slate-400">Não substitui o treino da fila. Atualiza 1RM, IFR ou o pace de Z2. Sem 1RM verdadeiro de risco — use 3 a 5 reps.</p>
-        <label class="text-[10px] text-slate-500 font-bold uppercase block">Tipo</label>
+        <p id="test-how" class="text-[11px] text-slate-300 leading-relaxed">Um exercício só. Não é um segundo treino.</p>
+        <label class="text-[10px] text-slate-500 font-bold uppercase block">O que medir</label>
         <select id="test-type" onchange="window.toggleTestFields()" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            <option value="rm35">Musculação · 3–5 RM</option>
-            <option value="calmax">Calistenia · máximo ou IFR</option>
+            <option value="calmax">Calistenia · uma série</option>
+            <option value="rm35">Musculação · 3 a 5 repetições</option>
             <option value="run3k">Corrida · 3 km</option>
             <option value="run5k">Corrida · 5 km</option>
         </select>
+        <div id="test-offers" class="space-y-2"></div>
+        <p id="test-cue" class="text-[11px] text-slate-400 leading-relaxed"></p>
         <div id="test-fields-lift" class="space-y-2">
-            <input id="test-ex-name" placeholder="Exercício (ex: Agachamento)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            <div class="grid grid-cols-3 gap-2">
-                <input id="test-weight" type="number" step="0.5" placeholder="kg barra" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                <input id="test-added" type="number" step="0.5" placeholder="+ extra" class="bg-dark-950 border border-amber-500/40 rounded-xl p-2.5 text-xs text-amber-200">
-                <input id="test-reps" type="number" placeholder="reps 3–5" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <p id="test-selected-name" class="text-xs font-black text-white">Escolha um exercício acima.</p>
+            <div id="test-fields-reps" class="grid grid-cols-2 gap-2">
+                <input id="test-reps" type="number" min="1" max="80" placeholder="Reps limpas" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+                <input id="test-added" type="number" min="0" step="0.5" placeholder="Carga extra kg" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            </div>
+            <div id="test-fields-bar" class="hidden">
+                <input id="test-weight" type="number" min="0" step="0.5" placeholder="Carga da barra, em kg" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            </div>
+            <div id="test-fields-hold" class="hidden">
+                <input id="test-hold" type="number" min="1" max="300" placeholder="Segundos sustentados" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
             </div>
         </div>
         <div id="test-fields-run" class="space-y-2 hidden">
             <input id="test-time-min" type="number" step="0.1" placeholder="Tempo total (min)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
             <input id="test-fc" type="number" placeholder="FC média (opcional)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <p id="test-run-block" class="hidden text-[11px] text-amber-300 leading-relaxed">A perna foi treinada nas últimas 48 horas. Deixe este teste para amanhã.</p>
         </div>
-        <button type="button" onclick="window.saveTestDay()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar teste</button>
+        <button type="button" onclick="window.saveTestDay()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar este teste</button>
     </div>
 </div>
 
@@ -3364,7 +3387,7 @@
     10. PROGRESSÃO: use last_lifts. RIR≤2 sobe ~2,5% (ou +1 rep na calistenia); RIR≥4 mantém; RIR 0 desce ~5%. Não invente carga se last_lifts existir.
     11. MESOCICLO 4 SEMANAS (mesocycle_week): 1 volume (RIR alto, sem Z4); 2 volume alto; 3 intensidade (RIR baixo, 1 estímulo); 4 deload planejado −30% séries, sem tiro. O deload de ACWR continua como freio.
     12. SÉRIE EFETIVA: só RIR≤3 conta no MEV. Aquecimento (RIR≥5 ou HRR<60%) não entra no 80/20.
-    13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.
+    13. TESTE: se days_since_test>42, sugira um teste de UM exercício fresco (não o músculo das últimas 48h). Calistenia: uma série até a técnica quebrar. Musculação: uma série de 3 a 5. Corrida: 3 ou 5 km, não no dia de perna. Isometria é por tempo, não por repetição.
     14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
     15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.
     16. CATÁLOGO: 1 principal por padrão e complementares com id próprio (supino ≠ crucifixo ≠ inclinado; pronada ≠ supinada; leg press ≠ agachamento). Sem planche/lever/muscle-up/HSPU livre. O código corta se passar do MRV.
@@ -5913,21 +5936,124 @@
         window.showAlert('Mesociclo', 'Semana 1 — Volume. Histórico e treinos continuam. O motor volta a construir carga.');
     };
 
-    window.openTestDayModal = () => {
+    function testFatigueGroups() {
+        const groups = new Set();
+        const cutoff = Date.now() - 48 * 3600 * 1000;
+        const mark = (g) => { if (g && g !== 'prep' && g !== 'hiit' && g !== 'outros') groups.add(g); };
+        (window._testHistory || []).forEach(h => {
+            if (!h || !h.date || h.isTestDay) return;
+            if (new Date(h.date).getTime() < cutoff) return;
+            (h.exerciseLogs || []).forEach(log => mark(volumeGroupOfLog(log)));
+        });
+        (currentPlan && currentPlan.workouts || []).forEach(w => {
+            if (!w || !w.isCompleted) return;
+            const when = new Date(w.completedAt || w.date || 0).getTime();
+            if (!when || when < cutoff) return;
+            (w.queue || []).forEach(q => {
+                if (!q || q.type === 'rest') return;
+                mark(q.targetGroup || categorizeMuscleGroup(q.name));
+            });
+        });
+        return groups;
+    }
+
+    function testOffersFor(kind) {
+        const tired = testFatigueGroups();
+        const sport = kind === 'rm35' ? 'Musculação' : 'Calistenia';
+        const menu = kind === 'rm35'
+            ? [{ family: 'hpush', block: ['peitoral', 'triceps'] }, { family: 'hpull', block: ['costas', 'biceps'] }, { family: 'squat', block: ['quadriceps', 'posterior'] }]
+            : [{ family: 'push', block: ['peitoral', 'triceps'] }, { family: 'row', block: ['costas', 'biceps'] }, { family: 'pike', block: ['ombros'] }, { family: 'leg', block: ['quadriceps', 'posterior'] }, { family: 'core', block: ['core'] }];
+        const joints = (lastSyntheticState && lastSyntheticState.joint_stress_index) || {};
+        const lifts = (lastSyntheticState && lastSyntheticState.last_lifts) || {};
+        const out = [];
+        menu.forEach(row => {
+            if (out.length >= 3) return;
+            if (row.block.some(g => tired.has(g))) return;
+            const entry = pickCatalogForFamily(row.family, sport, lifts, joints);
+            if (!entry || out.some(e => e.id === entry.id)) return;
+            out.push(entry);
+        });
+        return out;
+    }
+
+    function testCueFor(entry, kind) {
+        if (!entry) return 'Escolha um exercício. Só um vale hoje.';
+        if (exerciseKind(entry) === 'iso') return entry.name + ': isometria é por tempo, não por repetição. Segure o máximo com o corpo alinhado. Anote os segundos. Uma tentativa só.';
+        if (kind === 'rm35') return entry.name + ': aqueça em duas séries leves. A série que vale é uma, de 3 a 5 repetições, a mais pesada que ainda sai limpa. O aquecimento não entra.';
+        return entry.name + ': duas séries leves não contam. A série que vale é uma, até a próxima repetição sair torta. Anote quantas saíram limpas. Não faça várias séries no máximo.';
+    }
+
+    window.openTestDayModal = async () => {
+        window._testPick = null;
         window.show('modal-test-day');
+        window.toggleTestFields();
+        try {
+            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
+            const history = [];
+            snap.forEach(d => history.push(d.data()));
+            window._testHistory = history;
+        } catch (e) { window._testHistory = window._testHistory || []; }
         window.toggleTestFields();
     };
     window.toggleTestFields = () => {
-        const t = document.getElementById('test-type')?.value;
+        const t = document.getElementById('test-type')?.value || 'calmax';
         const lift = document.getElementById('test-fields-lift');
         const run = document.getElementById('test-fields-run');
-        if (!lift || !run) return;
-        if (t === 'run3k' || t === 'run5k') { lift.classList.add('hidden'); run.classList.remove('hidden'); }
-        else { lift.classList.remove('hidden'); run.classList.add('hidden'); }
+        const how = document.getElementById('test-how');
+        const offers = document.getElementById('test-offers');
+        const cue = document.getElementById('test-cue');
+        if (!lift || !run || !offers) return;
+        const isRun = t === 'run3k' || t === 'run5k';
+        lift.classList.toggle('hidden', isRun);
+        run.classList.toggle('hidden', !isRun);
+        const tired = testFatigueGroups();
+        const legs = tired.has('quadriceps') || tired.has('posterior');
+        const block = document.getElementById('test-run-block');
+        if (block) block.classList.toggle('hidden', !(isRun && legs));
+        if (how) {
+            how.innerText = isRun
+                ? 'Trote de 8 a 10 minutos. Depois os quilômetros no ritmo mais forte que você segura até o fim. Um teste só. Isso substitui o tiro da semana.'
+                : (t === 'rm35'
+                    ? 'Um levantamento só, do músculo que você não treinou nas últimas 48 horas. Não é uma série inteira no máximo.'
+                    : 'Um exercício só, do que está fresco. Se hoje foi perna, o app oferece flexão ou australiana. Isometria, se aparecer, é por tempo.');
+        }
+        if (isRun) { offers.innerHTML = ''; if (cue) cue.innerText = ''; return; }
+        const list = testOffersFor(t);
+        if (window._testPick && !list.some(e => e.id === window._testPick.id)) window._testPick = null;
+        if (!list.length) {
+            offers.innerHTML = '<p class="text-[11px] text-amber-300 leading-relaxed">Nada fresco nas últimas 48 horas. Deixe o teste para amanhã.</p>';
+            if (cue) cue.innerText = '';
+            return;
+        }
+        offers.innerHTML = list.map(e => {
+            const iso = exerciseKind(e) === 'iso';
+            const on = window._testPick && window._testPick.id === e.id;
+            return `<button type="button" data-test-id="${escapeHtml(e.id)}" class="w-full text-left rounded-xl border px-3 py-2 ${on ? 'border-purple-400 bg-purple-500/15' : 'border-slate-700 bg-dark-950'}"><span class="block text-xs font-black text-white">${escapeHtml(e.name)}</span><span class="block text-[10px] text-slate-400 mt-0.5">${iso ? 'Isometria · por tempo' : 'Uma série · pare na técnica'}</span></button>`;
+        }).join('');
+        offers.querySelectorAll('[data-test-id]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                window._testPick = list.find(e => e.id === btn.getAttribute('data-test-id')) || null;
+                window.toggleTestFields();
+            });
+        });
+        const pick = window._testPick;
+        const iso = pick && exerciseKind(pick) === 'iso';
+        const nameEl = document.getElementById('test-selected-name');
+        if (nameEl) nameEl.innerText = pick ? pick.name : 'Escolha um exercício acima.';
+        document.getElementById('test-fields-reps')?.classList.toggle('hidden', !pick || iso);
+        document.getElementById('test-added')?.classList.toggle('hidden', t !== 'calmax');
+        document.getElementById('test-fields-bar')?.classList.toggle('hidden', t !== 'rm35' || !pick || iso);
+        document.getElementById('test-fields-hold')?.classList.toggle('hidden', !iso);
+        if (cue) cue.innerText = testCueFor(pick, t);
     };
     window.saveTestDay = async () => {
         if (!currentUser) return;
         const t = document.getElementById('test-type').value;
+        const tired = testFatigueGroups();
+        if ((t === 'run3k' || t === 'run5k') && (tired.has('quadriceps') || tired.has('posterior'))) {
+            window.showAlert('Teste', 'A perna foi treinada nas últimas 48 horas. Deixe a corrida para amanhã.');
+            return;
+        }
         showLoading('Salvando teste...');
         try {
             let payload = {
@@ -5948,13 +6074,23 @@
                 payload.fc = parseFloat(document.getElementById('test-fc').value) || null;
                 payload.workoutName = t === 'run5k' ? 'Teste 5 km' : 'Teste 3 km';
             } else {
-                const name = document.getElementById('test-ex-name').value.trim();
-                const reps = parseInt(document.getElementById('test-reps').value, 10);
-                const bar = parseFloat(document.getElementById('test-weight').value) || 0;
-                const added = parseFloat(document.getElementById('test-added').value) || 0;
-                if (!name || !reps) throw new Error('Preencha exercício e reps.');
-                payload.exerciseLogs = [{ name, targetGroup: categorizeMuscleGroup(name), weight: bar, addedLoadKg: added, reps, rir: 0 }];
-                payload.workoutName = t === 'calmax' ? `Teste calistenia: ${name}` : `Teste 3–5RM: ${name}`;
+                const pick = window._testPick;
+                if (!pick) throw new Error('Escolha o exercício sugerido.');
+                const iso = exerciseKind(pick) === 'iso';
+                if (iso) {
+                    const hold = parseInt(document.getElementById('test-hold').value, 10);
+                    if (!hold) throw new Error('Anote os segundos. Isometria não é por repetição.');
+                    payload.exerciseLogs = [{ name: pick.name, catalogId: pick.id, targetGroup: pick.group, kind: 'iso', holdSeconds: hold, reps: 0, rir: 0, weight: 0, addedLoadKg: 0 }];
+                } else {
+                    const reps = parseInt(document.getElementById('test-reps').value, 10);
+                    const bar = t === 'rm35' ? (parseFloat(document.getElementById('test-weight').value) || 0) : 0;
+                    const added = t === 'calmax' ? (parseFloat(document.getElementById('test-added').value) || 0) : 0;
+                    if (!reps) throw new Error('Anote as repetições da série que valeu.');
+                    if (t === 'rm35' && (reps < 3 || reps > 5)) throw new Error('Na musculação, a série que vale fica entre 3 e 5.');
+                    if (t === 'rm35' && bar <= 0) throw new Error('Anote a carga da barra.');
+                    payload.exerciseLogs = [{ name: pick.name, catalogId: pick.id, targetGroup: pick.group, weight: bar, addedLoadKg: added, reps, rir: 0 }];
+                }
+                payload.workoutName = isoName(pick, t);
             }
             payload = compactDefined(payload);
             payload.isTestDay = true;
@@ -5967,12 +6103,17 @@
             window.hide('dash-test-banner');
             if (typeof loadHistory === 'function') loadHistory();
             if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
-            window.showAlert('Teste salvo', '1RM / IFR / pace de Z2 serão atualizados no próximo treino. A fila da semana permanece.');
+            window.showAlert('Teste salvo', 'Um exercício só. A fila da semana continua. O próximo treino usa esse número.');
         } catch (e) {
             hideLoading();
             window.showAlert('Teste', e.message);
         }
     };
+
+    function isoName(pick, t) {
+        if (exerciseKind(pick) === 'iso') return 'Teste de tempo: ' + pick.name;
+        return t === 'calmax' ? ('Teste calistenia: ' + pick.name) : ('Teste 3–5: ' + pick.name);
+    }
 
     function playBeep(freq = 440, duration = 150, type = 'sine') {
         try {
