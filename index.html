@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.15</title>
+    <title>AI Coach Híbrido v7.16</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.15 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.16 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -232,8 +232,8 @@
                     <i class="fas fa-robot text-2xl"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.15</span>
-                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Arquivo do relógio e tempo real</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.16</span>
+                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Grupos em cada letra</h2>
                 </div>
             </div>
         </div>
@@ -244,8 +244,12 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.15 · Relógio e tempo</strong>
-                    <p class="text-slate-400 mt-0.5">Só arquivo FIT, GPX ou TCX. O card de minutos passa a bater com a sessão.</p>
+                    <strong class="text-brand-400">v7.16 · Grupos da letra</strong>
+                    <p class="text-slate-400 mt-0.5">No ABC e no ABCD, você marca quem treina junto. Posterior inclui o glúteo.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.15 · Relógio e tempo</strong>
+                    <p class="text-slate-400 mt-0.5">Só arquivo do relógio. O card de minutos acompanha a sessão.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.14 · Teste no seu degrau</strong>
@@ -255,16 +259,12 @@
                     <strong class="text-slate-200">v7.13 · Dia de teste</strong>
                     <p class="text-slate-400 mt-0.5">Um exercício fresco. Isometria é por tempo.</p>
                 </div>
-                <div>
-                    <strong class="text-slate-200">v7.12 · Tríceps e bíceps</strong>
-                    <p class="text-slate-400 mt-0.5">O volume separa os dois.</p>
-                </div>
             </div>
             </div>
         </div>
         <div class="p-5 pt-0 shrink-0">
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.15 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.16 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -413,7 +413,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.15 Relógio e tempo</span>
+                    <span class="font-black text-brand-400 text-sm">v7.16 Grupos da letra</span>
+                    <span class="text-[9px] text-slate-500">Out 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Cada letra do ABC ou ABCD tem caixas de grupo.<br>
+                    • Posterior inclui o glúteo.<br>
+                    • Até quatro grupos por letra. O mesmo grupo, no máximo duas vezes.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.15 Relógio e tempo</span>
                     <span class="text-[9px] text-slate-500">Out 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -786,11 +797,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.15</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.16</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.15 · Tempo</strong>
-                    • Arquivo do relógio no fim do treino e no histórico.<br>
-                    • O tempo do card acompanha a sessão de verdade.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.16 · Letras</strong>
+                    • Você escolhe os grupos de cada letra.<br>
+                    • Posterior inclui o glúteo.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1311,7 +1322,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.15</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.16</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1534,7 +1545,7 @@
 
             <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-2">
                 <h3 class="text-sm font-black text-white">Musculação</h3>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">Na primeira anamnese, e de novo no Perfil, você cadastra os lugares: casa, prédio, clube. Cada um guarda o que tem lá. Com mais de um, o app pergunta onde você vai treinar e monta a série só com isso. Cada exercício guarda a própria carga. Supino, inclinado e crucifixo não dividem o mesmo número. Agachamento pesado não cola num tiro pesado.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Na semana personalizada, cada letra do ABC ou ABCD tem caixas de grupo. Você marca quem treina junto. Posterior inclui o glúteo. A inteligência artificial escolhe o exercício dentro desses grupos. No perfil, e de novo no cadastro, você também registra os lugares: casa, prédio, clube. Com mais de um, o app pergunta onde você vai treinar. Cada exercício guarda a própria carga.</p>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
@@ -1762,7 +1773,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.15</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.16</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1808,7 +1819,7 @@
                     <i id="profile-week-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 shrink-0"></i>
                 </button>
                 <div id="profile-week-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-3">
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Personalize cada dia: só exercício, exercício e corrida, ou só corrida. Toque em Salvar semana para gravar. O que já foi feito não some.</p>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Personalize cada dia e, na musculação, quem treina junto em cada letra. Posterior inclui o glúteo. Toque em Salvar semana para gravar.</p>
                     <div class="grid grid-cols-2 gap-2">
                         <button type="button" id="prof-mode-auto" onclick="window.setProfileScheduleMode('auto')" class="rounded-xl border border-slate-700 py-2 text-[11px] font-bold text-slate-300">IA decide</button>
                         <button type="button" id="prof-mode-custom" onclick="window.setProfileScheduleMode('custom')" class="rounded-xl border border-slate-700 py-2 text-[11px] font-bold text-slate-300">Personalizar</button>
@@ -1957,7 +1968,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Posso escolher os dias da semana?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. O mesmo músculo não fica em dias seguidos, e a segunda vez na semana leva metade das séries. Sem dia de descanso, não entra tiro nem série no limite. Toque em Salvar semana.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. Na musculação, cada letra do ABC ou ABCD tem caixas. Você marca os grupos daquele dia. Posterior inclui o glúteo. Até quatro grupos por letra, e o mesmo grupo em no máximo duas letras. A inteligência artificial escolhe os exercícios. Toque em Salvar semana.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">E se a academia de hoje só tiver máquina?</summary>
@@ -4872,6 +4883,7 @@
         let letter = Number(cursor) || 0;
         const countsByWeek = {};
         let lastKey = null;
+        let lastGroups = null;
         let lastDay = null;
         const origin = new Date(startDate || Date.now());
         origin.setHours(12, 0, 0, 0);
@@ -4893,19 +4905,32 @@
                     noHiit: soften || (mod === 'Calistenia' && afterLegs)
                 };
                 if (mod === 'Musculação') {
-                    const preferred = focusKeyForLetter(letter);
-                    const adjacent = lastKey && lastDay !== null && (i - lastDay) <= 1;
-                    const key = pickLockedFocus(preferred, counts, lastKey, adjacent);
-                    const used = counts[key] || 0;
-                    spec.focusKey = key;
-                    spec.groups = groupsForFocus(key);
-                    spec.halfVolume = used >= 1;
-                    spec.heavyLegs = key === 'pernas';
-                    spec.gymLetter = key === 'full' ? 'CI' : 'ABCD'[Math.max(0, START_ROTATION.indexOf(key)) % 4];
-                    counts[key] = used + 1;
-                    lastKey = key;
+                    const names = gymLetterCount() === 4 ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
+                    const map = gymLetterMap();
+                    let chosen = letter % names.length;
+                    for (let t = 0; t < names.length; t++) {
+                        const tryIdx = (letter + t) % names.length;
+                        const groups = map[names[tryIdx]] || [];
+                        const overlap = lastGroups && lastDay !== null && (i - lastDay) <= 1 && groups.some(g => lastGroups.indexOf(g) >= 0);
+                        const used = counts[names[tryIdx]] || 0;
+                        if (!overlap && used < 2) { chosen = tryIdx; break; }
+                    }
+                    const gname = names[chosen];
+                    const groups = (map[gname] || []).slice();
+                    spec.focusKey = groups.some(g => g === 'quadriceps' || g === 'posterior') ? 'pernas'
+                        : groups.indexOf('peitoral') >= 0 ? 'peitoral'
+                        : groups.indexOf('costas') >= 0 ? 'costas'
+                        : groups.indexOf('ombros') >= 0 ? 'ombros' : 'full';
+                    spec.groups = groups;
+                    spec.halfVolume = groups.some(g => (counts['g:' + g] || 0) >= 1) || !!(lastGroups && groups.some(g => lastGroups.indexOf(g) >= 0));
+                    spec.heavyLegs = spec.focusKey === 'pernas';
+                    spec.gymLetter = gname;
+                    counts[gname] = (counts[gname] || 0) + 1;
+                    groups.forEach(g => { counts['g:' + g] = (counts['g:' + g] || 0) + 1; });
+                    lastGroups = groups;
+                    lastKey = spec.focusKey;
                     lastDay = i;
-                    letter += 1;
+                    letter = chosen + 1;
                 }
                 if (mod === 'Corrida') spec.runRole = roleForRunDay(d, !!spec.easyOnly);
                 out.push(spec);
@@ -4927,7 +4952,10 @@
         workout.runRole = spec.runRole || null;
         if (spec.runRole) workout.focus = runRoleLine(spec.runRole).replace('PAPEL: ', '');
         if (spec.gymLetter) {
-            const label = (GYM_STARTS[spec.focusKey] || {}).label || '';
+            const label = (spec.groups || []).map(g => {
+                const row = GYM_PICKS.find(p => p[0] === g);
+                return row ? row[1] : g;
+            }).join(', ');
             workout.focus = `Dia ${spec.gymLetter} · ${label}${spec.halfVolume ? ' · metade' : ''}`;
         } else if (spec.easyOnly && !spec.runRole) {
             workout.focus = 'Rodagem leve';
@@ -4977,6 +5005,91 @@
         return { kind: 'rest', sport: 'Calistenia' };
     }
 
+    const GYM_PICKS = [
+        ['peitoral', 'Peito'],
+        ['costas', 'Costas'],
+        ['quadriceps', 'Quadríceps'],
+        ['posterior', 'Posterior e glúteo'],
+        ['ombros', 'Ombros'],
+        ['triceps', 'Tríceps'],
+        ['biceps', 'Bíceps'],
+        ['core', 'Core'],
+        ['panturrilha', 'Panturrilha']
+    ];
+
+    function letterNames(split) {
+        return split === 'ABCD' ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
+    }
+
+    function defaultGymLetters(split, start) {
+        const names = letterNames(split);
+        const packs = {
+            peitoral: ['peitoral', 'triceps'],
+            costas: ['costas', 'biceps'],
+            pernas: ['quadriceps', 'posterior', 'panturrilha'],
+            ombros: ['ombros', 'core']
+        };
+        const full = [
+            ['peitoral', 'costas', 'quadriceps'],
+            ['ombros', 'posterior', 'core'],
+            ['triceps', 'biceps', 'panturrilha'],
+            ['peitoral', 'quadriceps', 'core']
+        ];
+        const map = {};
+        if (start === 'full') {
+            names.forEach((n, i) => { map[n] = full[i].slice(); });
+            return map;
+        }
+        const order = ['peitoral', 'costas', 'pernas', 'ombros'];
+        const i0 = Math.max(0, order.indexOf(start));
+        const rotated = order.slice(i0).concat(order.slice(0, i0));
+        names.forEach((n, i) => { map[n] = (packs[rotated[i % rotated.length]] || packs.peitoral).slice(); });
+        return map;
+    }
+
+    function gymLetterMap() {
+        const split = userData && userData.gymSplit === 'ABCD' ? 'ABCD' : 'ABC';
+        const names = letterNames(split);
+        const raw = userData && userData.gymLetters;
+        if (!raw || typeof raw !== 'object') return defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral');
+        const map = {};
+        let any = false;
+        names.forEach(n => {
+            const list = Array.isArray(raw[n]) ? raw[n].filter(g => GYM_PICKS.some(p => p[0] === g)) : [];
+            if (list.length) any = true;
+            map[n] = list.length ? list : (defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral')[n] || []);
+        });
+        return any ? map : defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral');
+    }
+
+    function letterCardsHtml(map, split) {
+        return letterNames(split).map(n => {
+            const on = new Set(map[n] || []);
+            const boxes = GYM_PICKS.map(([id, label]) => `<label class="flex items-center gap-1.5 text-[10px] text-slate-300"><input type="checkbox" data-letter="${n}" value="${id}" ${on.has(id) ? 'checked' : ''} class="accent-purple-500"> ${label}</label>`).join('');
+            return `<div class="bg-dark-950 border border-slate-800 rounded-xl p-2"><p class="text-[10px] font-black text-purple-300 mb-1">Letra ${n}</p><div class="grid grid-cols-2 gap-1">${boxes}</div></div>`;
+        }).join('');
+    }
+
+    function validateGymLetters(letters, split, mins) {
+        const names = letterNames(split);
+        const tallies = {};
+        for (let i = 0; i < names.length; i++) {
+            const n = names[i];
+            const list = letters[n] || [];
+            if (!list.length) return { ok: false, error: `A letra ${n} precisa de pelo menos um grupo.` };
+            if (list.length > 4) return { ok: false, error: `A letra ${n} tem grupos demais. O máximo é quatro.` };
+            const legs = list.indexOf('quadriceps') >= 0 || list.indexOf('posterior') >= 0;
+            if (list.indexOf('peitoral') >= 0 && list.indexOf('costas') >= 0 && legs && mins < 60) {
+                return { ok: false, error: `Na letra ${n}, peito, costas e perna juntos só cabem num dia de 60 minutos ou mais.` };
+            }
+            list.forEach(g => { tallies[g] = (tallies[g] || 0) + 1; });
+        }
+        const twice = Object.keys(tallies).filter(g => tallies[g] > 2);
+        if (twice.length) return { ok: false, error: 'O mesmo grupo pode entrar em no máximo duas letras.' };
+        const missing = GYM_PICKS.filter(p => !tallies[p[0]]).map(p => p[1]);
+        return { ok: true, warnings: missing.length ? ['Sem letra nesta semana: ' + missing.join(', ') + '.'] : [] };
+    }
+
     function renderWeekEditor(box, slots) {
         if (!box) return;
         const list = slots || weekSlots();
@@ -5005,14 +5118,14 @@
             <div class="grid grid-cols-2 gap-2 pt-1">
                 <div>
                     <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">Série de musculação</label>
-                    <select data-gym-split class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
+                    <select data-gym-split onchange="window.refreshGymLetters('${root}')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
                         <option value="ABC" ${split === 'ABC' ? 'selected' : ''}>ABC</option>
                         <option value="ABCD" ${split === 'ABCD' ? 'selected' : ''}>ABCD</option>
                     </select>
                 </div>
                 <div>
                     <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">1º treino</label>
-                    <select data-gym-start class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
+                    <select data-gym-start onchange="window.refreshGymLetters('${root}')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
                         <option value="peitoral" ${start === 'peitoral' ? 'selected' : ''}>Peito</option>
                         <option value="costas" ${start === 'costas' ? 'selected' : ''}>Costas</option>
                         <option value="pernas" ${start === 'pernas' ? 'selected' : ''}>Pernas</option>
@@ -5021,6 +5134,8 @@
                     </select>
                 </div>
             </div>
+            <div data-gym-letters class="space-y-2">${letterCardsHtml(split === ((userData && userData.gymSplit) === 'ABCD' ? 'ABCD' : 'ABC') ? gymLetterMap() : defaultGymLetters(split, start), split)}</div>
+            <p class="text-[10px] text-slate-500 leading-relaxed">Marque quem treina junto em cada letra. Até 4 grupos. O mesmo grupo, no máximo em duas letras. Posterior inclui o glúteo. Trocar a série ou o 1º treino recoloca os pares clássicos.</p>
             <p class="text-[10px] text-slate-500 leading-relaxed">O mesmo músculo não repete em dias seguidos. A segunda vez na semana leva metade das séries. Sem dia de descanso, a semana inteira sai mais leve.</p>`;
     }
 
@@ -5032,6 +5147,15 @@
         if (!kind || !sport) return;
         const show = kind.value === 'lift' || kind.value === 'both';
         sport.classList.toggle('hidden', !show);
+    };
+
+    window.refreshGymLetters = (rootId) => {
+        const box = document.getElementById(rootId);
+        const host = box && box.querySelector('[data-gym-letters]');
+        if (!host) return;
+        const split = box.querySelector('[data-gym-split]')?.value === 'ABCD' ? 'ABCD' : 'ABC';
+        const start = box.querySelector('[data-gym-start]')?.value || 'peitoral';
+        host.innerHTML = letterCardsHtml(defaultGymLetters(split, start), split);
     };
 
     function readWeekEditor(box) {
@@ -5046,7 +5170,11 @@
         }
         const split = box.querySelector('[data-gym-split]')?.value === 'ABCD' ? 'ABCD' : 'ABC';
         const start = box.querySelector('[data-gym-start]')?.value || 'peitoral';
-        return { slots, split, start };
+        const letters = {};
+        letterNames(split).forEach(n => {
+            letters[n] = Array.from(box.querySelectorAll(`[data-letter="${n}"]:checked`)).map(el => el.value);
+        });
+        return { slots, split, start, letters };
     }
 
     function validateWeek(slots, split) {
@@ -6891,14 +7019,18 @@
         const read = readWeekEditor(document.getElementById('onboard-week'));
         const check = validateWeek(read.slots, read.split);
         if (!check.ok) return window.showAlert('Semana', check.error);
+        const mins = parseInt(document.getElementById('sched-mins')?.value || userData.mins, 10) || 45;
+        const lettersOk = read.slots.some(d => d.indexOf('Musculação') >= 0) ? validateGymLetters(read.letters, check.split, mins) : { ok: true, warnings: [] };
+        if (!lettersOk.ok) return window.showAlert('Grupos', lettersOk.error);
         userData.scheduleMode = 'custom';
         userData.weekSlots = packWeekSlots(read.slots);
         userData.gymSplit = check.split;
         userData.gymStart = GYM_STARTS[read.start] ? read.start : 'peitoral';
+        userData.gymLetters = read.letters;
         userData.gymLetterCursor = 0;
         userData.weekSoften = !!check.soften;
         userData.days = String(check.sessions);
-        window._weekWarn = check.warnings.join(' ');
+        window._weekWarn = check.warnings.concat(lettersOk.warnings || []).join(' ');
         finishAssessmentAndGeneratePlan();
     };
 
@@ -7215,8 +7347,11 @@
             const read = readWeekEditor(document.getElementById('prof-week'));
             const check = validateWeek(read.slots, read.split);
             if (!check.ok) return window.showAlert('Semana', check.error);
-            window._pendingAgenda = { mode: 'custom', slots: read.slots, split: check.split, start: GYM_STARTS[read.start] ? read.start : 'peitoral', sessions: check.sessions, warnings: check.warnings };
-            if (txt) txt.innerText = 'A semana personalizada substitui os treinos que você ainda não fez. O histórico fica.' + (check.warnings.length ? ' ' + check.warnings.join(' ') : '');
+            const mins = parseInt(document.getElementById('prof-mins')?.value || userData.mins, 10) || 45;
+            const lettersOk = read.slots.some(d => d.indexOf('Musculação') >= 0) ? validateGymLetters(read.letters, check.split, mins) : { ok: true, warnings: [] };
+            if (!lettersOk.ok) return window.showAlert('Grupos', lettersOk.error);
+            window._pendingAgenda = { mode: 'custom', slots: read.slots, split: check.split, start: GYM_STARTS[read.start] ? read.start : 'peitoral', letters: read.letters, sessions: check.sessions, warnings: check.warnings.concat(lettersOk.warnings || []) };
+            if (txt) txt.innerText = 'A semana personalizada substitui os treinos que você ainda não fez. O histórico fica.' + (window._pendingAgenda.warnings.length ? ' ' + window._pendingAgenda.warnings.join(' ') : '');
         } else {
             window._pendingAgenda = { mode: 'auto', days: document.getElementById('prof-days')?.value || userData.days, mins: document.getElementById('prof-mins')?.value || userData.mins };
             if (txt) txt.innerText = 'A IA volta a montar a ordem. Os treinos que você ainda não fez são refeitos. O histórico fica.';
@@ -7334,6 +7469,7 @@
             userData.weekSlots = packWeekSlots(pending.slots);
             userData.gymSplit = pending.split;
             userData.gymStart = pending.start;
+            if (pending.letters) userData.gymLetters = pending.letters;
             userData.days = String(pending.sessions);
             userData.weekSoften = !(pending.slots || []).some(day => !day || !day.length);
         } else {
