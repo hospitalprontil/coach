@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.14</title>
+    <title>AI Coach Híbrido v7.15</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -219,7 +219,7 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.14 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.15 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
@@ -232,8 +232,8 @@
                     <i class="fas fa-robot text-2xl"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.14</span>
-                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Teste no seu degrau</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.15</span>
+                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Arquivo do relógio e tempo real</h2>
                 </div>
             </div>
         </div>
@@ -244,27 +244,27 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.14 · Teste no seu degrau</strong>
-                    <p class="text-slate-400 mt-0.5">Dois exercícios que você já faz. Sem parada de mão para quem nunca treinou.</p>
+                    <strong class="text-brand-400">v7.15 · Relógio e tempo</strong>
+                    <p class="text-slate-400 mt-0.5">Só arquivo FIT, GPX ou TCX. O card de minutos passa a bater com a sessão.</p>
+                </div>
+                <div>
+                    <strong class="text-slate-200">v7.14 · Teste no seu degrau</strong>
+                    <p class="text-slate-400 mt-0.5">Dois exercícios que você já faz.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.13 · Dia de teste</strong>
-                    <p class="text-slate-400 mt-0.5">Um exercício fresco, com o modo de fazer. Isometria é por tempo.</p>
+                    <p class="text-slate-400 mt-0.5">Um exercício fresco. Isometria é por tempo.</p>
                 </div>
                 <div>
                     <strong class="text-slate-200">v7.12 · Tríceps e bíceps</strong>
                     <p class="text-slate-400 mt-0.5">O volume separa os dois.</p>
-                </div>
-                <div>
-                    <strong class="text-slate-200">v7.11 · Descanso igual ao timer</strong>
-                    <p class="text-slate-400 mt-0.5">O card da calistenia mostra o mesmo descanso do relógio.</p>
                 </div>
             </div>
             </div>
         </div>
         <div class="p-5 pt-0 shrink-0">
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.14 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.15 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -413,7 +413,18 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.14 Teste no seu degrau</span>
+                    <span class="font-black text-brand-400 text-sm">v7.15 Relógio e tempo</span>
+                    <span class="text-[9px] text-slate-500">Out 2026</span>
+                </div>
+                <p class="text-slate-400 leading-relaxed font-medium">
+                    • Fim do treino e Histórico aceitam só arquivo .FIT, .GPX ou .TCX.<br>
+                    • Print de tela saiu.<br>
+                    • Calistenia: o relógio não desconta 10 minutos por série. Se faltam minutos, entra um bloco leve.
+                </p>
+            </div>
+            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
+                <div class="flex justify-between items-center mb-1">
+                    <span class="font-black text-slate-200 text-sm">v7.14 Teste no seu degrau</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -775,11 +786,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.14</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.15</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.14 · Teste</strong>
-                    • Dois exercícios do seu degrau, você escolhe um.<br>
-                    • Sem parada de mão se você nunca fez.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.15 · Tempo</strong>
+                    • Arquivo do relógio no fim do treino e no histórico.<br>
+                    • O tempo do card acompanha a sessão de verdade.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1300,7 +1311,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.14</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.15</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1751,7 +1762,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.14</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.15</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -2006,7 +2017,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">E a corrida? Tem timer?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. O app mostra o <strong class="text-white">roteiro</strong> (blocos e zonas em bpm) para você colocar no Garmin / Strava / Apple Watch. Depois registre o pós-treino e, se puder, envie o arquivo .FIT ou .GPX no Histórico. Print de tela continua como plano B.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. O app mostra o roteiro para você colocar no relógio. No fim do treino, e também no Histórico, o envio é o arquivo .FIT, .GPX ou .TCX. Print de tela não entra mais.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Hoje não tenho o tempo todo. Posso enxugar?</summary>
@@ -2046,7 +2057,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Meu .FIT do Zepp / Amazfit entra?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Histórico → atualizar com arquivo do relógio. Serve Garmin, Zepp, Apple, Strava (.FIT, .GPX, .TCX). O app lê a FC segundo a segundo — por isso as zonas batem com o relógio. Print de tela é plano B.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. No fim do treino ou no Histórico, envie o arquivo .FIT, .GPX ou .TCX. O app lê a FC segundo a segundo. Print de tela foi desligado.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Por que o histórico de calistenia não mostra pace?</summary>
@@ -2454,21 +2465,21 @@
                 <!-- BLOCO 1: SELETOR DE PRINT DO SMARTWATCH NO PÓS-TREINO -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40 space-y-2 mb-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-camera"></i> Relatório do Smartwatch / Strava</span>
-                        <span class="text-[9px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-bold">Visão I.A.</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-file-arrow-up"></i> Arquivo do relógio</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-bold">FIT</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 font-medium">Envie o print do relógio para preencher automaticamente ou salve para enviar depois.</p>
+                    <p class="text-[11px] text-slate-400 font-medium">Envie o arquivo .FIT, .GPX ou .TCX. O app preenche FC, tempo e distância. Print de tela não é mais usado.</p>
                     <div class="flex gap-2 items-center">
-                        <input type="file" id="smartwatch-file-input" accept="image/*" class="hidden" onchange="window.handleSmartwatchImageUpload(event)">
+                        <input type="file" id="smartwatch-file-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.handleWatchFileOnFinish(event)">
                         <button type="button" onclick="document.getElementById('smartwatch-file-input').click()" class="flex-1 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 text-xs font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-upload"></i> Enviar Print do Relógio
+                            <i class="fas fa-file-arrow-up"></i> Arquivo FIT / GPX / TCX
                         </button>
-                        <button type="button" onclick="window.saveWorkoutWithoutPrintForLater()" class="bg-dark-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold py-3 px-3.5 rounded-xl transition-colors" title="Salvar treino e enviar print depois">
-                            <i class="fas fa-clock"></i> Importar Depois
+                        <button type="button" onclick="window.saveWorkoutWithoutPrintForLater()" class="bg-dark-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold py-3 px-3.5 rounded-xl transition-colors" title="Salvar e anexar o arquivo depois">
+                            <i class="fas fa-clock"></i> Depois
                         </button>
                     </div>
                     <div id="smartwatch-preview-container" class="hidden text-center pt-2">
-                        <p id="smartwatch-status-text" class="text-xs text-amber-400 font-medium animate-pulse">Analisando imagem com Visão Computacional...</p>
+                        <p id="smartwatch-status-text" class="text-xs text-amber-400 font-medium animate-pulse">Lendo arquivo do relógio...</p>
                     </div>
                 </div>
 
@@ -2635,16 +2646,11 @@
             </h3>
             <button onclick="window.hide('modal-pending-upload')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
         </div>
-        <p class="text-xs text-slate-300 font-medium">Envie o <strong class="text-white">arquivo do relógio</strong> (.FIT Zepp/Amazfit, Garmin, Wahoo, Coros; .GPX ou .TCX). Calistenia indoor também vale — o app lê FC e tempo mesmo sem GPS.</p>
+        <p class="text-xs text-slate-300 font-medium">Envie o arquivo do relógio (.FIT, .GPX ou .TCX). Calistenia indoor também vale: o app lê FC e tempo mesmo sem GPS.</p>
 
         <input type="file" id="pending-watch-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.processWatchFileUpload(event)">
         <button type="button" onclick="document.getElementById('pending-watch-input').click()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
             <i class="fas fa-file-arrow-up"></i> Arquivo FIT / GPX / TCX
-        </button>
-
-        <input type="file" id="pending-file-input" accept="image/*" class="hidden" onchange="window.processPendingPrintUpload(event)">
-        <button type="button" onclick="document.getElementById('pending-file-input').click()" class="w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black py-3 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
-            <i class="fas fa-file-image"></i> Print de tela (plano B)
         </button>
 
         <div id="watch-preview" class="hidden text-left"></div>
@@ -3186,7 +3192,7 @@
         return `${item?.name || ''} ${item?.roundInfo || ''} ${item?.catalogId || ''}`.toLowerCase();
     }
     function isHiitItem(item) {
-        if (!item || item.type === 'rest') return false;
+        if (!item || item.type === 'rest' || item.role === 'filler') return false;
         if (item.family === 'hiit' || String(item.catalogId || '').startsWith('cal_hiit_')) return true;
         return /burpee|polichinelo|jumping jack|mountain climber|escalador|high knees|aula hiit/.test(hiitNameBlob(item));
     }
@@ -3205,7 +3211,7 @@
         if (h.sessionKind === 'hiit') return true;
         if (/\baula hiit\b|\bhiit\b/i.test(h.workoutName || '')) return true;
         const logs = h.exerciseLogs || [];
-        return logs.filter(l => l.family === 'hiit' || /burpee|polichinelo|escalador/.test((l.name || '').toLowerCase())).length >= 3;
+        return logs.filter(l => l.role !== 'filler' && (l.family === 'hiit' || /burpee|polichinelo|escalador/.test((l.name || '').toLowerCase()))).length >= 3;
     }
     function countWeeklyHiit(historyData) {
         if (!Array.isArray(historyData)) return 0;
@@ -4132,7 +4138,7 @@
         return /flexao|barra|prancha|hollow|l-sit|muscle|front lever|dip|paralela|pistol|handstand|pull.?up|burpee|polichinelo|escalador/.test(n);
     }
 
-    function sanitizeAndBalanceQueue(rawQueue, targetMinutes) {
+    function sanitizeAndBalanceQueue(rawQueue, targetMinutes, modality) {
         if (!Array.isArray(rawQueue) || rawQueue.length === 0) return [];
         function parseDuration(val) {
             if (typeof val === 'number') return Math.max(5, Math.round(val));
@@ -4157,6 +4163,21 @@
                 if (i.family !== 'hiit' && i.type === 'work' && exerciseKind(i) === 'prep') return;
                 if (i.type === 'work' && i.family === 'hiit') i.duration = Math.max(15, Math.min(40, i.duration || 20));
                 if (i.type === 'rest' && i.family === 'hiit') i.duration = Math.max(15, Math.min(45, i.duration || 40));
+            });
+            return items;
+        }
+        if ((modality || '') !== 'Corrida') {
+            items.forEach(i => {
+                if (!i || i.type === 'rest') {
+                    if (i) i.duration = Math.min(90, Math.max(15, parseInt(i.duration, 10) || 30));
+                    return;
+                }
+                if (i.role === 'filler') { i.duration = 30; return; }
+                const kind = exerciseKind(i);
+                const d = parseInt(i.duration, 10) || 30;
+                if (kind === 'prep') i.duration = Math.min(90, Math.max(20, d > 120 ? 40 : d));
+                else if (kind === 'iso') i.duration = Math.min(60, Math.max(10, d > 90 ? 30 : d));
+                else i.duration = d > 75 ? 30 : Math.min(45, Math.max(20, d));
             });
             return items;
         }
@@ -4186,6 +4207,45 @@
             }
         });
         return items;
+    }
+
+    function realisticQueueSeconds(workout) {
+        if ((workout?.modality || '') === 'Corrida') {
+            return (workout.queue || []).reduce((s, q) => s + (parseInt(q.duration, 10) || 0), 0);
+        }
+        return expandQueueForTimer(workout.queue || [], workout).reduce((s, q) => s + (parseInt(q.duration, 10) || 0), 0);
+    }
+
+    function padCalisthenicsMinutes(workout) {
+        if (!workout || (workout.modality || '') !== 'Calistenia' || isHiitWorkout(workout)) return workout;
+        if (!Array.isArray(workout.queue)) workout.queue = [];
+        const target = Math.max(8, parseInt(workout.estimatedMinutes, 10) || 45) * 60;
+        const joints = JSON.stringify((lastSyntheticState && lastSyntheticState.joint_stress_index) || {}).toLowerCase();
+        const quiet = /joelho|ombro/.test(joints) || (typeof isWeek0 === 'function' && isWeek0()) || workout.noHiit;
+        const fillerName = quiet ? 'Marcha no lugar' : 'Polichinelo leve';
+        let guard = 0;
+        while (realisticQueueSeconds(workout) + 45 < target && guard < 48) {
+            guard++;
+            const block = {
+                type: 'work', name: fillerName + ' · bloco ' + guard, role: 'filler', family: 'filler',
+                catalogId: quiet ? '' : 'cal_hiit_jack', sets: 1, reps: 20, duration: 30, restSeconds: 20,
+                rirTarget: 4, targetGroup: 'core', roundInfo: 'Leve, só para completar o tempo'
+            };
+            const rest = { type: 'rest', name: 'Descanso', duration: 20, role: 'filler' };
+            const anchors = [];
+            workout.queue.forEach((q, i) => {
+                if (q && q.type !== 'rest' && q.role !== 'filler' && exerciseKind(q) !== 'prep') anchors.push(i);
+            });
+            if (!anchors.length) workout.queue.push(block, rest);
+            else {
+                const at = anchors[(guard - 1) % anchors.length];
+                let insertAt = at + 1;
+                if (workout.queue[insertAt] && workout.queue[insertAt].type === 'rest') insertAt++;
+                workout.queue.splice(insertAt, 0, block, rest);
+            }
+        }
+        workout.estimatedMinutes = Math.max(8, Math.round(realisticQueueSeconds(workout) / 60));
+        return workout;
     }
 
     function normExName(n) {
@@ -4540,7 +4600,8 @@
             ? (workout.estimatedMinutes || 18)
             : (opts.targetMinutes || workout.estimatedMinutes || userData.mins || 45);
         workout.estimatedMinutes = parseInt(mins, 10) || (workout.sessionKind === 'hiit' ? 18 : 45);
-        workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes);
+        workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes, workout.modality);
+        if ((workout.modality || '') === 'Calistenia') padCalisthenicsMinutes(workout);
         workout._guardApplied = true;
         workout.mesocycleWeek = meso.week;
         return workout;
@@ -7501,7 +7562,7 @@ ${coachingPromptTail()}`;
             Object.assign(nw, guarded);
             nw.readiness = readiness;
             nw.modality = modality || nw.modality;
-            nw.estimatedMinutes = readiness.requestedMinutes;
+            nw.estimatedMinutes = guarded.estimatedMinutes || readiness.requestedMinutes;
             if ((modality || nw.modality) === 'Musculação') nw._gymGearApplied = window._gymGear || 'mixed';
             await saveFullState();
             renderDashboard();
@@ -7539,7 +7600,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     
     REGRAS CRÍTICAS DE RECALIBRAÇÃO:
     1. INTERPRETAÇÃO DE SINTOMAS: Se houver dor relatada (ex: ombro, joelho, lombar), o motor DEVE substituir ou eliminar exercícios que gerem estresse direto nessa articulação, aplicando a matriz cinesiológica de proteção.
-    2. RECALCULO MATEMÁTICO DE TEMPO (OBRIGATÓRIO): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A ${readiness.requestedMinutes} * 60 segundos. Se o aluno pediu menos tempo, enxugue a sessão cortando volume acessório. Se pediu mais tempo, adicione séries e blocos compensatórios respeitando o MAV/MEV.
+    2. TEMPO: cada duration de trabalho é o tempo DA SÉRIE (20 a 45 segundos na calistenia), nunca o treino inteiro. O código completa os minutos que faltarem com blocos leves. Não estique uma série para 10 minutos.
     3. Retorne estritamente um objeto JSON válido contendo: 'userProfileAnalysis', 'planExplanation', 'macrocycleSummary', 'coachFeedback', e um objeto 'workout' detalhado com nome, focus, modality, estimatedMinutes (${readiness.requestedMinutes}), e a queue balanceada de 'work' e 'rest' (cada work com sets, reps, rirTarget, targetGroup).
     ${coachingPromptTail()}`;
 
@@ -7559,7 +7620,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             res.workout.id = `w_${Date.now()}_recal`;
             res.workout.isCompleted = false;
             res.workout.modality = modality;
-            res.workout.estimatedMinutes = readiness.requestedMinutes;
+            res.workout.estimatedMinutes = res.workout.estimatedMinutes || readiness.requestedMinutes;
             res.workout.readiness = readiness;
             if (modality === 'Musculação') res.workout._gymGearApplied = window._gymGear || 'mixed';
             
@@ -8211,7 +8272,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         document.getElementById('timer-current-name').innerText = item.name;
         const ring = document.getElementById('timer-ring');
         const kind = item._kind || exerciseKind(item);
-        const forceTime = kind === 'iso' || kind === 'prep' || calMode === 'time';
+        const forceTime = kind === 'iso' || kind === 'prep' || item.role === 'filler' || calMode === 'time';
 
         if (item.type === 'rest') {
             const prev = currentWorkoutQueue[index - 1];
@@ -8226,7 +8287,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             const rirSel = document.getElementById('cal-log-rir');
             const extraWrap = document.getElementById('cal-log-extra-wrap');
             const rirWrap = document.getElementById('cal-log-rir-wrap');
-            if (prevKind === 'prep') {
+            if (prevKind === 'prep' || (calLastWork && calLastWork.role === 'filler')) {
                 document.getElementById('timer-current-info').innerText = 'Só respire. Aquecimento/volta não pede reps nem RIR.';
                 if (logPanel) logPanel.classList.add('hidden');
             } else if (logPanel) {
@@ -9162,7 +9223,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         <div class="flex justify-between items-start gap-2">
                             <span class="text-[9px] font-bold text-slate-500 uppercase pt-0.5">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
                             <span class="flex items-center gap-1.5 shrink-0">
-                                ${isPending ? '<span class="bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded uppercase">Print</span>' : (m.fromWatch ? '<span class="bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded uppercase">Relógio</span>' : '')}
+                                ${isPending ? '<span class="bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded uppercase">Arquivo</span>' : (m.fromWatch ? '<span class="bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded uppercase">Relógio</span>' : '')}
                                 <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${escapeHtml(h.modality||'Calistenia')}</span>
                                 <i class="js-hist-arrow fas fa-chevron-down text-slate-500 text-[10px] transition-transform duration-300"></i>
                             </span>
@@ -9188,7 +9249,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         </div>
                         ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">Você: "${escapeHtml(h.userFeedback)}"</p>` : ''}
                         <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5">
-                            <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
+                            <i class="fas fa-file-arrow-up"></i> Anexar arquivo do relógio
                         </button>
                         <button type="button" data-doc="${escapeHtml(h.docId)}" data-name="${escapeHtml(h.workoutName || 'Sessão')}" class="js-hist-delete w-full text-red-300 border border-red-500/30 bg-red-500/10 text-[11px] font-bold py-2 rounded-xl">Excluir esta sessão</button>
                     </div>
@@ -9488,6 +9549,34 @@ ${coachingPromptTail()}`;
         return { mimeType, data };
     }
 
+    window.handleWatchFileOnFinish = async (event) => {
+        const file = event.target.files && event.target.files[0];
+        const preview = document.getElementById('smartwatch-preview-container');
+        const statusText = document.getElementById('smartwatch-status-text');
+        if (preview) preview.classList.remove('hidden');
+        if (!file) return;
+        if (file.size > 8 * 1024 * 1024) {
+            if (statusText) { statusText.innerText = 'Arquivo maior que 8 MB.'; statusText.className = 'text-xs text-red-400 font-bold'; }
+            event.target.value = '';
+            return;
+        }
+        if (statusText) { statusText.innerText = 'Lendo arquivo do relógio...'; statusText.className = 'text-xs text-amber-400 font-bold animate-pulse'; }
+        try {
+            const metrics = await parseWatchFile(file);
+            if (!metrics.fc && !metrics.distance && !metrics.durationMinutes) throw new Error('Não achei FC, distância nem tempo neste arquivo.');
+            if (metrics.fc) document.getElementById('pw-fc').value = Math.round(metrics.fc);
+            if (metrics.fcMax) document.getElementById('pw-fc-max').value = Math.round(metrics.fcMax);
+            if (metrics.kcal) document.getElementById('pw-kcal').value = Math.round(metrics.kcal);
+            if (metrics.distance) document.getElementById('pw-dist').value = metrics.distance;
+            if (metrics.pace) document.getElementById('pw-pace').value = metrics.pace;
+            window._finishWatch = metrics;
+            if (statusText) { statusText.innerText = 'Arquivo lido. Confira os campos e siga.'; statusText.className = 'text-xs text-green-400 font-bold'; }
+        } catch (err) {
+            if (statusText) { statusText.innerText = err.message || 'Não consegui ler o arquivo.'; statusText.className = 'text-xs text-red-400 font-bold'; }
+        }
+        event.target.value = '';
+    };
+
     window.handleSmartwatchImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -9607,7 +9696,7 @@ ${coachingPromptTail()}`;
             window.hide('modal-post-workout');
             renderDashboard();
             window.switchTab('training');
-            window.showAlert("Sessão Salva", "Treino concluído e próximo treino mantido na agenda. Anexe o print do relógio quando quiser na aba Histórico.");
+            window.showAlert("Sessão Salva", "Treino concluído. Anexe o arquivo do relógio quando quiser, na aba Histórico.");
         }
     };
 
