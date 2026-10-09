@@ -38,7 +38,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Coach Híbrido v7.18</title>
+    <title>AI Coach Híbrido v7.10</title>
     
     <!-- External CSS & Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -125,10 +125,10 @@
         h1, h2, h3, h4, p, label { overflow-wrap: break-word; }
         .ver-badge { vertical-align: middle; z-index: 40; }
         .ver-tip {
-            left: 0; right: auto; transform: none;
-            top: calc(100% + 8px); width: min(16rem, calc(100vw - 2rem));
-            max-height: min(50vh, 16rem); overflow-y: auto; overflow-x: hidden;
-            z-index: 90; white-space: normal; overflow-wrap: anywhere;
+            left: auto; right: 0; transform: none;
+            top: calc(100% + 8px); width: min(18rem, calc(100vw - 1.5rem));
+            max-height: min(70vh, 22rem); overflow-y: auto;
+            z-index: 90;
         }
         .ver-tip:before { left: auto; right: 16px; transform: rotate(45deg); }
         details.faq-item summary {
@@ -219,21 +219,22 @@
 <!-- Loading Overlay -->
 <div id="loading-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex flex-col items-center justify-center hidden p-6 text-center">
     <div class="w-16 h-16 border-4 border-slate-700 border-t-brand-500 rounded-full animate-spin mb-6 shadow-[0_0_30px_rgba(6,182,212,0.5)] mx-auto"></div>
-    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.18 em Ação...</h2>
+    <h2 id="loading-text" class="text-white font-bold text-xl tracking-wide animate-pulse">Apex Hybrid Engine v7.10 em Ação...</h2>
     <p id="loading-sub" class="text-slate-400 text-sm mt-3 font-medium max-w-sm leading-relaxed mx-auto"></p>
 </div>
 
 <!-- POP-UP 1: Novelty Banner v5.2 Modal -->
 <div id="modal-v40-novelty" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[185] hidden flex items-center justify-center p-4">
     <div class="bg-dark-900 border border-brand-500/50 rounded-3xl max-w-md w-full shadow-2xl relative overflow-hidden mx-auto flex flex-col max-h-[88vh]">
-        <div class="px-5 py-4 bg-gradient-to-r from-brand-900 via-purple-900 to-amber-900 relative shrink-0">
-            <div class="flex items-center gap-3 min-w-0">
-                <div class="w-12 h-12 rounded-2xl bg-dark-900/80 border border-brand-400/40 flex items-center justify-center text-brand-400 shadow-xl shrink-0">
-                    <i class="fas fa-robot text-2xl"></i>
+        <div class="h-32 bg-gradient-to-r from-brand-900 via-purple-900 to-amber-900 relative flex items-center justify-center overflow-hidden shrink-0">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-400/20 via-transparent to-transparent"></div>
+            <div class="flex items-center gap-4 relative z-10 px-6 min-w-0">
+                <div class="w-16 h-16 rounded-2xl bg-dark-900/80 border border-brand-400/40 flex items-center justify-center text-brand-400 shadow-xl shrink-0">
+                    <i class="fas fa-robot text-3xl drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"></i>
                 </div>
                 <div class="min-w-0">
-                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.18</span>
-                    <h2 class="text-base font-black text-white tracking-tight mt-1 leading-tight break-words">Sessão estável</h2>
+                    <span class="text-[10px] bg-brand-500/30 text-brand-300 font-bold px-2 py-0.5 rounded border border-brand-400/30 uppercase tracking-widest">v7.10</span>
+                    <h2 class="text-lg font-black text-white tracking-tight mt-1 leading-tight">Card do treino completo</h2>
                 </div>
             </div>
         </div>
@@ -244,27 +245,24 @@
             </p>
             <div class="space-y-2 bg-dark-950 p-3.5 rounded-2xl border border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                 <div>
-                    <strong class="text-brand-400">v7.18 · Sessão estável</strong>
-                    <p class="text-slate-400 mt-0.5">Se o treino saiu como o plano, a fila fica. Zona só entra com a curva do relógio.</p>
+                    <strong class="text-brand-400">v7.10 · Card do treino completo</strong>
+                    <p class="text-slate-400 mt-0.5">O treino do dia lista todos os exercícios. O card cresce. Dentro da sessão, cada série continua separada.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v7.17 · Dor e teia</strong>
-                    <p class="text-slate-400 mt-0.5">Antes do treino, o app pergunta se a dor passou.</p>
+                    <strong class="text-slate-200">v7.9 · Corrida com intuito</strong>
+                    <p class="text-slate-400 mt-0.5">Condicionamento, pace ou prova. O código escolhe o papel de cada corrida.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v7.16 · Grupos da letra</strong>
-                    <p class="text-slate-400 mt-0.5">No ABC e no ABCD, você marca quem treina junto.</p>
+                    <strong class="text-slate-200">v7.8 · Travas da musculação</strong>
+                    <p class="text-slate-400 mt-0.5">O mesmo músculo não fica em dias seguidos. A segunda vez leva metade das séries.</p>
                 </div>
                 <div>
-                    <strong class="text-slate-200">v7.15 · Relógio e tempo</strong>
-                    <p class="text-slate-400 mt-0.5">Só arquivo do relógio. O card de minutos acompanha a sessão.</p>
+                    <strong class="text-slate-200">v7.7 · O dia é seu</strong>
+                    <p class="text-slate-400 mt-0.5">Em cada dia: só exercício, exercício e corrida, ou só corrida.</p>
                 </div>
             </div>
-            </div>
-        </div>
-        <div class="p-5 pt-0 shrink-0">
             <button onclick="window.closeV40NoveltyModal()" class="w-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] text-xs uppercase tracking-wide">
-                Explorar v7.18 <i class="fas fa-arrow-right ml-1"></i>
+                Explorar v7.10 <i class="fas fa-arrow-right ml-1"></i>
             </button>
         </div>
     </div>
@@ -413,95 +411,7 @@
         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-3.5 pr-1 text-xs text-slate-300">
             <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/50">
                 <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-brand-400 text-sm">v7.18 Sessão estável</span>
-                    <span class="text-[9px] text-slate-500">Out 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Treino como o plano: a fila fica, sem chamar a inteligência artificial.<br>
-                    • Desvio pequeno: mesmos exercícios, reserva um ponto acima ou abaixo.<br>
-                    • Zona de frequência só com a curva do relógio.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.17 Dor e teia</span>
-                    <span class="text-[9px] text-slate-500">Out 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Se você falou de dor, o próximo treino pergunta se passou.<br>
-                    • Passou: a fila fica. Ainda dói: só muda o que estressa aquele lugar.<br>
-                    • Frequência da calistenia entra na teia híbrida. A de corrida e a barra 80/20 não mudam.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.16 Grupos da letra</span>
-                    <span class="text-[9px] text-slate-500">Out 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Cada letra do ABC ou ABCD tem caixas de grupo.<br>
-                    • Posterior inclui o glúteo.<br>
-                    • Até quatro grupos por letra. O mesmo grupo, no máximo duas vezes.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.15 Relógio e tempo</span>
-                    <span class="text-[9px] text-slate-500">Out 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Fim do treino e Histórico aceitam só arquivo .FIT, .GPX ou .TCX.<br>
-                    • Print de tela saiu.<br>
-                    • Calistenia: o relógio não desconta 10 minutos por série. Se faltam minutos, entra um bloco leve.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.14 Teste no seu degrau</span>
-                    <span class="text-[9px] text-slate-500">Set 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • O teste oferece dois exercícios que você já pratica.<br>
-                    • Sem histórico de ombro, não entra parada de mão.<br>
-                    • Você escolhe um. A série que vale continua sendo uma.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.13 Dia de teste</span>
-                    <span class="text-[9px] text-slate-500">Set 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • O app sugere um exercício que você não fez nas últimas 48 horas.<br>
-                    • Uma série só. Isometria pede segundos, não repetições.<br>
-                    • Corrida de teste não entra no dia da perna.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.12 Tríceps e bíceps</span>
-                    <span class="text-[9px] text-slate-500">Set 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Volume semanal separa tríceps e bíceps.<br>
-                    • Dip no banco é tríceps. Paralelas continuam peito.<br>
-                    • Dia de peito leva um tríceps. Dia de costas, um bíceps. Sem porcentagem emprestada.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.11 Descanso igual ao timer</span>
-                    <span class="text-[9px] text-slate-500">Set 2026</span>
-                </div>
-                <p class="text-slate-400 leading-relaxed font-medium">
-                    • Calistenia: o card e o relógio usam o mesmo descanso.<br>
-                    • Sem número vindo da I.A., são 30 segundos.<br>
-                    • Musculação continua com descanso de hipertrofia, em geral 90 segundos.
-                </p>
-            </div>
-            <div class="bg-dark-950 p-3.5 rounded-2xl border border-slate-800">
-                <div class="flex justify-between items-center mb-1">
-                    <span class="font-black text-slate-200 text-sm">v7.10 Card do treino completo</span>
+                    <span class="font-black text-brand-400 text-sm">v7.10 Card do treino completo</span>
                     <span class="text-[9px] text-slate-500">Set 2026</span>
                 </div>
                 <p class="text-slate-400 leading-relaxed font-medium">
@@ -819,11 +729,11 @@
         </div>
         <h1 class="text-3xl font-black tracking-tight text-white relative z-10">A.I Coach
             <span class="ver-badge" onclick="event.stopPropagation(); window.openChangelog();">
-                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.18</span>
+                <span class="text-[12px] text-brand-400 font-bold hover:underline">v7.10</span>
                 <span class="ver-tip text-[11px] text-slate-300 leading-relaxed">
-                    <strong class="text-brand-400 block mb-1.5">Novidades v7.18 · Sessão estável</strong>
-                    • Se saiu como o plano, a fila fica.<br>
-                    • Zona só entra com a curva do relógio.<br>
+                    <strong class="text-brand-400 block mb-1.5">Novidades v7.10 · Card do treino</strong>
+                    • A lista do dia mostra todos os exercícios.<br>
+                    • O card cresce. Não corta em quatro linhas.<br>
                     <span class="text-slate-500 block mt-1.5">Toque no selo para o histórico completo</span>
                 </span>
             </span>
@@ -1344,7 +1254,7 @@
                 <h1 class="text-base font-black tracking-tight text-white flex items-center gap-1.5 min-w-0">
                     <span class="truncate">Olá, <span id="dash-greeting-name" class="text-brand-400">Aluno</span></span>
                     <span class="ver-badge shrink-0" onclick="event.stopPropagation(); window.openChangelog();">
-                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.18</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-400 border border-brand-500/40 px-1.5 py-0.5 rounded-md font-bold cursor-pointer hover:bg-brand-500/30">v7.10</span>
                     </span>
                 </h1>
                 <p id="dash-user-email" class="text-[10px] text-slate-400 font-medium truncate">...</p>
@@ -1398,7 +1308,7 @@
                     <span class="text-[10px] bg-amber-500 text-dark-950 font-black px-2 py-0.5 rounded uppercase leading-tight ui-chip">Deload · ACWR</span>
                     <button type="button" class="info-i" onclick="window.openTerm('acwr')" aria-label="O que é ACWR">i</button>
                 </div>
-                <p class="text-xs text-amber-200 font-medium leading-relaxed">Freio de carga: a semana passou de 1,5. O motor reduz o volume. Não é diagnóstico de lesão.</p>
+                <p class="text-xs text-amber-200 font-medium leading-relaxed">Detectamos acúmulo de fadiga ou pico de carga aguda (ACWR > 1.5). A I.A. ajustou o volume em 30%-40% para proteger suas articulações.</p>
             </div>
 
             <div id="dash-meso-banner" class="bg-dark-900 border border-brand-500/30 p-4 rounded-3xl w-full">
@@ -1414,7 +1324,7 @@
 
             <div id="dash-test-banner" class="hidden bg-purple-950/40 border border-purple-500/40 p-4 rounded-3xl w-full">
                 <div class="flex items-center justify-between gap-2">
-                    <p class="text-xs text-purple-100 font-medium leading-relaxed">Mais de 6 semanas sem teste. Um exercício fresco, uma série. Isometria é por tempo.</p>
+                    <p class="text-xs text-purple-100 font-medium leading-relaxed">Mais de 6 semanas sem teste. Um 3–5 RM, um máximo de calistenia ou um 3/5 km ancora a carga e o pace.</p>
                     <button type="button" onclick="window.openTestDayModal()" class="shrink-0 bg-purple-500 text-white text-[10px] font-black px-3 py-2 rounded-xl uppercase">Testar</button>
                 </div>
             </div>
@@ -1536,11 +1446,11 @@
             <div class="glass-panel p-4 rounded-3xl border border-slate-800 space-y-2.5">
                 <h3 class="text-xs font-black text-white uppercase tracking-wider flex items-center gap-2"><i class="fas fa-list-ol text-brand-400"></i> Como o dia é escolhido</h3>
                 <ol class="text-[11px] text-slate-300 space-y-1.5 font-medium leading-relaxed list-decimal pl-4">
-                    <li>Se uma dor antiga ainda está aberta, o app pergunta se passou. Passou: o treino da fila fica. Ainda dói, e o dia é daquele lugar: a inteligência artificial troca. Ainda dói, e o dia é outro: o motor só tira o exercício daquele lugar.</li>
+                    <li>Você informa energia, sono, dor e os minutos de hoje. A frequência ao acordar é opcional.</li>
                     <li>A semana pode ser da inteligência artificial, ou sua. Em cada dia: descanso, só exercício, exercício e corrida, ou só corrida. O mesmo músculo não fica em dias seguidos. A segunda vez na semana leva metade das séries. Sem descanso, a semana sai mais leve.</li>
                     <li>Se você está bem e o tempo é o da semana, o app usa o treino que já estava na fila. Não chama a inteligência artificial à toa.</li>
                     <li>Se você está cansado, dolorido ou com menos tempo, aí sim a inteligência artificial recalcula. O código revisa o resultado antes de mostrar.</li>
-                    <li>Você treina. No fim, anota o esforço. Se saiu como o plano, a fila fica e a inteligência artificial não é chamada. Se desviou pouco, os mesmos exercícios seguem, com a reserva um ponto acima ou abaixo. Só dor nova, esforço extremo ou um pedido claro redesenham a sessão.</li>
+                    <li>Você treina. No fim, anota o esforço. Esse número entra no próximo dia.</li>
                 </ol>
             </div>
 
@@ -1551,13 +1461,13 @@
                     <li><strong class="text-white">Complementares:</strong> no mesmo músculo, com outro ângulo. Crucifixo não vira supino. Leg press não vira agachamento.</li>
                     <li><strong class="text-white">Tempo:</strong> 20 minutos fica no principal. 45 minutos cabe uns três. Uma hora cabe quatro, mais um de braço se o dia for de peito, costas ou ombro.</li>
                     <li><strong class="text-white">Teto:</strong> se a semana daquele músculo já encheu, o complementar sai. Mais exercício não significa treino infinito.</li>
-                    <li><strong class="text-white">Dor:</strong> ombro, cotovelo, joelho ou lombar. Antes do treino seguinte o app pergunta se passou. A teia de volume usa a mesma conta das barras.</li>
+                    <li><strong class="text-white">Dor e lugar:</strong> ombro, cotovelo, joelho ou lombar trocam o padrão. O lugar de hoje só libera o aparelho que existe lá.</li>
                 </ul>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-brand-500/30 space-y-2">
                 <h3 class="text-sm font-black text-white">Calistenia</h3>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">Escada de flexão, remada, barra, agachamento, posterior e core. O dip nas paralelas conta no peito. O dip no banco, a flexão diamante e a extensão de tríceps contam no tríceps, um só por dia de peito. No dia de costas entra um bíceps: australiana supinada ou rosca com elástico. A barra supinada continua sendo costas. No timer, cada série anda sozinha. A aula de HIIT é um dia separado.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Escada de flexão, remada, barra, agachamento, posterior e core. O dip conta no peito. A barra supinada é outro exercício, não a pronada. No timer, cada série anda sozinha, e o descanso também. A aula de HIIT é um dia separado, curta, no máximo uma vez na semana. Semana de adaptação, semana leve e eixo corrida ficam sem HIIT.</p>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-amber-500/30 space-y-2">
@@ -1567,7 +1477,7 @@
 
             <div class="glass-panel p-5 rounded-3xl border border-purple-500/30 space-y-2">
                 <h3 class="text-sm font-black text-white">Musculação</h3>
-                <p class="text-xs text-slate-300 leading-relaxed font-medium">Na semana personalizada, cada letra do ABC ou ABCD tem caixas de grupo. Você marca quem treina junto. Posterior inclui o glúteo. A inteligência artificial escolhe o exercício dentro desses grupos. No perfil, e de novo no cadastro, você também registra os lugares: casa, prédio, clube. Com mais de um, o app pergunta onde você vai treinar. Cada exercício guarda a própria carga.</p>
+                <p class="text-xs text-slate-300 leading-relaxed font-medium">Na primeira anamnese, e de novo no Perfil, você cadastra os lugares: casa, prédio, clube. Cada um guarda o que tem lá. Com mais de um, o app pergunta onde você vai treinar e monta a série só com isso. Cada exercício guarda a própria carga. Supino, inclinado e crucifixo não dividem o mesmo número. Agachamento pesado não cola num tiro pesado.</p>
             </div>
 
             <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-2">
@@ -1584,7 +1494,6 @@
                     <h3 class="font-bold text-white text-xs uppercase tracking-wider flex items-center gap-2 min-w-0"><i class="fas fa-shield-alt text-amber-400 shrink-0"></i> ACWR <button type="button" class="info-i" onclick="window.openTerm('acwr')" aria-label="O que é ACWR">i</button></h3>
                     <span id="acwr-score-badge" class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black px-2.5 py-1 rounded-xl">--</span>
                 </div>
-                <p class="text-[10px] text-slate-500 mb-2">Freio da semana, não índice de lesão.</p>
                 <p id="acwr-status-text" class="text-xs text-slate-300 font-medium leading-relaxed">Calculando proporção de carga Aguda / Crônica...</p>
             </div>
   <!-- BLOCO 5: CARD AUTONÔMICO (FASE 3) -->
@@ -1596,7 +1505,7 @@
                     </h3>
                     <span id="ans-status-badge" class="bg-slate-800 text-slate-300 border border-slate-700 text-[9px] font-black px-2 py-0.5 rounded">Sem dado</span>
                 </div>
-                <p id="ans-explain" class="text-[10px] text-slate-400 mb-3 font-medium leading-relaxed">Sinal de campo, não exame. FC ao acordar, antes do treino. Vale cerca de 36 h.</p>
+                <p id="ans-explain" class="text-[10px] text-slate-400 mb-3 font-medium leading-relaxed">FC ao acordar, antes do treino. Anote aqui ou na Home. Vale ~36 h — não precisa todo dia.</p>
                 <div class="grid grid-cols-2 gap-2 text-[10px] text-slate-300 font-medium">
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep anamnese<br><strong id="ans-rhr-base" class="text-white text-sm">--</strong></div>
                     <div class="bg-dark-950 rounded-xl p-2 border border-slate-800">FCrep hoje<br><strong id="ans-rhr-today" class="text-white text-sm">--</strong></div>
@@ -1641,12 +1550,11 @@
                     <span class="text-amber-400">Z3 (<span id="pct-z3">0</span>%)</span>
                     <span class="text-red-400">Z4/Z5 (<span id="pct-z4z5">0</span>%)</span>
                 </div>
-                <p class="text-[10px] text-slate-500 mt-2">Zona só entra com a curva do relógio. Um número de frequência média não pinta esta barra.</p>
             </div>
 
             <div class="glass-panel p-4 rounded-3xl border border-brand-500/40 shadow-xl w-full">
                 <h3 class="font-bold text-white text-xs uppercase tracking-wider mb-2 flex items-center gap-2"><i class="fas fa-bullseye text-brand-400"></i> Radar híbrido (suas 4–8 semanas)</h3>
-                <p class="text-[10px] text-slate-500 mb-2">Sempre aberto. A base e o intenso só usam zona quando existe a curva do relógio. Calistenia entra nessa teia. A teia de corrida, aqui embaixo, continua só corrida.</p>
+                <p class="text-[10px] text-slate-500 mb-2">Sempre aberto. Força relativa = calistenia. Carga 1RM = musculação. Z1/Z2 e Z4 = só corrida. Toque num esporte para o gráfico daquele eixo.</p>
                 <p id="radar-week-line" class="text-[11px] text-slate-300 font-medium mb-2">Semana: —</p>
                 <div class="w-full h-56 bg-dark-950 rounded-2xl border border-slate-800 p-2 relative"><canvas id="chart-radar"></canvas></div>
                 <div class="mt-3 space-y-2">
@@ -1660,7 +1568,7 @@
                     </details>
                     <details class="bg-dark-950 border border-slate-800 rounded-2xl" ontoggle="if(this.open&&window.paintSportRadar)window.paintSportRadar('run')">
                         <summary class="px-3 py-2.5 text-[11px] font-black text-white cursor-pointer">Corrida</summary>
-                        <div class="px-2 pb-3"><div class="w-full h-52 relative"><canvas id="chart-radar-run"></canvas></div><p class="text-[10px] text-slate-500 mt-1">Zonas e minutos só de corrida, e só com a curva do relógio. A FC da calistenia não entra.</p></div>
+                        <div class="px-2 pb-3"><div class="w-full h-52 relative"><canvas id="chart-radar-run"></canvas></div><p class="text-[10px] text-slate-500 mt-1">Zonas e minutos só de corrida, 4 semanas. A FC da calistenia não entra.</p></div>
                     </details>
                 </div>
             </div>
@@ -1797,7 +1705,7 @@
                         <p class="text-[11px] text-slate-400 mt-0.5 font-medium">Nome, apelido e corrida na semana</p>
                     </div>
                     <span class="flex items-center gap-2 shrink-0">
-                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.18</span>
+                        <span class="text-[10px] bg-dark-950 text-slate-500 border border-slate-700 px-2 py-1 rounded-md font-bold" onclick="event.stopPropagation(); window.openChangelog();">v7.10</span>
                         <i id="profile-data-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </span>
                 </button>
@@ -1843,7 +1751,7 @@
                     <i id="profile-week-arrow" class="fas fa-chevron-down text-slate-400 transition-transform duration-300 shrink-0"></i>
                 </button>
                 <div id="profile-week-content" class="accordion-content bg-dark-950 border-t border-slate-800 space-y-3">
-                    <p class="text-[11px] text-slate-400 leading-relaxed">Personalize cada dia e, na musculação, quem treina junto em cada letra. Posterior inclui o glúteo. Toque em Salvar semana para gravar.</p>
+                    <p class="text-[11px] text-slate-400 leading-relaxed">Personalize cada dia: só exercício, exercício e corrida, ou só corrida. Toque em Salvar semana para gravar. O que já foi feito não some.</p>
                     <div class="grid grid-cols-2 gap-2">
                         <button type="button" id="prof-mode-auto" onclick="window.setProfileScheduleMode('auto')" class="rounded-xl border border-slate-700 py-2 text-[11px] font-bold text-slate-300">IA decide</button>
                         <button type="button" id="prof-mode-custom" onclick="window.setProfileScheduleMode('custom')" class="rounded-xl border border-slate-700 py-2 text-[11px] font-bold text-slate-300">Personalizar</button>
@@ -1975,26 +1883,6 @@
             </div>
 
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
-                <summary class="text-xs font-black text-white pr-6">O fim do treino sempre muda o próximo?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. Se o esforço ficou entre 4 e 7, sem dor nova e sem pedido de troca, a fila permanece e a inteligência artificial não é chamada. Esforço 3 ou 8, ou um relato de pesado ou leve, mexe só na reserva e numa série, com os mesmos exercícios. Dor nova, esforço no extremo ou um pedido claro é que redesenham a sessão.</p>
-            </details>
-            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
-                <summary class="text-xs font-black text-white pr-6">Falei que doeu. O app pergunta de novo?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim, antes do treino seguinte, e só daquele lugar: ombro, cotovelo, joelho ou lombar. A frase do fim do treino já vale para essa sessão seguinte. «Não doeu» ou «passou» não abre a dor. Se passou, a fila continua. Se ainda dói e o dia é daquele lugar, a inteligência artificial troca o treino. Se o dia é outro, o motor só tira o exercício da região e não devolve o que cortou.</p>
-            </details>
-            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
-                <summary class="text-xs font-black text-white pr-6">A frequência da calistenia entra no gráfico?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Na teia híbrida, só quando o arquivo do relógio traz a curva. Uma frequência média sozinha não pinta zona. A teia de corrida e a barra 80/20 continuam só com corrida, e também só com a curva.</p>
-            </details>
-            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
-                <summary class="text-xs font-black text-white pr-6">Como é o dia de teste?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Um exercício só, escolhido pelo app entre os que estão frescos. Se hoje foi perna, ele oferece flexão ou australiana, não agachamento. A série que vale é uma. Isometria é por tempo: anote os segundos, não as repetições. Corrida de teste não entra no mesmo dia da perna.</p>
-            </details>
-            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
-                <summary class="text-xs font-black text-white pr-6">O supino conta para o tríceps?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. A série inteira vai para o peito. Tríceps só sobe com exercício de tríceps: dip no banco, diamante, testa, polia. Bíceps sobe com rosca ou australiana supinada. O que já foi gravado como braço continua na barra Braço (já feito) por sete dias.</p>
-            </details>
-            <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">O card do treino do dia não mostra todos os exercícios?</summary>
                 <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Mostra. Cada exercício entra uma vez, com as séries e o descanso. A lista cresce com o treino. Ao iniciar, as mesmas séries aparecem uma por uma, com o relógio. Se faltar algum nome lá dentro e não no card, o treino salvo está incompleto. Se estiver só no card que parecia curto, era o corte antigo de quatro linhas.</p>
             </details>
@@ -2004,7 +1892,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Posso escolher os dias da semana?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. Na musculação, cada letra do ABC ou ABCD tem caixas. Você marca os grupos daquele dia. Posterior inclui o glúteo. Até quatro grupos por letra, e o mesmo grupo em no máximo duas letras. A inteligência artificial escolhe os exercícios. Toque em Salvar semana.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Na anamnese, e de novo no Perfil, em Semana de treino. O mesmo músculo não fica em dias seguidos, e a segunda vez na semana leva metade das séries. Sem dia de descanso, não entra tiro nem série no limite. Toque em Salvar semana.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">E se a academia de hoje só tiver máquina?</summary>
@@ -2064,7 +1952,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">E a corrida? Tem timer?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. O app mostra o roteiro para você colocar no relógio. No fim do treino, e também no Histórico, o envio é o arquivo .FIT, .GPX ou .TCX. Print de tela não entra mais.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Não. O app mostra o <strong class="text-white">roteiro</strong> (blocos e zonas em bpm) para você colocar no Garmin / Strava / Apple Watch. Depois registre o pós-treino e, se puder, envie o arquivo .FIT ou .GPX no Histórico. Print de tela continua como plano B.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Hoje não tenho o tempo todo. Posso enxugar?</summary>
@@ -2104,7 +1992,7 @@
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Meu .FIT do Zepp / Amazfit entra?</summary>
-                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. No fim do treino ou no Histórico, envie o arquivo .FIT, .GPX ou .TCX. O app lê a FC segundo a segundo. Print de tela foi desligado.</p>
+                <p class="text-[11px] text-slate-300 mt-2 leading-relaxed">Sim. Histórico → atualizar com arquivo do relógio. Serve Garmin, Zepp, Apple, Strava (.FIT, .GPX, .TCX). O app lê a FC segundo a segundo — por isso as zonas batem com o relógio. Print de tela é plano B.</p>
             </details>
             <details class="faq-item bg-dark-900 border border-slate-800 rounded-2xl p-4">
                 <summary class="text-xs font-black text-white pr-6">Por que o histórico de calistenia não mostra pace?</summary>
@@ -2385,7 +2273,6 @@
         </div>
 
         <div class="space-y-4">
-            <div id="pain-followup" class="hidden space-y-2"></div>
             <div>
                 <label class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 block text-center">Nível de Energia (1 a 5) <span class="text-red-500">*</span></label>
                 <div class="flex justify-center gap-2" id="readiness-energy-btns"></div>
@@ -2513,21 +2400,21 @@
                 <!-- BLOCO 1: SELETOR DE PRINT DO SMARTWATCH NO PÓS-TREINO -->
                 <div class="bg-dark-950 p-3.5 rounded-2xl border border-brand-500/40 space-y-2 mb-4">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-file-arrow-up"></i> Arquivo do relógio</span>
-                        <span class="text-[9px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-bold">FIT</span>
+                        <span class="text-[10px] text-brand-400 font-bold uppercase tracking-wider flex items-center gap-1.5"><i class="fas fa-camera"></i> Relatório do Smartwatch / Strava</span>
+                        <span class="text-[9px] bg-brand-500/20 text-brand-300 px-2 py-0.5 rounded font-bold">Visão I.A.</span>
                     </div>
-                    <p class="text-[11px] text-slate-400 font-medium">Envie o arquivo .FIT, .GPX ou .TCX. O app preenche FC, tempo e distância. Print de tela não é mais usado.</p>
+                    <p class="text-[11px] text-slate-400 font-medium">Envie o print do relógio para preencher automaticamente ou salve para enviar depois.</p>
                     <div class="flex gap-2 items-center">
-                        <input type="file" id="smartwatch-file-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.handleWatchFileOnFinish(event)">
+                        <input type="file" id="smartwatch-file-input" accept="image/*" class="hidden" onchange="window.handleSmartwatchImageUpload(event)">
                         <button type="button" onclick="document.getElementById('smartwatch-file-input').click()" class="flex-1 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/40 text-xs font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
-                            <i class="fas fa-file-arrow-up"></i> Arquivo FIT / GPX / TCX
+                            <i class="fas fa-upload"></i> Enviar Print do Relógio
                         </button>
-                        <button type="button" onclick="window.saveWorkoutWithoutPrintForLater()" class="bg-dark-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold py-3 px-3.5 rounded-xl transition-colors" title="Salvar e anexar o arquivo depois">
-                            <i class="fas fa-clock"></i> Depois
+                        <button type="button" onclick="window.saveWorkoutWithoutPrintForLater()" class="bg-dark-900 hover:bg-slate-800 text-slate-300 border border-slate-700 text-xs font-bold py-3 px-3.5 rounded-xl transition-colors" title="Salvar treino e enviar print depois">
+                            <i class="fas fa-clock"></i> Importar Depois
                         </button>
                     </div>
                     <div id="smartwatch-preview-container" class="hidden text-center pt-2">
-                        <p id="smartwatch-status-text" class="text-xs text-amber-400 font-medium animate-pulse">Lendo arquivo do relógio...</p>
+                        <p id="smartwatch-status-text" class="text-xs text-amber-400 font-medium animate-pulse">Analisando imagem com Visão Computacional...</p>
                     </div>
                 </div>
 
@@ -2582,7 +2469,7 @@
                 </div>
 
                 <button id="btn-eval-ai" onclick="window.evaluateWorkoutWithAI()" disabled class="w-full bg-gradient-to-r from-purple-600 to-brand-500 hover:from-purple-500 text-white font-black py-3.5 rounded-2xl transition-all shadow-[0_0_20px_rgba(168,85,247,0.3)] text-xs uppercase disabled:opacity-40 disabled:cursor-not-allowed">
-                    <i class="fas fa-check"></i> Concluir treino
+                    <i class="fas fa-robot"></i> Avaliar com o Coach
                 </button>
             </div>
 
@@ -2648,40 +2535,32 @@
 </div>
 
 <div id="modal-test-day" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[192] hidden flex items-center justify-center p-4">
-    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-5 max-w-sm w-full shadow-2xl mx-auto space-y-3 max-h-[88vh] overflow-y-auto">
-        <div class="flex justify-between items-center gap-2">
+    <div class="bg-dark-900 border border-purple-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl mx-auto space-y-3 max-h-[88vh] overflow-y-auto">
+        <div class="flex justify-between items-center">
             <h3 class="text-sm font-black text-white">Dia de teste</h3>
-            <button type="button" onclick="window.hide('modal-test-day')" class="text-slate-400"><i class="fas fa-times"></i></button>
+            <button onclick="window.hide('modal-test-day')" class="text-slate-400"><i class="fas fa-times"></i></button>
         </div>
-        <p id="test-how" class="text-[11px] text-slate-300 leading-relaxed">Um exercício só. Não é um segundo treino.</p>
-        <label class="text-[10px] text-slate-500 font-bold uppercase block">O que medir</label>
+        <p class="text-[11px] text-slate-400">Não substitui o treino da fila. Atualiza 1RM, IFR ou o pace de Z2. Sem 1RM verdadeiro de risco — use 3 a 5 reps.</p>
+        <label class="text-[10px] text-slate-500 font-bold uppercase block">Tipo</label>
         <select id="test-type" onchange="window.toggleTestFields()" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            <option value="calmax">Calistenia · uma série</option>
-            <option value="rm35">Musculação · 3 a 5 repetições</option>
+            <option value="rm35">Musculação · 3–5 RM</option>
+            <option value="calmax">Calistenia · máximo ou IFR</option>
             <option value="run3k">Corrida · 3 km</option>
             <option value="run5k">Corrida · 5 km</option>
         </select>
-        <div id="test-offers" class="space-y-2"></div>
-        <p id="test-cue" class="text-[11px] text-slate-400 leading-relaxed"></p>
         <div id="test-fields-lift" class="space-y-2">
-            <p id="test-selected-name" class="text-xs font-black text-white">Escolha um exercício acima.</p>
-            <div id="test-fields-reps" class="grid grid-cols-2 gap-2">
-                <input id="test-reps" type="number" min="1" max="80" placeholder="Reps limpas" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                <input id="test-added" type="number" min="0" step="0.5" placeholder="Carga extra kg" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            </div>
-            <div id="test-fields-bar" class="hidden">
-                <input id="test-weight" type="number" min="0" step="0.5" placeholder="Carga da barra, em kg" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            </div>
-            <div id="test-fields-hold" class="hidden">
-                <input id="test-hold" type="number" min="1" max="300" placeholder="Segundos sustentados" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <input id="test-ex-name" placeholder="Exercício (ex: Agachamento)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+            <div class="grid grid-cols-3 gap-2">
+                <input id="test-weight" type="number" step="0.5" placeholder="kg barra" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
+                <input id="test-added" type="number" step="0.5" placeholder="+ extra" class="bg-dark-950 border border-amber-500/40 rounded-xl p-2.5 text-xs text-amber-200">
+                <input id="test-reps" type="number" placeholder="reps 3–5" class="bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
             </div>
         </div>
         <div id="test-fields-run" class="space-y-2 hidden">
             <input id="test-time-min" type="number" step="0.1" placeholder="Tempo total (min)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
             <input id="test-fc" type="number" placeholder="FC média (opcional)" class="w-full bg-dark-950 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-            <p id="test-run-block" class="hidden text-[11px] text-amber-300 leading-relaxed">A perna foi treinada nas últimas 48 horas. Deixe este teste para amanhã.</p>
         </div>
-        <button type="button" onclick="window.saveTestDay()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar este teste</button>
+        <button type="button" onclick="window.saveTestDay()" class="w-full bg-purple-500 hover:bg-purple-400 text-white font-black py-3 rounded-2xl text-xs uppercase">Salvar teste</button>
     </div>
 </div>
 
@@ -2694,11 +2573,16 @@
             </h3>
             <button onclick="window.hide('modal-pending-upload')" class="text-slate-400 hover:text-white text-lg"><i class="fas fa-times"></i></button>
         </div>
-        <p class="text-xs text-slate-300 font-medium">Envie o arquivo do relógio (.FIT, .GPX ou .TCX). Calistenia indoor também vale: o app lê FC e tempo mesmo sem GPS.</p>
+        <p class="text-xs text-slate-300 font-medium">Envie o <strong class="text-white">arquivo do relógio</strong> (.FIT Zepp/Amazfit, Garmin, Wahoo, Coros; .GPX ou .TCX). Calistenia indoor também vale — o app lê FC e tempo mesmo sem GPS.</p>
 
         <input type="file" id="pending-watch-input" accept=".fit,.gpx,.tcx,.xml,application/gpx+xml,application/octet-stream" class="hidden" onchange="window.processWatchFileUpload(event)">
         <button type="button" onclick="document.getElementById('pending-watch-input').click()" class="w-full bg-brand-500 hover:bg-brand-400 text-white font-black py-3.5 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
             <i class="fas fa-file-arrow-up"></i> Arquivo FIT / GPX / TCX
+        </button>
+
+        <input type="file" id="pending-file-input" accept="image/*" class="hidden" onchange="window.processPendingPrintUpload(event)">
+        <button type="button" onclick="document.getElementById('pending-file-input').click()" class="w-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-black py-3 rounded-2xl transition-all text-xs uppercase tracking-wide flex items-center justify-center gap-2">
+            <i class="fas fa-file-image"></i> Print de tela (plano B)
         </button>
 
         <div id="watch-preview" class="hidden text-left"></div>
@@ -2756,8 +2640,6 @@
         quadriceps: { mev: 6,  mavLow: 10, mavHigh: 16, mrv: 20 },
         posterior:  { mev: 6,  mavLow: 10, mavHigh: 16, mrv: 20 },
         ombros:     { mev: 8,  mavLow: 12, mavHigh: 20, mrv: 26 },
-        triceps:    { mev: 4,  mavLow: 6,  mavHigh: 10, mrv: 12 },
-        biceps:     { mev: 4,  mavLow: 6,  mavHigh: 10, mrv: 12 },
         bracos:     { mev: 6,  mavLow: 8,  mavHigh: 14, mrv: 18 },
         core:       { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 },
         panturrilha: { mev: 4,  mavLow: 6,  mavHigh: 12, mrv: 16 }
@@ -2784,11 +2666,8 @@
         { id:'cal_push_archer', family:'push', sport:'Calistenia', group:'peitoral', rung:5, week0:false, unlockReps:8, role:'main', equipment:'body', name:'Flexão archer', svg:'push_archer', aliases:'archer push|flexao archer|typewriter' },
         { id:'cal_push_wide', family:'push_wide', sport:'Calistenia', group:'peitoral', rung:3, minRung:3, week0:true, unlockReps:10, role:'accessory', parentFamily:'push', equipment:'body', name:'Flexão aberta', svg:'push_floor', aliases:'flexao aberta|wide push|pegada aberta' },
         { id:'cal_push_pause', family:'push_pause', sport:'Calistenia', group:'peitoral', rung:3, minRung:3, week0:true, unlockReps:8, role:'accessory', parentFamily:'push', equipment:'body', name:'Flexão com pausa', svg:'push_floor', aliases:'flexao com pausa|pause push|flexao pausa' },
-        { id:'cal_diamond', family:'diamond', sport:'Calistenia', group:'triceps', rung:3, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Flexão diamante', svg:'push_floor', aliases:'flexao diamante|diamond push|pegada fechada' },
-        { id:'cal_tri_bench', family:'tri_bench', sport:'Calistenia', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'tri', equipment:'body', name:'Extensão de tríceps no banco', svg:'dip_bench', aliases:'extensao de triceps|triceps no banco|triceps banco' },
-        { id:'cal_tri_floor', family:'tri_floor', sport:'Calistenia', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'tri', equipment:'body', name:'Extensão de tríceps no chão', svg:'dip_bench', aliases:'extensao de triceps no chao|triceps no chao|skull no chao' },
-        { id:'cal_dip_bench', family:'dip_bench', sport:'Calistenia', group:'triceps', rung:1, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'tri', equipment:'body', name:'Dip no banco', svg:'dip_bench', aliases:'dip banco|bench dip|dip no banco' },
-        { id:'cal_dip_knee', family:'dip_knee', sport:'Calistenia', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:8, role:'accessory', parentFamily:'tri', equipment:'body', name:'Dip no banco com joelhos', svg:'dip_bench', aliases:'dip joelhos|dip no banco com joelhos|bench dip knees' },
+        { id:'cal_diamond', family:'diamond', sport:'Calistenia', group:'bracos', rung:3, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Flexão diamante', svg:'push_floor', aliases:'flexao diamante|diamond push|pegada fechada' },
+        { id:'cal_tri_bench', family:'tri_bench', sport:'Calistenia', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'diamond', equipment:'body', name:'Extensão de tríceps no banco', svg:'dip_bench', aliases:'extensao de triceps|triceps no banco|triceps banco' },
         { id:'cal_row_high', family:'row', sport:'Calistenia', group:'costas', rung:0, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Australiana barra alta', svg:'pull_au', aliases:'australiana alta|inverted row high|australiana barra alta' },
         { id:'cal_row_low', family:'row', sport:'Calistenia', group:'costas', rung:1, week0:true, unlockReps:10, role:'main', equipment:'body', name:'Australiana barra baixa', svg:'pull_au', aliases:'australiana|remada invertida|inverted row|australiana barra baixa' },
         { id:'cal_pull_neg', family:'pull', sport:'Calistenia', group:'costas', rung:2, week0:true, unlockReps:5, role:'main', equipment:'body', name:'Barra negativa', svg:'pull_neg', aliases:'barra negativa|negative pull' },
@@ -2796,8 +2675,7 @@
         { id:'cal_pull_ctb', family:'pull', sport:'Calistenia', group:'costas', rung:4, week0:false, unlockReps:6, role:'main', equipment:'body', name:'Barra peito na barra', svg:'pull_ctb', aliases:'chest to bar|peito na barra|ctb' },
         { id:'cal_chin', family:'chin', sport:'Calistenia', group:'costas', rung:3, minRung:2, week0:false, unlockReps:6, role:'accessory', parentFamily:'pull', equipment:'body', name:'Barra supinada', svg:'pull_up', aliases:'barra supinada|chin up|chin-up|chinup|pegada supinada' },
         { id:'cal_band_row', family:'band_row', sport:'Calistenia', group:'costas', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'row', equipment:'band', name:'Remada com elástico', svg:'row', aliases:'remada com elastico|band row|elastico remada' },
-        { id:'cal_row_sup', family:'row_sup', sport:'Calistenia', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'curl', equipment:'body', name:'Australiana supinada', svg:'pull_au', aliases:'australiana supinada|remada supinada' },
-        { id:'cal_band_curl', family:'band_curl', sport:'Calistenia', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'band', name:'Rosca com elástico', svg:'curl', aliases:'rosca com elastico|rosca elastico|band curl calistenia' },
+        { id:'cal_dip_bench', family:'dip', sport:'Calistenia', group:'peitoral', rung:0, minRung:1, week0:true, unlockReps:10, role:'accessory', parentFamily:'push', equipment:'body', name:'Dip no banco', svg:'dip_bench', aliases:'dip banco|bench dip|dip no banco' },
         { id:'cal_dip_para', family:'dip', sport:'Calistenia', group:'peitoral', rung:1, minRung:3, week0:true, unlockReps:8, role:'accessory', parentFamily:'push', equipment:'body', name:'Dip nas paralelas', svg:'dip_para', aliases:'dip nas paralelas|mergulho|paralela|dips' },
         { id:'cal_pike', family:'pike', sport:'Calistenia', group:'ombros', rung:0, week0:true, unlockReps:8, role:'main', equipment:'body', name:'Pike no chão', svg:'pike', aliases:'pike|flexao pike|pike no chao' },
         { id:'cal_pike_feet', family:'pike', sport:'Calistenia', group:'ombros', rung:1, week0:false, unlockReps:6, role:'main', equipment:'body', name:'Pike pés elevados', svg:'pike', aliases:'pike elevado|pike pes|pike pes elevados' },
@@ -2854,17 +2732,15 @@
         { id:'gym_pulldown', family:'vpull', sport:'Musculação', group:'costas', rung:1, week0:true, unlockReps:8, role:'main', equipment:'cable', name:'Puxada', svg:'pulldown', aliases:'puxada|pulldown|puxada frontal' },
         { id:'gym_pullup', family:'vpull_bw', sport:'Musculação', group:'costas', rung:2, minRung:1, week0:false, unlockReps:6, role:'accessory', parentFamily:'vpull', equipment:'body', name:'Barra pronada', svg:'pull_up', aliases:'barra pronada musculacao|pull-up musculacao' },
         { id:'gym_band_pulldown', family:'band_pulldown', sport:'Musculação', group:'costas', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'vpull', equipment:'band', name:'Puxada com elástico', svg:'pulldown', aliases:'puxada com elastico|pulldown elastico|elastico puxada' },
-        { id:'gym_arm', family:'curl', sport:'Musculação', group:'biceps', rung:1, week0:true, unlockReps:10, role:'main', equipment:'dumbbell', name:'Rosca direta', svg:'curl', aliases:'rosca direta|rosca|curl|rosca alternada' },
-        { id:'gym_hammer', family:'hammer', sport:'Musculação', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'curl', equipment:'dumbbell', name:'Rosca martelo', svg:'curl', aliases:'rosca martelo|hammer curl|martelo' },
-        { id:'gym_curl_band', family:'curl_band', sport:'Musculação', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'band', name:'Rosca com elástico', svg:'curl', aliases:'rosca com elastico|band curl|rosca elastico' },
-        { id:'gym_curl_cable', family:'curl_cable', sport:'Musculação', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'cable', name:'Rosca na polia', svg:'curl', aliases:'rosca na polia|rosca cabo|rosca pulley' },
-        { id:'gym_curl_machine', family:'curl_machine', sport:'Musculação', group:'biceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'machine', name:'Rosca na máquina', svg:'curl', aliases:'rosca na maquina|rosca aparelho|rosca scott maquina' },
-        { id:'gym_skull', family:'tri', sport:'Musculação', group:'triceps', rung:1, week0:true, unlockReps:10, role:'main', equipment:'barbell', name:'Tríceps testa', svg:'curl', aliases:'triceps testa|skull crusher|testa' },
-        { id:'gym_french_db', family:'french', sport:'Musculação', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'tri', equipment:'dumbbell', name:'Tríceps francês com halter', svg:'curl', aliases:'triceps frances|frances com halter|overhead extension' },
-        { id:'gym_pressdown', family:'pressdown', sport:'Musculação', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'cable', name:'Tríceps na polia', svg:'curl', aliases:'triceps na polia|triceps corda|pressdown|pulley triceps' },
-        { id:'gym_kick', family:'kick', sport:'Musculação', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'dumbbell', name:'Tríceps coice', svg:'curl', aliases:'triceps coice|kickback|coice' },
-        { id:'gym_tri_band', family:'tri_band', sport:'Musculação', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'band', name:'Tríceps com elástico', svg:'curl', aliases:'triceps com elastico|triceps elastico|band pressdown' },
-        { id:'gym_tri_machine', family:'tri_machine', sport:'Musculação', group:'triceps', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'machine', name:'Tríceps na máquina', svg:'curl', aliases:'triceps na maquina|triceps aparelho|extensao de triceps maquina' },
+        { id:'gym_arm', family:'curl', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'dumbbell', name:'Rosca direta', svg:'curl', aliases:'rosca direta|rosca|curl|rosca alternada' },
+        { id:'gym_hammer', family:'hammer', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'curl', equipment:'dumbbell', name:'Rosca martelo', svg:'curl', aliases:'rosca martelo|hammer curl|martelo' },
+        { id:'gym_curl_band', family:'curl_band', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'band', name:'Rosca com elástico', svg:'curl', aliases:'rosca com elastico|band curl|rosca elastico' },
+        { id:'gym_curl_cable', family:'curl_cable', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'cable', name:'Rosca na polia', svg:'curl', aliases:'rosca na polia|rosca cabo|rosca pulley' },
+        { id:'gym_curl_machine', family:'curl_machine', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'curl', equipment:'machine', name:'Rosca na máquina', svg:'curl', aliases:'rosca na maquina|rosca aparelho|rosca scott maquina' },
+        { id:'gym_skull', family:'tri', sport:'Musculação', group:'bracos', rung:1, week0:true, unlockReps:10, role:'main', equipment:'barbell', name:'Tríceps testa', svg:'curl', aliases:'triceps testa|skull crusher|testa' },
+        { id:'gym_pressdown', family:'pressdown', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'cable', name:'Tríceps na polia', svg:'curl', aliases:'triceps na polia|triceps corda|pressdown|pulley triceps' },
+        { id:'gym_kick', family:'kick', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'dumbbell', name:'Tríceps coice', svg:'curl', aliases:'triceps coice|kickback|coice' },
+        { id:'gym_tri_machine', family:'tri_machine', sport:'Musculação', group:'bracos', rung:0, minRung:0, week0:true, unlockReps:12, role:'accessory', parentFamily:'tri', equipment:'machine', name:'Tríceps na máquina', svg:'curl', aliases:'triceps na maquina|triceps aparelho|extensao de triceps maquina' },
         { id:'gym_core', family:'core', sport:'Musculação', group:'core', rung:0, week0:true, unlockReps:0, role:'main', equipment:'body', name:'Prancha', svg:'plank', aliases:'prancha|abdominal na prancha' },
         { id:'gym_wheel', family:'wheel', sport:'Musculação', group:'core', rung:1, minRung:0, week0:false, unlockReps:8, role:'accessory', parentFamily:'core', equipment:'body', name:'Roda abdominal', svg:'hollow', aliases:'roda abdominal|ab wheel|roda' },
         { id:'gym_raise', family:'raise', sport:'Musculação', group:'core', rung:0, minRung:0, week0:true, unlockReps:10, role:'accessory', parentFamily:'core', equipment:'body', name:'Elevação de pernas', svg:'hollow', aliases:'elevacao de pernas|leg raise|elevacao de perna' },
@@ -2914,9 +2790,9 @@
     function catalogFamilyDefault(sport, group) {
         if (sport === 'Corrida') return null;
         if (sport === 'Calistenia') {
-            return { peitoral:'push', costas:'pull', triceps:'diamond', biceps:'row_sup', ombros:'pike', quadriceps:'leg', posterior:'hinge', core:'core', panturrilha:'calf' }[group] || 'push';
+            return { peitoral:'push', costas:'pull', bracos:'diamond', ombros:'pike', quadriceps:'leg', posterior:'hinge', core:'core', panturrilha:'calf' }[group] || 'push';
         }
-        return { peitoral:'hpush', costas:'hpull', ombros:'vpush', quadriceps:'squat', posterior:'hinge', triceps:'tri', biceps:'curl', core:'core', panturrilha:'calf' }[group] || 'squat';
+        return { peitoral:'hpush', costas:'hpull', ombros:'vpush', quadriceps:'squat', posterior:'hinge', bracos:'curl', core:'core', panturrilha:'calf' }[group] || 'squat';
     }
 
     const CATALOG_STANDARD_RUNG = { push:3, pull:3, row:1, dip:1, pike:0, leg:1, hinge:1, core:1, diamond:3, squat:1, hpush:1, vpush:1, hpull:1, vpull:1, lunge:1, curl:1, tri:1, chin:1, calf:0, lateral:1, hinge_dl:1 };
@@ -3054,9 +2930,8 @@
             const lm = VOLUME_LANDMARKS[group];
             const already = (weekly[group] || 0) + plannedSetsInQueue(workout, group);
             if (lm && already + 3 > lm.mrv) return false;
-            const acc = pickAccessory(group, sport, used, joints, prefer)
-                || (prefer ? pickCatalogForFamily(prefer, sport, (ss && ss.last_lifts) || {}, joints) : null);
-            if (!acc || used.has(acc.id) || (acc.group && acc.group !== group)) return false;
+            const acc = pickAccessory(group, sport, used, joints, prefer);
+            if (!acc) return false;
             used.add(acc.id);
             pushAccessory(workout, acc);
             groups[group] = groups[group] || [];
@@ -3092,7 +2967,7 @@
             }
         });
         const primary = ranked[0];
-        const friend = primary === 'peitoral' ? 'triceps' : (primary === 'costas' ? 'biceps' : null);
+        const friend = { peitoral: 'bracos', costas: 'bracos', ombros: 'bracos' }[primary];
         const recentChest = (() => {
             const prev = (currentPlan && currentPlan.workouts || []).filter(w => w && w.isCompleted).slice(-1)[0];
             if (!prev || !prev.completedAt && !prev.date) return false;
@@ -3100,19 +2975,9 @@
             if (!when || (Date.now() - when) > 36 * 3600 * 1000) return false;
             return (prev.queue || []).some(q => (q.targetGroup || '') === 'peitoral');
         })();
-        if (friend && mins >= 40 && !(groups[friend] || []).length && !familyBlockedByPain(friend === 'triceps' ? 'tri' : 'curl', joints)) {
-            addOne(friend, friend === 'triceps' ? 'tri' : 'curl');
+        if (friend && mins >= 40 && !(groups[friend] || []).length && !familyBlockedByPain('curl', joints) && !familyBlockedByPain('tri', joints)) {
+            addOne(friend, primary === 'peitoral' ? 'tri' : 'curl');
         }
-        ['triceps', 'biceps'].forEach(group => {
-            let kept = false;
-            workout.queue = (workout.queue || []).filter(q => {
-                if (!q || q.type === 'rest') return true;
-                if ((q.targetGroup || '') !== group) return true;
-                if (kept) return false;
-                kept = true;
-                return true;
-            });
-        });
         if (ranked.includes('ombros') && recentChest) {
             workout.queue = workout.queue.filter(q => !(q && q.role === 'accessory' && (q.family === 'vpush' || q.parentFamily === 'vpush') && /desenvolvimento|overhead/.test((q.name || '').toLowerCase())));
         }
@@ -3138,7 +3003,7 @@
         if (!joints || typeof joints !== 'object') return false;
         const blob = JSON.stringify(joints).toLowerCase();
         if (/ombro/.test(blob) && (family === 'pike' || family === 'dip' || family === 'vpush' || family === 'lateral' || family === 'hspu')) return true;
-        if (/cotovelo/.test(blob) && (family === 'pull' || family === 'chin' || family === 'curl' || family === 'tri' || family === 'diamond' || family === 'dip' || family === 'dip_bench' || family === 'dip_knee' || family === 'tri_bench' || family === 'tri_floor' || family === 'french' || family === 'tri_band' || family === 'vpull' || family === 'arm' || family === 'pressdown')) return true;
+        if (/cotovelo/.test(blob) && (family === 'pull' || family === 'chin' || family === 'curl' || family === 'tri' || family === 'diamond' || family === 'dip' || family === 'vpull' || family === 'arm' || family === 'pressdown')) return true;
         if (/joelho/.test(blob) && (family === 'leg' || family === 'lunge' || family === 'squat' || family === 'ext' || family === 'hack')) return true;
         if (/lombar/.test(blob) && (family === 'hinge' || family === 'hinge_dl' || family === 'hip')) return true;
         return false;
@@ -3211,7 +3076,6 @@
             }
         }
         while (idx > 0 && ladder[idx].rung > cap) idx--;
-        if (!last && (family === 'pike' || (sport === 'Calistenia' && family === 'leg'))) idx = 0;
         return ladder[idx];
     }
 
@@ -3240,7 +3104,7 @@
         return `${item?.name || ''} ${item?.roundInfo || ''} ${item?.catalogId || ''}`.toLowerCase();
     }
     function isHiitItem(item) {
-        if (!item || item.type === 'rest' || item.role === 'filler') return false;
+        if (!item || item.type === 'rest') return false;
         if (item.family === 'hiit' || String(item.catalogId || '').startsWith('cal_hiit_')) return true;
         return /burpee|polichinelo|jumping jack|mountain climber|escalador|high knees|aula hiit/.test(hiitNameBlob(item));
     }
@@ -3259,7 +3123,7 @@
         if (h.sessionKind === 'hiit') return true;
         if (/\baula hiit\b|\bhiit\b/i.test(h.workoutName || '')) return true;
         const logs = h.exerciseLogs || [];
-        return logs.filter(l => l.role !== 'filler' && (l.family === 'hiit' || /burpee|polichinelo|escalador/.test((l.name || '').toLowerCase()))).length >= 3;
+        return logs.filter(l => l.family === 'hiit' || /burpee|polichinelo|escalador/.test((l.name || '').toLowerCase())).length >= 3;
     }
     function countWeeklyHiit(historyData) {
         if (!Array.isArray(historyData)) return 0;
@@ -3441,7 +3305,7 @@
 
     // WORKOUT_RULES v5.0 APEX HYBRID (FASE 1)
     const WORKOUT_RULES = `REGRA CINESIOLÓGICA & FISIOLÓGICA v5.2 (MOTOR DETERMINÍSTICO):
-    1. ESPAÇAMENTO: se is_high_intensity_run_allowed === false, sem tiro — só corrida Z1/Z2. Se is_heavy_legs_allowed === false, sem agachamento, stiff ou leg press pesado. É um dia entre perna pesada e tiro, não um exame.
+    1. ANTI-INTERFERÊNCIA (mTORC1 vs AMPK): Se is_high_intensity_run_allowed === false, PROIBIDO tiros/Z4/Z5 — só corrida Z1/Z2. Se is_heavy_legs_allowed === false, NÃO prescreva agachamento/stiff/leg press pesado.
     2. AUTO-REGULAÇÃO: Se ans_status === "SYMPATHETIC_DOMINANCE", REDUZA volume ~35% e AUMENTE RIR (mínimo 2).
     3. MARCOS DE VOLUME POR GRUPO (não use 12-20 para todos): respeite volume_landmarks_status. Se o grupo está em MRV, NÃO acrescente séries daquele grupo.
     4. 1RM: Epley se (reps+RIR)<=10; Brzycki se >10. Prescreva carga como % do 1RM_Estimates quando existir (força 80-90%, hipertrofia 65-80%).
@@ -3453,13 +3317,12 @@
     10. PROGRESSÃO: use last_lifts. RIR≤2 sobe ~2,5% (ou +1 rep na calistenia); RIR≥4 mantém; RIR 0 desce ~5%. Não invente carga se last_lifts existir.
     11. MESOCICLO 4 SEMANAS (mesocycle_week): 1 volume (RIR alto, sem Z4); 2 volume alto; 3 intensidade (RIR baixo, 1 estímulo); 4 deload planejado −30% séries, sem tiro. O deload de ACWR continua como freio.
     12. SÉRIE EFETIVA: só RIR≤3 conta no MEV. Aquecimento (RIR≥5 ou HRR<60%) não entra no 80/20.
-    13. TESTE: se days_since_test>42, sugira um teste de UM exercício fresco (não o músculo das últimas 48h). Calistenia: uma série até a técnica quebrar. Musculação: uma série de 3 a 5. Corrida: 3 ou 5 km, não no dia de perna. Isometria é por tempo, não por repetição.
+    13. TESTE: se days_since_test>42, sugira dia de teste (3-5RM / máx calistenia / 3 ou 5 km), não uma ficha normal.
     14. SEMANA 0: se mesocycle_week === 0, sessão conservadora (RIR≥3, sem Z4/skill avançada). Use âncoras (maxPush, maxPull, 5RM, 5k) — não invente carga.
     15. CALISTENIA TIMER: cada item work = UMA série. Se sets>=2, o código explode em série/descanso/série. Não consolide 3 séries num único duration.
     16. CATÁLOGO: 1 principal por padrão e complementares com id próprio (supino ≠ crucifixo ≠ inclinado; pronada ≠ supinada; leg press ≠ agachamento). Sem planche/lever/muscle-up/HSPU livre. O código corta se passar do MRV.
     17. AULA HIIT (peso do corpo): sessão PRÓPRIA, 15–20 min, só ids family=hiit. 1×/semana (2× só se hiit_budget>=2 e mesocycle_week===3). hiit_budget===0 (semana 0, deload, ACWR alto, eixo Corrida, queda de FC): ZERO HIIT. Não misturar burpee no meio de barra/flexão. Burpee completo só se joelho e ombro ok — senão burpee sem salto / polichinelo.
-    18. TRAVA DE MUSCULAÇÃO: o mesmo foco no máximo 2× na semana e nunca em dias seguidos. A segunda vez leva metade das séries. Corpo inteiro no máximo 2×. Semana sem descanso: RIR mínimo 3, sem HIIT e sem Z4.
-    19. BRAÇO: dia de peito termina com UM tríceps. Dia de costas termina com UM bíceps. Não misture os dois no mesmo dia. Dia de ombro não ganha tríceps extra. Supino e flexão contam só como peito, sem porcentagem para o tríceps. Dip no banco é tríceps. Dip nas paralelas é peito.`;
+    18. TRAVA DE MUSCULAÇÃO: o mesmo foco no máximo 2× na semana e nunca em dias seguidos. A segunda vez leva metade das séries. Corpo inteiro no máximo 2×. Semana sem descanso: RIR mínimo 3, sem HIIT e sem Z4.`;
 
     let currentUser = null;
     let lastAuthUid = null;
@@ -3720,47 +3583,21 @@
             const isRun = (item.modality || '') === 'Corrida' || (parseFloat(item.distance) || 0) >= 0.4;
             if (!isRun) return;
             if (item.trimpScore) totalTrimp += item.trimpScore;
-            const dist = zoneMinutesIfCurve(item);
-            if (dist) {
-                z1z2 += (dist.z1_z2_minutes || 0);
-                z3 += (dist.z3_minutes || 0);
-                z4z5 += (dist.z4_z5_minutes || 0);
+            if (item.zoneDistribution) {
+                z1z2 += (item.zoneDistribution.z1_z2_minutes || 0);
+                z3 += (item.zoneDistribution.z3_minutes || 0);
+                z4z5 += (item.zoneDistribution.z4_z5_minutes || 0);
+            } else if (item.modality === 'Corrida' && item.durationMinutes) {
+                const dist = zoneDistributionFromSession(item.durationMinutes, item.fc, item.pse);
+                if (dist) {
+                    z1z2 += dist.z1_z2_minutes;
+                    z3 += dist.z3_minutes;
+                    z4z5 += dist.z4_z5_minutes;
+                }
             }
         });
         const totalMins = z1z2 + z3 + z4z5;
         if (totalMins === 0) return { z1z2: 0, z3: 0, z4z5: 0, totalTrimp };
-        return {
-            z1z2: Math.round((z1z2 / totalMins) * 100),
-            z3: Math.round((z3 / totalMins) * 100),
-            z4z5: Math.round((z4z5 / totalMins) * 100),
-            totalTrimp,
-            totalMins: Math.round(totalMins)
-        };
-    }
-
-    function hybridCardioSplit(historyData, windowDays = 28) {
-        let z1z2 = 0, z3 = 0, z4z5 = 0, totalTrimp = 0;
-        if (!Array.isArray(historyData) || !historyData.length) return { z1z2: 0, z3: 0, z4z5: 0, totalTrimp: 0, totalMins: 0 };
-        const now = new Date();
-        const windowMs = Math.max(1, windowDays) * 864e5;
-        historyData.forEach(item => {
-            if (!item || !item.date || (now - new Date(item.date)) > windowMs) return;
-            const isRun = (item.modality || '') === 'Corrida' || (parseFloat(item.distance) || 0) >= 0.4;
-            const isCal = (item.modality || '') === 'Calistenia';
-            const hr = parseFloat(item.fc) || 0;
-            const points = item.watchMetrics && item.watchMetrics.hrPoints;
-            const realHr = hr > 30 || (points && points > 0) || !!item.updatedViaFile;
-            if (!isRun && !(isCal && realHr)) return;
-            if (item.trimpScore) totalTrimp += item.trimpScore;
-            const dist = zoneMinutesIfCurve(item);
-            if (dist) {
-                z1z2 += dist.z1_z2_minutes || 0;
-                z3 += dist.z3_minutes || 0;
-                z4z5 += dist.z4_z5_minutes || 0;
-            }
-        });
-        const totalMins = z1z2 + z3 + z4z5;
-        if (!totalMins) return { z1z2: 0, z3: 0, z4z5: 0, totalTrimp, totalMins: 0 };
         return {
             z1z2: Math.round((z1z2 / totalMins) * 100),
             z3: Math.round((z3 / totalMins) * 100),
@@ -3785,19 +3622,16 @@
         if (/panturrilha|calf raise|gemeo/.test(name)) return 'panturrilha';
         if (/elevacao pelvica|hip thrust|gluteo|glute bridge|ponte de gluteo/.test(name)) return 'posterior';
         if (/stiff|romanian|terra|deadlift|flexora|posterior|nordic|good morning/.test(name)) return 'posterior';
-        if (/australiana supinada|remada supinada/.test(name)) return 'biceps';
         if (/australiana|remada invertida|inverted row|barra pronada|barra supinada|barra negativa|peito na barra|chest to bar|barra fixa|pull.?up|chin.?up|puxada|remada|pulldown|lat |costas|front lever|muscle.?up/.test(name)) return 'costas';
         if (/agachamento|squat|leg press|extensora|quadriceps|afundo|lunge|pistol|bulgaro|sissy/.test(name)) return 'quadriceps';
         if (/supino|crossover|crucifixo|peitoral|pec deck|flexao(?! de braco isol)/.test(name) || /\bflexao\b/.test(name) || /push.?up/.test(name)) {
-            if (/diamante|extensao de triceps|triceps no chao|dip no banco|dip joelhos|bench dip/.test(name)) return 'triceps';
+            if (/diamante|cerrada|close.?grip|frances|testa/.test(name)) return 'bracos';
             if (/pike|handstand|hspu|militar/.test(name)) return 'ombros';
             return 'peitoral';
         }
-        if (/dip no banco|dip joelhos|bench dip/.test(name)) return 'triceps';
         if (/\bdip\b|paralela/.test(name)) return 'peitoral';
         if (/desenvolvimento|elevacao lateral|elevacao frontal|ombro|deltoide|face pull|crucifixo inverso/.test(name)) return 'ombros';
-        if (/triceps|frances|testa|kickback|coice/.test(name)) return 'triceps';
-        if (/rosca|bicep/.test(name)) return 'biceps';
+        if (/rosca|triceps|bicep|bochecha|braco|skull|kickback|frances/.test(name)) return 'bracos';
         if (/prancha|hollow|abdominal|l-sit|lsit|core|dragon flag|crunch|wheel/.test(name)) return 'core';
         return 'outros';
     }
@@ -3810,9 +3644,7 @@
             quadriceps: 'quadriceps', quad: 'quadriceps', quads: 'quadriceps', pernas: 'quadriceps', perna: 'quadriceps',
             posterior: 'posterior', hamstring: 'posterior', hamstrings: 'posterior', gluteo: 'posterior', gluteos: 'posterior',
             ombros: 'ombros', ombro: 'ombros', shoulder: 'ombros', deltoide: 'ombros',
-            bracos: 'bracos', braco: 'bracos',
-            triceps: 'triceps', tricep: 'triceps',
-            biceps: 'biceps', bicep: 'biceps',
+            bracos: 'bracos', braco: 'bracos', biceps: 'bracos', triceps: 'bracos', arm: 'bracos',
             core: 'core', abdomen: 'core', abdominal: 'core', abs: 'core',
             panturrilha: 'panturrilha', calf: 'panturrilha', gemeos: 'panturrilha'
         };
@@ -3825,8 +3657,6 @@
         if (!log) return 'outros';
         const rawName = baseExerciseName(log.name || '');
         if (log.kind === 'prep' || exerciseKind({ name: rawName, roundInfo: log.roundInfo, phase: log.phase }) === 'prep') return 'prep';
-        const stored = normalizeMuscleGroup(log.targetGroup, '');
-        if (stored && stored !== 'outros' && VOLUME_LANDMARKS[stored]) return stored;
         const entry = findCatalogByName(log.catalogId || rawName) || findCatalogByName(rawName);
         if (entry) return entry.family === 'hiit' ? 'hiit' : entry.group;
         if (log.family === 'hiit' || /burpee|polichinelo|escalador|aula hiit/.test(rawName.toLowerCase())) return 'hiit';
@@ -3834,7 +3664,7 @@
     }
 
     function calculateWeeklyVolumeLandmarks(historyData) {
-        const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, triceps: 0, biceps: 0, bracos: 0, core: 0, panturrilha: 0 };
+        const volumeMap = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0, panturrilha: 0 };
         if (!Array.isArray(historyData) || historyData.length === 0) return volumeMap;
         const now = new Date();
         const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
@@ -3872,8 +3702,7 @@
             historyData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const volumes = calculateWeeklyVolumeLandmarks(historyData);
             const planned = (typeof plannedWeeklySets === 'function') ? plannedWeeklySets() : {};
-            const labels = { peitoral: 'Peitoral', costas: 'Costas', quadriceps: 'Quadríceps', posterior: 'Posterior', ombros: 'Ombros', triceps: 'Tríceps', biceps: 'Bíceps', core: 'Core', panturrilha: 'Panturrilha' };
-            if ((volumes.bracos || 0) > 0) labels.bracos = 'Braço (já feito)';
+            const labels = { peitoral: 'Peitoral', costas: 'Costas', quadriceps: 'Quadríceps', posterior: 'Posterior', ombros: 'Ombros', bracos: 'Braços', core: 'Core', panturrilha: 'Panturrilha' };
             let html = '';
             Object.keys(labels).forEach(grp => {
                 const count = volumes[grp] || 0;
@@ -4034,13 +3863,6 @@
         return 90;
     }
 
-    function timerRestSeconds(item) {
-        const kind = (item && item._kind) || exerciseKind(item);
-        if (kind === 'prep') return 20;
-        const asked = parseInt(item && item.restSeconds, 10);
-        return Math.max(20, Math.min(45, asked || 30));
-    }
-
     function exerciseKind(item) {
         const blob = `${item?.name || ''} ${item?.roundInfo || ''} ${item?.phase || ''} ${item?.role || ''}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         if (/aquec|desaquec|volta a calma|volta-a-calma|cooldown|cool down|warm.?up|alongament|mobilidade|mobility|respiracao diafrag/.test(blob)) return 'prep';
@@ -4136,7 +3958,7 @@
                 const block = parseInt(item.duration, 10) || 30;
                 perSet = (nSets > 1 && block >= nSets * 15) ? Math.max(15, Math.round(block / nSets)) : Math.max(15, block);
             }
-            const restDur = timerRestSeconds(item);
+            const restDur = kind === 'prep' ? 20 : Math.max(20, Math.min(45, parseInt(item.restSeconds, 10) || 30));
             const targetReps = kind === 'iso' || kind === 'prep' ? 0 : (parseInt(item.reps, 10) || 8);
             for (let s = 1; s <= nSets; s++) {
                 const round = kind === 'prep' ? 'Aquecimento / volta — só o relógio'
@@ -4191,7 +4013,7 @@
             sets: Math.min(6, Math.max(1, parseInt(w.sets, 10) || 1)),
             reps: w.reps || '',
             dur: parseInt(w.duration, 10) || 0,
-            rest: ((workout?.modality || '') === 'Musculação') ? restSecondsForItem(w) : timerRestSeconds(w)
+            rest: restSecondsForItem(w)
         }));
         if (!seen.length) return workout?.focus || 'Sessão do dia';
         if (isHiitWorkout(workout)) {
@@ -4212,7 +4034,7 @@
         return /flexao|barra|prancha|hollow|l-sit|muscle|front lever|dip|paralela|pistol|handstand|pull.?up|burpee|polichinelo|escalador/.test(n);
     }
 
-    function sanitizeAndBalanceQueue(rawQueue, targetMinutes, modality) {
+    function sanitizeAndBalanceQueue(rawQueue, targetMinutes) {
         if (!Array.isArray(rawQueue) || rawQueue.length === 0) return [];
         function parseDuration(val) {
             if (typeof val === 'number') return Math.max(5, Math.round(val));
@@ -4237,21 +4059,6 @@
                 if (i.family !== 'hiit' && i.type === 'work' && exerciseKind(i) === 'prep') return;
                 if (i.type === 'work' && i.family === 'hiit') i.duration = Math.max(15, Math.min(40, i.duration || 20));
                 if (i.type === 'rest' && i.family === 'hiit') i.duration = Math.max(15, Math.min(45, i.duration || 40));
-            });
-            return items;
-        }
-        if ((modality || '') !== 'Corrida') {
-            items.forEach(i => {
-                if (!i || i.type === 'rest') {
-                    if (i) i.duration = Math.min(90, Math.max(15, parseInt(i.duration, 10) || 30));
-                    return;
-                }
-                if (i.role === 'filler') { i.duration = 30; return; }
-                const kind = exerciseKind(i);
-                const d = parseInt(i.duration, 10) || 30;
-                if (kind === 'prep') i.duration = Math.min(90, Math.max(20, d > 120 ? 40 : d));
-                else if (kind === 'iso') i.duration = Math.min(60, Math.max(10, d > 90 ? 30 : d));
-                else i.duration = d > 75 ? 30 : Math.min(45, Math.max(20, d));
             });
             return items;
         }
@@ -4281,45 +4088,6 @@
             }
         });
         return items;
-    }
-
-    function realisticQueueSeconds(workout) {
-        if ((workout?.modality || '') === 'Corrida') {
-            return (workout.queue || []).reduce((s, q) => s + (parseInt(q.duration, 10) || 0), 0);
-        }
-        return expandQueueForTimer(workout.queue || [], workout).reduce((s, q) => s + (parseInt(q.duration, 10) || 0), 0);
-    }
-
-    function padCalisthenicsMinutes(workout) {
-        if (!workout || (workout.modality || '') !== 'Calistenia' || isHiitWorkout(workout)) return workout;
-        if (!Array.isArray(workout.queue)) workout.queue = [];
-        const target = Math.max(8, parseInt(workout.estimatedMinutes, 10) || 45) * 60;
-        const joints = JSON.stringify((lastSyntheticState && lastSyntheticState.joint_stress_index) || {}).toLowerCase();
-        const quiet = /joelho|ombro/.test(joints) || (typeof isWeek0 === 'function' && isWeek0()) || workout.noHiit;
-        const fillerName = quiet ? 'Marcha no lugar' : 'Polichinelo leve';
-        let guard = 0;
-        while (realisticQueueSeconds(workout) + 45 < target && guard < 48) {
-            guard++;
-            const block = {
-                type: 'work', name: fillerName + ' · bloco ' + guard, role: 'filler', family: 'filler',
-                catalogId: quiet ? '' : 'cal_hiit_jack', sets: 1, reps: 20, duration: 30, restSeconds: 20,
-                rirTarget: 4, targetGroup: 'core', roundInfo: 'Leve, só para completar o tempo'
-            };
-            const rest = { type: 'rest', name: 'Descanso', duration: 20, role: 'filler' };
-            const anchors = [];
-            workout.queue.forEach((q, i) => {
-                if (q && q.type !== 'rest' && q.role !== 'filler' && exerciseKind(q) !== 'prep') anchors.push(i);
-            });
-            if (!anchors.length) workout.queue.push(block, rest);
-            else {
-                const at = anchors[(guard - 1) % anchors.length];
-                let insertAt = at + 1;
-                if (workout.queue[insertAt] && workout.queue[insertAt].type === 'rest') insertAt++;
-                workout.queue.splice(insertAt, 0, block, rest);
-            }
-        }
-        workout.estimatedMinutes = Math.max(8, Math.round(realisticQueueSeconds(workout) / 60));
-        return workout;
     }
 
     function normExName(n) {
@@ -4521,28 +4289,6 @@
         return Math.floor((Date.now() - new Date(latest.date).getTime()) / 86400000);
     }
 
-    function ensureSafeWork(workout, ss) {
-        if (!workout) return;
-        const hasWork = (workout.queue || []).some(q => q && q.type === 'work');
-        if (hasWork) return;
-        if (workout.modality === 'Corrida') {
-            workout.queue = [{ type: 'work', name: 'Rodagem Z2', roundInfo: 'Z1/Z2 · sessão encurtada', duration: 1200, sets: 1, reps: 0, rirTarget: 4, targetGroup: 'cardio' }];
-            return;
-        }
-        const joints = (ss && ss.joint_stress_index) || {};
-        const sport = workout.modality === 'Musculação' ? 'Musculação' : 'Calistenia';
-        let entry = null;
-        ['core', 'push', 'row'].some(fam => {
-            const e = pickCatalogForFamily(fam, sport, (ss && ss.last_lifts) || {}, joints);
-            if (e && !familyBlockedByPain(e.family, joints) && !familyBlockedByPain(e.parentFamily, joints)) { entry = e; return true; }
-            return false;
-        });
-        const item = entry
-            ? { type: 'work', name: entry.name, catalogId: entry.id, family: entry.family, role: entry.role || 'main', sets: 2, reps: entry.unlockReps || 8, rirTarget: 3, duration: entry.unlockReps ? 30 : 20, targetGroup: entry.group || 'core', roundInfo: 'sessão encurtada · proteção' }
-            : { type: 'work', name: 'Prancha', sets: 2, reps: 0, rirTarget: 4, duration: 20, targetGroup: 'core', roundInfo: 'sessão encurtada · proteção' };
-        workout.queue = [item, { type: 'rest', name: 'Descanso', duration: 30 }];
-    }
-
     function applyDeterministicCoachingGuards(workout, syntheticState, opts = {}) {
         if (!workout) return workout;
         if (workout._guardApplied && !opts.force) return workout;
@@ -4566,8 +4312,9 @@
             try { convertHiitToStrength(workout, ss); } catch (e) {}
         } else if (workout.modality === 'Calistenia' && !isHiitWorkout(workout)) {
             const stripped = workout.queue.filter(item => item.type === 'rest' || !isHiitItem(item));
-            workout.queue = stripped;
+            if (stripped.filter(i => i.type === 'work').length >= 2) workout.queue = stripped;
         }
+        const original = workout.queue.slice();
 
         if (workout.modality === 'Musculação' && Array.isArray(workout.gymGroups) && workout.gymGroups.length) {
             const allow = new Set(workout.gymGroups);
@@ -4575,7 +4322,7 @@
                 if (item.type !== 'work') return true;
                 return allow.has(normalizeMuscleGroup(item.targetGroup, item.name));
             });
-            workout.queue = focused;
+            if (focused.filter(i => i.type === 'work').length >= 2) workout.queue = focused;
         }
 
         if (workout.modality === 'Corrida' && (conflict.is_high_intensity_run_allowed === false || meso.allowZ4 === false || workout.easyOnly)) {
@@ -4596,7 +4343,7 @@
                 const g = normalizeMuscleGroup(item.targetGroup, item.name);
                 return g !== 'quadriceps' && g !== 'posterior';
             });
-            workout.queue = filtered;
+            if (filtered.filter(i => i.type === 'work').length >= 2) workout.queue = filtered;
         }
 
         workout.queue = workout.queue.map(item => {
@@ -4636,7 +4383,7 @@
                 const plannedSets = parseInt(item.sets, 10) || 3;
                 return ((weekly[g] || 0) + plannedSets) <= lm.mrv;
             });
-            workout.queue = filtered;
+            if (filtered.filter(i => i.type === 'work').length >= 2) workout.queue = filtered;
         }
 
         const emergencyDeload = acwr > 1.5 || auto.ans_status === 'SYMPATHETIC_DOMINANCE';
@@ -4658,7 +4405,9 @@
             workout.name = `[DELOAD] ${workout.name}`;
         }
 
-        if (!workout.queue.filter(q => q.type === 'work').length) ensureSafeWork(workout, ss);
+        if (!workout.queue.filter(q => q.type === 'work').length && original.length) {
+            workout.queue = original;
+        }
 
         if (meso.week === 0) {
             workout.queue = workout.queue.map(item => {
@@ -4693,8 +4442,7 @@
             ? (workout.estimatedMinutes || 18)
             : (opts.targetMinutes || workout.estimatedMinutes || userData.mins || 45);
         workout.estimatedMinutes = parseInt(mins, 10) || (workout.sessionKind === 'hiit' ? 18 : 45);
-        workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes, workout.modality);
-        if ((workout.modality || '') === 'Calistenia') padCalisthenicsMinutes(workout);
+        workout.queue = sanitizeAndBalanceQueue(workout.queue, workout.estimatedMinutes);
         workout._guardApplied = true;
         workout.mesocycleWeek = meso.week;
         return workout;
@@ -4702,8 +4450,8 @@
 
     const WEEKDAY_LABELS = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
     const GYM_STARTS = {
-        peitoral: { label: 'Peito', groups: ['peitoral', 'triceps'] },
-        costas: { label: 'Costas', groups: ['costas', 'biceps'] },
+        peitoral: { label: 'Peito', groups: ['peitoral', 'bracos'] },
+        costas: { label: 'Costas', groups: ['costas', 'bracos'] },
         pernas: { label: 'Pernas', groups: ['quadriceps', 'posterior', 'panturrilha'] },
         ombros: { label: 'Ombros', groups: ['ombros', 'core'] },
         full: { label: 'Corpo inteiro', groups: null }
@@ -4806,8 +4554,8 @@
             if (!item || item.type === 'rest') return;
             const g = normalizeMuscleGroup(item.targetGroup, item.name);
             let key = null;
-            if (g === 'peitoral' || g === 'triceps') key = 'peitoral';
-            else if (g === 'costas' || g === 'biceps') key = 'costas';
+            if (g === 'peitoral' || g === 'bracos') key = 'peitoral';
+            else if (g === 'costas') key = 'costas';
             else if (g === 'quadriceps' || g === 'posterior' || g === 'panturrilha') key = 'pernas';
             else if (g === 'ombros' || g === 'core') key = 'ombros';
             if (key) counts[key] = (counts[key] || 0) + 1;
@@ -4965,7 +4713,6 @@
         let letter = Number(cursor) || 0;
         const countsByWeek = {};
         let lastKey = null;
-        let lastGroups = null;
         let lastDay = null;
         const origin = new Date(startDate || Date.now());
         origin.setHours(12, 0, 0, 0);
@@ -4987,32 +4734,19 @@
                     noHiit: soften || (mod === 'Calistenia' && afterLegs)
                 };
                 if (mod === 'Musculação') {
-                    const names = gymLetterCount() === 4 ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
-                    const map = gymLetterMap();
-                    let chosen = letter % names.length;
-                    for (let t = 0; t < names.length; t++) {
-                        const tryIdx = (letter + t) % names.length;
-                        const groups = map[names[tryIdx]] || [];
-                        const overlap = lastGroups && lastDay !== null && (i - lastDay) <= 1 && groups.some(g => lastGroups.indexOf(g) >= 0);
-                        const used = counts[names[tryIdx]] || 0;
-                        if (!overlap && used < 2) { chosen = tryIdx; break; }
-                    }
-                    const gname = names[chosen];
-                    const groups = (map[gname] || []).slice();
-                    spec.focusKey = groups.some(g => g === 'quadriceps' || g === 'posterior') ? 'pernas'
-                        : groups.indexOf('peitoral') >= 0 ? 'peitoral'
-                        : groups.indexOf('costas') >= 0 ? 'costas'
-                        : groups.indexOf('ombros') >= 0 ? 'ombros' : 'full';
-                    spec.groups = groups;
-                    spec.halfVolume = groups.some(g => (counts['g:' + g] || 0) >= 1) || !!(lastGroups && groups.some(g => lastGroups.indexOf(g) >= 0));
-                    spec.heavyLegs = spec.focusKey === 'pernas';
-                    spec.gymLetter = gname;
-                    counts[gname] = (counts[gname] || 0) + 1;
-                    groups.forEach(g => { counts['g:' + g] = (counts['g:' + g] || 0) + 1; });
-                    lastGroups = groups;
-                    lastKey = spec.focusKey;
+                    const preferred = focusKeyForLetter(letter);
+                    const adjacent = lastKey && lastDay !== null && (i - lastDay) <= 1;
+                    const key = pickLockedFocus(preferred, counts, lastKey, adjacent);
+                    const used = counts[key] || 0;
+                    spec.focusKey = key;
+                    spec.groups = groupsForFocus(key);
+                    spec.halfVolume = used >= 1;
+                    spec.heavyLegs = key === 'pernas';
+                    spec.gymLetter = key === 'full' ? 'CI' : 'ABCD'[Math.max(0, START_ROTATION.indexOf(key)) % 4];
+                    counts[key] = used + 1;
+                    lastKey = key;
                     lastDay = i;
-                    letter = chosen + 1;
+                    letter += 1;
                 }
                 if (mod === 'Corrida') spec.runRole = roleForRunDay(d, !!spec.easyOnly);
                 out.push(spec);
@@ -5034,10 +4768,7 @@
         workout.runRole = spec.runRole || null;
         if (spec.runRole) workout.focus = runRoleLine(spec.runRole).replace('PAPEL: ', '');
         if (spec.gymLetter) {
-            const label = (spec.groups || []).map(g => {
-                const row = GYM_PICKS.find(p => p[0] === g);
-                return row ? row[1] : g;
-            }).join(', ');
+            const label = (GYM_STARTS[spec.focusKey] || {}).label || '';
             workout.focus = `Dia ${spec.gymLetter} · ${label}${spec.halfVolume ? ' · metade' : ''}`;
         } else if (spec.easyOnly && !spec.runRole) {
             workout.focus = 'Rodagem leve';
@@ -5087,91 +4818,6 @@
         return { kind: 'rest', sport: 'Calistenia' };
     }
 
-    const GYM_PICKS = [
-        ['peitoral', 'Peito'],
-        ['costas', 'Costas'],
-        ['quadriceps', 'Quadríceps'],
-        ['posterior', 'Posterior e glúteo'],
-        ['ombros', 'Ombros'],
-        ['triceps', 'Tríceps'],
-        ['biceps', 'Bíceps'],
-        ['core', 'Core'],
-        ['panturrilha', 'Panturrilha']
-    ];
-
-    function letterNames(split) {
-        return split === 'ABCD' ? ['A', 'B', 'C', 'D'] : ['A', 'B', 'C'];
-    }
-
-    function defaultGymLetters(split, start) {
-        const names = letterNames(split);
-        const packs = {
-            peitoral: ['peitoral', 'triceps'],
-            costas: ['costas', 'biceps'],
-            pernas: ['quadriceps', 'posterior', 'panturrilha'],
-            ombros: ['ombros', 'core']
-        };
-        const full = [
-            ['peitoral', 'costas', 'quadriceps'],
-            ['ombros', 'posterior', 'core'],
-            ['triceps', 'biceps', 'panturrilha'],
-            ['peitoral', 'quadriceps', 'core']
-        ];
-        const map = {};
-        if (start === 'full') {
-            names.forEach((n, i) => { map[n] = full[i].slice(); });
-            return map;
-        }
-        const order = ['peitoral', 'costas', 'pernas', 'ombros'];
-        const i0 = Math.max(0, order.indexOf(start));
-        const rotated = order.slice(i0).concat(order.slice(0, i0));
-        names.forEach((n, i) => { map[n] = (packs[rotated[i % rotated.length]] || packs.peitoral).slice(); });
-        return map;
-    }
-
-    function gymLetterMap() {
-        const split = userData && userData.gymSplit === 'ABCD' ? 'ABCD' : 'ABC';
-        const names = letterNames(split);
-        const raw = userData && userData.gymLetters;
-        if (!raw || typeof raw !== 'object') return defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral');
-        const map = {};
-        let any = false;
-        names.forEach(n => {
-            const list = Array.isArray(raw[n]) ? raw[n].filter(g => GYM_PICKS.some(p => p[0] === g)) : [];
-            if (list.length) any = true;
-            map[n] = list.length ? list : (defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral')[n] || []);
-        });
-        return any ? map : defaultGymLetters(split, (userData && userData.gymStart) || 'peitoral');
-    }
-
-    function letterCardsHtml(map, split) {
-        return letterNames(split).map(n => {
-            const on = new Set(map[n] || []);
-            const boxes = GYM_PICKS.map(([id, label]) => `<label class="flex items-center gap-1.5 text-[10px] text-slate-300"><input type="checkbox" data-letter="${n}" value="${id}" ${on.has(id) ? 'checked' : ''} class="accent-purple-500"> ${label}</label>`).join('');
-            return `<div class="bg-dark-950 border border-slate-800 rounded-xl p-2"><p class="text-[10px] font-black text-purple-300 mb-1">Letra ${n}</p><div class="grid grid-cols-2 gap-1">${boxes}</div></div>`;
-        }).join('');
-    }
-
-    function validateGymLetters(letters, split, mins) {
-        const names = letterNames(split);
-        const tallies = {};
-        for (let i = 0; i < names.length; i++) {
-            const n = names[i];
-            const list = letters[n] || [];
-            if (!list.length) return { ok: false, error: `A letra ${n} precisa de pelo menos um grupo.` };
-            if (list.length > 4) return { ok: false, error: `A letra ${n} tem grupos demais. O máximo é quatro.` };
-            const legs = list.indexOf('quadriceps') >= 0 || list.indexOf('posterior') >= 0;
-            if (list.indexOf('peitoral') >= 0 && list.indexOf('costas') >= 0 && legs && mins < 60) {
-                return { ok: false, error: `Na letra ${n}, peito, costas e perna juntos só cabem num dia de 60 minutos ou mais.` };
-            }
-            list.forEach(g => { tallies[g] = (tallies[g] || 0) + 1; });
-        }
-        const twice = Object.keys(tallies).filter(g => tallies[g] > 2);
-        if (twice.length) return { ok: false, error: 'O mesmo grupo pode entrar em no máximo duas letras.' };
-        const missing = GYM_PICKS.filter(p => !tallies[p[0]]).map(p => p[1]);
-        return { ok: true, warnings: missing.length ? ['Sem letra nesta semana: ' + missing.join(', ') + '.'] : [] };
-    }
-
     function renderWeekEditor(box, slots) {
         if (!box) return;
         const list = slots || weekSlots();
@@ -5200,14 +4846,14 @@
             <div class="grid grid-cols-2 gap-2 pt-1">
                 <div>
                     <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">Série de musculação</label>
-                    <select data-gym-split onchange="window.refreshGymLetters('${root}')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
+                    <select data-gym-split class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
                         <option value="ABC" ${split === 'ABC' ? 'selected' : ''}>ABC</option>
                         <option value="ABCD" ${split === 'ABCD' ? 'selected' : ''}>ABCD</option>
                     </select>
                 </div>
                 <div>
                     <label class="text-[9px] text-slate-500 font-bold uppercase block mb-1">1º treino</label>
-                    <select data-gym-start onchange="window.refreshGymLetters('${root}')" class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
+                    <select data-gym-start class="w-full bg-dark-950 border border-slate-700 rounded-xl px-2 py-2 text-xs text-white font-bold">
                         <option value="peitoral" ${start === 'peitoral' ? 'selected' : ''}>Peito</option>
                         <option value="costas" ${start === 'costas' ? 'selected' : ''}>Costas</option>
                         <option value="pernas" ${start === 'pernas' ? 'selected' : ''}>Pernas</option>
@@ -5216,8 +4862,6 @@
                     </select>
                 </div>
             </div>
-            <div data-gym-letters class="space-y-2">${letterCardsHtml(split === ((userData && userData.gymSplit) === 'ABCD' ? 'ABCD' : 'ABC') ? gymLetterMap() : defaultGymLetters(split, start), split)}</div>
-            <p class="text-[10px] text-slate-500 leading-relaxed">Marque quem treina junto em cada letra. Até 4 grupos. O mesmo grupo, no máximo em duas letras. Posterior inclui o glúteo. Trocar a série ou o 1º treino recoloca os pares clássicos.</p>
             <p class="text-[10px] text-slate-500 leading-relaxed">O mesmo músculo não repete em dias seguidos. A segunda vez na semana leva metade das séries. Sem dia de descanso, a semana inteira sai mais leve.</p>`;
     }
 
@@ -5229,15 +4873,6 @@
         if (!kind || !sport) return;
         const show = kind.value === 'lift' || kind.value === 'both';
         sport.classList.toggle('hidden', !show);
-    };
-
-    window.refreshGymLetters = (rootId) => {
-        const box = document.getElementById(rootId);
-        const host = box && box.querySelector('[data-gym-letters]');
-        if (!host) return;
-        const split = box.querySelector('[data-gym-split]')?.value === 'ABCD' ? 'ABCD' : 'ABC';
-        const start = box.querySelector('[data-gym-start]')?.value || 'peitoral';
-        host.innerHTML = letterCardsHtml(defaultGymLetters(split, start), split);
     };
 
     function readWeekEditor(box) {
@@ -5252,11 +4887,7 @@
         }
         const split = box.querySelector('[data-gym-split]')?.value === 'ABCD' ? 'ABCD' : 'ABC';
         const start = box.querySelector('[data-gym-start]')?.value || 'peitoral';
-        const letters = {};
-        letterNames(split).forEach(n => {
-            letters[n] = Array.from(box.querySelectorAll(`[data-letter="${n}"]:checked`)).map(el => el.value);
-        });
-        return { slots, split, start, letters };
+        return { slots, split, start };
     }
 
     function validateWeek(slots, split) {
@@ -5414,15 +5045,15 @@
             const weeklyVolumeMap = calculateWeeklyVolumeLandmarks(historyData);
             let volumeLandmarksStatus = {};
             Object.keys(weeklyVolumeMap).forEach(k => { volumeLandmarksStatus[k] = landmarkStatusFor(k, weeklyVolumeMap[k]); });
-            let jointStressIndex = jointMapFromOpen(userData && userData.openPains);
-            if (!(userData && userData._painSeeded)) {
-                const newest = historyData.slice().reverse().find(h => painsInText(h && h.userFeedback).length);
-                if (!Array.isArray(userData.openPains) || !userData.openPains.length) {
-                    userData.openPains = newest ? painsInText(newest.userFeedback).map(region => ({ region, since: newest.date || new Date().toISOString(), source: 'pos-treino' })) : [];
-                }
-                userData._painSeeded = true;
-                jointStressIndex = jointMapFromOpen(userData.openPains);
-            }
+            let jointStressIndex = {};
+            historyData.forEach(h => {
+                if (!h.userFeedback) return;
+                const fb = h.userFeedback.toLowerCase();
+                if (fb.includes('ombro')) jointStressIndex['ombro'] = 'LEVE_OU_MODERADA';
+                if (fb.includes('cotovelo')) jointStressIndex['cotovelo'] = 'STRAIGHT_ARM_RESTRICTION';
+                if (fb.includes('joelho')) jointStressIndex['joelho'] = 'CARGA_JOELHO_REDUZIDA';
+                if (fb.includes('lombar')) jointStressIndex['lombar'] = 'ISOMETRIA_SUPORTADA';
+            });
             const now = new Date();
             const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
             const weekly_modality_counts = { Calistenia: 0, Musculação: 0, Corrida: 0 };
@@ -5520,16 +5151,6 @@
         }
         if (z1 + z3 + z45 <= 0) return null;
         return { z1_z2_minutes: Math.round(z1 * 10) / 10, z3_minutes: Math.round(z3 * 10) / 10, z4_z5_minutes: Math.round(z45 * 10) / 10, source: 'hr-stream' };
-    }
-
-    function zoneMinutesIfCurve(item) {
-        const z = item && item.zoneDistribution;
-        if (!z) return null;
-        const mins = (z.z1_z2_minutes || 0) + (z.z3_minutes || 0) + (z.z4_z5_minutes || 0);
-        if (mins <= 0) return null;
-        const points = item.watchMetrics && item.watchMetrics.hrPoints;
-        if (z.source === 'hr-stream' || (points && points >= 8)) return z;
-        return null;
     }
 
     function trimpFromHrStream(samples) {
@@ -5648,7 +5269,7 @@
         const sessionSpd = (dist && durMin > 0) ? (dist / (durMin / 60)) : null;
         const movingSpd = avg(spds.filter(v => v >= 2));
         const avgSpd = sessionSpd || movingSpd || avg(spds);
-        const zoneDist = zonesFromHrStream(timed.filter(s => s.hr)) || null;
+        const zoneDist = zonesFromHrStream(timed.filter(s => s.hr)) || (avg(hrList) && durMin ? zoneDistributionFromSession(durMin, avg(hrList), null) : null);
         const trimp = trimpFromHrStream(timed.filter(s => s.hr)) || (avg(hrList) && durMin ? window.calculateTRIMP(durMin, avg(hrList), currentRestHr(), estimateHrMax()) : null);
         return {
             durationMinutes: durMin ? Math.round(durMin * 10) / 10 : null,
@@ -5885,10 +5506,8 @@
     function renderMavRadar(volumes) {
         const ctx = document.getElementById('chart-mev');
         if (!ctx || typeof Chart === 'undefined') return;
-        const keys = ['peitoral', 'costas', 'quadriceps', 'posterior', 'ombros', 'triceps', 'biceps', 'core', 'panturrilha'];
-        if ((volumes.bracos || 0) > 0) keys.push('bracos');
-        const labels = ['Peito', 'Costas', 'Quadríceps', 'Posterior', 'Ombro', 'Tríceps', 'Bíceps', 'Core', 'Panturrilha'];
-        if ((volumes.bracos || 0) > 0) labels.push('Braço antigo');
+        const keys = ['peitoral', 'costas', 'quadriceps', 'posterior', 'ombros', 'bracos', 'core', 'panturrilha'];
+        const labels = ['Peito', 'Costas', 'Quadríceps', 'Posterior', 'Ombro', 'Braço', 'Core', 'Panturrilha'];
         const data = keys.map(k => {
             const lm = VOLUME_LANDMARKS[k];
             if (!lm) return 0;
@@ -6010,7 +5629,7 @@
         const bwScore = bestBodyweightStrength(historyData);
         const rms = Object.values(ss['1RM_Estimates'] || {});
         const bestRel = rms.length ? Math.max(...rms.map(x => x / bw)) : 0;
-        const z = hybridCardioSplit(historyData, 28);
+        const z = calculatePolarizedCardioSplit(historyData, 28);
         const trimp = z.totalTrimp || 0;
         const core = (ss.weekly_effective_sets || {}).core || 0;
         return {
@@ -6200,7 +5819,7 @@
     };
 
     function plannedWeeklySets() {
-        const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, triceps: 0, biceps: 0, bracos: 0, core: 0, panturrilha: 0 };
+        const map = { peitoral: 0, costas: 0, quadriceps: 0, posterior: 0, ombros: 0, bracos: 0, core: 0, panturrilha: 0 };
         (currentPlan?.workouts || []).forEach(w => {
             if (!w || w.isCompleted || isHiitWorkout(w)) return;
             planWorkItems(w).forEach(item => {
@@ -6229,146 +5848,21 @@
         window.showAlert('Mesociclo', 'Semana 1 — Volume. Histórico e treinos continuam. O motor volta a construir carga.');
     };
 
-    function testFatigueGroups() {
-        const groups = new Set();
-        const cutoff = Date.now() - 48 * 3600 * 1000;
-        const mark = (g) => { if (g && g !== 'prep' && g !== 'hiit' && g !== 'outros') groups.add(g); };
-        (window._testHistory || []).forEach(h => {
-            if (!h || !h.date || h.isTestDay) return;
-            if (new Date(h.date).getTime() < cutoff) return;
-            (h.exerciseLogs || []).forEach(log => mark(volumeGroupOfLog(log)));
-        });
-        (currentPlan && currentPlan.workouts || []).forEach(w => {
-            if (!w || !w.isCompleted) return;
-            const when = new Date(w.completedAt || w.date || 0).getTime();
-            if (!when || when < cutoff) return;
-            (w.queue || []).forEach(q => {
-                if (!q || q.type === 'rest') return;
-                mark(q.targetGroup || categorizeMuscleGroup(q.name));
-            });
-        });
-        return groups;
-    }
-
-    function testCurrentEntry(family, sport, lifts, joints) {
-        if (familyBlockedByPain(family, joints)) return null;
-        const rungs = EX_CATALOG.filter(e => e.family === family && e.sport === sport && e.role !== 'accessory' && equipmentOk(e)).sort((a, b) => a.rung - b.rung);
-        if (!rungs.length) return null;
-        const known = lifts && lifts[family];
-        if (known) {
-            const entry = findCatalogByName(known.catalogId || known.name, sport);
-            if (entry && entry.family === family && equipmentOk(entry)) return entry;
-        }
-        if (family === 'pike' || family === 'leg' || family === 'core') return null;
-        const cap = athleteRungCap(family, sport, joints);
-        let ladder = rungs.filter(r => r.rung <= cap);
-        if (typeof isWeek0 === 'function' && isWeek0()) ladder = ladder.filter(r => r.week0 !== false);
-        if (!ladder.length) return null;
-        if (sport === 'Calistenia') {
-            let idx = 0;
-            for (let i = 0; i < ladder.length; i++) if (ladder[i].rung <= cap) idx = i;
-            return ladder[idx];
-        }
-        return ladder[0];
-    }
-
-    function testOffersFor(kind) {
-        const tired = testFatigueGroups();
-        const sport = kind === 'rm35' ? 'Musculação' : 'Calistenia';
-        const menu = kind === 'rm35'
-            ? [{ family: 'hpush', block: ['peitoral', 'triceps'] }, { family: 'hpull', block: ['costas', 'biceps'] }, { family: 'squat', block: ['quadriceps', 'posterior'] }]
-            : [{ family: 'push', block: ['peitoral', 'triceps'] }, { family: 'row', block: ['costas', 'biceps'] }, { family: 'pike', block: ['ombros'] }, { family: 'leg', block: ['quadriceps', 'posterior'] }];
-        const joints = (lastSyntheticState && lastSyntheticState.joint_stress_index) || {};
-        const lifts = (lastSyntheticState && lastSyntheticState.last_lifts) || {};
-        const out = [];
-        menu.forEach(row => {
-            if (out.length >= 2) return;
-            if (row.block.some(g => tired.has(g))) return;
-            const entry = testCurrentEntry(row.family, sport, lifts, joints);
-            if (!entry || out.some(e => e.id === entry.id)) return;
-            out.push(entry);
-        });
-        return out;
-    }
-
-    function testCueFor(entry, kind) {
-        if (!entry) return 'Escolha um exercício. Só um vale hoje.';
-        if (exerciseKind(entry) === 'iso') return entry.name + ': isometria é por tempo, não por repetição. Segure o máximo com o corpo alinhado. Anote os segundos. Uma tentativa só.';
-        if (kind === 'rm35') return entry.name + ': aqueça em duas séries leves. A série que vale é uma, de 3 a 5 repetições, a mais pesada que ainda sai limpa. O aquecimento não entra.';
-        return entry.name + ': duas séries leves não contam. A série que vale é uma, até a próxima repetição sair torta. Anote quantas saíram limpas. Não faça várias séries no máximo.';
-    }
-
-    window.openTestDayModal = async () => {
-        window._testPick = null;
+    window.openTestDayModal = () => {
         window.show('modal-test-day');
-        window.toggleTestFields();
-        try {
-            const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-            const history = [];
-            snap.forEach(d => history.push(d.data()));
-            window._testHistory = history;
-        } catch (e) { window._testHistory = window._testHistory || []; }
         window.toggleTestFields();
     };
     window.toggleTestFields = () => {
-        const t = document.getElementById('test-type')?.value || 'calmax';
+        const t = document.getElementById('test-type')?.value;
         const lift = document.getElementById('test-fields-lift');
         const run = document.getElementById('test-fields-run');
-        const how = document.getElementById('test-how');
-        const offers = document.getElementById('test-offers');
-        const cue = document.getElementById('test-cue');
-        if (!lift || !run || !offers) return;
-        const isRun = t === 'run3k' || t === 'run5k';
-        lift.classList.toggle('hidden', isRun);
-        run.classList.toggle('hidden', !isRun);
-        const tired = testFatigueGroups();
-        const legs = tired.has('quadriceps') || tired.has('posterior');
-        const block = document.getElementById('test-run-block');
-        if (block) block.classList.toggle('hidden', !(isRun && legs));
-        if (how) {
-            how.innerText = isRun
-                ? 'Trote de 8 a 10 minutos. Depois os quilômetros no ritmo mais forte que você segura até o fim. Um teste só. Isso substitui o tiro da semana.'
-                : (t === 'rm35'
-                    ? 'Um levantamento só, do músculo que você não treinou nas últimas 48 horas. Não é uma série inteira no máximo.'
-                    : 'Escolha um dos dois. São exercícios que você já pratica, no seu degrau. Se hoje foi perna, flexão e australiana. Sem exercício novo.');
-        }
-        if (isRun) { offers.innerHTML = ''; if (cue) cue.innerText = ''; return; }
-        const list = testOffersFor(t);
-        if (window._testPick && !list.some(e => e.id === window._testPick.id)) window._testPick = null;
-        if (!list.length) {
-            offers.innerHTML = '<p class="text-[11px] text-amber-300 leading-relaxed">Nada fresco nas últimas 48 horas. Deixe o teste para amanhã.</p>';
-            if (cue) cue.innerText = '';
-            return;
-        }
-        offers.innerHTML = list.map(e => {
-            const iso = exerciseKind(e) === 'iso';
-            const on = window._testPick && window._testPick.id === e.id;
-            return `<button type="button" data-test-id="${escapeHtml(e.id)}" class="w-full text-left rounded-xl border px-3 py-2 ${on ? 'border-purple-400 bg-purple-500/15' : 'border-slate-700 bg-dark-950'}"><span class="block text-xs font-black text-white">${escapeHtml(e.name)}</span><span class="block text-[10px] text-slate-400 mt-0.5">${iso ? 'Isometria · por tempo' : 'Uma série · pare na técnica'}</span></button>`;
-        }).join('');
-        offers.querySelectorAll('[data-test-id]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                window._testPick = list.find(e => e.id === btn.getAttribute('data-test-id')) || null;
-                window.toggleTestFields();
-            });
-        });
-        const pick = window._testPick;
-        const iso = pick && exerciseKind(pick) === 'iso';
-        const nameEl = document.getElementById('test-selected-name');
-        if (nameEl) nameEl.innerText = pick ? pick.name : 'Escolha um exercício acima.';
-        document.getElementById('test-fields-reps')?.classList.toggle('hidden', !pick || iso);
-        document.getElementById('test-added')?.classList.toggle('hidden', t !== 'calmax');
-        document.getElementById('test-fields-bar')?.classList.toggle('hidden', t !== 'rm35' || !pick || iso);
-        document.getElementById('test-fields-hold')?.classList.toggle('hidden', !iso);
-        if (cue) cue.innerText = testCueFor(pick, t);
+        if (!lift || !run) return;
+        if (t === 'run3k' || t === 'run5k') { lift.classList.add('hidden'); run.classList.remove('hidden'); }
+        else { lift.classList.remove('hidden'); run.classList.add('hidden'); }
     };
     window.saveTestDay = async () => {
         if (!currentUser) return;
         const t = document.getElementById('test-type').value;
-        const tired = testFatigueGroups();
-        if ((t === 'run3k' || t === 'run5k') && (tired.has('quadriceps') || tired.has('posterior'))) {
-            window.showAlert('Teste', 'A perna foi treinada nas últimas 48 horas. Deixe a corrida para amanhã.');
-            return;
-        }
         showLoading('Salvando teste...');
         try {
             let payload = {
@@ -6389,23 +5883,13 @@
                 payload.fc = parseFloat(document.getElementById('test-fc').value) || null;
                 payload.workoutName = t === 'run5k' ? 'Teste 5 km' : 'Teste 3 km';
             } else {
-                const pick = window._testPick;
-                if (!pick) throw new Error('Escolha o exercício sugerido.');
-                const iso = exerciseKind(pick) === 'iso';
-                if (iso) {
-                    const hold = parseInt(document.getElementById('test-hold').value, 10);
-                    if (!hold) throw new Error('Anote os segundos. Isometria não é por repetição.');
-                    payload.exerciseLogs = [{ name: pick.name, catalogId: pick.id, targetGroup: pick.group, kind: 'iso', holdSeconds: hold, reps: 0, rir: 0, weight: 0, addedLoadKg: 0 }];
-                } else {
-                    const reps = parseInt(document.getElementById('test-reps').value, 10);
-                    const bar = t === 'rm35' ? (parseFloat(document.getElementById('test-weight').value) || 0) : 0;
-                    const added = t === 'calmax' ? (parseFloat(document.getElementById('test-added').value) || 0) : 0;
-                    if (!reps) throw new Error('Anote as repetições da série que valeu.');
-                    if (t === 'rm35' && (reps < 3 || reps > 5)) throw new Error('Na musculação, a série que vale fica entre 3 e 5.');
-                    if (t === 'rm35' && bar <= 0) throw new Error('Anote a carga da barra.');
-                    payload.exerciseLogs = [{ name: pick.name, catalogId: pick.id, targetGroup: pick.group, weight: bar, addedLoadKg: added, reps, rir: 0 }];
-                }
-                payload.workoutName = isoName(pick, t);
+                const name = document.getElementById('test-ex-name').value.trim();
+                const reps = parseInt(document.getElementById('test-reps').value, 10);
+                const bar = parseFloat(document.getElementById('test-weight').value) || 0;
+                const added = parseFloat(document.getElementById('test-added').value) || 0;
+                if (!name || !reps) throw new Error('Preencha exercício e reps.');
+                payload.exerciseLogs = [{ name, targetGroup: categorizeMuscleGroup(name), weight: bar, addedLoadKg: added, reps, rir: 0 }];
+                payload.workoutName = t === 'calmax' ? `Teste calistenia: ${name}` : `Teste 3–5RM: ${name}`;
             }
             payload = compactDefined(payload);
             payload.isTestDay = true;
@@ -6418,17 +5902,12 @@
             window.hide('dash-test-banner');
             if (typeof loadHistory === 'function') loadHistory();
             if (typeof renderAcwrAnd1RMInfo === 'function') renderAcwrAnd1RMInfo();
-            window.showAlert('Teste salvo', 'Um exercício só. A fila da semana continua. O próximo treino usa esse número.');
+            window.showAlert('Teste salvo', '1RM / IFR / pace de Z2 serão atualizados no próximo treino. A fila da semana permanece.');
         } catch (e) {
             hideLoading();
             window.showAlert('Teste', e.message);
         }
     };
-
-    function isoName(pick, t) {
-        if (exerciseKind(pick) === 'iso') return 'Teste de tempo: ' + pick.name;
-        return t === 'calmax' ? ('Teste calistenia: ' + pick.name) : ('Teste 3–5: ' + pick.name);
-    }
 
     function playBeep(freq = 440, duration = 150, type = 'sine') {
         try {
@@ -6481,14 +5960,14 @@
         extra: { t: 'Carga extra (kg)', b: '<p>Peso <strong class="text-white">colocado em você</strong>: colete, caneleira, anilha no cinto.</p><p>Flexão com 10 kg no colete → Extra = 10. Sem nada → 0. Serve para o IFR (força relativa).</p>' },
         '1rm': { t: '1RM — Uma repetição máxima', b: '<p>Estimativa de quanto você levantaria <strong class="text-white">uma vez só</strong>, a partir das séries que anotou (fórmulas Epley/Brzycki).</p><p>Não precisa testar o máximo de verdade. O app usa isso para sugerir a carga da próxima ficha.</p>' },
         ifr: { t: 'IFR — Força relativa', b: '<p>Quanto você move em relação ao <strong class="text-white">seu corpo</strong> (peso corporal + extra no colete).</p><p>É o “1RM da calistenia”. Sem anotar extra, o IFR quase não anda.</p>' },
-        acwr: { t: 'ACWR — freio da semana', b: '<p>Compara o que você fez nesta semana com a média das últimas 4.</p><p>É um freio de carga, não um índice de lesão. Perto de 1,0 = ritmo estável. Acima de 1,5 = o motor corta volume.</p>' },
+        acwr: { t: 'ACWR — Carga aguda / crônica', b: '<p>Compara o que você fez nesta semana com a média das últimas 4.</p><p>Perto de 1,0 = equilíbrio. Acima de 1,5 = pico; o motor corta volume (deload) para proteger articulação.</p>' },
         mev: { t: 'MEV, MAV e MRV', b: '<p><strong class="text-white">MEV</strong> — mínimo da semana para o músculo crescer.<br><strong class="text-white">MAV</strong> — faixa boa (verde).<br><strong class="text-white">MRV</strong> — teto; passar disso é risco de não recuperar.</p><p>O app conta só série “de verdade” (RIR baixo). Aquecimento não entra.</p>' },
         trimp: { t: 'TRIMP e 80/20', b: '<p><strong class="text-white">TRIMP</strong> é a “conta” do cardio (tempo × esforço do coração).</p><p><strong class="text-white">80/20</strong>: a maior parte da corrida deve ser fácil (Z1/Z2). Pouco tiro. Se inverter, o motor puxa de volta.</p>' },
         pse: { t: 'PSE — Esforço percebido', b: '<p>De 1 a 10, <strong class="text-white">como o treino inteiro te pareceu</strong>, não a última série.</p><p>1 = passeio. 5 = trabalho honesto. 8–9 = muito pesado. 10 = não dava mais. Sem isso o Coach não avalia o dia.</p>' },
         prontidao: { t: 'Prontidão', b: '<p>Nota do dia: energia (1–5) + sono + dor. Não é HRV de relógio.</p><p>Baixa → a I.A. enxuga o treino. Alta → segue o plano. Você informa isso ao tocar em Iniciar Sessão.</p>' },
         meso: { t: 'Mesociclo (4 semanas)', b: '<p>Semana 1 volume · 2 volume alto · 3 um pouco mais intenso · 4 deload (mais leve de propósito).</p><p><strong class="text-white">Reiniciar ciclo</strong> só volta o ponteiro para a semana 1. Não apaga histórico.</p>' },
-        sna: { t: 'Recuperação autonômica', b: '<p>Sinal de campo, não exame. É a <strong class="text-white">FC ao acordar</strong> (ainda sentado, antes do café e do treino), comparada com a FCrep da anamnese.</p><p><strong class="text-white">Não é obrigatório todo dia.</strong> Sem anotar, o card fica em branco. O valor vale cerca de 36 h.</p><p>Melhor momento: manhã de treino, <strong class="text-white">antes</strong> de treinar. Depois do treino a FC ainda está alta e não serve.</p><p>Anote na Home, neste card, ou no check-in. +5 bpm vs anamnese = o motor alivia. −5 = bem recuperado. A queda de FC em 3 min é outro sinal de campo.</p>' },
-        zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>A barra e as teias só pintam zona quando o arquivo do relógio traz a curva. Uma frequência média sozinha não entra. A teia de corrida não usa a calistenia.</p>' },
+        sna: { t: 'Recuperação autonômica', b: '<p>É a <strong class="text-white">FC ao acordar</strong> (ainda sentado, antes do café e do treino), comparada com a FCrep da anamnese.</p><p><strong class="text-white">Não é obrigatório todo dia.</strong> Sem anotar, o card fica em branco. O valor vale cerca de 36 h.</p><p>Melhor momento: manhã de treino, <strong class="text-white">antes</strong> de treinar. Depois do treino a FC ainda está alta e não serve.</p><p>Anote na Home, neste card, ou no check-in. +5 bpm vs anamnese = estresse. −5 = bem recuperado. Queda de FC em 3 min no pós-treino é outro dado (HRR).</p>' },
+        zonas: { t: 'Zonas de frequência cardíaca', b: '<p>Z1/Z2 = fácil (conversa). Z3 = médio. Z4/Z5 = tiro.</p><p>O cartão e o arquivo do relógio usam sua FCrep (Karvonen). Corra olhando o relógio nesses bpm, não “no feeling” sozinho.</p>' },
         eixo: { t: 'Eixo mestre', b: '<p>O esporte principal da semana (calistenia, corrida ou musculação).</p><p>Dá para variar no dia, com teto: 1× por semana fora do eixo (2× se o eixo for corrida).</p>' },
         iso: { t: 'Isometria', b: '<p>Você <strong class="text-white">segura</strong> a posição (prancha, L-sit, hollow). Não tem repetição — o relógio conta os segundos.</p><p>No descanso anote quanto segurou e se ainda aguentaria 0, 2, 5 ou 10+ segundos. Isso substitui o RIR. Série conta no volume se a reserva foi ≤ 5s.</p>' }
     };
@@ -7111,18 +6590,14 @@
         const read = readWeekEditor(document.getElementById('onboard-week'));
         const check = validateWeek(read.slots, read.split);
         if (!check.ok) return window.showAlert('Semana', check.error);
-        const mins = parseInt(document.getElementById('sched-mins')?.value || userData.mins, 10) || 45;
-        const lettersOk = read.slots.some(d => d.indexOf('Musculação') >= 0) ? validateGymLetters(read.letters, check.split, mins) : { ok: true, warnings: [] };
-        if (!lettersOk.ok) return window.showAlert('Grupos', lettersOk.error);
         userData.scheduleMode = 'custom';
         userData.weekSlots = packWeekSlots(read.slots);
         userData.gymSplit = check.split;
         userData.gymStart = GYM_STARTS[read.start] ? read.start : 'peitoral';
-        userData.gymLetters = read.letters;
         userData.gymLetterCursor = 0;
         userData.weekSoften = !!check.soften;
         userData.days = String(check.sessions);
-        window._weekWarn = check.warnings.concat(lettersOk.warnings || []).join(' ');
+        window._weekWarn = check.warnings.join(' ');
         finishAssessmentAndGeneratePlan();
     };
 
@@ -7439,11 +6914,8 @@
             const read = readWeekEditor(document.getElementById('prof-week'));
             const check = validateWeek(read.slots, read.split);
             if (!check.ok) return window.showAlert('Semana', check.error);
-            const mins = parseInt(document.getElementById('prof-mins')?.value || userData.mins, 10) || 45;
-            const lettersOk = read.slots.some(d => d.indexOf('Musculação') >= 0) ? validateGymLetters(read.letters, check.split, mins) : { ok: true, warnings: [] };
-            if (!lettersOk.ok) return window.showAlert('Grupos', lettersOk.error);
-            window._pendingAgenda = { mode: 'custom', slots: read.slots, split: check.split, start: GYM_STARTS[read.start] ? read.start : 'peitoral', letters: read.letters, sessions: check.sessions, warnings: check.warnings.concat(lettersOk.warnings || []) };
-            if (txt) txt.innerText = 'A semana personalizada substitui os treinos que você ainda não fez. O histórico fica.' + (window._pendingAgenda.warnings.length ? ' ' + window._pendingAgenda.warnings.join(' ') : '');
+            window._pendingAgenda = { mode: 'custom', slots: read.slots, split: check.split, start: GYM_STARTS[read.start] ? read.start : 'peitoral', sessions: check.sessions, warnings: check.warnings };
+            if (txt) txt.innerText = 'A semana personalizada substitui os treinos que você ainda não fez. O histórico fica.' + (check.warnings.length ? ' ' + check.warnings.join(' ') : '');
         } else {
             window._pendingAgenda = { mode: 'auto', days: document.getElementById('prof-days')?.value || userData.days, mins: document.getElementById('prof-mins')?.value || userData.mins };
             if (txt) txt.innerText = 'A IA volta a montar a ordem. Os treinos que você ainda não fez são refeitos. O histórico fica.';
@@ -7561,7 +7033,6 @@
             userData.weekSlots = packWeekSlots(pending.slots);
             userData.gymSplit = pending.split;
             userData.gymStart = pending.start;
-            if (pending.letters) userData.gymLetters = pending.letters;
             userData.days = String(pending.sessions);
             userData.weekSoften = !(pending.slots || []).some(day => !day || !day.length);
         } else {
@@ -7633,11 +7104,9 @@ ${coachingPromptTail()}`;
         }
     };
 
-    window.openReadinessModal = async () => {
+    window.openReadinessModal = () => {
         window.show('modal-readiness'); selectedEnergy = null;
         if (document.getElementById('read-notes')) document.getElementById('read-notes').value = '';
-        try { await ensurePainList(); } catch (e) {}
-        paintPainFollowup();
         
         const nw = currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
         const defMins = nw ? (nw.estimatedMinutes || userData.mins || 45) : (userData.mins || 45);
@@ -7665,14 +7134,6 @@ ${coachingPromptTail()}`;
 
    window.submitReadiness = async () => {
     if (!selectedEnergy) return window.showAlert("Atenção", "Selecione seu nível de energia (1 a 5).");
-    const today = new Date().toISOString().slice(0, 10);
-    const pendingPains = (userData.painAskedOn === today) ? [] : ((userData.openPains || []).filter(p => p && p.region));
-    window._painAnswers = window._painAnswers || {};
-    if (pendingPains.some(p => !window._painAnswers[p.region])) {
-        return window.showAlert('Dor', 'Diga se a dor passou ou se ainda dói.');
-    }
-    const gone = new Set(pendingPains.filter(p => window._painAnswers[p.region] === 'gone').map(p => p.region));
-    const still = pendingPains.filter(p => window._painAnswers[p.region] === 'still').map(p => p.region);
     
     const nwIndex = currentPlan.workouts.findIndex(w => !w.isCompleted);
     const chosenModality = document.getElementById('read-stimulus-modality').value;
@@ -7691,19 +7152,6 @@ ${coachingPromptTail()}`;
         }
         currentPlan.offAxisThisWeek = (currentPlan.offAxisThisWeek || 0) + 1;
     }
-    if (pendingPains.length) {
-        userData.openPains = (userData.openPains || []).filter(p => !gone.has(p.region));
-        userData.painAskedOn = today;
-    }
-    const readNotesEarly = document.getElementById('read-notes')?.value?.trim() || '';
-    const soreEarly = document.getElementById('read-sore')?.value || 'Nenhuma';
-    const fresh = [];
-    const fromSore = soreToRegion(soreEarly);
-    if (fromSore) fresh.push(fromSore);
-    painsInText(readNotesEarly).forEach(r => { if (!fresh.includes(r)) fresh.push(r); });
-    painsClearedInText(readNotesEarly).forEach(r => { if (!still.includes(r)) forgetPain(r); });
-    fresh.forEach(r => { if (!gone.has(r)) rememberPain(r, 'check-in'); });
-    window._painStill = still.filter(r => !gone.has(r));
     const readNotes = document.getElementById('read-notes')?.value?.trim() || "";
     
     // Captura rigorosa do tempo customizado ou padrão
@@ -7785,174 +7233,11 @@ ${coachingPromptTail()}`;
         if (typeof next === 'function') next();
     };
 
-    function painsInText(text) {
-        const found = [];
-        painClauses(text).forEach(clause => {
-            regionsInClause(clause).forEach(hit => {
-                if (mentionNegated(clause, hit.index)) return;
-                if (!found.includes(hit.region)) found.push(hit.region);
-            });
-        });
-        return found;
-    }
-
-    function painsClearedInText(text) {
-        const open = painsInText(text);
-        const found = [];
-        painClauses(text).forEach(clause => {
-            regionsInClause(clause).forEach(hit => {
-                if (!mentionNegated(clause, hit.index)) return;
-                if (open.includes(hit.region) || found.includes(hit.region)) return;
-                found.push(hit.region);
-            });
-        });
-        return found;
-    }
-
-    function painClauses(text) {
-        return String(text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').split(/[.;!\n?,]+|\bmas\b|\bporem\b/);
-    }
-
-    function regionsInClause(clause) {
-        const out = [];
-        const add = (region, word) => {
-            let from = 0;
-            while (from < clause.length) {
-                const i = clause.indexOf(word, from);
-                if (i < 0) break;
-                out.push({ region, index: i });
-                from = i + word.length;
-            }
-        };
-        add('ombro', 'ombro');
-        add('cotovelo', 'cotovelo');
-        add('joelho', 'joelho');
-        add('lombar', 'lombar');
-        add('lombar', 'coluna');
-        return out;
-    }
-
-    function mentionNegated(clause, index) {
-        const before = clause.slice(Math.max(0, index - 24), index);
-        const after = clause.slice(index, index + 22);
-        return /\b(nao|sem|nenhum|nenhuma|passou|melhorou|sumiu|livre|zero)\b/.test(before)
-            || /\b(passou|melhorou|sumiu)\b/.test(after);
-    }
-
-    function soreToRegion(sore) {
-        const s = String(sore || '').toLowerCase();
-        if (s.includes('ombro')) return 'ombro';
-        if (s.includes('cotovelo')) return 'cotovelo';
-        if (s.includes('joelho')) return 'joelho';
-        if (s.includes('lombar')) return 'lombar';
-        return null;
-    }
-
-    function jointMapFromOpen(list) {
-        const jointStressIndex = {};
-        (list || []).forEach(p => {
-            if (!p || !p.region) return;
-            if (p.region === 'ombro') jointStressIndex.ombro = 'LEVE_OU_MODERADA';
-            if (p.region === 'cotovelo') jointStressIndex.cotovelo = 'STRAIGHT_ARM_RESTRICTION';
-            if (p.region === 'joelho') jointStressIndex.joelho = 'CARGA_JOELHO_REDUZIDA';
-            if (p.region === 'lombar') jointStressIndex.lombar = 'ISOMETRIA_SUPORTADA';
-        });
-        return jointStressIndex;
-    }
-
-    function rememberPain(region, source) {
-        if (!region) return;
-        if (!Array.isArray(userData.openPains)) userData.openPains = [];
-        const cur = userData.openPains.find(p => p.region === region);
-        if (cur) { cur.since = new Date().toISOString(); cur.source = source || cur.source; }
-        else userData.openPains.push({ region, since: new Date().toISOString(), source: source || 'check-in' });
-    }
-
-    function forgetPain(region) {
-        if (!region || !Array.isArray(userData.openPains)) return;
-        userData.openPains = userData.openPains.filter(p => p.region !== region);
-    }
-
-    function applyPainText(text, source) {
-        painsClearedInText(text).forEach(region => forgetPain(region));
-        painsInText(text).forEach(region => rememberPain(region, source));
-    }
-
-    function itemHitsRegion(item, region) {
-        const name = String((item && item.name) || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const g = normalizeMuscleGroup(item && item.targetGroup, item && item.name);
-        if (region === 'ombro') return g === 'ombros' || /pike|desenvolvimento|militar|elevacao|hspu|arnold/.test(name);
-        if (region === 'joelho') return g === 'quadriceps' || /agach|afundo|pistol|lunge|leg press|extensora/.test(name);
-        if (region === 'lombar') return g === 'posterior' || /terra|stiff|good morning|hip thrust|levantamento/.test(name);
-        if (region === 'cotovelo') return g === 'triceps' || g === 'biceps' || /dip|barra|flexao|rosca|triceps|pulldown|puxada/.test(name);
-        return false;
-    }
-
-    function sessionMostlyRegion(workout, region) {
-        if (!workout || !region) return false;
-        if (region === 'joelho' && workout.modality === 'Corrida') return true;
-        const works = (workout.queue || []).filter(q => q && q.type === 'work' && q.role !== 'filler');
-        if (!works.length) {
-            const groups = workout.gymGroups || [];
-            if (region === 'ombro') return groups.indexOf('ombros') >= 0 && groups.length <= 2;
-            if (region === 'joelho') return groups.indexOf('quadriceps') >= 0 && groups.length <= 2;
-            if (region === 'lombar') return groups.indexOf('posterior') >= 0 && groups.length <= 2;
-            if (region === 'cotovelo') return (groups.indexOf('triceps') >= 0 || groups.indexOf('biceps') >= 0) && groups.length <= 2;
-            return false;
-        }
-        return works.filter(w => itemHitsRegion(w, region)).length / works.length >= 0.5;
-    }
-
-    async function ensurePainList() {
-        if (userData && userData._painSeeded && Array.isArray(userData.openPains)) return;
-        if (!currentUser || !currentUser.uid) { userData.openPains = userData.openPains || []; userData._painSeeded = true; return; }
-        const snap = await getDocs(collection(db, `users/${currentUser.uid}/history`));
-        const rows = [];
-        snap.forEach(d => rows.push(d.data()));
-        rows.sort((a, b) => new Date(b.date) - new Date(a.date));
-        const hit = rows.find(h => painsInText(h && h.userFeedback).length);
-        if (!Array.isArray(userData.openPains) || !userData.openPains.length) {
-            userData.openPains = hit ? painsInText(hit.userFeedback).map(region => ({ region, since: hit.date || new Date().toISOString(), source: 'pos-treino' })) : [];
-        }
-        userData._painSeeded = true;
-    }
-
-    function paintPainFollowup() {
-        const box = document.getElementById('pain-followup');
-        if (!box) return;
-        window._painAnswers = {};
-        const today = new Date().toISOString().slice(0, 10);
-        const list = (userData.openPains || []).filter(p => p && p.region);
-        if (!list.length || userData.painAskedOn === today) {
-            box.classList.add('hidden');
-            box.innerHTML = '';
-            return;
-        }
-        const label = { ombro: 'ombro', cotovelo: 'cotovelo', joelho: 'joelho', lombar: 'lombar' };
-        box.classList.remove('hidden');
-        box.innerHTML = list.map(p => `<div class="bg-dark-950 border border-amber-500/40 rounded-2xl p-3" data-pain="${p.region}"><p class="text-xs text-amber-100 font-medium leading-relaxed mb-2">Na última vez você falou de dor no ${label[p.region] || p.region}. Como está?</p><div class="grid grid-cols-2 gap-2"><button type="button" onclick="window.answerPain('${p.region}','still', this)" class="rounded-xl border border-slate-700 py-2.5 text-[11px] font-bold text-white">Ainda dói</button><button type="button" onclick="window.answerPain('${p.region}','gone', this)" class="rounded-xl border border-slate-700 py-2.5 text-[11px] font-bold text-white">Passou</button></div></div>`).join('');
-    }
-
-    window.answerPain = (region, ans, btn) => {
-        window._painAnswers = window._painAnswers || {};
-        window._painAnswers[region] = ans;
-        const card = btn && btn.closest ? btn.closest('[data-pain]') : null;
-        if (!card) return;
-        card.querySelectorAll('button').forEach(b => { b.className = 'rounded-xl border border-slate-700 py-2.5 text-[11px] font-bold text-slate-300'; });
-        btn.className = ans === 'still'
-            ? 'rounded-xl border border-amber-400 bg-amber-500/20 py-2.5 text-[11px] font-bold text-amber-100'
-            : 'rounded-xl border border-green-400 bg-green-500/20 py-2.5 text-[11px] font-bold text-green-100';
-    };
-
     function shouldKeepProgrammedWorkout(readiness, nw, modality, plannedMins) {
         if (!nw || !Array.isArray(nw.queue) || !nw.queue.some(q => q.type === 'work')) return false;
         if ((readiness.energy || 0) < 4) return false;
         if (readiness.sleep === 'Ruim') return false;
-        if (readiness.sore === 'Leve') return false;
-        const region = soreToRegion(readiness.sore);
-        if (region && sessionMostlyRegion(nw, region)) return false;
-        const still = window._painStill || [];
-        if (still.some(r => sessionMostlyRegion(nw, r))) return false;
+        if (readiness.sore && readiness.sore !== 'Nenhuma') return false;
         if ((readiness.notes || '').trim().length >= 12) return false;
         const asked = parseInt(readiness.requestedMinutes, 10) || 0;
         const planned = parseInt(plannedMins, 10) || parseInt(nw.estimatedMinutes, 10) || 45;
@@ -7976,7 +7261,7 @@ ${coachingPromptTail()}`;
             Object.assign(nw, guarded);
             nw.readiness = readiness;
             nw.modality = modality || nw.modality;
-            nw.estimatedMinutes = guarded.estimatedMinutes || readiness.requestedMinutes;
+            nw.estimatedMinutes = readiness.requestedMinutes;
             if ((modality || nw.modality) === 'Musculação') nw._gymGearApplied = window._gymGear || 'mixed';
             await saveFullState();
             renderDashboard();
@@ -8014,7 +7299,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
     
     REGRAS CRÍTICAS DE RECALIBRAÇÃO:
     1. INTERPRETAÇÃO DE SINTOMAS: Se houver dor relatada (ex: ombro, joelho, lombar), o motor DEVE substituir ou eliminar exercícios que gerem estresse direto nessa articulação, aplicando a matriz cinesiológica de proteção.
-    2. TEMPO: cada duration de trabalho é o tempo DA SÉRIE (20 a 45 segundos na calistenia), nunca o treino inteiro. O código completa os minutos que faltarem com blocos leves. Não estique uma série para 10 minutos.
+    2. RECALCULO MATEMÁTICO DE TEMPO (OBRIGATÓRIO): A SOMA DOS SEGUNDOS (duration) DE TODOS OS ITENS DE 'queue' DEVE SER EXATAMENTE IGUAL A ${readiness.requestedMinutes} * 60 segundos. Se o aluno pediu menos tempo, enxugue a sessão cortando volume acessório. Se pediu mais tempo, adicione séries e blocos compensatórios respeitando o MAV/MEV.
     3. Retorne estritamente um objeto JSON válido contendo: 'userProfileAnalysis', 'planExplanation', 'macrocycleSummary', 'coachFeedback', e um objeto 'workout' detalhado com nome, focus, modality, estimatedMinutes (${readiness.requestedMinutes}), e a queue balanceada de 'work' e 'rest' (cada work com sets, reps, rirTarget, targetGroup).
     ${coachingPromptTail()}`;
 
@@ -8034,7 +7319,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             res.workout.id = `w_${Date.now()}_recal`;
             res.workout.isCompleted = false;
             res.workout.modality = modality;
-            res.workout.estimatedMinutes = res.workout.estimatedMinutes || readiness.requestedMinutes;
+            res.workout.estimatedMinutes = readiness.requestedMinutes;
             res.workout.readiness = readiness;
             if (modality === 'Musculação') res.workout._gymGearApplied = window._gymGear || 'mixed';
             
@@ -8164,7 +7449,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             const targetInfo = (exData._kind || exerciseKind(exData)) === 'iso'
                 ? `${nSets} × ${exData.duration || 30}s`
                 : `${nSets} séries${exData.reps ? ' × ' + exData.reps : ''}`;
-            const restSec = mode === 'musculacao' ? restSecondsForItem(exData) : timerRestSeconds(exData);
+            const restSec = restSecondsForItem(exData);
             const estMap = lastSyntheticState && lastSyntheticState["1RM_Estimates"] ? lastSyntheticState["1RM_Estimates"] : {};
             const est1 = estMap[String(exName).toLowerCase()];
             const pct = parseFloat(exData.pct1RM || 0);
@@ -8455,7 +7740,6 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         try { localStorage.removeItem(key); } catch (e) {}
         try { sessionStorage.removeItem(key); } catch (e) {}
         try { localStorage.removeItem('apex_live_anon'); sessionStorage.removeItem('apex_live_anon'); } catch (e) {}
-        window._sessionStartedAt = null;
     }
     function readLiveSession() {
         const keys = [liveSessionKey(), 'apex_live_anon'];
@@ -8478,10 +7762,6 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         let screen = detectLiveScreen();
         if (!screen && timerInterval && currentWorkoutQueue && currentWorkoutQueue.length) screen = 'timer';
         if (!screen) return;
-        if (!window._sessionStartedAt) {
-            const prev = readLiveSession();
-            window._sessionStartedAt = (prev && prev.startedAt) || Date.now();
-        }
         const nw = currentPlan && currentPlan.workouts ? currentPlan.workouts.find(w => !w.isCompleted) : null;
         const payload = {
             v: 2,
@@ -8500,8 +7780,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             gymDraft: (screen === 'gym' || screen === 'post') ? captureGymDraft() : null,
             gymMode: window._strengthFromCalisthenics ? 'calistenia-post' : 'musculacao',
             restTimeLeft: restTimeLeft || 0,
-            strengthFromCal: !!window._strengthFromCalisthenics,
-            startedAt: window._sessionStartedAt || Date.now()
+            strengthFromCal: !!window._strengthFromCalisthenics
         };
         const raw = JSON.stringify(payload);
         const key = liveSessionKey();
@@ -8692,7 +7971,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         document.getElementById('timer-current-name').innerText = item.name;
         const ring = document.getElementById('timer-ring');
         const kind = item._kind || exerciseKind(item);
-        const forceTime = kind === 'iso' || kind === 'prep' || item.role === 'filler' || calMode === 'time';
+        const forceTime = kind === 'iso' || kind === 'prep' || calMode === 'time';
 
         if (item.type === 'rest') {
             const prev = currentWorkoutQueue[index - 1];
@@ -8707,7 +7986,7 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
             const rirSel = document.getElementById('cal-log-rir');
             const extraWrap = document.getElementById('cal-log-extra-wrap');
             const rirWrap = document.getElementById('cal-log-rir-wrap');
-            if (prevKind === 'prep' || (calLastWork && calLastWork.role === 'filler')) {
+            if (prevKind === 'prep') {
                 document.getElementById('timer-current-info').innerText = 'Só respire. Aquecimento/volta não pede reps nem RIR.';
                 if (logPanel) logPanel.classList.add('hidden');
             } else if (logPanel) {
@@ -8885,95 +8164,20 @@ async function recalibrateWorkoutWithReadiness(readiness, modality) {
         captureLiveSession();
     }
 
-    function stableRestDays() {
-        return 1;
-    }
-
-    function sessionElapsedMinutes() {
-        const snap = typeof readLiveSession === 'function' ? readLiveSession() : null;
-        const started = window._sessionStartedAt || (snap && snap.startedAt);
-        if (!started) return null;
-        const mins = (Date.now() - started) / 60000;
-        if (!isFinite(mins) || mins < 1 || mins > 180) return null;
-        return mins;
-    }
-
-    function classifySessionEnd(nw, pse, text) {
-        const t = String(text || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-        const newPain = painsInText(text);
-        const askChange = /troc(ar|a o)|outro treino|muda o|nao quero|quero corrida|quero muscul|quero calistenia|refaz|outro estimulo/.test(t);
-        const heavy = /pesad|dificil|demais|nao aguent|muito forte|estourou/.test(t);
-        const light = /leve demais|muito facil|sobrou|fraco demais|pouco estimulo/.test(t);
-        const pending = (currentPlan.workouts || []).filter(w => w && !w.isCompleted);
-        if (newPain.length || pse <= 2 || pse >= 9 || askChange || pending.length < 2) {
-            return { mode: 'ai', line: '' };
-        }
-        const planned = parseInt(nw && nw.estimatedMinutes, 10) || parseInt(userData.mins, 10) || 45;
-        const actual = sessionElapsedMinutes();
-        const timeOff = !!(actual && planned && Math.abs(actual - planned) / planned > 0.25);
-        let direction = null;
-        if (heavy && !light) direction = 'easier';
-        else if (light && !heavy) direction = 'harder';
-        else if (pse === 8 || (timeOff && actual > planned)) direction = 'easier';
-        else if (pse === 3 || (timeOff && actual < planned)) direction = 'harder';
-        if (!direction) return { mode: 'keep', line: 'Sessão como o plano. O próximo treino da fila permanece.' };
-        const line = direction === 'easier'
-            ? 'O próximo continua com os mesmos exercícios. A reserva sobe um ponto e sai uma série.'
-            : 'O próximo continua com os mesmos exercícios. A reserva desce um ponto.';
-        return { mode: 'nudge', direction, line };
-    }
-
-    function nudgeNextWorkout(direction) {
-        const pending = (currentPlan.workouts || []).filter(w => w && !w.isCompleted);
-        const next = pending[1];
-        if (!next || !Array.isArray(next.queue)) return;
-        const weekly = (lastSyntheticState && lastSyntheticState.weekly_effective_sets) || {};
-        next.queue = next.queue.map(item => {
-            if (!item || item.type !== 'work') return item;
-            if (item.role === 'filler' || item.phase === 'warmup' || item.phase === 'cooldown') return item;
-            let rir = parseInt(item.rirTarget, 10);
-            if (isNaN(rir)) rir = 2;
-            let sets = parseInt(item.sets, 10);
-            if (isNaN(sets) || sets < 1) sets = item.family === 'hiit' ? 1 : 3;
-            if (direction === 'easier') {
-                rir = Math.min(4, rir + 1);
-                if (sets > 1) sets -= 1;
-            } else {
-                const g = normalizeMuscleGroup(item.targetGroup, item.name);
-                const lm = VOLUME_LANDMARKS[g];
-                const atCeiling = lm && ((weekly[g] || 0) + sets) >= lm.mrv;
-                if (!atCeiling) rir = Math.max(1, rir - 1);
-            }
-            const tag = direction === 'easier' ? 'um pouco mais leve' : 'um pouco mais forte';
-            return { ...item, rirTarget: rir, sets, roundInfo: `${item.roundInfo || ''} · ${tag}`.trim() };
-        });
-        next._nudged = direction;
-    }
-
     window.evaluateWorkoutWithAI = async () => {
         if (selectedPseValue === null) return;
         const nw = currentPlan.workouts.find(w => !w.isCompleted);
         if (!nw) return window.showAlert('Treino', 'Não achei a sessão atual para avaliar.');
-        const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
-        const preWorkoutNotes = nw?.readiness?.notes || "";
-        applyPainText(preWorkoutNotes, 'check-in');
-        applyPainText(userFeedbackText, 'pos-treino');
-        userData._painSeeded = true;
-        const gate = classifySessionEnd(nw, selectedPseValue, userFeedbackText);
-        if (gate.mode !== 'ai') {
-            if (gate.mode === 'nudge') nudgeNextWorkout(gate.direction);
-            aiEvaluationResult = { coachFeedback: gate.line, workout: null, suggestedDays: stableRestDays(), keepQueue: true };
-            await finalizeAndSaveWorkout(aiEvaluationResult.suggestedDays, nw.estimatedMinutes || userData.mins || 45);
-            return;
-        }
         showLoading("Avaliando o treino...", "I.A. v6.6 lendo volume, RIR e o que você escreveu...");
         const syntheticState = await buildSyntheticStateVector();
         const spec = nextSpec({ afterFinish: true });
         const nextModality = spec ? spec.modality : pickNextModality(syntheticState, nw?.modality);
+        const userFeedbackText = document.getElementById('pw-user-feedback')?.value?.trim() || "";
+        const preWorkoutNotes = nw?.readiness?.notes || "Nenhuma observação prévia.";
 
         const prompt = `Atue como Apex Hybrid Coach v6.6. Aluno: ${userData.nickname}. Eixo Mestre: ${userData.masterAxis}. Treino executado: ${nw?.name} [${nw?.modality}]. 
 ESTADO SINTÉTICO JSON: ${JSON.stringify(syntheticState)}. PSE: ${selectedPseValue}/10. Queda FC(3m): ${document.getElementById('pw-fc-rec')?.value||'N/A'}. Kcal: ${document.getElementById('pw-kcal')?.value||'N/A'}.
-SINTOMA / OBSERVAÇÃO PRÉ-TREINO: "${preWorkoutNotes || 'Nenhuma observação prévia.'}".
+SINTOMA / OBSERVAÇÃO PRÉ-TREINO: "${preWorkoutNotes}".
 RELATO SUBJETIVO PÓS-TREINO: "${userFeedbackText}".
 O PRÓXIMO treino deve ser modalidade ${nextModality}. ${specNote(spec)}
 TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout' (modalidade: ${nextModality}, work items com sets/reps/rirTarget/targetGroup). \n ${coachingPromptTail()}`;
@@ -9096,7 +8300,10 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
             if (fcAvgVal && fcAvgVal > 0) {
                 trimpScoreVal = window.calculateTRIMP(dur, fcAvgVal, rhr, fcMaxLimit);
             }
-            applyPainText(getTextInputValue('pw-user-feedback'), 'pos-treino');
+
+            if (currentPlan.workouts[nwIndex].modality === 'Corrida') {
+                zoneDist = zoneDistributionFromSession(dur, fcAvgVal, selectedPseValue || 5);
+            }
 
             try {
                 const mod = currentPlan.workouts[nwIndex].modality;
@@ -9715,7 +8922,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         <div class="flex justify-between items-start gap-2">
                             <span class="text-[9px] font-bold text-slate-500 uppercase pt-0.5">${new Date(h.date).toLocaleDateString('pt-BR')}</span>
                             <span class="flex items-center gap-1.5 shrink-0">
-                                ${isPending ? '<span class="bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded uppercase">Arquivo</span>' : (m.fromWatch ? '<span class="bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded uppercase">Relógio</span>' : '')}
+                                ${isPending ? '<span class="bg-amber-500 text-dark-950 font-black text-[8px] px-2 py-0.5 rounded uppercase">Print</span>' : (m.fromWatch ? '<span class="bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black text-[8px] px-2 py-0.5 rounded uppercase">Relógio</span>' : '')}
                                 <span class="bg-brand-500/20 text-brand-400 border border-brand-500/30 text-[9px] font-bold px-2 py-0.5 rounded">${escapeHtml(h.modality||'Calistenia')}</span>
                                 <i class="js-hist-arrow fas fa-chevron-down text-slate-500 text-[10px] transition-transform duration-300"></i>
                             </span>
@@ -9741,7 +8948,7 @@ TAREFAS: 1.'coachFeedback'. 2.'suggestedDays'. 3.'suggestedMinutes'. 4.'workout'
                         </div>
                         ${h.userFeedback ? `<p class="text-[10px] text-slate-400 italic bg-dark-950 px-2.5 py-1.5 rounded-xl border border-slate-800/80">Você: "${escapeHtml(h.userFeedback)}"</p>` : ''}
                         <button type="button" data-pending-doc="${escapeHtml(h.docId)}" data-wname="${escapeHtml(h.workoutName || '')}" data-modality="${escapeHtml(h.modality || '')}" class="js-pending-print w-full ${isPending ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' : 'bg-slate-800/80 text-slate-300 border-slate-700'} hover:bg-slate-700 border text-xs font-bold py-2 rounded-xl transition-colors flex items-center justify-center gap-1.5">
-                            <i class="fas fa-file-arrow-up"></i> Anexar arquivo do relógio
+                            <i class="fas fa-file-arrow-up"></i> ${isPending ? 'Anexar relógio / print' : 'Atualizar com arquivo do relógio'}
                         </button>
                         <button type="button" data-doc="${escapeHtml(h.docId)}" data-name="${escapeHtml(h.workoutName || 'Sessão')}" class="js-hist-delete w-full text-red-300 border border-red-500/30 bg-red-500/10 text-[11px] font-bold py-2 rounded-xl">Excluir esta sessão</button>
                     </div>
@@ -10041,34 +9248,6 @@ ${coachingPromptTail()}`;
         return { mimeType, data };
     }
 
-    window.handleWatchFileOnFinish = async (event) => {
-        const file = event.target.files && event.target.files[0];
-        const preview = document.getElementById('smartwatch-preview-container');
-        const statusText = document.getElementById('smartwatch-status-text');
-        if (preview) preview.classList.remove('hidden');
-        if (!file) return;
-        if (file.size > 8 * 1024 * 1024) {
-            if (statusText) { statusText.innerText = 'Arquivo maior que 8 MB.'; statusText.className = 'text-xs text-red-400 font-bold'; }
-            event.target.value = '';
-            return;
-        }
-        if (statusText) { statusText.innerText = 'Lendo arquivo do relógio...'; statusText.className = 'text-xs text-amber-400 font-bold animate-pulse'; }
-        try {
-            const metrics = await parseWatchFile(file);
-            if (!metrics.fc && !metrics.distance && !metrics.durationMinutes) throw new Error('Não achei FC, distância nem tempo neste arquivo.');
-            if (metrics.fc) document.getElementById('pw-fc').value = Math.round(metrics.fc);
-            if (metrics.fcMax) document.getElementById('pw-fc-max').value = Math.round(metrics.fcMax);
-            if (metrics.kcal) document.getElementById('pw-kcal').value = Math.round(metrics.kcal);
-            if (metrics.distance) document.getElementById('pw-dist').value = metrics.distance;
-            if (metrics.pace) document.getElementById('pw-pace').value = metrics.pace;
-            window._finishWatch = metrics;
-            if (statusText) { statusText.innerText = 'Arquivo lido. Confira os campos e siga.'; statusText.className = 'text-xs text-green-400 font-bold'; }
-        } catch (err) {
-            if (statusText) { statusText.innerText = err.message || 'Não consegui ler o arquivo.'; statusText.className = 'text-xs text-red-400 font-bold'; }
-        }
-        event.target.value = '';
-    };
-
     window.handleSmartwatchImageUpload = async (event) => {
         const file = event.target.files[0];
         if (!file) return;
@@ -10188,7 +9367,7 @@ ${coachingPromptTail()}`;
             window.hide('modal-post-workout');
             renderDashboard();
             window.switchTab('training');
-            window.showAlert("Sessão Salva", "Treino concluído. Anexe o arquivo do relógio quando quiser, na aba Histórico.");
+            window.showAlert("Sessão Salva", "Treino concluído e próximo treino mantido na agenda. Anexe o print do relógio quando quiser na aba Histórico.");
         }
     };
 
